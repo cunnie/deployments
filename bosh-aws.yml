@@ -66,13 +66,13 @@ instance_groups:
     nats:
       address: 127.0.0.1
       user: nats
-      password: ((aws_bosh_director_password))
+      password: ((password_nats))
 
     postgres: &db
       listen_address: 127.0.0.1
       host: 127.0.0.1
       user: postgres
-      password: ((aws_bosh_director_password))
+      password: ((password_postgres))
       database: bosh
       adapter: postgres
 
@@ -81,23 +81,23 @@ instance_groups:
       recursor: 8.8.8.8   # Concourse requires recursion
       db:
         user: postgres
-        password: ((aws_bosh_director_password))
+        password: ((password_postgres))
 
     registry:
       address: 10.0.0.6
       host: 10.0.0.6
       db: *db
-      http: {user: admin, password: ((aws_bosh_director_password)), port: 25777}
+      http: {user: admin, password: ((password_director)), port: 25777}
       username: admin
-      password: ((aws_bosh_director_password))
+      password: ((password_director))
       port: 25777
 
     blobstore:
       address: 10.0.0.6
       port: 25250
       provider: dav
-      director: {user: director, password: ((aws_bosh_director_password))}
-      agent: {user: agent, password: ((aws_bosh_director_password))}
+      director: {user: director, password: ((password_director))}
+      agent: {user: agent, password: ((password_agent))}
 
     director:
       address: 127.0.0.1
@@ -109,8 +109,8 @@ instance_groups:
         provider: local
         local:
           users:
-          - {name: admin, password: ((aws_bosh_director_password))}
-          - {name: hm, password: ((aws_bosh_director_password))}
+          - {name: admin, password: ((password_director))}
+          - {name: hm, password: ((password_hm))}
       ssl:
         cert: |
           -----BEGIN CERTIFICATE-----
@@ -213,7 +213,7 @@ instance_groups:
           -----END CERTIFICATE-----
         key: ((nono_io_key))
     hm:
-      director_account: {user: hm, password: ((aws_bosh_director_password))}
+      director_account: {user: hm, password: ((password_hm))}
       resurrector_enabled: true
 
     aws: &aws
@@ -224,7 +224,7 @@ instance_groups:
       default_security_groups: [bosh]
       region: us-east-1 # <--- Replace with Region
 
-    # agent: {mbus: "nats://nats:aws_bosh_director_password@10.0.0.6:4222"}
+    # agent: {mbus: "nats://nats:password_nats@10.0.0.6:4222"}
     agent: {mbus: ((aws_director_agent_mbus)) }
 
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
@@ -238,12 +238,12 @@ cloud_provider:
     user: vcap
     private_key: ../../.ssh/aws_nono.pem # Path relative to this manifest file
 
-  # mbus: "https://mbus:aws_bosh_director_password@52.70.98.70:6868" # <--- Replace with Elastic IP
+  # mbus: "https://mbus:password_director@52.70.98.70:6868" # <--- Replace with Elastic IP
   mbus: ((aws_cloud_provider_mbus)) # <--- Replace with Elastic IP
 
   properties:
     aws: *aws
-    # agent: {mbus: "https://mbus:aws_bosh_director_password@0.0.0.0:6868"}
+    # agent: {mbus: "https://mbus:password_director@0.0.0.0:6868"}
     agent: {mbus: ((aws_cloud_provider_agent_mbus)) }
     blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
     ntp: *ntp
