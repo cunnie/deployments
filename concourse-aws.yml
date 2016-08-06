@@ -1,0 +1,246 @@
+---
+
+# bosh -e aws -d concourse deploy concourse-aws.yml -l <(lpass show --note deployments)
+
+name: concourse
+
+releases:
+- name: concourse
+  version: latest
+- name: garden-runc
+  version: latest
+- name: nginx
+  version: latest
+
+stemcells:
+- alias: ubuntu
+  os: ubuntu-trusty
+  version: latest
+
+instance_groups:
+- name: concourse
+  instances: 1
+  vm_type: t2.micro.100G
+  persistent_disk_type: concourse
+  stemcell: ubuntu
+  networks:
+  - name: vip
+    # FIXME: replace the IP address with your Elastic IP
+    # the Elastic IP must have scope 'vpc' not 'standard'
+    # do a global search-replace: the Elastic IP occurs more than once
+    # in this manifest
+    static_ips: [ 52.23.10.10 ]
+  - name: dynamic-concourse
+    default: [ dns, gateway ]
+  jobs:
+  - name: atc
+    release: concourse
+    properties:
+      # FIXME: replace with your server's external URI
+      external_url: https://ci.blabbertabber.com
+      basic_auth_username: ci
+      # FIXME: replace with a reasonable password
+      basic_auth_password: &password ((aws_concourse_basic_auth_password))
+      postgresql_database: &atc_db atc
+      # FIXME: delete the entire github_auth section
+      github_auth:
+        authorize:
+        - organization: blabbertabber
+          teams: all
+        client_id: fc24016a9c3267843698
+        client_secret: ((aws_concourse_github_auth_client_secret))
+      publicly_viewable: true
+  - name: tsa
+    release: concourse
+    properties: {}
+  - name: postgresql
+    release: concourse
+    properties:
+      databases:
+      - name: *atc_db
+        # make up a role and password
+        role: atc
+        password: *password
+  - name: groundcrew
+    release: concourse
+    properties: {}
+  - name: baggageclaim
+    release: concourse
+    properties: {}
+  - name: garden
+    release: garden-runc
+    properties:
+      garden:
+        listen_network: tcp
+        listen_address: 0.0.0.0:7777
+  - name: nginx
+    release: nginx
+    properties:
+      nginx_conf: |
+        worker_processes  1;
+        error_log /var/vcap/sys/log/nginx/error.log   info;
+        events {
+          worker_connections  1024;
+        }
+        http {
+          include /var/vcap/packages/nginx/conf/mime.types;
+          default_type  application/octet-stream;
+          sendfile        on;
+          keepalive_timeout  65;
+          server_names_hash_bucket_size 64;
+          # redirect HTTP to HTTPS
+          server {
+            server_name _; # invalid value which will never trigger on a real hostname.
+            listen 80;
+            rewrite ^ https://ci.blabbertabber.com$request_uri?;
+            access_log /var/vcap/sys/log/nginx/ci.blabbertabber.com-access.log;
+            error_log /var/vcap/sys/log/nginx/ci.blabbertabber.com-error.log;
+          }
+          server {
+            server_name ci.blabbertabber.com;
+            # weak DH https://weakdh.org/sysadmin.html
+            ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+            ssl_prefer_server_ciphers on;
+            # poodle https://scotthelme.co.uk/sslv3-goes-to-the-dogs-poodle-kills-off-protocol/
+            ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+            listen              443 ssl;
+            ssl_certificate     /var/vcap/jobs/nginx/etc/ssl_chained.crt.pem;
+            ssl_certificate_key /var/vcap/jobs/nginx/etc/ssl.key.pem;
+            access_log /var/vcap/sys/log/nginx/ci.blabbertabber.com-access.log;
+            error_log /var/vcap/sys/log/nginx/ci.blabbertabber.com-error.log;
+            root /var/vcap/jobs/nginx/www/document_root;
+            index index.shtml index.html index.htm;
+            # https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins
+            location / {
+                proxy_set_header  Host $host;
+                proxy_set_header  X-Real-IP $remote_addr;
+                proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header  X-Forwarded-Proto $scheme;
+                # Fix `websocket: bad handshake` when using `fly intercept`
+                proxy_set_header  Upgrade $http_upgrade;
+                proxy_set_header  Connection "upgrade";
+
+                # Fix the “It appears that your reverse proxy set up is broken" error.
+                proxy_pass          http://localhost:8080;
+                proxy_read_timeout  90;
+
+                proxy_redirect      http://localhost:8080 https://ci.blabbertabber.com;
+            }
+
+          }
+        }
+      # FIXME: replace with your HTTPS SSL key
+      ssl_key: ((ci_blabbertabber_com_key))
+      # CHANGEME: replace with your HTTPS SSL chained certificate
+      ssl_chained_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIGYTCCBUmgAwIBAgIRAOFIqgO1kqC+5E0ef2cqXbMwDQYJKoZIhvcNAQELBQAw
+        gZAxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
+        BgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMTYwNAYD
+        VQQDEy1DT01PRE8gUlNBIERvbWFpbiBWYWxpZGF0aW9uIFNlY3VyZSBTZXJ2ZXIg
+        Q0EwHhcNMTUxMDIwMDAwMDAwWhcNMTgxMDE5MjM1OTU5WjBYMSEwHwYDVQQLExhE
+        b21haW4gQ29udHJvbCBWYWxpZGF0ZWQxFDASBgNVBAsTC1Bvc2l0aXZlU1NMMR0w
+        GwYDVQQDExRjaS5ibGFiYmVydGFiYmVyLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQAD
+        ggIPADCCAgoCggIBAKoAbcFiFyx8l6sbpez1FVeeapLvslcGykhymLURF2GNIt/M
+        ekU2MfijpBx2i35K0msEtGBc/aI9qGzwDo+1rI8UZkKFJLOAauyoVysfBVwxx6Ze
+        pyWlP0NJNAL3atzUz+0CY4oPZJVCBi5CFSFe8fPvV6tfW8AWbgaFVuPfOqJmDiPv
+        sshSC2LntQTN/uSPyGUrxfkzcblerdTerOW6mozI4pTd29/yw3iGyKaz0ga55zJ3
+        aSfoN0tqDKvFWckPsZl4830WHhGLKpFnN3uxUaRrXzuA4lbmgNTVd9CLcajowUGh
+        kQkP3hq0u9iLYA0EkuvPgz2xj2S6Oh5+Zfop31AzfdZ6wlWP4m93KtjlFo37T8xI
+        eGGX32v6jy3tEuDfUAdyaYaZJ5tY7UxnruTr0W29fgPz7psFGo3zBawBElG2hRf0
+        u2Z9NjdAja1oXpouc5vv1H0zg9JIZlm4LZ7MHF9eGScIqBtWqyKvfD6Eijyj9gU/
+        XgxbvIlXMeD9nH+SX5CQ6L9lBUH2aOpa/SssMUt6IpeV6kJke+nFRWOKX1264DqF
+        +msMZpArHjbpx48o/gplCV0LyvXMq5Zaxfgw2XnJKiKK3zVuKXUhz7qNuedKQlmN
+        EkDnW2r30aw0VG48nQjWizMpW8ELjIqUZna7x850fm6vbPuRMZi1Kv95BAKHAgMB
+        AAGjggHrMIIB5zAfBgNVHSMEGDAWgBSQr2o6lFoL2JDqElZz30O0Oija5zAdBgNV
+        HQ4EFgQUv9NnerBzCLuPI+JMiFPMu6jSskEwDgYDVR0PAQH/BAQDAgWgMAwGA1Ud
+        EwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCME8GA1UdIARI
+        MEYwOgYLKwYBBAGyMQECAgcwKzApBggrBgEFBQcCARYdaHR0cHM6Ly9zZWN1cmUu
+        Y29tb2RvLmNvbS9DUFMwCAYGZ4EMAQIBMFQGA1UdHwRNMEswSaBHoEWGQ2h0dHA6
+        Ly9jcmwuY29tb2RvY2EuY29tL0NPTU9ET1JTQURvbWFpblZhbGlkYXRpb25TZWN1
+        cmVTZXJ2ZXJDQS5jcmwwgYUGCCsGAQUFBwEBBHkwdzBPBggrBgEFBQcwAoZDaHR0
+        cDovL2NydC5jb21vZG9jYS5jb20vQ09NT0RPUlNBRG9tYWluVmFsaWRhdGlvblNl
+        Y3VyZVNlcnZlckNBLmNydDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuY29tb2Rv
+        Y2EuY29tMDkGA1UdEQQyMDCCFGNpLmJsYWJiZXJ0YWJiZXIuY29tghh3d3cuY2ku
+        YmxhYmJlcnRhYmJlci5jb20wDQYJKoZIhvcNAQELBQADggEBAIIJqe6queQFgPtM
+        45DOmEvN7bIFsFlwqwFZgVAq+LZuZS/e14b3a7PRUEIRtqtB1Is0Q0rW9r729JGT
+        XCGjCoz1NoXZJQlOU9WSDchM5wUmKry97xOJkxp4ARSN5WrEKIc13zihzBfT4Cmg
+        V7iBC/PjOP7AnIxEcpS24ymAXkJpp0/B+sKVLDvpewbu9Gp06y5NJ7w/OSa3HkSf
+        iPOFZdK4mzso5FxJPdxxH0kf6qkGHeOt9LpILgmrcQ29XiEVreqsNZJf73JnBYB+
+        SN5TMGWEfq4azeSCgoFeUrizU++dCjHEKh6NhBK/dYzOl3/RozlqN6Y7apLukFcp
+        c2RwQdk=
+        -----END CERTIFICATE-----
+        -----BEGIN CERTIFICATE-----
+        MIIGCDCCA/CgAwIBAgIQKy5u6tl1NmwUim7bo3yMBzANBgkqhkiG9w0BAQwFADCB
+        hTELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
+        A1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxKzApBgNV
+        BAMTIkNPTU9ETyBSU0EgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTQwMjEy
+        MDAwMDAwWhcNMjkwMjExMjM1OTU5WjCBkDELMAkGA1UEBhMCR0IxGzAZBgNVBAgT
+        EkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMR
+        Q09NT0RPIENBIExpbWl0ZWQxNjA0BgNVBAMTLUNPTU9ETyBSU0EgRG9tYWluIFZh
+        bGlkYXRpb24gU2VjdXJlIFNlcnZlciBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEP
+        ADCCAQoCggEBAI7CAhnhoFmk6zg1jSz9AdDTScBkxwtiBUUWOqigwAwCfx3M28Sh
+        bXcDow+G+eMGnD4LgYqbSRutA776S9uMIO3Vzl5ljj4Nr0zCsLdFXlIvNN5IJGS0
+        Qa4Al/e+Z96e0HqnU4A7fK31llVvl0cKfIWLIpeNs4TgllfQcBhglo/uLQeTnaG6
+        ytHNe+nEKpooIZFNb5JPJaXyejXdJtxGpdCsWTWM/06RQ1A/WZMebFEh7lgUq/51
+        UHg+TLAchhP6a5i84DuUHoVS3AOTJBhuyydRReZw3iVDpA3hSqXttn7IzW3uLh0n
+        c13cRTCAquOyQQuvvUSH2rnlG51/ruWFgqUCAwEAAaOCAWUwggFhMB8GA1UdIwQY
+        MBaAFLuvfgI9+qbxPISOre44mOzZMjLUMB0GA1UdDgQWBBSQr2o6lFoL2JDqElZz
+        30O0Oija5zAOBgNVHQ8BAf8EBAMCAYYwEgYDVR0TAQH/BAgwBgEB/wIBADAdBgNV
+        HSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwGwYDVR0gBBQwEjAGBgRVHSAAMAgG
+        BmeBDAECATBMBgNVHR8ERTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNv
+        bS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9uQXV0aG9yaXR5LmNybDBxBggrBgEFBQcB
+        AQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29tb2RvY2EuY29tL0NPTU9E
+        T1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21v
+        ZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAE4rdk+SHGI2ibp3wScF9BzWRJ2p
+        mj6q1WZmAT7qSeaiNbz69t2Vjpk1mA42GHWx3d1Qcnyu3HeIzg/3kCDKo2cuH1Z/
+        e+FE6kKVxF0NAVBGFfKBiVlsit2M8RKhjTpCipj4SzR7JzsItG8kO3KdY3RYPBps
+        P0/HEZrIqPW1N+8QRcZs2eBelSaz662jue5/DJpmNXMyYE7l3YphLG5SEXdoltMY
+        dVEVABt0iN3hxzgEQyjpFv3ZBdRdRydg1vs4O2xyopT4Qhrf7W8GjEXCBgCq5Ojc
+        2bXhc3js9iPc0d1sjhqPpepUfJa3w/5Vjo1JXvxku88+vZbrac2/4EjxYoIQ5QxG
+        V/Iz2tDIY+3GH5QFlkoakdH368+PUq4NCNk+qKBR6cGHdNXJ93SrLlP7u3r7l+L4
+        HyaPs9Kg4DdbKDsx5Q5XLVq4rXmsXiBmGqW5prU5wfWYQ//u+aen/e7KJD2AFsQX
+        j4rBYKEMrltDR5FL1ZoXX/nUh8HCjLfn4g8wGTeGrODcQgPmlKidrv0PJFGUzpII
+        0fxQ8ANAe4hZ7Q7drNJ3gjTcBpUC2JD5Leo31Rpg0Gcg19hCC0Wvgmje3WYkN5Ap
+        lBlGGSW4gNfL1IYoakRwJiNiqZ+Gb7+6kHDSVneFeO/qJakXzlByjAA6quPbYzSf
+        +AZxAeKCINT+b72x
+        -----END CERTIFICATE-----
+        -----BEGIN CERTIFICATE-----
+        MIIFdDCCBFygAwIBAgIQJ2buVutJ846r13Ci/ITeIjANBgkqhkiG9w0BAQwFADBv
+        MQswCQYDVQQGEwJTRTEUMBIGA1UEChMLQWRkVHJ1c3QgQUIxJjAkBgNVBAsTHUFk
+        ZFRydXN0IEV4dGVybmFsIFRUUCBOZXR3b3JrMSIwIAYDVQQDExlBZGRUcnVzdCBF
+        eHRlcm5hbCBDQSBSb290MB4XDTAwMDUzMDEwNDgzOFoXDTIwMDUzMDEwNDgzOFow
+        gYUxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
+        BgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYD
+        VQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MIICIjANBgkq
+        hkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAkehUktIKVrGsDSTdxc9EZ3SZKzejfSNw
+        AHG8U9/E+ioSj0t/EFa9n3Byt2F/yUsPF6c947AEYe7/EZfH9IY+Cvo+XPmT5jR6
+        2RRr55yzhaCCenavcZDX7P0N+pxs+t+wgvQUfvm+xKYvT3+Zf7X8Z0NyvQwA1onr
+        ayzT7Y+YHBSrfuXjbvzYqOSSJNpDa2K4Vf3qwbxstovzDo2a5JtsaZn4eEgwRdWt
+        4Q08RWD8MpZRJ7xnw8outmvqRsfHIKCxH2XeSAi6pE6p8oNGN4Tr6MyBSENnTnIq
+        m1y9TBsoilwie7SrmNnu4FGDwwlGTm0+mfqVF9p8M1dBPI1R7Qu2XK8sYxrfV8g/
+        vOldxJuvRZnio1oktLqpVj3Pb6r/SVi+8Kj/9Lit6Tf7urj0Czr56ENCHonYhMsT
+        8dm74YlguIwoVqwUHZwK53Hrzw7dPamWoUi9PPevtQ0iTMARgexWO/bTouJbt7IE
+        IlKVgJNp6I5MZfGRAy1wdALqi2cVKWlSArvX31BqVUa/oKMoYX9w0MOiqiwhqkfO
+        KJwGRXa/ghgntNWutMtQ5mv0TIZxMOmm3xaG4Nj/QN370EKIf6MzOi5cHkERgWPO
+        GHFrK+ymircxXDpqR+DDeVnWIBqv8mqYqnK8V0rSS527EPywTEHl7R09XiidnMy/
+        s1Hap0flhFMCAwEAAaOB9DCB8TAfBgNVHSMEGDAWgBStvZh6NLQm9/rEJlTvA73g
+        JMtUGjAdBgNVHQ4EFgQUu69+Aj36pvE8hI6t7jiY7NkyMtQwDgYDVR0PAQH/BAQD
+        AgGGMA8GA1UdEwEB/wQFMAMBAf8wEQYDVR0gBAowCDAGBgRVHSAAMEQGA1UdHwQ9
+        MDswOaA3oDWGM2h0dHA6Ly9jcmwudXNlcnRydXN0LmNvbS9BZGRUcnVzdEV4dGVy
+        bmFsQ0FSb290LmNybDA1BggrBgEFBQcBAQQpMCcwJQYIKwYBBQUHMAGGGWh0dHA6
+        Ly9vY3NwLnVzZXJ0cnVzdC5jb20wDQYJKoZIhvcNAQEMBQADggEBAGS/g/FfmoXQ
+        zbihKVcN6Fr30ek+8nYEbvFScLsePP9NDXRqzIGCJdPDoCpdTPW6i6FtxFQJdcfj
+        Jw5dhHk3QBN39bSsHNA7qxcS1u80GH4r6XnTq1dFDK8o+tDb5VCViLvfhVdpfZLY
+        Uspzgb8c8+a4bmYRBbMelC1/kZWSWfFMzqORcUx8Rww7Cxn2obFshj5cqsQugsv5
+        B5a6SE2Q8pTIqXOi6wZ7I53eovNNVZ96YUWYGGjHXkBrI/V5eu+MtWuLt29G9Hvx
+        PUsE2JOAWVrgQSQdso8VYFhH2+9uRv0V9dlfmrPb2LjkQLPNlzmuhbsdjrzch5vR
+        pu/xO28QOG8=
+        -----END CERTIFICATE-----
+
+update:
+  canaries: 1
+  max_in_flight: 1
+  serial: false
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
