@@ -1,0 +1,82 @@
+# azs:
+# - name: z1
+#   cloud_properties:
+#     availability_zone: us-east-1a
+
+vm_types:
+- name: t2.nano
+  cloud_properties:
+    instance_type: t2.nano
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 4_000
+      type: gp2
+- name: t2.micro.100G
+  cloud_properties:
+    instance_type: t2.micro
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 100_000
+      type: gp2
+- name: t2.micro
+  cloud_properties:
+    instance_type: t2.micro
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 25_000
+      type: gp2
+- name: c4.large
+  cloud_properties:
+    instance_type: c4.large
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 4_000
+      type: gp2
+
+disk_types:
+- name: concourse
+  disk_size: 5_120
+  cloud_properties:
+    type: gp2
+- name: nginx
+  disk_size: 5_120
+  cloud_properties:
+    type: gp2
+
+networks:
+- name: dynamic
+  type: dynamic
+  cloud_properties:
+    subnet: subnet-1c90ef6b
+- name: dynamic-concourse
+  type: dynamic
+  cloud_properties:
+    subnet: subnet-1c90ef6b
+    security_groups: [concourse]
+- name: manual-concourse
+  type: manual
+  subnets:
+  - range: 10.0.0.0/24
+    gateway: 10.0.0.1
+    dns: [10.0.0.6, 10.0.0.2]
+    reserved: [10.0.0.2 - 10.0.0.10]
+    cloud_properties:
+      subnet: subnet-1c90ef6b
+      security_groups: [concourse]
+- name: dynamic-wide-open
+  type: dynamic
+  cloud_properties:
+    subnet: subnet-1c90ef6b
+    security_groups: [no-filter]
+- name: vip
+  type: vip
+
+compilation:
+  workers: 1
+  reuse_compilation_vms: true
+  vm_type: c4.large
+  network: dynamic
+
+properties:
+  aws:
+    default_security_groups: [bosh]
