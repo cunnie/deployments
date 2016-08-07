@@ -41,6 +41,7 @@ networks:
 instance_groups:
 - name: bosh
   instances: 1
+
   jobs:
   - {name: nats, release: bosh}
   - {name: postgres, release: bosh}
@@ -62,21 +63,6 @@ instance_groups:
     static_ips: [52.70.98.70] # <--- Replace with Elastic IP
 
   properties:
-    # postgres has a YAML anchor, must go first
-    postgres: &db
-      listen_address: 127.0.0.1
-      host: 127.0.0.1
-      user: postgres
-      password: ((password_postgres))
-      database: bosh
-      adapter: postgres
-    blobstore:
-      address: 10.0.0.6
-      port: 25250
-      provider: dav
-      director: {user: director, password: ((password_director))}
-      agent: {user: agent, password: ((password_agent))}
-
     dns:
       address: 10.0.0.6
       db: *db
@@ -87,6 +73,14 @@ instance_groups:
       user: nats
       password: ((password_nats))
 
+    postgres: &db
+      listen_address: 127.0.0.1
+      host: 127.0.0.1
+      user: postgres
+      password: ((password_postgres))
+      database: bosh
+      adapter: postgres
+
     registry:
       address: 10.0.0.6
       host: 10.0.0.6
@@ -96,11 +90,19 @@ instance_groups:
       password: ((password_director))
       port: 25777
 
+    blobstore:
+      address: 10.0.0.6
+      port: 25250
+      provider: dav
+      director: {user: director, password: ((password_director))}
+      agent: {user: agent, password: ((password_agent))}
+
     director:
       address: 127.0.0.1
       name: aws
       db: *db
       cpi_job: aws_cpi
+      max_threads: 2
       user_management:
         provider: local
         local:
