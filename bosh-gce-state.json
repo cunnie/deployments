@@ -1,18 +1,18 @@
 {
-    "director_id": "12ed77d0-c72b-4bad-4ae9-74c107c7cb45",
-    "installation_id": "0df7cf20-3b55-44bf-47d4-9e0474ea2452",
-    "current_vm_cid": "vm-eb700033-6a70-406b-4bbb-4c49b0696e81",
-    "current_stemcell_id": "6dc12514-5c68-4ad1-46e2-0ecb8a346ea7",
-    "current_disk_id": "d935bbd1-7544-4e04-5d9b-24a22308e801",
+    "director_id": "51b940eb-ded6-4cf6-55b8-11759a720615",
+    "installation_id": "2992ed65-039b-4493-57df-4212da0edde5",
+    "current_vm_cid": "vm-6f09774b-25e2-4134-631c-946ce077ae56",
+    "current_stemcell_id": "29b7149a-b959-4bbf-69ec-e243ae073349",
+    "current_disk_id": "569e420b-6e12-45f2-5a5e-3b0f155f1ceb",
     "current_release_ids": [
-        "52a569a4-c4b3-4941-5663-b82d118b465f",
-        "c3e48b00-77fc-42a2-5279-eb0c9f4922a8"
+        "beab4688-20dc-45f9-78a5-668fc6909650",
+        "0fef7997-6a69-4a5f-4f47-1cbdf8cf66ba"
     ],
-    "current_manifest_sha1": "7caf8c265747eb1aacf402282771d853ae81bb11",
+    "current_manifest_sha1": "4b34e8f14b3b1c48b0c9ef31fe493d851a87148b",
     "disks": [
         {
-            "id": "d935bbd1-7544-4e04-5d9b-24a22308e801",
-            "cid": "disk-6728d4d7-992e-4ae3-70a7-59ac4de5ee38",
+            "id": "569e420b-6e12-45f2-5a5e-3b0f155f1ceb",
+            "cid": "disk-c5b91e9a-adb9-47ce-7cc1-f63aa2d72ed5",
             "size": 20000,
             "cloud_properties": {
                 "type": "pd-standard"
@@ -21,20 +21,20 @@
     ],
     "stemcells": [
         {
-            "id": "6dc12514-5c68-4ad1-46e2-0ecb8a346ea7",
+            "id": "29b7149a-b959-4bbf-69ec-e243ae073349",
             "name": "bosh-google-kvm-ubuntu-trusty-go_agent",
             "version": "3262.2",
-            "cid": "stemcell-dd45dd1c-a6bb-4d0b-4acb-11ae4eb201f3"
+            "cid": "stemcell-f3e9ebed-c625-43f4-430d-92d7a00d6a18"
         }
     ],
     "releases": [
         {
-            "id": "52a569a4-c4b3-4941-5663-b82d118b465f",
+            "id": "beab4688-20dc-45f9-78a5-668fc6909650",
             "name": "bosh",
             "version": "257.3"
         },
         {
-            "id": "c3e48b00-77fc-42a2-5279-eb0c9f4922a8",
+            "id": "0fef7997-6a69-4a5f-4f47-1cbdf8cf66ba",
             "name": "bosh-google-cpi",
             "version": "24"
         }

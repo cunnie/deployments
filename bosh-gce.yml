@@ -225,7 +225,7 @@ instance_groups:
       default_zone: us-central1-b # <--- replace with the gce zone to use by default
 
     # agent: {mbus: "nats://nats:password_nats@10.128.0.2:4222"}
-    agent: {mbus: ((aws_director_agent_mbus)) }
+    agent: {mbus: ((gce_director_agent_mbus)) }
 
     ntp: &ntp [169.254.169.254]
 
