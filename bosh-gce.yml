@@ -98,7 +98,7 @@ instance_groups:
       port: 25777
 
     blobstore:
-      address: 10.0.0.6
+      address: 10.128.0.2
       port: 25250
       provider: dav
       director: {user: director, password: ((password_director))}
