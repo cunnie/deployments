@@ -1,0 +1,83 @@
+azs:
+- name: z1
+  cloud_properties:
+    availability_zone: us-central1-b
+
+vm_types:
+- name: f1-micro
+  cloud_properties:
+    machine_type: f1-micro
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+- name: g1-small
+  cloud_properties:
+    machine_type: g1-small
+    root_disk_size_gb: 15
+    root_disk_type: pd-ssd
+- name: g1-small.100G
+  cloud_properties:
+    machine_type: g1-small
+    root_disk_size_gb: 100
+    root_disk_type: pd-ssd
+- name: n1-highcpu-4
+  cloud_properties:
+    machine_type: n1-highcpu-4
+    root_disk_size_gb: 15
+    root_disk_type: pd-ssd
+
+disk_types:
+- name: concourse
+  disk_size: 5_120
+  cloud_properties:
+    type: pd-ssd
+- name: nginx
+  disk_size: 5_120
+  cloud_properties:
+    type: pd-ssd
+
+networks:
+- name: dynamic
+  type: dynamic
+  cloud_properties:
+    network_name: cf
+    tags:
+    - cf-internal
+    - cf-bosh
+- name: dynamic-concourse
+  type: dynamic
+  cloud_properties:
+    network_name: cf
+    tags:
+    - cf-internal
+    - cf-bosh
+- name: manual
+  type: manual
+  subnets:
+  - range: 10.128.0.0/20
+    gateway: 10.128.0.1
+    dns: [ 10.128.0.2, 8.8.8.8 ]
+    reserved: [10.128.0.2, 10.128.0.3]
+    cloud_properties:
+      network_name: cf
+      tags:
+      - cf-internal
+      - cf-bosh
+- name: dynamic-wide-open
+  type: dynamic
+  cloud_properties:
+    network_name: cf
+    tags:
+    - cf-internal
+    - cf-bosh
+- name: vip
+  type: vip
+
+compilation:
+  workers: 1
+  reuse_compilation_vms: true
+  vm_type: n1-highcpu-4
+  network: manual
+
+properties:
+  aws:
+    default_security_groups: [bosh]
