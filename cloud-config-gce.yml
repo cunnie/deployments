@@ -1,8 +1,3 @@
-azs:
-- name: z1
-  cloud_properties:
-    availability_zone: us-central1-b
-
 vm_types:
 - name: f1-micro
   cloud_properties:
