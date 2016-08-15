@@ -3,32 +3,32 @@ vm_types:
   cloud_properties:
     machine_type: f1-micro
     root_disk_size_gb: 10
-    root_disk_type: pd-ssd
+    root_disk_type: pd-standard
 - name: g1-small
   cloud_properties:
     machine_type: g1-small
     root_disk_size_gb: 15
-    root_disk_type: pd-ssd
+    root_disk_type: pd-standard
 - name: g1-small.100G
   cloud_properties:
     machine_type: g1-small
     root_disk_size_gb: 100
-    root_disk_type: pd-ssd
+    root_disk_type: pd-standard
 - name: n1-highcpu-4
   cloud_properties:
     machine_type: n1-highcpu-4
     root_disk_size_gb: 15
-    root_disk_type: pd-ssd
+    root_disk_type: pd-standard
 
 disk_types:
 - name: concourse
   disk_size: 5_120
   cloud_properties:
-    type: pd-ssd
+    type: pd-standard
 - name: nginx
   disk_size: 5_120
   cloud_properties:
-    type: pd-ssd
+    type: pd-standard
 
 networks:
 - name: dynamic
