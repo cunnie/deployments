@@ -38,6 +38,8 @@ networks:
     tags:
     - cf-internal
     - cf-bosh
+    - cf-allow-ssh-ping-traceroute
+    - cf-allow-dns-http-ntp
 - name: dynamic-concourse
   type: dynamic
   cloud_properties:
