@@ -74,7 +74,3 @@ compilation:
   reuse_compilation_vms: true
   vm_type: n1-highcpu-4
   network: manual
-
-properties:
-  aws:
-    default_security_groups: [bosh]
