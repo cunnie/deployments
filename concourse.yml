@@ -37,9 +37,17 @@ instance_groups:
       external_url: https://ci.nono.io:4443
 
       # replace with username/password, or configure GitHub auth
-      basic_auth_username: ci
-      basic_auth_password: ((gce_concourse_basic_auth_password))
+      #basic_auth_username: ci
+      #basic_auth_password: ((gce_concourse_basic_auth_password))
 
+      github_auth:
+        authorize:
+        - user: cunnie
+        client_id: fc24016a9c3267843698
+        client_secret: ((aws_concourse_github_auth_client_secret))
+      publicly_viewable: true
+
+      postgresql_database: &atc_db atc
       # replace with your SSL cert and key
       tls_cert: |
         -----BEGIN CERTIFICATE-----
@@ -141,8 +149,6 @@ instance_groups:
         pu/xO28QOG8=
         -----END CERTIFICATE-----
       tls_key: ((nono_io_key))
-
-      postgresql_database: &atc_db atc
   - name: tsa
     release: concourse
     properties: {}
