@@ -15,7 +15,7 @@ resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: file:///tmp/bosh-stemcell-3262.2.4-google-kvm-ubuntu-trusty-go_agent.tgz
+    url: file:///tmp/bosh-stemcell-3262.2.6-google-kvm-ubuntu-trusty-go_agent.tgz
     #url: https://storage.googleapis.com/bosh-cpi-artifacts/light-bosh-stemcell-3262.2-google-kvm-ubuntu-trusty-go_agent.tgz
     #sha1: f695989d902f00744347012bd7dab2a110c0a379
   cloud_properties:
