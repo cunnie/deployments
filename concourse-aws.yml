@@ -1,7 +1,5 @@
 ---
-
 # bosh -e aws -d concourse deploy concourse-aws.yml -l <(lpass show --note deployments)
-
 name: concourse
 
 releases:
