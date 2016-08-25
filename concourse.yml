@@ -2,15 +2,14 @@
 # bosh deploy -d concourse concourse.yml -l <(lpass show --note deployments)
 name: concourse
 
-# replace with `bosh status --uuid`
-director_uuid: d0e91ed8-bbfa-4fe3-ad89-a865693bce38
-
 releases:
 - name: concourse
   version: latest
 - name: garden-runc
-
   version: latest
+- name: nginx
+  version: latest
+
 stemcells:
 - alias: ubuntu
   os: ubuntu-trusty
@@ -19,13 +18,12 @@ stemcells:
 instance_groups:
 - name: concourse
   instances: 1
-  # replace with a VM type from your BOSH Director's cloud config
-  vm_type: g1-small
+  vm_type: g1-small.100G
+  persistent_disk_type: concourse
   stemcell: ubuntu
   networks:
   - name: vip
     # CHANGEME: replace the IP address with your Elastic IP
-    # the Elastic IP must have scope 'vpc' not 'standard'
     static_ips: [104.155.144.4]
   - name: dynamic
     default: [ dns, gateway ]
@@ -34,22 +32,98 @@ instance_groups:
     release: concourse
     properties:
       # replace with your CI's externally reachable URL, e.g. https://ci.foo.com
-      external_url: https://ci.nono.io:4443
-
-      # replace with username/password, or configure GitHub auth
-      #basic_auth_username: ci
-      #basic_auth_password: ((gce_concourse_basic_auth_password))
-
+      external_url: https://ci.nono.io
       github_auth:
         authorize:
         - user: cunnie
-        client_id: fc24016a9c3267843698
-        client_secret: ((aws_concourse_github_auth_client_secret))
+        client_id: d4d77ce34ecc620d5220
+        client_secret: ((github_concourse_nono_auth_client_secret))
       publicly_viewable: true
-
       postgresql_database: &atc_db atc
       # replace with your SSL cert and key
-      tls_cert: |
+  - name: tsa
+    release: concourse
+    properties: {}
+  - name: postgresql
+    release: concourse
+    properties:
+      databases:
+      - name: *atc_db
+        # make up a role and password
+        role: atc
+        password: ((concourse_postgres_passwd))
+  - name: groundcrew
+    release: concourse
+    properties: {}
+  - name: baggageclaim
+    release: concourse
+    properties: {}
+  - name: garden
+    release: garden-runc
+    properties:
+      garden:
+        listen_network: tcp
+        listen_address: 0.0.0.0:7777
+  - name: nginx
+    release: nginx
+    properties:
+      nginx_conf: |
+        worker_processes  1;
+        error_log /var/vcap/sys/log/nginx/error.log   info;
+        events {
+          worker_connections  1024;
+        }
+        http {
+          include /var/vcap/packages/nginx/conf/mime.types;
+          default_type  application/octet-stream;
+          sendfile        on;
+          keepalive_timeout  65;
+          server_names_hash_bucket_size 64;
+          # redirect HTTP to HTTPS
+          server {
+            server_name _; # invalid value which will never trigger on a real hostname.
+            listen 80;
+            rewrite ^ https://ci.nono.io$request_uri?;
+            access_log /var/vcap/sys/log/nginx/ci.nono.io-access.log;
+            error_log /var/vcap/sys/log/nginx/ci.nono.io-error.log;
+          }
+          server {
+            server_name ci.nono.io;
+            # weak DH https://weakdh.org/sysadmin.html
+            ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+            ssl_prefer_server_ciphers on;
+            # poodle https://scotthelme.co.uk/sslv3-goes-to-the-dogs-poodle-kills-off-protocol/
+            ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+            listen              443 ssl;
+            ssl_certificate     /var/vcap/jobs/nginx/etc/ssl_chained.crt.pem;
+            ssl_certificate_key /var/vcap/jobs/nginx/etc/ssl.key.pem;
+            access_log /var/vcap/sys/log/nginx/ci.nono.io-access.log;
+            error_log /var/vcap/sys/log/nginx/ci.nono.io-error.log;
+            root /var/vcap/jobs/nginx/www/document_root;
+            index index.shtml index.html index.htm;
+            # https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins
+            location / {
+                proxy_set_header  Host $host;
+                proxy_set_header  X-Real-IP $remote_addr;
+                proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header  X-Forwarded-Proto $scheme;
+                # Fix `websocket: bad handshake` when using `fly intercept`
+                proxy_set_header  Upgrade $http_upgrade;
+                proxy_set_header  Connection "upgrade";
+
+                # Fix the “It appears that your reverse proxy set up is broken" error.
+                proxy_pass          http://localhost:8080;
+                proxy_read_timeout  90;
+
+                proxy_redirect      http://localhost:8080 https://ci.nono.io;
+            }
+
+          }
+        }
+      # FIXME: replace with your HTTPS SSL key
+      ssl_key: ((nono_io_key))
+      # CHANGEME: replace with your HTTPS SSL chained certificate
+      ssl_chained_cert: |
         -----BEGIN CERTIFICATE-----
         MIIFXDCCBESgAwIBAgIQOvRHkhKyb/k9O4xvIi9zZTANBgkqhkiG9w0BAQsFADCB
         kDELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
@@ -148,30 +222,6 @@ instance_groups:
         PUsE2JOAWVrgQSQdso8VYFhH2+9uRv0V9dlfmrPb2LjkQLPNlzmuhbsdjrzch5vR
         pu/xO28QOG8=
         -----END CERTIFICATE-----
-      tls_key: ((nono_io_key))
-  - name: tsa
-    release: concourse
-    properties: {}
-  - name: postgresql
-    release: concourse
-    properties:
-      databases:
-      - name: *atc_db
-        # make up a role and password
-        role: concourse
-        password: ((concourse_postgres_password))
-  - name: groundcrew
-    release: concourse
-    properties: {}
-  - name: baggageclaim
-    release: concourse
-    properties: {}
-  - name: garden
-    release: garden-runc
-    properties:
-      garden:
-        listen_network: tcp
-        listen_address: 0.0.0.0:7777
 
 update:
   canaries: 1
