@@ -122,7 +122,7 @@ instance_groups:
         }
       # FIXME: replace with your HTTPS SSL key
       ssl_key: ((nono_io_key))
-      # CHANGEME: replace with your HTTPS SSL chained certificate
+      # FIXME: replace with your HTTPS SSL chained certificate
       ssl_chained_cert: |
         -----BEGIN CERTIFICATE-----
         MIIFXDCCBESgAwIBAgIQOvRHkhKyb/k9O4xvIi9zZTANBgkqhkiG9w0BAQsFADCB
