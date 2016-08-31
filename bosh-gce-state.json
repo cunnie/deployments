@@ -1,14 +1,14 @@
 {
     "director_id": "268e3d64-09e7-4855-68be-f195112d214f",
     "installation_id": "d6ae5073-5854-4a94-5903-aa5b15d85422",
-    "current_vm_cid": "vm-b18e815a-ceaf-48a3-7deb-39f685bcb8ae",
-    "current_stemcell_id": "89056c89-3265-496e-693b-0d45ad0c47c8",
+    "current_vm_cid": "vm-6ce6f40d-d81b-4639-6e46-865a3af6ebd4",
+    "current_stemcell_id": "09448aa7-b28b-4736-6ea8-b19280b8b5c1",
     "current_disk_id": "16951383-14b1-497a-4a8e-6ec3d4735959",
     "current_release_ids": [
-        "d8b0ae97-3625-4850-6334-03e4386c1e3e",
-        "d277e725-ffc3-48d5-5b1a-e4e11387fddc"
+        "bd315132-3792-4cb2-70df-bb7d3bfcea81",
+        "238a96bd-817b-4ef7-46c9-0c1f63ccedc3"
     ],
-    "current_manifest_sha": "00e3938d9143970bc5c848298ce7a116917a174ac886c32ca6a4c922e1c3530f6f4c9d590db28ccf46ff1be8aff876e4c8e89f7e77b09b7e337eed824cd6d73d",
+    "current_manifest_sha": "ce059e77f080d482450e857df54af1cf8cf7f067413b67196ec93b74e3eefd4711ede2a8cd52d9f1e5e2d5eb2a8a0dc24e2ced19987bbeab0378f172cf563bdd",
     "disks": [
         {
             "id": "16951383-14b1-497a-4a8e-6ec3d4735959",
@@ -21,22 +21,22 @@
     ],
     "stemcells": [
         {
-            "id": "89056c89-3265-496e-693b-0d45ad0c47c8",
+            "id": "09448aa7-b28b-4736-6ea8-b19280b8b5c1",
             "name": "bosh-google-kvm-ubuntu-trusty-go_agent",
-            "version": "3262.2.6",
-            "cid": "stemcell-87e2e31e-46e5-4492-580f-c12c67e17159"
+            "version": "3262.2.8",
+            "cid": "stemcell-b219b219-2abc-426f-6f26-d67add4b5027"
         }
     ],
     "releases": [
         {
-            "id": "d8b0ae97-3625-4850-6334-03e4386c1e3e",
+            "id": "bd315132-3792-4cb2-70df-bb7d3bfcea81",
             "name": "bosh",
-            "version": "257.3"
+            "version": "257.9"
         },
         {
-            "id": "d277e725-ffc3-48d5-5b1a-e4e11387fddc",
+            "id": "238a96bd-817b-4ef7-46c9-0c1f63ccedc3",
             "name": "bosh-google-cpi",
-            "version": "24"
+            "version": "0.0.203"
         }
     ]
 }

@@ -5,23 +5,24 @@ name: bosh-gce
 
 releases:
 - name: bosh
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=257.3
-  sha1: e4442afcc64123e11f2b33cc2be799a0b59207d0
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=257.9
+  sha1: 3d6168823f5a8aa6b7427429bc727103e15e27af
 - name: bosh-google-cpi
-  url: https://storage.googleapis.com/bosh-cpi-artifacts/bosh-google-cpi-24.tgz
-  sha1: e2f77a0a8696b29fdb676cf447cfd9bc6841b648
+  url: https://storage.googleapis.com/bosh-cpi-artifacts/bosh-google-cpi-0.0.203.tgz
+  sha1: 138a7ce6d75ebf5c6ae9de5a2c66c999246c6d94
 
 resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: file:///tmp/bosh-stemcell-3262.2.6-google-kvm-ubuntu-trusty-go_agent.tgz
+    url: file:///tmp/bosh-stemcell-3262.2.8-google-kvm-ubuntu-trusty-go_agent.tgz
     #url: https://storage.googleapis.com/bosh-cpi-artifacts/light-bosh-stemcell-3262.2-google-kvm-ubuntu-trusty-go_agent.tgz
     #sha1: f695989d902f00744347012bd7dab2a110c0a379
   cloud_properties:
-    machine_type: f1-micro
+    machine_type: g1-small
     root_disk_size_gb: 40
     root_disk_type: pd-standard
+    zone: us-central1-b # <--- replace with the gce zone to use by default
     service_scopes:
     - compute
     - devstorage.full_control
