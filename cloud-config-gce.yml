@@ -1,3 +1,8 @@
+azs:
+- name: us-central1-b
+  cloud_properties:
+    zone: us-central1-b
+
 vm_types:
 - name: f1-micro
   cloud_properties:
@@ -33,24 +38,29 @@ disk_types:
 networks:
 - name: dynamic
   type: dynamic
-  cloud_properties:
-    network_name: cf
-    tags:
-    - cf-internal
-    - cf-bosh
-    - cf-allow-ssh-ping-traceroute
-    - cf-allow-dns-http-ntp
+  subnets:
+  - az: us-central1-b
+    cloud_properties:
+      network_name: cf
+      tags:
+      - cf-internal
+      - cf-bosh
+      - cf-allow-ssh-ping-traceroute
+      - cf-allow-dns-http-ntp
 - name: dynamic-concourse
   type: dynamic
-  cloud_properties:
-    network_name: cf
-    tags:
-    - cf-internal
-    - cf-bosh
+  subnets:
+  - az: us-central1-b
+    cloud_properties:
+      network_name: cf
+      tags:
+      - cf-internal
+      - cf-bosh
 - name: manual
   type: manual
   subnets:
   - range: 10.128.0.0/20
+    azs: [ us-central1-b ]
     gateway: 10.128.0.1
     dns: [ 10.128.0.2, 8.8.8.8 ]
     reserved: [10.128.0.2, 10.128.0.3]
@@ -74,3 +84,4 @@ compilation:
   reuse_compilation_vms: true
   vm_type: n1-highcpu-4
   network: manual
+  az: us-central1-b

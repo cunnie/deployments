@@ -21,6 +21,7 @@ instance_groups:
   vm_type: g1-small.100G
   persistent_disk_type: concourse
   stemcell: ubuntu
+  azs: [ us-central1-b ]
   networks:
   - name: vip
     # CHANGEME: replace the IP address with your Elastic IP
