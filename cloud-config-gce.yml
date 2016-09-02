@@ -14,9 +14,10 @@ vm_types:
     machine_type: g1-small
     root_disk_size_gb: 15
     root_disk_type: pd-standard
-- name: g1-small.100G
+- name: concourse
   cloud_properties:
-    machine_type: g1-small
+    cpu: 1
+    ram: 2560
     root_disk_size_gb: 100
     root_disk_type: pd-standard
 - name: n1-highcpu-4
