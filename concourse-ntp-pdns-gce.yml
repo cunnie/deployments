@@ -1,5 +1,5 @@
 ---
-# bosh deploy -d concourse concourse.yml -l <(lpass show --note deployments)
+# bosh deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments)
 name: concourse
 
 releases:
