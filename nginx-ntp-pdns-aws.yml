@@ -1,81 +1,21 @@
 ---
-# bosh deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments) -l pdns/sslip.io+nono.io.yml --no-redact
-name: concourse
-
-releases:
-- name: concourse
-  version: latest
-- name: garden-runc
-  version: latest
-- name: nginx
-  version: latest
-- name: ntp
-  version: latest
-- name: pdns
-  version: latest
-
-stemcells:
-- alias: ubuntu
-  os: ubuntu-trusty
-  version: latest
+# bosh deploy -d nginx-ntp-pdns nginx-ntp-pdns-aws.yml -l <(lpass show --note deployments) -l pdns/sslip.io+nono.io.yml --no-redact
+name: nginx-ntp-pdns
 
 instance_groups:
-- name: concourse
+- name: nginx_ntp_pdns
+  stemcell: centos
   instances: 1
-  azs: [ us-central1-b ]
-  vm_type: concourse
-  persistent_disk_type: concourse
-  stemcell: ubuntu
-  azs: [ us-central1-b ]
-  networks:
-  - name: vip
-    # CHANGEME: replace the IP address with your Elastic IP
-    static_ips: [104.155.144.4]
-  - name: dynamic
-    default: [ dns, gateway ]
+  vm_type: t2.micro
+  persistent_disk_type: nginx
   jobs:
-  - name: atc
-    release: concourse
-    properties:
-      # replace with your CI's externally reachable URL, e.g. https://ci.foo.com
-      external_url: https://ci.nono.io
-      github_auth:
-        authorize:
-        - user: cunnie
-        client_id: d4d77ce34ecc620d5220
-        client_secret: ((github_concourse_nono_auth_client_secret))
-      publicly_viewable: true
-      postgresql_database: &atc_db atc
-      # replace with your SSL cert and key
-  - name: tsa
-    release: concourse
-    properties: {}
-  - name: postgresql
-    release: concourse
-    properties:
-      databases:
-      - name: *atc_db
-        # make up a role and password
-        role: atc
-        password: ((concourse_postgres_passwd))
-  - name: groundcrew
-    release: concourse
-    properties: {}
-  - name: baggageclaim
-    release: concourse
-    properties: {}
-  - name: garden
-    release: garden-runc
-    properties:
-      garden:
-        listen_network: tcp
-        listen_address: 0.0.0.0:7777
-  - name: nginx
-    release: nginx
+  - release: nginx
+    name: nginx
     properties:
       nginx_conf: |
         worker_processes  1;
         error_log /var/vcap/sys/log/nginx/error.log   info;
+        #pid        logs/nginx.pid; # PIDFILE is configured via monit's ctl
         events {
           worker_connections  1024;
         }
@@ -89,12 +29,12 @@ instance_groups:
           server {
             server_name _; # invalid value which will never trigger on a real hostname.
             listen 80;
-            rewrite ^ https://ci.nono.io$request_uri?;
-            access_log /var/vcap/sys/log/nginx/ci.nono.io-access.log;
-            error_log /var/vcap/sys/log/nginx/ci.nono.io-error.log;
+            rewrite ^ https://sslip.io$request_uri?;
+            access_log /var/vcap/sys/log/nginx/sslip.io-access.log;
+            error_log /var/vcap/sys/log/nginx/sslip.io-error.log;
           }
           server {
-            server_name ci.nono.io;
+            server_name sslip.io 52-0-56-137.sslip.io;
             # weak DH https://weakdh.org/sysadmin.html
             ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
             ssl_prefer_server_ciphers on;
@@ -103,63 +43,55 @@ instance_groups:
             listen              443 ssl;
             ssl_certificate     /var/vcap/jobs/nginx/etc/ssl_chained.crt.pem;
             ssl_certificate_key /var/vcap/jobs/nginx/etc/ssl.key.pem;
-            access_log /var/vcap/sys/log/nginx/ci.nono.io-access.log;
-            error_log /var/vcap/sys/log/nginx/ci.nono.io-error.log;
-            root /var/vcap/jobs/nginx/www/document_root;
+            access_log /var/vcap/sys/log/nginx/sslip.io-access.log;
+            error_log /var/vcap/sys/log/nginx/sslip.io-error.log;
+            root /var/vcap/store/nginx/document_root;
             index index.shtml index.html index.htm;
-            # https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-with-ssl-as-a-reverse-proxy-for-jenkins
-            location / {
-                proxy_set_header  Host $host;
-                proxy_set_header  X-Real-IP $remote_addr;
-                proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header  X-Forwarded-Proto $scheme;
-                # Fix `websocket: bad handshake` when using `fly intercept`
-                proxy_set_header  Upgrade $http_upgrade;
-                proxy_set_header  Connection "upgrade";
-
-                # Fix the “It appears that your reverse proxy set up is broken" error.
-                proxy_pass          http://localhost:8080;
-                proxy_read_timeout  90;
-
-                proxy_redirect      http://localhost:8080 https://ci.nono.io;
-            }
-
           }
         }
-      # FIXME: replace with your HTTPS SSL key
-      ssl_key: ((nono_io_key))
-      # FIXME: replace with your HTTPS SSL chained certificate
+      pre_start: |
+        #!/bin/bash -ex
+        NGINX_DIR=/var/vcap/store/nginx
+        if [ ! -d $NGINX_DIR ]; then
+          mkdir -p $(basename $NGINX_DIR)
+          cd $(basename $NGINX_DIR)
+          curl -L https://github.com/cunnie/sslip.io/archive/v1.tar.gz |
+            tar xzf -
+          mv sslip.io-1 $NGINX_DIR
+          chown -R vcap:vcap $NGINX_DIR
+        fi
+      ssl_key: ((sslip_io_key))
       ssl_chained_cert: |
         -----BEGIN CERTIFICATE-----
-        MIIFXDCCBESgAwIBAgIQOvRHkhKyb/k9O4xvIi9zZTANBgkqhkiG9w0BAQsFADCB
+        MIIFYzCCBEugAwIBAgIQHowj0iaZfd9jx4pfXaJ7UzANBgkqhkiG9w0BAQsFADCB
         kDELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
         A1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxNjA0BgNV
         BAMTLUNPTU9ETyBSU0EgRG9tYWluIFZhbGlkYXRpb24gU2VjdXJlIFNlcnZlciBD
-        QTAeFw0xNjA3MDYwMDAwMDBaFw0xOTA3MDYyMzU5NTlaMFoxITAfBgNVBAsTGERv
+        QTAeFw0xNTA5MTEwMDAwMDBaFw0xODA5MTAyMzU5NTlaMFsxITAfBgNVBAsTGERv
         bWFpbiBDb250cm9sIFZhbGlkYXRlZDEhMB8GA1UECxMYUG9zaXRpdmVTU0wgTXVs
-        dGktRG9tYWluMRIwEAYDVQQDDAkqLm5vbm8uaW8wggEiMA0GCSqGSIb3DQEBAQUA
-        A4IBDwAwggEKAoIBAQC3LnOi4qIl91BDjkNRHUC+ECvODAwDF/9z7ZAQq55FKoJ+
-        bqWMBcDV0BVh1OzREpqS0ORW/e5rvpiyO6ajRvE0g6PmzNhuSL5eeAVIbvLsfN6l
-        vEdE69QCXZ3UI+l1KzhPnx5xeSQf9UOvlkpMVkSyIuLcvMCSAekJne3S6YOHwLSA
-        oQOwnO5dp2Im4pOoQ86Pth25szfRu8uvd3nXBZQOiDv/ttk7dLQvdDM+KAqefhwo
-        cQFaWPxrQERjwDpsmf2jjjLZzP1uemwA9h74lxeAJKV6Ph9uJ6EjWRYuAYlo7i0v
-        mn9o20VslP1wnWKHreq2jFLU93SPzNCWmZr+nAIRAgMBAAGjggHlMIIB4TAfBgNV
-        HSMEGDAWgBSQr2o6lFoL2JDqElZz30O0Oija5zAdBgNVHQ4EFgQUbfZ/qwsJA124
-        awOjcusTRuVBi+IwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0l
-        BBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCME8GA1UdIARIMEYwOgYLKwYBBAGyMQEC
-        AgcwKzApBggrBgEFBQcCARYdaHR0cHM6Ly9zZWN1cmUuY29tb2RvLmNvbS9DUFMw
-        CAYGZ4EMAQIBMFQGA1UdHwRNMEswSaBHoEWGQ2h0dHA6Ly9jcmwuY29tb2RvY2Eu
-        Y29tL0NPTU9ET1JTQURvbWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5jcmww
-        gYUGCCsGAQUFBwEBBHkwdzBPBggrBgEFBQcwAoZDaHR0cDovL2NydC5jb21vZG9j
-        YS5jb20vQ09NT0RPUlNBRG9tYWluVmFsaWRhdGlvblNlY3VyZVNlcnZlckNBLmNy
-        dDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuY29tb2RvY2EuY29tMDMGA1UdEQQs
-        MCqCCSoubm9uby5pb4IKKi5ub25vLmNvbYIIbm9uby5jb22CB25vbm8uaW8wDQYJ
-        KoZIhvcNAQELBQADggEBAIM9PPckdm0CUoywdKmfpRG14bZ5iHN/iTNk+qnQeNlU
-        ovxM6FHS1w+x3/TSQhh1FNtWDNQcLn2BD+Yk+3b5mBc+WbpcAbBp2dbpGlSPeLD4
-        6SorB8ZHwHiY40FWE/6uyuC5wpy1BN+OwH9KoKVdiXlsY2ApXoU2U57s5haV7Jjm
-        gn9ZpyWhsvbpcLO9d029vNim3qT96mY3LMx6PM269Ref0Aieq7rGw38Xu3FQLBMU
-        l9E/Q+90B+aR9UsmslfjWFZz7MyhZG/bJXt+0XxFAjF08Nwe1qX5n+3Tn4ogwuuO
-        NaaNSyS8pHUJhaq+ZiC7zM2YsuLBICPQfsunHGrho4k=
+        dGktRG9tYWluMRMwEQYDVQQDDAoqLnNzbGlwLmlvMIIBIjANBgkqhkiG9w0BAQEF
+        AAOCAQ8AMIIBCgKCAQEAvQIIb62gT2oGm4xFBjQsVTOCv3cYVBIRieB9Da4NmRmg
+        Dv+V7eBqT09jpIc26FYVzwZf/SCpOh7VXDa7fzklz0KSBfnPq2TkO1y2QkOwTAdP
+        uex+jmvM2JeF3HtbzMC649225/DfWQFwv6XNqQnKPlSl4ntEcXh/7D1RC8nXQxYa
+        FY1iKBQZamzNT3X3Q9L84by3MQ2UbbI/36q3Wz5hap87vpp9zInmJqs2FUaRd3IR
+        1AjaF8fDeT/3e6oxslj9N1JeuaQDBa1n24WKsdGkB9N+R7l4h1a91bEGod2+AZwy
+        v0OMd3faE05ApXZrCB6bypEBbpPexG34ZIZGriF9xwIDAQABo4IB6zCCAecwHwYD
+        VR0jBBgwFoAUkK9qOpRaC9iQ6hJWc99DtDoo2ucwHQYDVR0OBBYEFLdnLOxPsBs+
+        eks6jVZAk0Zoz67IMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1Ud
+        JQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjBPBgNVHSAESDBGMDoGCysGAQQBsjEB
+        AgIHMCswKQYIKwYBBQUHAgEWHWh0dHBzOi8vc2VjdXJlLmNvbW9kby5jb20vQ1BT
+        MAgGBmeBDAECATBUBgNVHR8ETTBLMEmgR6BFhkNodHRwOi8vY3JsLmNvbW9kb2Nh
+        LmNvbS9DT01PRE9SU0FEb21haW5WYWxpZGF0aW9uU2VjdXJlU2VydmVyQ0EuY3Js
+        MIGFBggrBgEFBQcBAQR5MHcwTwYIKwYBBQUHMAKGQ2h0dHA6Ly9jcnQuY29tb2Rv
+        Y2EuY29tL0NPTU9ET1JTQURvbWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5j
+        cnQwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTA5BgNVHREE
+        MjAwggoqLnNzbGlwLmlvggwqLnguc3NsaXAuaW+CCHNzbGlwLmlvggp4LnNzbGlw
+        LmlvMA0GCSqGSIb3DQEBCwUAA4IBAQB09lURpTM1LHIkhOvmc/OsJ2GoDdyQlw0m
+        KWkWGlROcvsxcyoltWGRrgNyqXzhURLSNSrXtj5awz05A3/81CnJiN1TUMOAQjXj
+        knw7Zbe6j1WfI/RJVd3gIo2IKl0VtIPR6o0HSI8Odfs8TP8Pw8tAWOyh8NtMG8P3
+        ot5L4/f6+6jTiXLAFIV4Hi60+HbUc7ZnVfjiFExZCt0It5lcTikh7Y4GYaVmvdRG
+        09TYnAMxTx4eRTkbrvq0EFGyyBQuxG2pEIBiJ8s0JqO1KtvGhF92f7Cu8z7qxlcm
+        hFK2Y0EENB1Tj9uBcmos9bKF5Mt+DqonXhB31Tyj8b17aEdc5hXU
         -----END CERTIFICATE-----
         -----BEGIN CERTIFICATE-----
         MIIGCDCCA/CgAwIBAgIQKy5u6tl1NmwUim7bo3yMBzANBgkqhkiG9w0BAQwFADCB
@@ -240,7 +172,7 @@ instance_groups:
         # "Batten down the hatches!"
         # see http://support.ntp.org/bin/view/Support/AccessRestrictions
         restrict default limited kod nomodify notrap nopeer
-        # GCE doesn't have IPv6, but I restrict it anyway
+        # Amazon AWS doesn't have IPv6, but I restrict it anyway
         restrict -6 default limited kod nomodify notrap nopeer
         restrict 127.0.0.0 mask 255.0.0.0
         restrict -6 ::1
@@ -254,10 +186,28 @@ instance_groups:
       pdns_conf: ((pdns_conf))
       pipe: ((pdns_pipe))
       pipe_conf: ((pdns_pipe_conf))
-
+  networks:
+  - name: vip
+    # CHANGEME: replace the IP address with your Elastic IP
+    # the Elastic IP must have scope 'vpc' not 'standard'
+    static_ips: [52.0.56.137]
+  - name: dynamic-wide-open
+    default: [ dns, gateway ]
 update:
   canaries: 1
-  max_in_flight: 1
-  serial: false
+  max_in_flight: 10
   canary_watch_time: 1000-60000
   update_watch_time: 1000-60000
+
+stemcells:
+- alias: centos
+  os: centos-7
+  version: latest
+
+releases:
+- name: nginx
+  version: latest
+- name: ntp
+  version: latest
+- name: pdns
+  version: latest
