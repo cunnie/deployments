@@ -1,5 +1,5 @@
 ---
-# bosh deploy -d nginx-ntp-pdns nginx-ntp-pdns-aws.yml -l <(lpass show --note deployments) -l pdns/sslip.io+nono.io.yml --no-redact
+# bosh deploy -d nginx-ntp-pdns nginx-ntp-pdns-aws.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
 name: nginx-ntp-pdns
 
 instance_groups:
