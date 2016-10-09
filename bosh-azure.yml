@@ -1,4 +1,5 @@
 ---
+# bosh create-env bosh-azure.yml -l <(lpass show --note deployments)
 name: bosh
 
 releases:
@@ -107,10 +108,10 @@ jobs:
 
     azure: &azure
       environment: AzureCloud
-      subscription_id: SUBSCRIPTION-ID # <--- Replace
-      tenant_id: TENANT-ID # <--- Replace
-      client_id: CLIENT-ID # <--- Replace
-      client_secret: CLIENT-SECRET # <--- Replace
+      subscription_id: a1ac8d5a-7a97-4ed5-bfd1-d7822e19cae9 # <--- Replace
+      tenant_id: 682bd378-95db-41bd-8b1e-70fb407c4b10 # <--- Replace
+      client_id: bf7f78c1-6924-4a02-965c-b66f481a9b5f # <--- Replace
+      client_secret: ((azure_client_secret)) # <--- Replace
       resource_group_name: RESOURCE-GROUP-NAME # <--- Replace
       storage_account_name: STORAGE-ACCOUNT-NAME # <--- Replace
       default_security_group: DEFAULT-SECURITY-GROUP # <--- Replace
