@@ -16,8 +16,8 @@ resource_pools:
   network: private
   stemcell:
     #url: file:///tmp/bosh-stemcell-3262.cpi-google-kvm-ubuntu-trusty-go_agent.tgz
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3263.4-google-kvm-ubuntu-trusty-go_agent.tgz
-    sha1: 4d6c608098fb7122873e6c9238b935891b50bd69
+    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3263.5-google-kvm-ubuntu-trusty-go_agent.tgz
+    sha1: 4b2e7747573ba06e149c34ae60e43bf7f0ea66c8
   cloud_properties:
     machine_type: g1-small
     root_disk_size_gb: 40
