@@ -14,8 +14,8 @@ resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3263.5
-    sha1: 40bf029d1bdffbbd89d2419ba39171c52f273015
+    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3263.7
+    sha1: 3ea39c507e9a56cab79a0513ab8cc35d78f87a93
   cloud_properties:
     instance_type: Standard_D1
 
@@ -214,10 +214,10 @@ jobs:
       client_id: bf7f78c1-6924-4a02-965c-b66f481a9b5f # <--- Replace
       client_secret: ((azure_client_secret)) # <--- Replace
       resource_group_name: bosh-res-group # <--- Replace
-      storage_account_name: STORAGE-ACCOUNT-NAME # <--- Replace
-      default_security_group: DEFAULT-SECURITY-GROUP # <--- Replace
+      storage_account_name: cunniestore # <--- Replace
+      default_security_group: nsg-bosh # <--- Replace
       ssh_user: vcap
-      ssh_public_key: SSH-PUBLIC-KEY # <--- Replace
+      ssh_public_key: /Users/cunnie/.ssh/google.pub # <--- Replace (recycling)
 
     agent: { mbus: ((azure_director_agent_mbus)) }
 
