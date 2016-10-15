@@ -1,16 +1,9 @@
 # manifest for BOSH performance testing
 name: dummy
 
-director_uuid: beb2169f-8911-453f-98ed-978adcb168c2
-
-releases:
-- name: dummy
-  version: latest
+releases: []
 
 stemcells:
-- alias: centos
-  os: centos-7
-  version: latest
 - alias: ubuntu
   os: ubuntu-trusty
   version: latest
@@ -22,17 +15,11 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-- name: dummy-centos
-  jobs: []
-  instances: 32
-  vm_type: t2.nano
-  stemcell: centos
-  networks:
-  - name: dynamic
 - name: dummy-ubuntu
   jobs: []
-  instances: 32
-  vm_type: t2.nano
+  instances: 1
+  vm_type: default
   stemcell: ubuntu
+  azs: [z1]
   networks:
-  - name: dynamic
+  - name: default
