@@ -7,8 +7,8 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=257.15
   sha1: f4cf3579bfac994cd3bde4a9d8cbee3ad189c8b2
 - name: bosh-azure-cpi
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=16
-  sha1: 0a60eb0eb10db8e6a2fde52890f05afba970d233
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=17
+  sha1: b265730fc26ae8dc07958de61c4b7f8c0187d59a
 
 resource_pools:
 - name: vms
@@ -47,7 +47,7 @@ jobs:
   - {name: director, release: bosh}
   - {name: health_monitor, release: bosh}
   - {name: registry, release: bosh}
-  - {name: cpi, release: bosh-azure-cpi}
+  - {name: azure_cpi, release: bosh-azure-cpi}
 
   resource_pool: vms
   persistent_disk_pool: disks
@@ -93,7 +93,7 @@ jobs:
       address: 127.0.0.1
       name: my-bosh
       db: *db
-      cpi_job: cpi
+      cpi_job: azure_cpi
       max_threads: 10
       user_management:
         provider: local
@@ -224,7 +224,7 @@ jobs:
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
 
 cloud_provider:
-  template: {name: cpi, release: bosh-azure-cpi}
+  template: {name: azure_cpi, release: bosh-azure-cpi}
 
   ssh_tunnel:
     host: 52.187.42.158 # <--- Replace
