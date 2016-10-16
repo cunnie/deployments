@@ -57,7 +57,7 @@ jobs:
     static_ips: [10.0.0.4]
     default: [dns, gateway]
   - name: public
-    static_ips: [52.187.42.158] # <--- Replace
+    static_ips: [13.76.210.151] # <--- Replace
 
   properties:
     nats:
@@ -227,7 +227,7 @@ cloud_provider:
   template: {name: azure_cpi, release: bosh-azure-cpi}
 
   ssh_tunnel:
-    host: 52.187.42.158 # <--- Replace
+    host: 13.76.210.151 # <--- Replace
     port: 22
     user: vcap
     private_key: /Users/cunnie/.ssh/google
