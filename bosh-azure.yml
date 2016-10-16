@@ -91,7 +91,7 @@ jobs:
 
     director:
       address: 127.0.0.1
-      name: my-bosh
+      name: azure
       db: *db
       cpi_job: azure_cpi
       max_threads: 10
