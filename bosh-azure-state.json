@@ -1,14 +1,14 @@
 {
     "director_id": "fd84c1d4-a70e-4c3e-5a56-4aeef56fd067",
     "installation_id": "b207aa68-a9b1-470a-6c61-1c171e0a8485",
-    "current_vm_cid": "cunniestore-75a32ca1-f68f-4454-703e-9c35e76d8857",
+    "current_vm_cid": "cunniestore-1d0328c2-ce05-4810-633c-7d2a043b07f9",
     "current_stemcell_id": "02e74de9-a690-49f1-6423-65b5b006a62e",
     "current_disk_id": "d52a1ff4-e144-4fac-473c-dd60dbb8ccbc",
     "current_release_ids": [
-        "14750b2b-0fbe-4c6a-7266-34caf8ab7f44",
-        "dfc73aeb-0b26-40f9-5d86-bccf3771fd09"
+        "c5501814-2a82-4677-503f-ec46117ae4d9",
+        "27f7422d-fea7-42b1-75e6-3fad0c939132"
     ],
-    "current_manifest_sha": "00a423f81effe09f4e99d02eb445906e4becb5ccd87b67e93bcf01a56535bc65f413c684763f50cce581630ad10b1584037c292ebd2286094071dc7a007845c9",
+    "current_manifest_sha": "78c71a2bce1c0253d2790f16fa5a1653dc2b7666d878f7d34e4e4594b60477071a062705a0281f2277074d2456c12009708600b791d2c1cb598f9144800a5ead",
     "disks": [
         {
             "id": "d52a1ff4-e144-4fac-473c-dd60dbb8ccbc",
@@ -27,12 +27,12 @@
     ],
     "releases": [
         {
-            "id": "14750b2b-0fbe-4c6a-7266-34caf8ab7f44",
+            "id": "c5501814-2a82-4677-503f-ec46117ae4d9",
             "name": "bosh",
             "version": "257.15"
         },
         {
-            "id": "dfc73aeb-0b26-40f9-5d86-bccf3771fd09",
+            "id": "27f7422d-fea7-42b1-75e6-3fad0c939132",
             "name": "bosh-azure-cpi",
             "version": "17"
         }

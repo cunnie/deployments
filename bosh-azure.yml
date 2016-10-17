@@ -4,8 +4,8 @@ name: bosh
 
 releases:
 - name: bosh
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=257.15
-  sha1: f4cf3579bfac994cd3bde4a9d8cbee3ad189c8b2
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/release-bosh-257.15-on-ubuntu-trusty-stemcell-3263.7-20161012213254.tgz
+  sha1: c60bba8c44fc7d4715202b130dfc6206199a32ec
 - name: bosh-azure-cpi
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=17
   sha1: b265730fc26ae8dc07958de61c4b7f8c0187d59a
