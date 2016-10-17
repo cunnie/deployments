@@ -1,5 +1,5 @@
-azs:
-- name: z1
+#azs:
+#- name: z1
 
 vm_types:
 - name: compilation
@@ -12,6 +12,8 @@ vm_types:
 disk_types:
 - name: default
   disk_size: 10_240
+- name: nginx
+  disk_size: 5_120
 
 networks:
 - name: default
@@ -21,14 +23,16 @@ networks:
     gateway: 10.0.0.1
     reserved: [10.0.0.2-10.0.0.3]
     dns: [168.63.129.16]
-    azs: [z1]
+  #    azs: [z1]
     cloud_properties:
       virtual_network_name: boshnet
       subnet_name: bosh
+- name: vip
+  type: vip
 
 compilation:
   workers: 5
   reuse_compilation_vms: true
-  az: z1
+#  az: z1
   vm_type: compilation
   network: default
