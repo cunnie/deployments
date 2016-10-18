@@ -7,7 +7,6 @@ instance_groups:
   stemcell: centos
   instances: 1
   vm_type: standard_a0
-  persistent_disk_type: nginx
   jobs:
   - release: nginx
     name: nginx

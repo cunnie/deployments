@@ -8,12 +8,12 @@ vm_types:
 - name: standard_a0
   cloud_properties:
     instance_type: Standard_A0
+    ephemeral_disk:
+      use_root_disk: true
 
 disk_types:
 - name: default
   disk_size: 10_240
-- name: nginx
-  disk_size: 5_120
 
 networks:
 - name: default
