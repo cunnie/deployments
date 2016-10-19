@@ -1,17 +1,17 @@
 ---
-# bosh deploy -d nginx-ntp-pdns nginx-ntp-pdns-azure.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
+# bosh create-env nginx-ntp-pdns-azure.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
 name: nginx-ntp-pdns
 
 releases:
 - name: nginx
   url:  https://github.com/cloudfoundry-community/nginx-release/releases/download/v4/nginx-4.tgz
-  sha1: xxx
+  sha1: 67a39d65000ff4195b0c8283c30d92e81cea9a0a
 - name: ntp
   url:  https://github.com/cloudfoundry-community/ntp-release/releases/download/v4/ntp-4.tgz
-  sha1: xxx
+  sha1: 67a39d65000ff4195b0c8283c30d92e81cea9a0a
 - name: pdns
   url:  https://github.com/cloudfoundry-community/pdns-release/releases/download/v4.0.1/pdns-4.0.1.tgz
-  sha1: xxx
+  sha1: 67a39d65000ff4195b0c8283c30d92e81cea9a0a
 
 resource_pools:
 - name: vms
