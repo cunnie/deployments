@@ -43,7 +43,7 @@ jobs:
   instances: 1
 
   templates:
-  - {name: ntp,     release: ntp}
+  - {name: ntpd,    release: ntp}
   - {name: nginx,   release: nginx}
   - {name: pdns,    release: pdns}
 
@@ -222,12 +222,12 @@ jobs:
         # require at least 1s between packets from an address, rather than the default of 2s
         # http://lists.ntp.org/pipermail/questions/2010-April/026306.html
         discard minimum 0
-  pdns:
-    properties:
-      named_conf: ((pdns_named_conf))
-      pdns_conf: ((pdns_conf))
-      pipe: ((pdns_pipe))
-      pipe_conf: ((pdns_pipe_conf))
+    pdns:
+      properties:
+        named_conf: ((pdns_named_conf))
+        pdns_conf: ((pdns_conf))
+        pipe: ((pdns_pipe))
+        pipe_conf: ((pdns_pipe_conf))
     agent: { mbus: ((azure_director_agent_mbus)) }
 
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
