@@ -228,6 +228,7 @@ jobs:
       pdns_conf: ((pdns_conf))
       pipe: ((pdns_pipe))
       pipe_conf: ((pdns_pipe_conf))
+    agent: { mbus: ((azure_director_agent_mbus)) }
 
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
 
@@ -235,7 +236,7 @@ cloud_provider:
   template: {name: azure_cpi, release: bosh-azure-cpi}
 
   ssh_tunnel:
-    host: 13.76.210.151 # <--- Replace
+    host: 52.187.42.158 # <--- Replace
     port: 22
     user: vcap
     private_key: /Users/cunnie/.ssh/google
