@@ -1,17 +1,20 @@
 ---
-# bosh create-env nginx-ntp-pdns-azure.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
-name: nginx-ntp-pdns
+# bosh create-env nginx-ntp-pdns-azure-bosh-init.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+name: nginx-ntp-pdns-azure
 
 releases:
 - name: nginx
   url:  https://github.com/cloudfoundry-community/nginx-release/releases/download/v4/nginx-4.tgz
-  sha1: 67a39d65000ff4195b0c8283c30d92e81cea9a0a
+  sha1: cc0523d6b13d0e7cfed324610843d27a2df66826
 - name: ntp
   url:  https://github.com/cloudfoundry-community/ntp-release/releases/download/v4/ntp-4.tgz
-  sha1: 67a39d65000ff4195b0c8283c30d92e81cea9a0a
+  sha1: 44fae7426d3937fba23f2b57b6a794a0ded62922
 - name: pdns
   url:  https://github.com/cloudfoundry-community/pdns-release/releases/download/v4.0.1/pdns-4.0.1.tgz
-  sha1: 67a39d65000ff4195b0c8283c30d92e81cea9a0a
+  sha1: 9033648bd579a19c74b0e95933f35c5eaed37684
+- name: bosh-azure-cpi
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=17
+  sha1: b265730fc26ae8dc07958de61c4b7f8c0187d59a
 
 resource_pools:
 - name: vms
@@ -226,6 +229,8 @@ jobs:
       pipe: ((pdns_pipe))
       pipe_conf: ((pdns_pipe_conf))
 
+    ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
+
 cloud_provider:
   template: {name: azure_cpi, release: bosh-azure-cpi}
 
@@ -238,7 +243,17 @@ cloud_provider:
   mbus: ((azure_cloud_provider_mbus)) # <--- Replace
 
   properties:
-    azure: *azure
+    azure:
+      environment: AzureCloud
+      subscription_id: a1ac8d5a-7a97-4ed5-bfd1-d7822e19cae9 # <--- Replace
+      tenant_id: 682bd378-95db-41bd-8b1e-70fb407c4b10 # <--- Replace
+      client_id: bf7f78c1-6924-4a02-965c-b66f481a9b5f # <--- Replace
+      client_secret: ((azure_client_secret)) # <--- Replace
+      resource_group_name: bosh-res-group # <--- Replace
+      storage_account_name: cunniestore # <--- Replace
+      default_security_group: nsg-bosh # <--- Replace
+      ssh_user: vcap
+      ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9An3FOF/vUnEA2VkaYHoACjbmk3G4yAHE3lXnGpIhz3EV5k4B5RzEFKZnAIFcX18eBjYQIN9xQO0L9xkhlCyrQHrnXBjCDwt/BuQSiRvp3tlx9g0tGyuuJRI5n656Shc7w/g4UbrQWUBdLKjxTT4kTgAdK+1pgDbhAXdPtMwt4D/sz5OEFdf5O5Cp+0spxC+Ctdb94taZhScqB4xt6dRl7bwI28vZdq6Sjg/hbMBbTXzSJ17+ql8LJtXiUHO5W7MwNtKdZmlglOUy3CEIwDz3FdI9zKEfnfpfosp/hu+07/8Y02+U/fsjQyJy8ZCSsGY2e2XpvNNVj/3mnj8fP5cX cunnie@nono.io
     agent: { mbus: ((azure_cloud_provider_agent_mbus)) }
     blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
     ntp: *ntp
