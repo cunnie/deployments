@@ -1,5 +1,4 @@
 ---
-# DEPRECATED! Azure has no BOSH director; everything is deployed via bosh-init
 # bosh create-env bosh-azure.yml -l <(lpass show --note deployments)
 name: bosh
 
@@ -18,7 +17,7 @@ resource_pools:
     url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3263.7
     sha1: 3ea39c507e9a56cab79a0513ab8cc35d78f87a93
   cloud_properties:
-    instance_type: Standard_D1
+    instance_type: STANDARD_D2_V2
 
 disk_pools:
 - name: disks
