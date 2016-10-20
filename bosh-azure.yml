@@ -1,4 +1,5 @@
 ---
+# DEPRECATED! Azure has no BOSH director; everything is deployed via bosh-init
 # bosh create-env bosh-azure.yml -l <(lpass show --note deployments)
 name: bosh
 
