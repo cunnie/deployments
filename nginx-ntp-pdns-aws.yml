@@ -52,9 +52,9 @@ instance_groups:
       pre_start: |
         #!/bin/bash -ex
         NGINX_DIR=/var/vcap/store/nginx
-        if [ ! -d $NGINX_DIR ]; then
-          mkdir -p $(basename $NGINX_DIR)
-          cd $(basename $NGINX_DIR)
+        if [ ! -d $(dirname $NGINX_DIR) ]; then
+          mkdir -p $(dirname $NGINX_DIR)
+          cd $(dirname $NGINX_DIR)
           curl -L https://github.com/cunnie/sslip.io/archive/v1.tar.gz |
             tar xzf -
           mv sslip.io-1 $NGINX_DIR
