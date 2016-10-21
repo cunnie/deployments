@@ -11,9 +11,13 @@ vm_types:
     ephemeral_disk:
       use_root_disk: true
 
+# Don't even think of using a persistent disk with Standard_A0
+# you wil get `cannot find an available lun in the virtual machine`,
+# if not on the initial deploy then on a subsequent deploy if you change
+# the disk size
 disk_types:
 - name: default
-  disk_size: 10_240
+  disk_size: 3_072
 
 networks:
 - name: default
