@@ -1,14 +1,14 @@
 {
     "director_id": "fea7273b-809d-47cb-68f1-20c3834b003e",
     "installation_id": "22440d34-ebbf-4b1b-4502-fae3c13c2624",
-    "current_vm_cid": "cunniestore-6950fdd7-c5d6-4db7-7f62-0867e3130e45",
-    "current_stemcell_id": "4513f94f-3206-4b5f-5ad3-d6ae9ad56093",
+    "current_vm_cid": "cunniestore-1026e264-8201-4f3f-601f-966192703813",
+    "current_stemcell_id": "bd59a315-b5a2-4520-56a3-34b3451eddfe",
     "current_disk_id": "1fdcf63b-15fc-4c70-6811-24d6e14105ba",
     "current_release_ids": [
-        "42720bd7-e542-472c-74d2-b68538fa7dbd",
-        "d65ba904-dfa7-4dce-7cbc-987be0bca96e"
+        "d1dce910-2b12-4c68-57f1-188ba99ce80d",
+        "5241f701-840e-4cf1-57a3-6a697aea0e09"
     ],
-    "current_manifest_sha": "317621cabe2013a6533e69cc61d7cc451aaa0bdd2efe6b37e40009b1887b5727d970d6c5b813a8562f05b37599726602e95d808d343273b5d16bab6cc1bf9cd4",
+    "current_manifest_sha": "4f7a5d2dc2fb0ca78eba637847554a7d9c68ea78a5b5a02d3add36330aecfbe52b3303917257d4c2787bd55a4a1776622083cbfd3bafcfad36becbb43a5fc901",
     "disks": [
         {
             "id": "1fdcf63b-15fc-4c70-6811-24d6e14105ba",
@@ -19,20 +19,20 @@
     ],
     "stemcells": [
         {
-            "id": "4513f94f-3206-4b5f-5ad3-d6ae9ad56093",
+            "id": "bd59a315-b5a2-4520-56a3-34b3451eddfe",
             "name": "bosh-azure-hyperv-ubuntu-trusty-go_agent",
-            "version": "3263.7",
-            "cid": "bosh-stemcell-172a9115-f863-4ba6-8778-d279c40414c7"
+            "version": "3263.8",
+            "cid": "bosh-stemcell-437b90fa-32f1-4a5d-bdec-52de49c4e91b"
         }
     ],
     "releases": [
         {
-            "id": "42720bd7-e542-472c-74d2-b68538fa7dbd",
+            "id": "d1dce910-2b12-4c68-57f1-188ba99ce80d",
             "name": "bosh",
-            "version": "257.15"
+            "version": "258"
         },
         {
-            "id": "d65ba904-dfa7-4dce-7cbc-987be0bca96e",
+            "id": "5241f701-840e-4cf1-57a3-6a697aea0e09",
             "name": "bosh-azure-cpi",
             "version": "17"
         }

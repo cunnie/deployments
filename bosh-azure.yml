@@ -4,8 +4,8 @@ name: bosh
 
 releases:
 - name: bosh
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/release-bosh-257.15-on-ubuntu-trusty-stemcell-3263.7-20161012213254.tgz
-  sha1: c60bba8c44fc7d4715202b130dfc6206199a32ec
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=258
+  sha1: 66f7ce02eda71d63fc13e86a6d49fa5a8398c906
 - name: bosh-azure-cpi
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=17
   sha1: b265730fc26ae8dc07958de61c4b7f8c0187d59a
@@ -14,8 +14,8 @@ resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3263.7
-    sha1: 3ea39c507e9a56cab79a0513ab8cc35d78f87a93
+    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3263.8
+    sha1: 4c7788b70be83ac816c9d962e35d6ba5c7d04a94
   cloud_properties:
     instance_type: STANDARD_D2_V2
 
