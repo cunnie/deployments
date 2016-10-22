@@ -194,7 +194,6 @@ instance_groups:
       named_conf: ((pdns_named_conf))
       pdns_conf: ((pdns_conf))
       pipe: ((pdns_pipe))
-      pipe_conf: ((pdns_pipe_conf))
 
 update:
   canaries: 1
