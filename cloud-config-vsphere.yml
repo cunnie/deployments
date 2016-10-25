@@ -10,10 +10,6 @@ vm_types:
     cpu: 1
     ram: 1024
     disk: 3072
-    nsx:
-      security_groups:
-        - ping
-        - pong
 - name: compilation
   cloud_properties:
     cpu: 4
@@ -24,6 +20,9 @@ vm_extensions:
 - name: lb
   cloud_properties:
     nsx:
+      security_groups:
+        - ping
+        - pong
       lbs:
       - edge_name: lf-test-lb
         pool_name: lf-test-lb

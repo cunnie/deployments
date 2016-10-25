@@ -11,7 +11,7 @@ stemcells:
   version: latest
 
 instance_groups:
-- name: nginx-red
+- name: red
   instances: 1
   vm_type: default
   vm_extensions: [lb]
@@ -57,7 +57,7 @@ instance_groups:
             root /var/vcap/data/nginx/document_root;
           }
         }
-- name: nginx-green
+- name: green
   instances: 1
   vm_type: default
   vm_extensions: [lb]
@@ -103,7 +103,7 @@ instance_groups:
             root /var/vcap/data/nginx/document_root;
           }
         }
-- name: nginx-blue
+- name: blue
   instances: 1
   vm_type: default
   vm_extensions: [lb]
