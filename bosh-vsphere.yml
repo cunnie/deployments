@@ -1,0 +1,227 @@
+---
+name: vsphere
+
+releases:
+- name: bosh
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=258
+  sha1: 66f7ce02eda71d63fc13e86a6d49fa5a8398c906
+- name: bosh-vsphere-cpi
+  # TODO: switch to v30 after release
+  url: file:///Users/pivotal/workspace/bosh-vsphere-cpi-release/dev_releases/bosh-vsphere-cpi/bosh-vsphere-cpi-29+dev.6.tgz
+
+resource_pools:
+- name: vms
+  network: private
+  stemcell:
+    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent?v=3263.8
+    sha1: 6e58a5bfdce715aaa832ea1035972c84dc579577
+  cloud_properties:
+    cpu: 2
+    ram: 4_096
+    disk: 20_000
+  env:
+    bosh:
+      # c1oudc0w is a default password for vcap user
+      password: "$6$4gDD3aV0rdqlrKC$2axHCxGKIObs6tAmMTqYCspcdvQXh3JJcvWOY2WGb4SrdXtnCyNaWlrf3WEqvYR2MYizEGp3kMmbpwBC6jsHt0"
+
+disk_pools:
+- name: disks
+  disk_size: 20_000
+
+networks:
+- name: private
+  type: manual
+  subnets:
+  - range: 10.85.57.0/24
+    gateway: 10.85.57.1
+    dns: [10.87.8.10]
+    cloud_properties: {name: scarlet} # <--- Replace with Network name
+
+jobs:
+- name: bosh
+  instances: 1
+
+  templates:
+  - {name: nats, release: bosh}
+  - {name: postgres, release: bosh}
+  - {name: blobstore, release: bosh}
+  - {name: director, release: bosh}
+  - {name: health_monitor, release: bosh}
+  - {name: vsphere_cpi, release: bosh-vsphere-cpi}
+
+  resource_pool: vms
+  persistent_disk_pool: disks
+
+  networks:
+  - {name: private, static_ips: [10.85.57.6]}
+
+  properties:
+    nats:
+      address: 127.0.0.1
+      user: nats
+      password: nats-password
+
+    postgres: &db
+      listen_address: 127.0.0.1
+      host: 127.0.0.1
+      user: postgres
+      password: postgres-password
+      database: bosh
+      adapter: postgres
+
+    blobstore:
+      address: 10.85.57.6
+      port: 25250
+      provider: dav
+      director: {user: director, password: director-password}
+      agent: {user: agent, password: agent-password}
+
+    director:
+      address: 127.0.0.1
+      name: my-bosh
+      db: *db
+      cpi_job: vsphere_cpi
+      user_management:
+        provider: local
+        local:
+          users:
+          - {name: admin, password: admin}
+          - {name: hm, password: hm-password}
+      ssl:
+        # certificates created for IP SAN 10.85.57.6, instructions here: http://bosh.io/docs/director-certs.html
+        cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDDjCCAfagAwIBAgIJAKRuwdCnlYgeMA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNV
+          BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
+          aWRnaXRzIFB0eSBMdGQwIBcNMTYxMDEyMTg1MjQ2WhgPMjI5MDA3MjcxODUyNDZa
+          MDExCzAJBgNVBAYTAlVTMQ0wCwYDVQQKEwRCT1NIMRMwEQYDVQQDEwoxMC44NS41
+          Ny42MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvfEuznOa6P0kHAw2
+          vzDTPDtTCVquS/1gTM5DlKcKElTUTYIQUacpLn6+29x/6f4O3gEU6yVE8fPEBJO1
+          IwG0Wm4VSOt1MkCntDTrTB1WHwwYBbIa33buBZkDJ4o8VwUlVx+t0tf80Jdk8B6R
+          kQzpGWEt5WC+a+ZeepZLcVxU2l1v/j9x6PmiWnj7bi4r8j5IrkaWMlRh2/dUdYkv
+          U7vYpbbYBAfx317iXXl6ubPLryWyzBX54GqmW5vyL1gnB0j2KA+5yIkhCfbMkWIB
+          HzAYeoYqc17iAo69YhIDUEu02CD81DXe/q1I21I3O/JULMgeaDUNCUUDT57oHSj/
+          XbEZTQIDAQABoxMwETAPBgNVHREECDAGhwQKVTkGMA0GCSqGSIb3DQEBBQUAA4IB
+          AQBDq6tF/vQt3siQ4t2INwRZ0ROLtV75L2YRd9HrsacxmdssnxbhIx7BUu26KAOw
+          e9WLCEx4xHjIsiMtMCB7Nql2kpI+ZB9qb/3+QIGLmD/bXo4aHTdDI8y8p8pg8WsT
+          ZClurkM1mzHtHkuk1S5waNpqLA07Kl3Gypw5/8VjfZavDA5Ysl2lhxbhko7pgmgD
+          D24gRR9AqAMHvfESfP70nVCWTX4uULqzWpAnRVBtSDPwQ6sO7dCJqSWEQjT0GSbe
+          ssnVp86OV/LWa4NJTVf8/ukIL0rGkZIHzSA5J4nnloehA+CE6C+rN1ThtteOhY9g
+          nqjVBWjtvNNQIQyV7e56KEZx
+          -----END CERTIFICATE-----
+        key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          MIIEpAIBAAKCAQEAvfEuznOa6P0kHAw2vzDTPDtTCVquS/1gTM5DlKcKElTUTYIQ
+          UacpLn6+29x/6f4O3gEU6yVE8fPEBJO1IwG0Wm4VSOt1MkCntDTrTB1WHwwYBbIa
+          33buBZkDJ4o8VwUlVx+t0tf80Jdk8B6RkQzpGWEt5WC+a+ZeepZLcVxU2l1v/j9x
+          6PmiWnj7bi4r8j5IrkaWMlRh2/dUdYkvU7vYpbbYBAfx317iXXl6ubPLryWyzBX5
+          4GqmW5vyL1gnB0j2KA+5yIkhCfbMkWIBHzAYeoYqc17iAo69YhIDUEu02CD81DXe
+          /q1I21I3O/JULMgeaDUNCUUDT57oHSj/XbEZTQIDAQABAoIBAHHJs82wSeQ8Ck7X
+          LlD5UgJqU8Nt1K7nWrKIesnqC8mRkiHgwh/4cV5ORc522RZ3wbZTlZGNITGFZC+N
+          wVz4X3AxNIUbsXjqbM0zSqatiHNPDnETErA+kjc+RDqCwMUs6wK3kq2WAPmBSNHk
+          rjXkMxymMBWTEGCZgI4VzZpawuaRPBRsLbOsDum8BzY0Jw+7/Em799Qa4SKxJOzS
+          Qu2+EO5f9CbZ5gHUFXwyqCPSyeHknXoQpk5cbUGIeL9s6tI+Rd13jaGH+1iaScup
+          HxDC9Tp0XPwBwL7Pnz6WZyBtkTTDD/StwIK9+FaPTdeAjZ89k5qZZIVWl2VIZAtC
+          Bj4BwE0CgYEA8M6dgpndjDh98OU701STbVHC7+VWiIUBJ2PCWC9bT0wP5zjW0TzD
+          8cuLAIgDzng9+pQjgUy1Zoa79uLIBxtkyYysUfEXXvXCqJuuSSUoB4pRgdeGUW1p
+          Sfr6wDTWzvhRfzlKkF3GynSACySq9NgeAumRR7x1KNn/F6ZyPMUaSCsCgYEAye0G
+          Oatc4g4c960erVScn1/7QeKWBaR89o1TRfbCjDq4QxVQ9G2ejM4Z+stKYEgwCs1l
+          OOXmdIy9pJ3ebWcxVIiS88UtMjvPtaxGjggC4D2jjkvZG4sH2PbPjUqsXrPuu2a7
+          NFW0Bls+M2AkdgRKu8rsNK2JKQMorT+9SlbCMGcCgYA2D5yq6lIjnbcgcsY4jn8+
+          hqGF6+2+XmXA6xOBarhMGB5l4YvQk5zF1tVQ/DgmjTYU4FcMOyVqbAscxRL1DYBW
+          Az/YcZC2n+PgqHq7Lx1KfBIKXVFpTG/bzP2oUvR6qKLbNgh4WqU7ZGYumj/LEg3C
+          x573BOckkbREIfj5jaJ12wKBgQC6FG1KM7qyruLO84Bzpqd2z1KR0qcBqCVoZ7A3
+          p0B9TZeEal5iAaq8gym5ziFKPPvY2JLRLjuDaDdTPhA9rXzuM7WIY0pVIn01I/8Y
+          4BUWZHcWqJr4INUogbmesRPLafE0TWVyww/VU7wsSAsRnr7n9AZcPRdK7hhMH5Lm
+          sLDfPQKBgQC9dnMXBcEZILatmmupX+QYHQfl6lRss7X27winmaWwx5LI8CqbKCD6
+          Uoyaxzm1AyoemRaZu06PjeI3i748gLQFRfW/OdJgwe7Xa1Vr2wShe3494QZTsS2V
+          EVjN1j2ViNYmh+G9wiOTWkdJS/zoRkuetSLaYVbp5KIEzrb5hmXNYQ==
+          -----END RSA PRIVATE KEY-----
+
+    hm:
+      intervals:
+        agent_timeout: 180
+      director_account:
+        user: hm
+        password: hm-password
+        # This was the CA Certificate (rootCA.pem), not the IP SAN certificate, created above
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDtzCCAp+gAwIBAgIJAId+OBNAp5m5MA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNV
+          BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
+          aWRnaXRzIFB0eSBMdGQwIBcNMTYxMDEyMTg1MjQ2WhgPMjI5MDA3MjcxODUyNDZa
+          MEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJ
+          bnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+          ggEKAoIBAQDNi8d9R1hzO3uEUBHgaoAUx53HKpuF/Fa3B5oF6osIfwIegWqhocnP
+          mFvIFbRabd9eHdiJPfR7OpeLWCaChieLZMPIek/B1XZ8yQ9nB594C4vFz4oYEZ8v
+          aun85niI2UI0XaeDHWws9jcZalFHfxWQOnoTXQ2NNJOvyUWxL0YbYh+rdmpqZiI4
+          lMCxx4iba5vdWAg6kBSgkOCMLvEIN5R4gPV8DXV2fzObv5qMnFwj+D1xPOohFmJr
+          OuwV1bQJYzbgGySsxL6i1fs/FdR6nwfIy66C2AaU/FthL1GfacwPXshGisRy7voU
+          UPFqrN6Y9GZA4Zk99V19xWBRIQDVMdZfAgMBAAGjgacwgaQwHQYDVR0OBBYEFN8o
+          jrE4/8af1BLfTR3IympevWf9MHUGA1UdIwRuMGyAFN8ojrE4/8af1BLfTR3Iympe
+          vWf9oUmkRzBFMQswCQYDVQQGEwJBVTETMBEGA1UECBMKU29tZS1TdGF0ZTEhMB8G
+          A1UEChMYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkggkAh344E0CnmbkwDAYDVR0T
+          BAUwAwEB/zANBgkqhkiG9w0BAQUFAAOCAQEADlxKbF7OyhHzmqfl/DLm2UxbVg0V
+          lb9UuudxJU7AsHqkUkdS8BlCc+5u+WNwot7mq9SW2n4stLS1lOniwXxE6Zhitzz7
+          7hLg2kYJ5ojP9YzSUSUOFYQQx730Yi+GyvF6QkZOUXQ90qKQ7zeOVJL8mD2OxsDM
+          lZTPfAPNHlW8LKiTVqBlDxN7StFkY9qtyfwyskKLZhAp4Sl9qe1bi+Q4AI+m4mEY
+          z6mDfC724ZQ3qYTckXvkU56x31llJtEoRtvDnLHgqu1O5NwdhbvTfh1wdTw8ypc4
+          WXC7cBM54eN4iwz84mw1YV/lRyzgTUh58aZJPVPioTxRfGhzNztNU4xWVA==
+          -----END CERTIFICATE-----
+
+      resurrector_enabled: true
+
+    vcenter: &vcenter # <--- Replace values below
+      address:   ((lifecycle_vsphere_6_0_host))      # e.g. vcenter.example.com
+      user:      ((lifecycle_vsphere_6_0_user))      # e.g. administrator@vsphere.local
+      password:  ((lifecycle_vsphere_6_0_password))
+      nsx:
+        address:  ((lifecycle_vsphere_6_0_nsx_address))  # e.g. nsx.example.com
+        user:     ((lifecycle_vsphere_6_0_nsx_user))     # e.g. administrator@vsphere.local
+        password: ((lifecycle_vsphere_6_0_nsx_password))
+        # extracted from NSX server by TODO
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDdTCCAl2gAwIBAgIEVK933DANBgkqhkiG9w0BAQsFADBrMQswCQYDVQQGEwJV
+          UzELMAkGA1UECBMCQ0ExEjAQBgNVBAcTCVBhbG8gQWx0bzEUMBIGA1UEChMLVk13
+          YXJlIEluYy4xDDAKBgNVBAsTA05TWDEXMBUGA1UEAxMObnN4LmNmLWFwcC5jb20w
+          HhcNMTYwODEyMTYzNDAzWhcNMjYwODEwMTYzNDAzWjBrMQswCQYDVQQGEwJVUzEL
+          MAkGA1UECBMCQ0ExEjAQBgNVBAcTCVBhbG8gQWx0bzEUMBIGA1UEChMLVk13YXJl
+          IEluYy4xDDAKBgNVBAsTA05TWDEXMBUGA1UEAxMObnN4LmNmLWFwcC5jb20wggEi
+          MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDUWUueyHDxy8PXg9pD8spsmNq8
+          5RWU8+tglzxdKF0SjrcWC6DgmPF+ikc4KtTkfSaVdtYC5HRavqoIyRyohTsVPar4
+          rXsuIt1GoSYZWiOTd0BZPh/jPsmJMsKnn6eALWDs6zO8W9Eo+NhFjuK8puabUCif
+          Q4ogU+ls0g2xjW2Rcym3Iyjz5FkpEiCnwHC8ErcX0uOJ2YCPvTwcbpLWdaIVGvbx
+          cfd9vgbV8BNojU9/ON3v4PZu9SrDOmT+gkRhyScoXYgmu+eyNjKANSA84etDmNa5
+          5yY1JJVrUCn1ZyqbbvO7xd9g3Gt37yU/viY6pH56zRx9zYl7JJ4PCiCzw+nnAgMB
+          AAGjITAfMB0GA1UdDgQWBBRjtpjA+EXcAMIU40glsXvj0Xi28TANBgkqhkiG9w0B
+          AQsFAAOCAQEAeo3+hwxO1zGyOCNg5PtpQvgI4omp//dxfvXjsumkzJdb0HUZJkWL
+          ULo05KcwYOYxPKFHqvB3MTJ2scAN/ZOB6JplqwZMsUKEOm9DmApkdqCCr1YG2CiL
+          TPoErkSF4e74p3Hi3NE38It5aERG8efElqN9bhIV6Orggzyayf7cf+9hKunfUCHt
+          w1Ylc+1Fe+vq1X9PdLSKzriIpeYdGztUDxy2NEtPdnEoHoP04O7NIUDlYk9u9PSM
+          B65bge2pySVcq0s6MVIYS2xCR6HdB5bEJ5iacCvyV8iZ69HPJAdPLYust0O2Smhy
+          jDuorQ/dgn39uHRzlChQOawR2FWoiQEqbA==
+          -----END CERTIFICATE-----
+      datacenters:
+      - name: six
+        vm_folder: lf-test
+        template_folder: lf-test
+        datastore_pattern: freenas-smurfs
+        persistent_datastore_pattern: freenas-smurfs
+        disk_path: lf-test
+        clusters: [scarlet-1]
+
+    agent: {mbus: "nats://nats:nats-password@10.85.57.6:4222"}
+
+    ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
+
+cloud_provider:
+  template: {name: vsphere_cpi, release: bosh-vsphere-cpi}
+
+  mbus: "https://mbus:mbus-password@10.85.57.6:6868"
+
+  properties:
+    vcenter: *vcenter
+    agent: {mbus: "https://mbus:mbus-password@0.0.0.0:6868"}
+    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
+    ntp: *ntp
