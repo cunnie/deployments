@@ -58,7 +58,6 @@ instance_groups:
   - {name: blobstore, release: bosh}
   - {name: director, release: bosh}
   - {name: health_monitor, release: bosh}
-  - {name: registry, release: bosh}
   - {name: powerdns, release: bosh}   # dynamic networking requirement
   - {name: google_cpi, release: bosh-google-cpi}
 
@@ -90,14 +89,6 @@ instance_groups:
       password: ((password_postgres))
       database: bosh
       adapter: postgres
-    registry:
-      address: 10.128.0.2 # <--- replace with the static Internal IP
-      host: 10.128.0.2 # <--- replace with the static Internal IP
-      db: *db
-      http: {user: admin, password: ((password_director)), port: 25777}
-      username: admin
-      password: ((password_director))
-      port: 25777
 
     blobstore:
       address: 10.128.0.2
