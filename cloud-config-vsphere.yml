@@ -1,0 +1,53 @@
+azs:
+- name: z1
+  cloud_properties:
+    datacenters:
+    - clusters: [scarlet-1: {}]
+
+vm_types:
+- name: default
+  cloud_properties:
+    cpu: 1
+    ram: 1024
+    disk: 3072
+    nsx:
+      security_groups:
+        - ping
+        - pong
+- name: compilation
+  cloud_properties:
+    cpu: 4
+    ram: 4096
+    disk: 3072
+
+vm_extensions:
+- name: lb
+  cloud_properties:
+    nsx:
+      lbs:
+      - edge_name: lf-test-lb
+        pool_name: lf-test-lb
+        security_group: colors
+        port: 80
+
+disk_types:
+- name: default
+  disk_size: 1024
+
+networks:
+- name: manual
+  type: manual
+  subnets:
+  - range: 10.85.57.0/24
+    gateway: 10.85.57.1
+    reserved: [10.85.57.2-10.85.57.6, 10.85.57.20]
+    static: [10.85.57.21-10.85.57.23]
+    dns: [8.8.8.8]
+    cloud_properties:
+      name: scarlet
+
+compilation:
+  workers: 5
+  reuse_compilation_vms: true
+  vm_type: compilation
+  network: manual
