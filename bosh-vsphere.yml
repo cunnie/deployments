@@ -6,8 +6,8 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=258
   sha1: 66f7ce02eda71d63fc13e86a6d49fa5a8398c906
 - name: bosh-vsphere-cpi
-  # TODO: switch to v30 after release
-  url: file:///Users/pivotal/workspace/bosh-vsphere-cpi-release/dev_releases/bosh-vsphere-cpi/bosh-vsphere-cpi-29+dev.6.tgz
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=30
+  sha1: 3af18dbc2d601617b8ff68966c39d3c487c30f92
 
 resource_pools:
 - name: vms
@@ -179,7 +179,8 @@ jobs:
         address:  ((lifecycle_vsphere_6_0_nsx_address))  # e.g. nsx.example.com
         user:     ((lifecycle_vsphere_6_0_nsx_user))     # e.g. administrator@vsphere.local
         password: ((lifecycle_vsphere_6_0_nsx_password))
-        # extracted from NSX server by TODO
+        # extracted from NSX server by
+        # `true | openssl s_client -connect YOUR_NSX_MANAGER:443 2>/dev/null | openssl x509`
         ca_cert: |
           -----BEGIN CERTIFICATE-----
           MIIDdTCCAl2gAwIBAgIEVK933DANBgkqhkiG9w0BAQsFADBrMQswCQYDVQQGEwJV
