@@ -21,12 +21,11 @@ vm_extensions:
   cloud_properties:
     nsx:
       security_groups:
-        - ping
-        - pong
+      - allow-http
       lbs:
-      - edge_name: lf-test-lb
-        pool_name: lf-test-lb
-        security_group: colors
+      - edge_name: load-balancer
+        pool_name: http-pool
+        security_group: http-backend
         port: 80
 
 disk_types:
