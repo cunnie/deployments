@@ -90,7 +90,8 @@ jobs:
           - {name: admin, password: admin}
           - {name: hm, password: hm-password}
       ssl:
-        # certificates created for IP SAN 10.85.57.6, instructions here: http://bosh.io/docs/director-certs.html
+        # TODO: Replace the certificate and key below with your certificate and key.
+        # Certificates and created for IP SAN 10.85.57.6, instructions here: http://bosh.io/docs/director-certs.html
         cert: |
           -----BEGIN CERTIFICATE-----
           MIIDDjCCAfagAwIBAgIJAKRuwdCnlYgeMA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNV
