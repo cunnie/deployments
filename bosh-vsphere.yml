@@ -1,10 +1,11 @@
 ---
-name: vsphere
+# bosh create-env bosh-vsphere.yml -l <(lpass show --note "vsphere cpi concourse secrets")
+name: bosh_vsphere
 
 releases:
 - name: bosh
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=258
-  sha1: 66f7ce02eda71d63fc13e86a6d49fa5a8398c906
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=259
+  sha1: 94cd3ade8549fbc6a02fcca349794ac40045c22c
 - name: bosh-vsphere-cpi
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=30
   sha1: 3af18dbc2d601617b8ff68966c39d3c487c30f92
@@ -32,10 +33,10 @@ networks:
 - name: private
   type: manual
   subnets:
-  - range: 10.85.57.0/24
+  - range: 10.85.57.0/24 # <--- TODO: Replace with your networking ifnformation (CIDR, gateway, DNS)
     gateway: 10.85.57.1
     dns: [10.87.8.10]
-    cloud_properties: {name: scarlet} # <--- Replace with Network name
+    cloud_properties: {name: scarlet} # <--- TODO: Replace with Network name
 
 jobs:
 - name: bosh
@@ -53,7 +54,8 @@ jobs:
   persistent_disk_pool: disks
 
   networks:
-  - {name: private, static_ips: [10.85.57.6]}
+  - {name: private, static_ips: [10.85.57.6]} # <--- TODO: Replace with an available IP within the above network
+                                                # Replace _all_ occurrences of this IP in this manifest with your IP
 
   properties:
     nats:
@@ -171,7 +173,7 @@ jobs:
 
       resurrector_enabled: true
 
-    vcenter: &vcenter # <--- Replace values below
+    vcenter: &vcenter # <--- TODO: Replace values below
       address:   ((lifecycle_vsphere_6_0_host))      # e.g. vcenter.example.com
       user:      ((lifecycle_vsphere_6_0_user))      # e.g. administrator@vsphere.local
       password:  ((lifecycle_vsphere_6_0_password))
@@ -179,8 +181,10 @@ jobs:
         address:  ((lifecycle_vsphere_6_0_nsx_address))  # e.g. nsx.example.com
         user:     ((lifecycle_vsphere_6_0_nsx_user))     # e.g. administrator@vsphere.local
         password: ((lifecycle_vsphere_6_0_nsx_password))
-        # extracted from NSX server by
+        # If your NSX manager has a valid CA-issued cert, then you don't need to specify `ca_cert` below.
+        # TODO: if your NSX manager is using a self-signed cert, extracted the cert with the following command
         # `true | openssl s_client -connect YOUR_NSX_MANAGER:443 2>/dev/null | openssl x509`
+        # and place below.
         ca_cert: |
           -----BEGIN CERTIFICATE-----
           MIIDdTCCAl2gAwIBAgIEVK933DANBgkqhkiG9w0BAQsFADBrMQswCQYDVQQGEwJV
