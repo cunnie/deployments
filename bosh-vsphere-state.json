@@ -1,14 +1,14 @@
 {
     "director_id": "ab72701a-a685-4784-6080-5dc03df03ea0",
     "installation_id": "3d135c95-2b37-4c3a-4d37-f5e80f8ccfeb",
-    "current_vm_cid": "vm-43abddf0-edfa-468e-95d4-acc9679b1b40",
+    "current_vm_cid": "vm-37f87ed6-5dfa-45a3-a7d6-f8a1d71ea167",
     "current_stemcell_id": "b31d22bb-1b40-4bf7-7dad-c539befc9107",
     "current_disk_id": "0867fec4-8c88-45cf-5bf3-dfce11329ae0",
     "current_release_ids": [
-        "1f683b15-fb6f-49ae-461f-fdd5f2daaaa1",
-        "beddb951-ed80-4a8b-4757-80ac7c6197d9"
+        "acc6bdb0-51b6-41ee-57a4-2d0f11110329",
+        "324f1da8-b1e8-4bcb-51f0-7177ca432bf2"
     ],
-    "current_manifest_sha": "fa593b8c9902824e57c2dc1cdaffa6d2ea9991c8fb722622056e32334202fa9e323169c5f5ee4c10ed5607e20e5ceb5a2857a2c6702d2b1ca8ce9591ecc3c66e",
+    "current_manifest_sha": "bd8cf2135ed0f44725b403845f5f926bd486a789d0561d77686b10563070bfdc2cd55f3cabf58eaf2bae3e24014dff8b0d392ae13799fa472a3739fd20264c15",
     "disks": [
         {
             "id": "0867fec4-8c88-45cf-5bf3-dfce11329ae0",
@@ -27,12 +27,12 @@
     ],
     "releases": [
         {
-            "id": "1f683b15-fb6f-49ae-461f-fdd5f2daaaa1",
+            "id": "acc6bdb0-51b6-41ee-57a4-2d0f11110329",
             "name": "bosh",
             "version": "259"
         },
         {
-            "id": "beddb951-ed80-4a8b-4757-80ac7c6197d9",
+            "id": "324f1da8-b1e8-4bcb-51f0-7177ca432bf2",
             "name": "bosh-vsphere-cpi",
             "version": "31"
         }

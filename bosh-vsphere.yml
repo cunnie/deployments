@@ -80,7 +80,7 @@ jobs:
 
     director:
       address: 127.0.0.1
-      name: my-bosh
+      name: vSphere
       db: *db
       cpi_job: vsphere_cpi
       user_management:
