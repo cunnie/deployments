@@ -21,11 +21,11 @@ vm_extensions:
   cloud_properties:
     nsx:
       security_groups:
-      - deny-ssh              # TODO: create in advance & assign firewall rules
+      - deny-ssh                     # TODO: create in advance & assign firewall rules
       lbs:
       - edge_name: load-balancer
-        pool_name: http-pool  # does not need to be created in advance
-        security_group: http-backend
+        pool_name: http-pool
+        security_group: http-backend # does not need to be created in advance
         port: 80
 
 disk_types:
