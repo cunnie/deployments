@@ -5,8 +5,8 @@ name: bosh-gce
 
 releases:
 - name: bosh
-  url:  https://bosh.io/d/github.com/cloudfoundry/bosh?v=258
-  sha1: 66f7ce02eda71d63fc13e86a6d49fa5a8398c906
+  url:  https://bosh.io/d/github.com/cloudfoundry/bosh?v=260
+  sha1: f8f086974d9769263078fb6cb7927655744dacbc
 - name: bosh-google-cpi
   url:  https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.5.0
   sha1: 974c097f08920b7d9f3a7a2f6fe64495c387a644
@@ -15,9 +15,9 @@ resource_pools:
 - name: vms
   network: private
   stemcell:
-    #url: file:///tmp/bosh-stemcell-3262.cpi-google-kvm-ubuntu-trusty-go_agent.tgz
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3263.8-google-kvm-ubuntu-trusty-go_agent.tgz
-    sha1: 775fd2a70c7f3e520135eb9de168338f34500866
+    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3306-google-kvm-ubuntu-trusty-go_agent.tgz
+    # url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3306
+    sha1: b3db7aba4be00524ed8804767857cc1d5cfabe19
   cloud_properties:
     machine_type: g1-small
     root_disk_size_gb: 40

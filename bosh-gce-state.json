@@ -4,11 +4,8 @@
     "current_vm_cid": "vm-d1572aa0-315d-47ce-63bc-5f6275372534",
     "current_stemcell_id": "2e8ff2b2-8f82-4e2c-7c98-9b51a194071b",
     "current_disk_id": "f53516ba-6174-4abf-4bfe-d3ebe1773382",
-    "current_release_ids": [
-        "3acac927-4c8d-4cef-6d00-fc83488142d0",
-        "59d98776-5804-4205-4eb8-5cc259a2ee97"
-    ],
-    "current_manifest_sha": "f3bd6a107a17df40d107f68c37cce70e70d96868b46fbbcc93b2e3de7d5a1aec2c713ce43b8cb459dab49e73e814b582358722ed8a07d936df311b876b769b5e",
+    "current_release_ids": [],
+    "current_manifest_sha": "",
     "disks": [
         {
             "id": "f53516ba-6174-4abf-4bfe-d3ebe1773382",
@@ -27,16 +24,5 @@
             "cid": "stemcell-884071ed-f635-4284-7aa7-5dee79f1b828"
         }
     ],
-    "releases": [
-        {
-            "id": "3acac927-4c8d-4cef-6d00-fc83488142d0",
-            "name": "bosh",
-            "version": "258"
-        },
-        {
-            "id": "59d98776-5804-4205-4eb8-5cc259a2ee97",
-            "name": "bosh-google-cpi",
-            "version": "25.5.0"
-        }
-    ]
+    "releases": []
 }
