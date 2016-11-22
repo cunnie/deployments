@@ -11,6 +11,8 @@ releases:
   version: latest
 - name: pdns
   version: latest
+- name: sysctl
+  version: latest
 
 stemcells:
 - alias: ubuntu
@@ -194,6 +196,12 @@ instance_groups:
       named_conf: ((pdns_named_conf))
       pdns_conf: ((pdns_conf))
       pipe: ((pdns_pipe))
+  - release: sysctl
+    name: sysctl
+    properties:
+      sysctl_conf: |
+        # fixes: `nf_conntrack: table full, dropping packet`
+        net.nf_conntrack_max=524288
 
 update:
   canaries: 1
