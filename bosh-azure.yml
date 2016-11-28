@@ -4,18 +4,18 @@ name: bosh
 
 releases:
 - name: bosh
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=258
-  sha1: 66f7ce02eda71d63fc13e86a6d49fa5a8398c906
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=260
+  sha1: f8f086974d9769263078fb6cb7927655744dacbc
 - name: bosh-azure-cpi
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=17
-  sha1: b265730fc26ae8dc07958de61c4b7f8c0187d59a
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=20
+  sha1: fb0180c685714d064b5a467eb6f2b34388fadf0a
 
 resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3263.8
-    sha1: 4c7788b70be83ac816c9d962e35d6ba5c7d04a94
+    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3312
+    sha1: c9f4a630b9b0483fb6db4e589c3006049ae8c2c9
   cloud_properties:
     instance_type: STANDARD_D2_V2
 
@@ -219,7 +219,7 @@ jobs:
       ssh_user: vcap
       ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9An3FOF/vUnEA2VkaYHoACjbmk3G4yAHE3lXnGpIhz3EV5k4B5RzEFKZnAIFcX18eBjYQIN9xQO0L9xkhlCyrQHrnXBjCDwt/BuQSiRvp3tlx9g0tGyuuJRI5n656Shc7w/g4UbrQWUBdLKjxTT4kTgAdK+1pgDbhAXdPtMwt4D/sz5OEFdf5O5Cp+0spxC+Ctdb94taZhScqB4xt6dRl7bwI28vZdq6Sjg/hbMBbTXzSJ17+ql8LJtXiUHO5W7MwNtKdZmlglOUy3CEIwDz3FdI9zKEfnfpfosp/hu+07/8Y02+U/fsjQyJy8ZCSsGY2e2XpvNNVj/3mnj8fP5cX cunnie@nono.io
 
-    agent: { mbus: ((azure_director_agent_mbus)) }
+    agent: { mbus: "nats://nats:((password_nats))@10.0.0.4:4222" }
 
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
 
@@ -232,10 +232,10 @@ cloud_provider:
     user: vcap
     private_key: /Users/cunnie/.ssh/google
 
-  mbus: ((azure_cloud_provider_mbus)) # <--- Replace
+  mbus: "https://mbus:((password_mbus))@13.76.210.151:6868" # <--- Replace
 
   properties:
     azure: *azure
-    agent: { mbus: ((azure_cloud_provider_agent_mbus)) }
+    agent: { mbus: "https://mbus:((password_mbus))@0.0.0.0:6868" }
     blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
     ntp: *ntp
