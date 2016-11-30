@@ -1,15 +1,18 @@
 {
     "director_id": "b7166315-cbc8-49cb-7ff0-e512ad612560",
     "installation_id": "38d3017d-7b4f-4c69-6a7a-4122fd45d8d0",
-    "current_vm_cid": "cunniestore-4a2f0557-8020-4be4-76e5-2e37b39bffdc",
+    "current_vm_cid": "cunniestore-46f68f29-4d6c-408c-4263-c6bd6619924b",
     "current_stemcell_id": "06ddb84e-13bd-4256-5d6a-6b7fd9433546",
-    "current_disk_id": "",
-    "current_release_ids": [],
-    "current_manifest_sha": "",
+    "current_disk_id": "e9b8bf58-58a7-4695-780c-f0cc3c362062",
+    "current_release_ids": [
+        "8728e52e-b70d-44ce-688f-86a3de9f4891",
+        "28894450-c26d-41d6-5c4d-f55c892f19a1"
+    ],
+    "current_manifest_sha": "eb5e61d50464a0746923bce1142abc88d75bbc84ae0dc8eb9436289a71d9db30d6ecb2f210002b5a1c51c686f729d7ecd672fa0495afbfbd5a3c4254ce803177",
     "disks": [
         {
-            "id": "d04ac210-59ed-419f-4290-72885b6bf30d",
-            "cid": "bosh-data-cunniestore-bf3ee581-926a-4ed5-b2ff-3e01a8d07729-None",
+            "id": "e9b8bf58-58a7-4695-780c-f0cc3c362062",
+            "cid": "bosh-data-cunniestore-f8511a5c-c154-43f3-aa07-4b3d6229bb84-None",
             "size": 20000,
             "cloud_properties": {}
         }
@@ -22,5 +25,16 @@
             "cid": "bosh-stemcell-6b3deeba-0f31-481b-9bfd-b4d5fd49219e"
         }
     ],
-    "releases": []
+    "releases": [
+        {
+            "id": "8728e52e-b70d-44ce-688f-86a3de9f4891",
+            "name": "bosh",
+            "version": "260"
+        },
+        {
+            "id": "28894450-c26d-41d6-5c4d-f55c892f19a1",
+            "name": "bosh-azure-cpi",
+            "version": "20"
+        }
+    ]
 }
