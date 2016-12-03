@@ -11,7 +11,7 @@ releases:
   sha1: f36967927ceae09e5663a41fdda199edfe649dc6
 - name: sysctl
   url: https://github.com/cloudfoundry-community/sysctl-release/releases/download/v1/sysctl-1.tgz
-  sha1: xxxx
+  sha1: 78f31f2355f07ac1ddf4524d951f4bc9700e721a
 
 resource_pools:
 - name: vms
@@ -20,7 +20,7 @@ resource_pools:
     url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3312.5
     sha1: a566ef931a6807d6f82ebdb37bf89f3074158499
   cloud_properties:
-    instance_type: m4.xlarge
+    instance_type: t2.medium # Do NOT use M3!
     ephemeral_disk: {size: 25_000, type: gp2}
     availability_zone: us-east-2a # <--- Replace with Availability Zone
 
