@@ -52,6 +52,7 @@ jobs:
   - {name: health_monitor, release: bosh}
   - {name: registry, release: bosh}
   - {name: aws_cpi, release: bosh-aws-cpi}
+  - {name: sysctl, release: sysctl}
 
   resource_pool: vms
   persistent_disk_pool: disks
@@ -130,9 +131,10 @@ jobs:
 
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
 
-    sysctl:
-      sysctl_conf: |
-        # undo BOSH's stemcell's IPv6 lockdowns
+    sysctl_conf: |
+      # undo BOSH's stemcell's IPv6 lockdowns
+      net.ipv6.conf.all.disable_ipv6=0
+      net.ipv6.conf.default.disable_ipv6=0
 
 cloud_provider:
   template: {name: aws_cpi, release: bosh-aws-cpi}
