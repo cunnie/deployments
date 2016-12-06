@@ -133,8 +133,19 @@ jobs:
 
     sysctl_conf: |
       # undo BOSH's stemcell's IPv6 lockdowns
+      # 10-ipv6-privacy.conf
+      net.ipv6.conf.all.use_tempaddr = 0
+      net.ipv6.conf.default.use_tempaddr = 0
+      # 60-bosh-sysctl.conf
+      net.ipv6.conf.all.accept_ra=1
+      net.ipv6.conf.default.accept_ra=1
       net.ipv6.conf.all.disable_ipv6=0
       net.ipv6.conf.default.disable_ipv6=0
+      net.ipv6.conf.default.accept_redirects=1
+      net.ipv6.conf.all.accept_redirects=1
+      net.ipv6.route.flush=0
+
+      # perl -pi -e 's/(options ipv6 disable=1)/# \1/' /etc/modprobe.d/blacklist.conf
 
 cloud_provider:
   template: {name: aws_cpi, release: bosh-aws-cpi}
