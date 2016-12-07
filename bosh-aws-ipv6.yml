@@ -144,8 +144,15 @@ jobs:
       net.ipv6.conf.default.accept_redirects=1
       net.ipv6.conf.all.accept_redirects=1
       net.ipv6.route.flush=0
-
-      # perl -pi -e 's/(options ipv6 disable=1)/# \1/' /etc/modprobe.d/blacklist.conf
+    bash_start_snippet: |
+      export DHCP6_PID=/run/dhclient6.eth0.pid # Ubuntu-style location
+      # '-nw' "Become a daemon immediately (nowait) rather than waiting until an an IP address has been acquired."
+      # assigning an IPv6 address on AWS requires a manual step, and we don't want to wait for that manual step
+      [ ! -f $DHCP6_PID ] && dhclient -1 -6 -nw -pf $DHCP6_PID -lf /var/lib/dhcp/dhclient6.eth0.leases eth0
+    bash_stop_snippet: |
+      export DHCP6_PID=/run/dhclient6.eth0.pid # Ubuntu-style location
+      # '-nw' "Become a daemon immediately (nowait) rather than waiting until an an IP address has been acquired."
+      [ -f $DHCP6_PID ] && ( kill $(cat $DHCP6_PID); rm $DHCP6_PID)
 
 cloud_provider:
   template: {name: aws_cpi, release: bosh-aws-cpi}
