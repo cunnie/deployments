@@ -1,15 +1,15 @@
 {
     "director_id": "4e3f28ba-9d84-4229-50ce-39d0a0cfe026",
     "installation_id": "a0284982-2f74-4ff4-72fc-dfa8d5b25c57",
-    "current_vm_cid": "i-0af80673d074e2c14",
-    "current_stemcell_id": "e6b1019c-cbf1-48e3-6c8f-b666534dddfb",
+    "current_vm_cid": "i-0c17f5c169c8c70d2",
+    "current_stemcell_id": "3f283ca7-16d8-49fb-612f-54aeb442a426",
     "current_disk_id": "ae0d40d8-3588-4ef6-7edf-439998498aab",
     "current_release_ids": [
-        "728c3441-fac8-4f8c-5c0a-a2fd2ce47d78",
-        "2b984038-1d59-46e8-663f-b6f22252d070",
-        "905f8aa2-7dce-4c13-5b93-44820d066074"
+        "6e1229ba-adaf-4fb7-6813-bd4c42609eaa",
+        "f81ad866-168a-4589-5aa8-e70e687650f3",
+        "1a113a5b-c63b-434f-45cd-cd46df56e122"
     ],
-    "current_manifest_sha": "8cc91ef7e47429f4f7c73498b1cc789de9d539162e8527d3ea76149ef0eb2b1d9061137d953cd2ddcdf9fe3d1066293ff4948de7e7d49194c21da9206fd4f7d9",
+    "current_manifest_sha": "4be635c0c9f583be788628a84fdde411d3468ff4a1e5e18b3d2a181bc9c21b24376e0556553e26369e5aa077de86b5965d1ab4fe2f763ad207bdbfb4e456ff0e",
     "disks": [
         {
             "id": "ae0d40d8-3588-4ef6-7edf-439998498aab",
@@ -22,27 +22,27 @@
     ],
     "stemcells": [
         {
-            "id": "e6b1019c-cbf1-48e3-6c8f-b666534dddfb",
+            "id": "3f283ca7-16d8-49fb-612f-54aeb442a426",
             "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
-            "version": "3312.5",
-            "cid": "ami-5081db35 light"
+            "version": "3312.7",
+            "cid": "ami-98bae0fd light"
         }
     ],
     "releases": [
         {
-            "id": "728c3441-fac8-4f8c-5c0a-a2fd2ce47d78",
+            "id": "6e1229ba-adaf-4fb7-6813-bd4c42609eaa",
             "name": "bosh",
             "version": "260"
         },
         {
-            "id": "2b984038-1d59-46e8-663f-b6f22252d070",
+            "id": "f81ad866-168a-4589-5aa8-e70e687650f3",
             "name": "bosh-aws-cpi",
             "version": "62"
         },
         {
-            "id": "905f8aa2-7dce-4c13-5b93-44820d066074",
+            "id": "1a113a5b-c63b-434f-45cd-cd46df56e122",
             "name": "sysctl",
-            "version": "1"
+            "version": "2"
         }
     ]
 }
