@@ -150,6 +150,8 @@ jobs:
       dhclient -nw -v -6 -pf $DHCP6_PID -lf /var/lib/dhcp/dhclient6.eth0.leases eth0
     bash_stop_snippet: |
       export DHCP6_PID=/run/dhclient6.eth0.pid # Ubuntu-style location
+      # the following will kill the dhclient but not release the IPv6 address
+      # on 3312.7 Ubuntu stemcell, documentation notwithstanding
       dhclient -r -nw -v -pf $DHCP6_PID -lf /var/lib/dhcp/dhclient6.eth0.leases eth0
 
 cloud_provider:
