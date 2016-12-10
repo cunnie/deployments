@@ -36,7 +36,7 @@ networks:
   - range: 10.0.0.0/24
     gateway: 10.0.0.1
     dns: [10.0.0.2]
-    cloud_properties: {subnet: subnet-25af7d4c} # <--- Replace with Subnet ID
+    cloud_properties: {subnet: subnet-43f02f2a} # <--- Replace with Subnet ID
 - name: public
   type: vip
 
@@ -124,7 +124,7 @@ jobs:
       access_key_id: ((aws_access_key_id_ipv6)) # <--- Replace with AWS Access Key ID
       secret_access_key: ((aws_secret_access_key_ipv6)) # <--- Replace with AWS Secret Key
       default_key_name: bosh
-      default_security_groups: [bosh]
+      default_security_groups: [IPv6]
       region: us-east-2  # <--- Replace with Region
 
     agent: {mbus: "nats://nats:((password_nats))@10.0.0.6:4222"} # <--- Uncomment & change
