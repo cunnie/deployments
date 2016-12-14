@@ -9,6 +9,9 @@ releases:
 - name: bosh-aws-cpi
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=62
   sha1: f36967927ceae09e5663a41fdda199edfe649dc6
+- name: os-conf
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=9
+  sha1: be221991e8c12bbf4679df03b59dee61f3864e8e
 - name: sysctl
   url: https://github.com/cloudfoundry-community/sysctl-release/releases/download/v2/release.tgz
   sha1: 09ae3d2271630653cceec115282004bfef1c694b
@@ -52,6 +55,7 @@ jobs:
   - {name: health_monitor, release: bosh}
   - {name: registry, release: bosh}
   - {name: aws_cpi, release: bosh-aws-cpi}
+  - {name: enable_ipv6, release: os-conf}
   - {name: sysctl, release: sysctl}
 
   resource_pool: vms
@@ -67,6 +71,7 @@ jobs:
   properties:
     nats:
       address: 127.0.0.1
+      listen_address: "" # needed to bind to IPv6 port, default was 0.0.0.0
       user: nats
       password: ((password_nats)) # <--- Uncomment & change
 
@@ -131,19 +136,6 @@ jobs:
 
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
 
-    sysctl_conf: |
-      # undo BOSH's stemcell's IPv6 lockdowns
-      # 10-ipv6-privacy.conf
-      net.ipv6.conf.all.use_tempaddr = 0
-      net.ipv6.conf.default.use_tempaddr = 0
-      # 60-bosh-sysctl.conf
-      net.ipv6.conf.all.accept_ra=1
-      net.ipv6.conf.default.accept_ra=1
-      net.ipv6.conf.all.disable_ipv6=0
-      net.ipv6.conf.default.disable_ipv6=0
-      net.ipv6.conf.default.accept_redirects=1
-      net.ipv6.conf.all.accept_redirects=1
-      net.ipv6.route.flush=0
     bash_start_snippet: |
       export DHCP6_PID=/run/dhclient6.eth0.pid # Ubuntu-style location
       # no "-1", keep trying

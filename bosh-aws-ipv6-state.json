@@ -1,15 +1,16 @@
 {
-    "director_id": "91c1d8dd-ce19-4e5b-4bad-1573a8ac5869",
-    "installation_id": "8eaaf1ce-567f-46d6-5732-6c5ff2af6ba5",
-    "current_vm_cid": "i-0f610bcc9c15b5f57",
+    "director_id": "b539056a-d4fc-4eec-75f7-681aad3f8bb5",
+    "installation_id": "36e13b20-c1df-42e0-7118-2e341217216e",
+    "current_vm_cid": "i-025eec92a97a00868",
     "current_stemcell_id": "dd6eba8f-310d-4c63-6c98-5e6a6c13ccf2",
     "current_disk_id": "bb6b1c04-4268-447f-6792-0c7ed86bc0b2",
     "current_release_ids": [
-        "df56990f-93b7-474a-7a4b-78da6e3a6b65",
-        "4dd76da3-f4d4-4b6c-48ed-a095aea75a0c",
-        "ba0b5ac2-642e-47a2-6fbc-a20bc960dcfa"
+        "3ab183aa-9ed5-4485-54b4-3f720ef4d16d",
+        "0907e3ae-c90a-4210-4b6f-c015a6219e62",
+        "a89a0dde-32c3-40b0-773c-e26aff3e1371",
+        "a0fca06e-3231-43b4-68a3-61d899376cb1"
     ],
-    "current_manifest_sha": "8479d40f208d29f872aa855ec0737b63f64d5073b7ae67c3a2e244f6de58bb74476d3e9b930ae647e4657a3dddde30d2aa5ee4a013735c92fb2302874771e18e",
+    "current_manifest_sha": "64ac5eba2836d75cb9a9aae52f87fe45e6e896a5c8660ae35d96a01947c7d2414f8fd5b1e79f19583a93f79a5ccadd9ca44ca0b3df9a5693c121bba3b86244bf",
     "disks": [
         {
             "id": "bb6b1c04-4268-447f-6792-0c7ed86bc0b2",
@@ -30,17 +31,22 @@
     ],
     "releases": [
         {
-            "id": "df56990f-93b7-474a-7a4b-78da6e3a6b65",
+            "id": "3ab183aa-9ed5-4485-54b4-3f720ef4d16d",
             "name": "bosh",
             "version": "260"
         },
         {
-            "id": "4dd76da3-f4d4-4b6c-48ed-a095aea75a0c",
+            "id": "0907e3ae-c90a-4210-4b6f-c015a6219e62",
             "name": "bosh-aws-cpi",
             "version": "62"
         },
         {
-            "id": "ba0b5ac2-642e-47a2-6fbc-a20bc960dcfa",
+            "id": "a89a0dde-32c3-40b0-773c-e26aff3e1371",
+            "name": "os-conf",
+            "version": "9"
+        },
+        {
+            "id": "a0fca06e-3231-43b4-68a3-61d899376cb1",
             "name": "sysctl",
             "version": "2"
         }
