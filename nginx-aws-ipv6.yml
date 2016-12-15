@@ -1,0 +1,101 @@
+# bosh create-env nginx-aws-ipv6.yml -l <(lpass show --note deployments)
+---
+name: bosh
+
+releases:
+- name: nginx
+  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v4/nginx-4.tgz
+  sha1: cc0523d6b13d0e7cfed324610843d27a2df66826
+- name: bosh-aws-cpi
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=62
+  sha1: f36967927ceae09e5663a41fdda199edfe649dc6
+- name: os-conf
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=9
+  sha1: be221991e8c12bbf4679df03b59dee61f3864e8e
+- name: sysctl
+  url: https://github.com/cloudfoundry-community/sysctl-release/releases/download/v2/release.tgz
+  sha1: 09ae3d2271630653cceec115282004bfef1c694b
+
+resource_pools:
+- name: vms
+  network: private
+  stemcell:
+    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3312.7
+    sha1: e11da993d8bad4305e4bc51117f1de88a63f76bb
+  cloud_properties:
+    instance_type: t2.medium # Do NOT use M3!
+    ephemeral_disk: {size: 5_000, type: gp2}
+    availability_zone: us-east-2a # <--- Replace with Availability Zone
+
+disk_pools:
+- name: disks
+  disk_size: 10_000
+  cloud_properties: {type: gp2}
+
+networks:
+- name: private
+  type: manual
+  subnets:
+  - range: 10.0.0.0/24
+    gateway: 10.0.0.1
+    dns: [10.0.0.2]
+    cloud_properties: {subnet: subnet-43f02f2a} # <--- Replace with Subnet ID
+- name: public
+  type: vip
+
+jobs:
+- name: webserver
+  instances: 1
+
+  templates:
+  - {name: enable_ipv6, release: os-conf}
+  - {name: sysctl, release: sysctl}
+
+  resource_pool: vms
+  persistent_disk_pool: disks
+
+  networks:
+  - name: private
+    static_ips: [10.0.0.7]
+    default: [dns, gateway]
+  - name: public
+    static_ips: [52.15.73.90] # <--- Replace with Elastic IP
+
+  properties:
+    aws: &aws
+      access_key_id: ((aws_access_key_id_ipv6)) # <--- Replace with AWS Access Key ID
+      secret_access_key: ((aws_secret_access_key_ipv6)) # <--- Replace with AWS Secret Key
+      default_key_name: bosh
+      default_security_groups: [IPv6]
+      region: us-east-2  # <--- Replace with Region
+
+    agent: {mbus: "nats://nats:((password_nats))@10.0.0.7:4222"} # <--- Uncomment & change
+
+    ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
+
+    bash_start_snippet: |
+      export DHCP6_PID=/run/dhclient6.eth0.pid # Ubuntu-style location
+      # no "-1", keep trying
+      dhclient -nw -v -6 -pf $DHCP6_PID -lf /var/lib/dhcp/dhclient6.eth0.leases eth0
+    bash_stop_snippet: |
+      export DHCP6_PID=/run/dhclient6.eth0.pid # Ubuntu-style location
+      # the following will kill the dhclient but not release the IPv6 address
+      # on 3312.7 Ubuntu stemcell, documentation notwithstanding
+      dhclient -r -nw -v -pf $DHCP6_PID -lf /var/lib/dhcp/dhclient6.eth0.leases eth0
+
+cloud_provider:
+  template: {name: aws_cpi, release: bosh-aws-cpi}
+
+  ssh_tunnel:
+    host: 52.15.73.90 # <--- Replace with your Elastic IP address
+    port: 22
+    user: vcap
+    private_key: ../../.ssh/aws_nono.pem # Path relative to this manifest file
+
+  mbus: "https://mbus:((password_mbus))@52.15.73.90:6868" # <--- Uncomment & change
+
+  properties:
+    aws: *aws
+    agent: {mbus: "https://mbus:((password_mbus))@0.0.0.0:6868"} # <--- Uncomment & change
+    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
+    ntp: *ntp

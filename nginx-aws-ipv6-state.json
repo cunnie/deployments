@@ -1,0 +1,54 @@
+{
+    "director_id": "b539056a-d4fc-4eec-75f7-681aad3f8bb5",
+    "installation_id": "36e13b20-c1df-42e0-7118-2e341217216e",
+    "current_vm_cid": "i-073d753691ec973c4",
+    "current_stemcell_id": "dd6eba8f-310d-4c63-6c98-5e6a6c13ccf2",
+    "current_disk_id": "452f1263-6534-4334-471c-c9394d4f9edc",
+    "current_release_ids": [
+        "59aa2208-b02e-45b6-4a88-9db5d4404862",
+        "32869141-eba3-478c-42c2-b4a73d4e37e2",
+        "626c33e2-2508-41a3-737d-b5acc1e12f17",
+        "05ae1de5-4d63-46b4-5232-f756fecb8a23"
+    ],
+    "current_manifest_sha": "039a2a35fa016af9ce4d2d9d34e93065822ab095cfd2bc0c00db90aa107bbfa21dfca2da6bfd4caa91543780f065e7bc937a9a2e7d58b1097cc9b2f47e77c41e",
+    "disks": [
+        {
+            "id": "452f1263-6534-4334-471c-c9394d4f9edc",
+            "cid": "vol-045cfbca0c6a5cc0a",
+            "size": 10000,
+            "cloud_properties": {
+                "type": "gp2"
+            }
+        }
+    ],
+    "stemcells": [
+        {
+            "id": "dd6eba8f-310d-4c63-6c98-5e6a6c13ccf2",
+            "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+            "version": "3312.7",
+            "cid": "ami-98bae0fd light"
+        }
+    ],
+    "releases": [
+        {
+            "id": "59aa2208-b02e-45b6-4a88-9db5d4404862",
+            "name": "nginx",
+            "version": "4"
+        },
+        {
+            "id": "32869141-eba3-478c-42c2-b4a73d4e37e2",
+            "name": "bosh-aws-cpi",
+            "version": "62"
+        },
+        {
+            "id": "626c33e2-2508-41a3-737d-b5acc1e12f17",
+            "name": "os-conf",
+            "version": "9"
+        },
+        {
+            "id": "05ae1de5-4d63-46b4-5232-f756fecb8a23",
+            "name": "sysctl",
+            "version": "2"
+        }
+    ]
+}
