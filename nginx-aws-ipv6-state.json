@@ -1,11 +1,16 @@
 {
     "director_id": "b539056a-d4fc-4eec-75f7-681aad3f8bb5",
     "installation_id": "36e13b20-c1df-42e0-7118-2e341217216e",
-    "current_vm_cid": "i-038c3e310e35812b6",
+    "current_vm_cid": "i-0cc1f71c6b89da3ad",
     "current_stemcell_id": "dd6eba8f-310d-4c63-6c98-5e6a6c13ccf2",
     "current_disk_id": "452f1263-6534-4334-471c-c9394d4f9edc",
-    "current_release_ids": [],
-    "current_manifest_sha": "",
+    "current_release_ids": [
+        "e1e2321c-27da-4d0a-7be5-1a6d0848ce4a",
+        "31ef6e9e-f1b7-4448-4394-eeba2c4f6e9b",
+        "663118a0-dcf1-4ae3-7df3-93d37a96f719",
+        "eba0b3c8-8808-452c-7d40-ca363589c433"
+    ],
+    "current_manifest_sha": "32501a35a12e89f9a44bea52d048680e5dd14865b7cd6dc2da9dfb7e8ece0aefeab8bf92493950b25e7a01307b6e9f2230cb898a6374a723b7456c8badaa2710",
     "disks": [
         {
             "id": "452f1263-6534-4334-471c-c9394d4f9edc",
@@ -24,5 +29,26 @@
             "cid": "ami-98bae0fd light"
         }
     ],
-    "releases": []
+    "releases": [
+        {
+            "id": "e1e2321c-27da-4d0a-7be5-1a6d0848ce4a",
+            "name": "nginx",
+            "version": "4"
+        },
+        {
+            "id": "31ef6e9e-f1b7-4448-4394-eeba2c4f6e9b",
+            "name": "bosh-aws-cpi",
+            "version": "62"
+        },
+        {
+            "id": "663118a0-dcf1-4ae3-7df3-93d37a96f719",
+            "name": "os-conf",
+            "version": "9"
+        },
+        {
+            "id": "eba0b3c8-8808-452c-7d40-ca363589c433",
+            "name": "dhcpd",
+            "version": "4.3.5"
+        }
+    ]
 }

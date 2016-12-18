@@ -13,8 +13,8 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=9
   sha1: be221991e8c12bbf4679df03b59dee61f3864e8e
 - name: dhcpd
-  url: https://github.com/pivotal-cf-experimental/dhcp-server-release/releases/download/v2/dhcpd-release-v2.tgz
-  sha1: 4f99ceb97fb4911a8a4c9c6ae039f49c9b0299e5
+  url: https://github.com/pivotal-cf-experimental/dhcp-server-release/releases/download/v4.3.5/dhcp-4.3.5.tgz
+  sha1: dd269c9efcba1e17d2156acd379db9e7cd13096e
 
 resource_pools:
 - name: vms
@@ -50,6 +50,7 @@ jobs:
   templates:
   - {name: enable_ipv6, release: os-conf}
   - {name: dhclient_ipv6, release: dhcpd}
+  - {name: nginx, release: nginx}
 
   resource_pool: vms
   persistent_disk_pool: disks
@@ -62,6 +63,37 @@ jobs:
     static_ips: [52.15.73.90] # <--- Replace with Elastic IP
 
   properties:
+    nginx_conf: |
+      worker_processes  1;
+      error_log /var/vcap/sys/log/nginx/error.log   info;
+      #pid        logs/nginx.pid; # PIDFILE is configured via monit's ctl
+      events {
+        worker_connections  1024;
+      }
+      http {
+        include /var/vcap/packages/nginx/conf/mime.types;
+        default_type  application/octet-stream;
+        sendfile        on;
+        ssi on;
+        keepalive_timeout  65;
+        server_names_hash_bucket_size 64;
+        server {
+          server_name _; # invalid value which will never trigger on a real hostname.
+          listen 80;
+          access_log /var/vcap/sys/log/nginx/toto-access.log;
+          error_log /var/vcap/sys/log/nginx/toto-error.log;
+        }
+        root /var/vcap/store/nginx;
+        index index.shtml index.html index.htm;
+      }
+    pre_start: |
+      #!/bin/bash -ex
+      NGINX_DIR=/var/vcap/store/nginx
+      if [ ! -d $NGINX_DIR ]; then
+        mkdir -p $NGINX_DIR
+        cd $NGINX_DIR
+        echo  '<html><title>hello</title><body><h1>Hello <!--#echo var="REMOTE_ADDR" --></h1></body></html>' > index.shtml
+      fi
     aws: &aws
       access_key_id: ((aws_access_key_id_ipv6)) # <--- Replace with AWS Access Key ID
       secret_access_key: ((aws_secret_access_key_ipv6)) # <--- Replace with AWS Secret Key
