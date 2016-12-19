@@ -79,7 +79,7 @@ jobs:
         server_names_hash_bucket_size 64;
         server {
           server_name _; # invalid value which will never trigger on a real hostname.
-          listen 80;
+          listen [::]:80 ipv6only=off;
           access_log /var/vcap/sys/log/nginx/toto-access.log;
           error_log /var/vcap/sys/log/nginx/toto-error.log;
         }
