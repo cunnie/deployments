@@ -4,9 +4,8 @@ name: nginx
 
 releases:
 - name: nginx
-  url: file:///Users/cunnie/Downloads/nginx-1.11.7.tgz
-  #  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v4/nginx-4.tgz
-  #  sha1: cc0523d6b13d0e7cfed324610843d27a2df66826
+  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.11.7/nginx-1.11.7.tgz
+  sha1: 133bb2260411b197924fff08d4cbd923cc8ec7eb
 - name: bosh-aws-cpi
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=62
   sha1: f36967927ceae09e5663a41fdda199edfe649dc6
