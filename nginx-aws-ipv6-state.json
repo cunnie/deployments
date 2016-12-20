@@ -1,16 +1,16 @@
 {
     "director_id": "b539056a-d4fc-4eec-75f7-681aad3f8bb5",
     "installation_id": "36e13b20-c1df-42e0-7118-2e341217216e",
-    "current_vm_cid": "i-0cc1f71c6b89da3ad",
+    "current_vm_cid": "i-00c783875f98145d8",
     "current_stemcell_id": "dd6eba8f-310d-4c63-6c98-5e6a6c13ccf2",
     "current_disk_id": "452f1263-6534-4334-471c-c9394d4f9edc",
     "current_release_ids": [
-        "e1e2321c-27da-4d0a-7be5-1a6d0848ce4a",
-        "31ef6e9e-f1b7-4448-4394-eeba2c4f6e9b",
-        "663118a0-dcf1-4ae3-7df3-93d37a96f719",
-        "eba0b3c8-8808-452c-7d40-ca363589c433"
+        "dee8d663-1b30-4064-78a4-57a8745093cb",
+        "64c1b852-0fa9-45f1-70be-7385f9be7b13",
+        "3f472864-1be0-4ce1-737c-550a0752145d",
+        "8f308735-2458-4ba2-7172-fd83f9e4d023"
     ],
-    "current_manifest_sha": "32501a35a12e89f9a44bea52d048680e5dd14865b7cd6dc2da9dfb7e8ece0aefeab8bf92493950b25e7a01307b6e9f2230cb898a6374a723b7456c8badaa2710",
+    "current_manifest_sha": "afdf3e623ff02b6b0872e0df812bf6417c6d65ed6200452b3a983395b84767ce0e8e0d7656177bdccd3e20bd04dbce61c2116d35af0009a7191e47e206553ea8",
     "disks": [
         {
             "id": "452f1263-6534-4334-471c-c9394d4f9edc",
@@ -31,22 +31,22 @@
     ],
     "releases": [
         {
-            "id": "e1e2321c-27da-4d0a-7be5-1a6d0848ce4a",
+            "id": "dee8d663-1b30-4064-78a4-57a8745093cb",
             "name": "nginx",
-            "version": "4"
+            "version": "1.11.7"
         },
         {
-            "id": "31ef6e9e-f1b7-4448-4394-eeba2c4f6e9b",
+            "id": "64c1b852-0fa9-45f1-70be-7385f9be7b13",
             "name": "bosh-aws-cpi",
             "version": "62"
         },
         {
-            "id": "663118a0-dcf1-4ae3-7df3-93d37a96f719",
+            "id": "3f472864-1be0-4ce1-737c-550a0752145d",
             "name": "os-conf",
             "version": "9"
         },
         {
-            "id": "eba0b3c8-8808-452c-7d40-ca363589c433",
+            "id": "8f308735-2458-4ba2-7172-fd83f9e4d023",
             "name": "dhcpd",
             "version": "4.3.5"
         }
