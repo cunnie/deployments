@@ -227,6 +227,12 @@ jobs:
     pdns_conf: ((pdns_conf))
     pipe: ((pdns_pipe))
 
+    registry:
+      username: blah
+      password: blah
+      host: localhost
+      port: 80
+
     azure: &azure
       environment: AzureCloud
       subscription_id: a1ac8d5a-7a97-4ed5-bfd1-d7822e19cae9 # <--- Replace
