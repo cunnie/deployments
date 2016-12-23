@@ -1,5 +1,5 @@
 ---
-# bosh create-env nginx-ntp-pdns-azure.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
+# bosh create-env nginx-ntp-pdns-azure.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
 name: nginx-ntp-pdns
 
 releases:
@@ -227,12 +227,6 @@ jobs:
     pdns_conf: ((pdns_conf))
     pipe: ((pdns_pipe))
 
-    registry:
-      username: blah
-      password: blah
-      host: localhost
-      port: 80
-
     azure: &azure
       environment: AzureCloud
       subscription_id: a1ac8d5a-7a97-4ed5-bfd1-d7822e19cae9 # <--- Replace
@@ -244,6 +238,7 @@ jobs:
       default_security_group: nsg-bosh # <--- Replace
       ssh_user: vcap
       ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9An3FOF/vUnEA2VkaYHoACjbmk3G4yAHE3lXnGpIhz3EV5k4B5RzEFKZnAIFcX18eBjYQIN9xQO0L9xkhlCyrQHrnXBjCDwt/BuQSiRvp3tlx9g0tGyuuJRI5n656Shc7w/g4UbrQWUBdLKjxTT4kTgAdK+1pgDbhAXdPtMwt4D/sz5OEFdf5O5Cp+0spxC+Ctdb94taZhScqB4xt6dRl7bwI28vZdq6Sjg/hbMBbTXzSJ17+ql8LJtXiUHO5W7MwNtKdZmlglOUy3CEIwDz3FdI9zKEfnfpfosp/hu+07/8Y02+U/fsjQyJy8ZCSsGY2e2XpvNNVj/3mnj8fP5cX cunnie@nono.io
+
 
     agent: { mbus: "nats://nats:((password_nats))@10.0.0.5:4222" }
 
@@ -263,5 +258,20 @@ cloud_provider:
   properties:
     azure: *azure
     agent: { mbus: "https://mbus:((password_mbus))@0.0.0.0:6868" }
-    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
+
+    blobstore:
+      provider: local
+      path: /var/vcap/micro_bosh/data/cache
+      address: blah
+      agent:
+        user: blah
+        password: blah
+
     ntp: *ntp
+
+    registry:
+      username: blah
+      password: blah
+      host: localhost
+      port: 80
+
