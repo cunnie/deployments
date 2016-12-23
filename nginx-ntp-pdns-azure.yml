@@ -239,6 +239,19 @@ jobs:
       ssh_user: vcap
       ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9An3FOF/vUnEA2VkaYHoACjbmk3G4yAHE3lXnGpIhz3EV5k4B5RzEFKZnAIFcX18eBjYQIN9xQO0L9xkhlCyrQHrnXBjCDwt/BuQSiRvp3tlx9g0tGyuuJRI5n656Shc7w/g4UbrQWUBdLKjxTT4kTgAdK+1pgDbhAXdPtMwt4D/sz5OEFdf5O5Cp+0spxC+Ctdb94taZhScqB4xt6dRl7bwI28vZdq6Sjg/hbMBbTXzSJ17+ql8LJtXiUHO5W7MwNtKdZmlglOUy3CEIwDz3FdI9zKEfnfpfosp/hu+07/8Y02+U/fsjQyJy8ZCSsGY2e2XpvNNVj/3mnj8fP5cX cunnie@nono.io
 
+    blobstore: &blobstore
+      provider: local
+      path: /var/vcap/micro_bosh/data/cache
+      address: blah
+      agent:
+        user: blah
+        password: blah
+
+    registry:
+      username: blah
+      password: blah
+      host: localhost
+      port: 80
 
     agent: { mbus: "nats://nats:((password_nats))@10.0.0.5:4222" }
 
@@ -259,19 +272,6 @@ cloud_provider:
     azure: *azure
     agent: { mbus: "https://mbus:((password_mbus))@0.0.0.0:6868" }
 
-    blobstore:
-      provider: local
-      path: /var/vcap/micro_bosh/data/cache
-      address: blah
-      agent:
-        user: blah
-        password: blah
+    blobstore: *blobstore
 
     ntp: *ntp
-
-    registry:
-      username: blah
-      password: blah
-      host: localhost
-      port: 80
-
