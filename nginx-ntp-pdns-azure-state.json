@@ -1,0 +1,19 @@
+{
+    "director_id": "bb988c07-6624-4039-56fb-c1c34f44223f",
+    "installation_id": "4cd224de-e8b5-42b5-5c9d-6f41b90d790d",
+    "current_vm_cid": "cunniestore-7c208d26-0294-49a8-7877-29c94f247459",
+    "current_stemcell_id": "cb1c6f06-e98c-484f-467b-328e95d6ef30",
+    "current_disk_id": "",
+    "current_release_ids": [],
+    "current_manifest_sha": "",
+    "disks": null,
+    "stemcells": [
+        {
+            "id": "cb1c6f06-e98c-484f-467b-328e95d6ef30",
+            "name": "bosh-azure-hyperv-centos-7-go_agent",
+            "version": "3312.7",
+            "cid": "bosh-stemcell-2875d88b-4c7f-4931-a607-e21024680c7b"
+        }
+    ],
+    "releases": []
+}

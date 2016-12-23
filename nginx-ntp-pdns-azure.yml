@@ -23,7 +23,7 @@ resource_pools:
     url: https://s3.amazonaws.com/bosh-core-stemcells/azure/bosh-stemcell-3312.7-azure-hyperv-centos-7-go_agent.tgz
     sha1: c5da163f61951bd038c986cbbddb8ecfc31e87a5
   cloud_properties:
-    instance_type: STANDARD_A0
+    instance_type: STANDARD_A1
     ephemeral_disk:
       use_root_disk: true
 
