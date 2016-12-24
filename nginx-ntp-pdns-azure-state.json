@@ -1,11 +1,16 @@
 {
     "director_id": "bb988c07-6624-4039-56fb-c1c34f44223f",
     "installation_id": "4cd224de-e8b5-42b5-5c9d-6f41b90d790d",
-    "current_vm_cid": "cunniestore-7c208d26-0294-49a8-7877-29c94f247459",
+    "current_vm_cid": "cunniestore-a8c73e42-9f04-4653-72b9-edd042288098",
     "current_stemcell_id": "cb1c6f06-e98c-484f-467b-328e95d6ef30",
     "current_disk_id": "",
-    "current_release_ids": [],
-    "current_manifest_sha": "",
+    "current_release_ids": [
+        "0cede7cf-a513-4b5c-5a0f-2c2353b698a3",
+        "d89cbe5e-d6de-43a4-6114-ff25a0e29f90",
+        "750f59a6-3f80-4cc2-7ae5-6cdd99d46212",
+        "5cacadbb-04ab-4a6b-5c48-14dc90944c2a"
+    ],
+    "current_manifest_sha": "fd3f94f060ed1e9281f4d8f7cc9504e8db466d02ec0bc7b3cac569b525c9631b3b470b180a7354bf2c9db4661ee9ffed79b2c7ef4dba93945552b2fad53f05bd",
     "disks": null,
     "stemcells": [
         {
@@ -15,5 +20,26 @@
             "cid": "bosh-stemcell-2875d88b-4c7f-4931-a607-e21024680c7b"
         }
     ],
-    "releases": []
+    "releases": [
+        {
+            "id": "0cede7cf-a513-4b5c-5a0f-2c2353b698a3",
+            "name": "nginx",
+            "version": "1.11.7"
+        },
+        {
+            "id": "d89cbe5e-d6de-43a4-6114-ff25a0e29f90",
+            "name": "bosh-azure-cpi",
+            "version": "20"
+        },
+        {
+            "id": "750f59a6-3f80-4cc2-7ae5-6cdd99d46212",
+            "name": "ntp",
+            "version": "4"
+        },
+        {
+            "id": "5cacadbb-04ab-4a6b-5c48-14dc90944c2a",
+            "name": "pdns",
+            "version": "4.0.1"
+        }
+    ]
 }
