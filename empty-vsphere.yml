@@ -1,0 +1,81 @@
+# bosh create-env empty-vsphere.yml -l <(lpass show 'Cork Pez vCenter'  | egrep -v '^Shared-BOSH|^Notes:$')
+---
+name: empty
+
+releases:
+- name: bosh-vsphere-cpi
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=36
+  sha1: a5905550a0d9347eb7c478a3d9140a8b6aebc4e5
+
+resource_pools:
+- name: vms
+  network: private
+  stemcell:
+    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-centos-7-go_agent?v=3312.7
+    sha1: 14514115c526dc29303fd9fabf33e774ae38b9ff
+  cloud_properties:
+    cpu: 1
+    ram: 640
+    disk: 5_000
+    datacenters:
+    - clusters:
+      - ((cluster)):
+          resource_pool: ((resource_pool))
+
+disk_pools:
+- name: disks
+  disk_size: 1_000
+
+networks:
+- name: private
+  type: manual
+  subnets:
+  - range: ((net_three_octets)).0/24
+    gateway: ((net_three_octets)).1
+    dns: [8.8.8.8]
+    cloud_properties:
+      name: ((port_group))
+
+jobs:
+- name: empty_vm
+  instances: 1
+
+  templates: []
+
+  resource_pool: vms
+
+  persistent_disk_pool: disks
+
+  networks:
+  - {name: private, static_ips: [((net_three_octets)).77]}
+
+  properties:
+    agent: {mbus: "nats://nats:((nats_password))@((net_three_octets)).77:4222"}
+
+    ntp: &ntp [time.google.com]
+
+cloud_provider:
+  template: {name: vsphere_cpi, release: bosh-vsphere-cpi}
+
+  mbus: "https://mbus:((mbus_password))@((net_three_octets)).77:6868"
+
+  properties:
+    vcenter:
+      address: ((vcenter_addr))
+      user: ((Username))
+      password: ((Password))
+      default_disk_type: thin
+      datacenters:
+      - name: ((datacenter))
+        vm_folder: delete_me
+        template_folder: delete_me
+        datastore_pattern: ((datastore))
+        persistent_datastore_pattern: ((datastore))
+        disk_path: delete_me
+        clusters:
+        - ((cluster)):
+            resource_pool: ((resource_pool))
+
+    agent: {mbus: "https://mbus:((mbus_password))@0.0.0.0:6868"}
+    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
+    ntp: *ntp
