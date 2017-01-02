@@ -1,5 +1,5 @@
 ---
-# bosh deploy -d nginx-ntp-pdns nginx-ntp-pdns-aws.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
+# bosh deploy -d nginx-ntp-pdns nginx-ntp-pdns-aws.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
 name: nginx-ntp-pdns
 
 instance_groups:
@@ -164,11 +164,11 @@ instance_groups:
     name: ntpd
     properties:
       ntp_conf: |
-        # Our upstream timekeepers; thank you Virginia Tech
-        server ntp-1.vt.edu
-        server ntp-2.vt.edu
-        server ntp-3.vt.edu
-        server time-b.nist.gov
+        # Our upstream timekeepers; thank you Google
+        server time1.google.com iburst
+        server time2.google.com iburst
+        server time3.google.com iburst
+        server time4.google.com iburst
         # "Batten down the hatches!"
         # see http://support.ntp.org/bin/view/Support/AccessRestrictions
         restrict default limited kod nomodify notrap nopeer
