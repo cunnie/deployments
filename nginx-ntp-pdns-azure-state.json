@@ -1,16 +1,16 @@
 {
     "director_id": "bb988c07-6624-4039-56fb-c1c34f44223f",
     "installation_id": "4cd224de-e8b5-42b5-5c9d-6f41b90d790d",
-    "current_vm_cid": "cunniestore-a8c73e42-9f04-4653-72b9-edd042288098",
+    "current_vm_cid": "cunniestore-8d189ca6-ec34-495c-4425-09d856a0c12a",
     "current_stemcell_id": "cb1c6f06-e98c-484f-467b-328e95d6ef30",
     "current_disk_id": "",
     "current_release_ids": [
-        "0cede7cf-a513-4b5c-5a0f-2c2353b698a3",
-        "d89cbe5e-d6de-43a4-6114-ff25a0e29f90",
-        "750f59a6-3f80-4cc2-7ae5-6cdd99d46212",
-        "5cacadbb-04ab-4a6b-5c48-14dc90944c2a"
+        "9989881e-079f-4403-6d0e-424ec5aae005",
+        "ca035bac-303e-4a1c-4329-60c81e638776",
+        "56dd0b4b-10af-4c53-7987-e6d33880efa2",
+        "dcadcd89-5b5d-4d7f-40d4-a8d5b744293a"
     ],
-    "current_manifest_sha": "fd3f94f060ed1e9281f4d8f7cc9504e8db466d02ec0bc7b3cac569b525c9631b3b470b180a7354bf2c9db4661ee9ffed79b2c7ef4dba93945552b2fad53f05bd",
+    "current_manifest_sha": "127cd1e242610cff77c0a4ec1c2d43cfbf0c7149e8bbd917388a34e50ddd29a03cf503420f082629c2cd0e015705ff59c742d799368fb23ade290b16ac285562",
     "disks": null,
     "stemcells": [
         {
@@ -22,22 +22,22 @@
     ],
     "releases": [
         {
-            "id": "0cede7cf-a513-4b5c-5a0f-2c2353b698a3",
+            "id": "9989881e-079f-4403-6d0e-424ec5aae005",
             "name": "nginx",
             "version": "1.11.7"
         },
         {
-            "id": "d89cbe5e-d6de-43a4-6114-ff25a0e29f90",
+            "id": "ca035bac-303e-4a1c-4329-60c81e638776",
             "name": "bosh-azure-cpi",
             "version": "20"
         },
         {
-            "id": "750f59a6-3f80-4cc2-7ae5-6cdd99d46212",
+            "id": "56dd0b4b-10af-4c53-7987-e6d33880efa2",
             "name": "ntp",
             "version": "4"
         },
         {
-            "id": "5cacadbb-04ab-4a6b-5c48-14dc90944c2a",
+            "id": "dcadcd89-5b5d-4d7f-40d4-a8d5b744293a",
             "name": "pdns",
             "version": "4.0.1"
         }

@@ -210,9 +210,10 @@ jobs:
       -----END CERTIFICATE-----
     ntp_conf: |
       # Our upstream timekeepers; thank you Ozzies
-      server 0.time.itoc.com.au
-      server ntp.thaidns.co.th
-      server time-b.nist.gov
+      server time1.google.com iburst
+      server time2.google.com iburst
+      server time3.google.com iburst
+      server time4.google.com iburst
       # "Batten down the hatches!"
       # see http://support.ntp.org/bin/view/Support/AccessRestrictions
       restrict default limited kod nomodify notrap nopeer
