@@ -209,7 +209,6 @@ jobs:
       pu/xO28QOG8=
       -----END CERTIFICATE-----
     ntp_conf: |
-      # Our upstream timekeepers; thank you Ozzies
       server time1.google.com iburst
       server time2.google.com iburst
       server time3.google.com iburst
