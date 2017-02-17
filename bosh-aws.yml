@@ -15,12 +15,12 @@ resource_pools:
 - name: vms
   network: private
   stemcell:
-    url:  https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3312.15
-    sha1: f5e78f61b8026377300db544e9d3ca0b89516af3
+    url:  https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-3363.1-aws-xen-hvm-ubuntu-trusty-go_agent.tgz
+    sha1: 671b49cf788d36500e12a8120efb2ada8813c3fd
     #url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3306
     #sha1: 95ecc2709ac62f21d0a1c6cac023585c3919b825
   cloud_properties:
-    instance_type: t2.nano
+    instance_type: t2.micro
     ephemeral_disk: {size: 20_000, type: gp2}
     availability_zone: us-east-1a # <--- Replace with Availability Zone
 
