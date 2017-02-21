@@ -15,10 +15,12 @@ resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3312.18-google-kvm-ubuntu-trusty-go_agent.tgz
-    sha1: a0f19414d61deff1bf6439bb1598bd6a732712df
-    # url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3363.1-google-kvm-ubuntu-trusty-go_agent.tgz
-    # sha1: 279768e7cf49fc4096cdbc38880de8c03f521497
+    # url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3312.18-google-kvm-ubuntu-trusty-go_agent.tgz
+    # sha1: a0f19414d61deff1bf6439bb1598bd6a732712df
+    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3363.1-google-kvm-ubuntu-trusty-go_agent.tgz
+    sha1: 279768e7cf49fc4096cdbc38880de8c03f521497
+    # url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3363-google-kvm-ubuntu-trusty-go_agent.tgz
+    # sha1: d6a71a9b134abd1f634dd815e4034c4442bdfc60
   cloud_properties:
     machine_type: g1-small
     root_disk_size_gb: 40
@@ -218,7 +220,7 @@ instance_groups:
       project: blabbertabber # <--- replace with your gce project
       default_zone: us-central1-b # <--- replace with the gce zone to use by default
       # https://developers.google.com/identity/protocols/application-default-credentials
-      #json_key: ((gce_credentials_json))
+      json_key: ((gce_credentials_json))
 
     # agent: {mbus: "nats://nats:password_nats@10.128.0.2:4222"}
     agent: {mbus: ((gce_director_agent_mbus)) }
@@ -228,11 +230,11 @@ instance_groups:
 cloud_provider:
   template: {name: google_cpi, release: bosh-google-cpi}
 
-  ssh_tunnel:
-    host: 104.154.39.128 # <--- replace with External IP
-    port: 22
-    user: vcap # <--- replace with the user corresponding to your private ssh key
-    private_key: /Users/cunnie/.ssh/google # <--- replace with the location of your google_compute_engine ssh private key
+  # ssh_tunnel:
+    # host: 104.154.39.128 # <--- replace with External IP
+    # port: 22
+    # user: vcap # <--- replace with the user corresponding to your private ssh key
+    # private_key: /Users/cunnie/.ssh/google # <--- replace with the location of your google_compute_engine ssh private key
 
   # mbus: "https://mbus:password_director@104.154.39.128.6868" # <--- Replace with Elastic IP
   mbus: ((gce_cloud_provider_mbus)) # <--- Replace with Elastic IP
