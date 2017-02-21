@@ -1,22 +1,22 @@
 ---
 # bosh create-env bosh-gce.yml -l <(lpass show --note deployments)
-# to debug: bosh build-manifest bosh-gce.yml -l <(lpass show --note deployments)
+# to debug: bosh interpolate bosh-gce.yml -l <(lpass show --note deployments)
 name: bosh-gce
 
 releases:
 - name: bosh
-  url:  https://bosh.io/d/github.com/cloudfoundry/bosh?v=260
-  sha1: f8f086974d9769263078fb6cb7927655744dacbc
+  url:  https://bosh.io/d/github.com/cloudfoundry/bosh?v=261.1
+  sha1: f46ad38ad49925e96ec93bd69d0e77f67ba07af9
 - name: bosh-google-cpi
-  url:  https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.6.1
-  sha1: fc8c7025c3ba3aef66e005a4bdf7fd3d5e997974
+  url:  https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.6.2
+  sha1: b4865397d867655fdcc112bc5a7f9a5025cdf311
 
 resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3312.15-google-kvm-ubuntu-trusty-go_agent.tgz
-    sha1: 3ac3ee83750f75bd74e8d3e3ad97808db23c30ba
+    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3363.1-google-kvm-ubuntu-trusty-go_agent.tgz
+    sha1: 279768e7cf49fc4096cdbc38880de8c03f521497
   cloud_properties:
     machine_type: g1-small
     root_disk_size_gb: 40
@@ -215,6 +215,8 @@ instance_groups:
     google: &google_properties
       project: blabbertabber # <--- replace with your gce project
       default_zone: us-central1-b # <--- replace with the gce zone to use by default
+      # https://developers.google.com/identity/protocols/application-default-credentials
+      json_key: ((gce_credentials_json))
 
     # agent: {mbus: "nats://nats:password_nats@10.128.0.2:4222"}
     agent: {mbus: ((gce_director_agent_mbus)) }
