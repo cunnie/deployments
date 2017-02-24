@@ -1,44 +1,30 @@
 ---
 # bosh create-env bosh-aws.yml -l <(lpass show --note deployments)
 # to debug: bosh build-manifest bosh-aws.yml -l <(lpass show --note deployments)
-name: bosh-aws
 
-releases:
-- name: bosh
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=260.2
-  sha1: ef578498b66839b965bb920dd0ea601d23486fe6
-- name: bosh-aws-cpi
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=62
-  sha1: f36967927ceae09e5663a41fdda199edfe649dc6
+cloud_provider:
+  template: {name: aws_cpi, release: bosh-aws-cpi}
 
-resource_pools:
-- name: vms
-  network: private
-  stemcell:
-    url:  https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-3363.1-aws-xen-hvm-ubuntu-trusty-go_agent.tgz
-    sha1: 671b49cf788d36500e12a8120efb2ada8813c3fd
-    #url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3306
-    #sha1: 95ecc2709ac62f21d0a1c6cac023585c3919b825
-  cloud_properties:
-    instance_type: t2.micro
-    ephemeral_disk: {size: 20_000, type: gp2}
-    availability_zone: us-east-1a # <--- Replace with Availability Zone
+  ssh_tunnel:
+    host: 52.70.98.70 # <--- Replace with your Elastic IP address
+    port: 22
+    user: vcap
+    private_key: ../../.ssh/aws_nono.pem # Path relative to this manifest file
+
+  # mbus: "https://mbus:password_director@52.70.98.70:6868" # <--- Replace with Elastic IP
+  mbus: ((aws_cloud_provider_mbus)) # <--- Replace with Elastic IP
+
+  properties:
+    aws: *aws
+    # agent: {mbus: "https://mbus:password_director@0.0.0.0:6868"}
+    agent: {mbus: ((aws_cloud_provider_agent_mbus)) }
+    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
+    ntp: *ntp
 
 disk_pools:
 - name: disks
   disk_size: 20_000
   cloud_properties: {type: gp2}
-
-networks:
-- name: private
-  type: manual
-  subnets:
-  - range: 10.0.0.0/24
-    gateway: 10.0.0.1
-    dns: [10.0.0.2]
-    cloud_properties: {subnet: subnet-1c90ef6b} # <--- Replace with Subnet ID
-- name: public
-  type: vip
 
 instance_groups:
 - name: bosh
@@ -229,21 +215,36 @@ instance_groups:
 
     ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
 
-cloud_provider:
-  template: {name: aws_cpi, release: bosh-aws-cpi}
+networks:
+- name: private
+  type: manual
+  subnets:
+  - range: 10.0.0.0/24
+    gateway: 10.0.0.1
+    dns: [10.0.0.2]
+    cloud_properties: {subnet: subnet-1c90ef6b} # <--- Replace with Subnet ID
+- name: public
+  type: vip
 
-  ssh_tunnel:
-    host: 52.70.98.70 # <--- Replace with your Elastic IP address
-    port: 22
-    user: vcap
-    private_key: ../../.ssh/aws_nono.pem # Path relative to this manifest file
+name: bosh-aws
 
-  # mbus: "https://mbus:password_director@52.70.98.70:6868" # <--- Replace with Elastic IP
-  mbus: ((aws_cloud_provider_mbus)) # <--- Replace with Elastic IP
+releases:
+- name: bosh
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=260.2
+  sha1: ef578498b66839b965bb920dd0ea601d23486fe6
+- name: bosh-aws-cpi
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=62
+  sha1: f36967927ceae09e5663a41fdda199edfe649dc6
 
-  properties:
-    aws: *aws
-    # agent: {mbus: "https://mbus:password_director@0.0.0.0:6868"}
-    agent: {mbus: ((aws_cloud_provider_agent_mbus)) }
-    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
-    ntp: *ntp
+resource_pools:
+- name: vms
+  network: private
+  stemcell:
+    url:  https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-3363.1-aws-xen-hvm-ubuntu-trusty-go_agent.tgz
+    sha1: 671b49cf788d36500e12a8120efb2ada8813c3fd
+    #url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3306
+    #sha1: 95ecc2709ac62f21d0a1c6cac023585c3919b825
+  cloud_properties:
+    instance_type: t2.micro
+    ephemeral_disk: {size: 20_000, type: gp2}
+    availability_zone: us-east-1a # <--- Replace with Availability Zone
