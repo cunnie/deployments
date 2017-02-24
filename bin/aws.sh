@@ -7,7 +7,7 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v access_key_id="((aws_access_key_id))" \
   -v secret_access_key="((aws_secret_access_key))" \
   -v region=us-east-1 \
-  -v az=us-east-1b \
+  -v az=us-east-1a \
   -v default_key_name=aws_nono \
   -v default_security_groups=[bosh] \
   -v subnet_id=subnet-1c90ef6b \
@@ -25,9 +25,10 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v postgres_password="((postgres_password))" \
   -v registry_password="((registry_password))" \
   -v private_key=../../.ssh/aws_nono.pem \
-  --var-file certificate=nono.io.crt \
   > /tmp/bosh-aws.yml.$$
   cat - /tmp/bosh-aws.yml.$$ > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
-# bosh create-env bosh-aws.yml -l <(lpass show --note deployments)
+# DON'T EDIT; THIS FILE IS AUTO-GENERATED
+#
+# bosh create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml
 # bosh -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
 EOF

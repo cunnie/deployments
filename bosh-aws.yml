@@ -1,4 +1,6 @@
-# bosh create-env bosh-aws.yml -l <(lpass show --note deployments)
+# DON'T EDIT; THIS FILE IS AUTO-GENERATED
+#
+# bosh create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml
 # bosh -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
 cloud_provider:
   mbus: https://mbus:((mbus_bootstrap_password))@52.70.98.70:6868
@@ -244,7 +246,7 @@ releases:
   version: 60
 resource_pools:
 - cloud_properties:
-    availability_zone: us-east-1b
+    availability_zone: us-east-1a
     ephemeral_disk:
       size: 20000
     instance_type: t2.micro
