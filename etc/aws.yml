@@ -1,0 +1,18 @@
+---
+- type: replace
+  path: /resource_pools/name=vms/stemcell?
+  value:
+    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3312.15
+    sha1: f5e78f61b8026377300db544e9d3ca0b89516af3
+
+# Configure AWS sizes
+- type: replace
+  path: /resource_pools/name=vms/cloud_properties?
+  value:
+    instance_type: t2.micro
+    ephemeral_disk: {size: 20_000}
+    availability_zone: ((az))
+
+- type: replace
+  path: /disk_pools/name=disks/disk_size?
+  value: 20_000

@@ -1,250 +1,288 @@
----
 # bosh create-env bosh-aws.yml -l <(lpass show --note deployments)
-# to debug: bosh build-manifest bosh-aws.yml -l <(lpass show --note deployments)
-
+# bosh -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
 cloud_provider:
-  template: {name: aws_cpi, release: bosh-aws-cpi}
-
+  mbus: https://mbus:((mbus_bootstrap_password))@52.70.98.70:6868
+  properties:
+    agent:
+      mbus: https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868
+    aws:
+      access_key_id: ((aws_access_key_id))
+      default_key_name: aws_nono
+      default_security_groups:
+      - bosh
+      region: us-east-1
+      secret_access_key: ((aws_secret_access_key))
+    blobstore:
+      path: /var/vcap/micro_bosh/data/cache
+      provider: local
+    ntp:
+    - time1.google.com
+    - time2.google.com
+    - time3.google.com
+    - time4.google.com
   ssh_tunnel:
-    host: 52.70.98.70 # <--- Replace with your Elastic IP address
+    host: 52.70.98.70
     port: 22
+    private_key: ../../.ssh/aws_nono.pem
     user: vcap
-    private_key: ../../.ssh/aws_nono.pem # Path relative to this manifest file
-
-  # mbus: "https://mbus:password_director@52.70.98.70:6868" # <--- Replace with Elastic IP
-  mbus: ((aws_cloud_provider_mbus)) # <--- Replace with Elastic IP
-
-  properties:
-    aws: *aws
-    # agent: {mbus: "https://mbus:password_director@0.0.0.0:6868"}
-    agent: {mbus: ((aws_cloud_provider_agent_mbus)) }
-    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
-    ntp: *ntp
-
+  template:
+    name: aws_cpi
+    release: bosh-aws-cpi
 disk_pools:
-- name: disks
-  disk_size: 20_000
-  cloud_properties: {type: gp2}
-
+- cloud_properties:
+    type: gp2
+  disk_size: 20000
+  name: disks
 instance_groups:
-- name: bosh
-  instances: 1
-
+- instances: 1
   jobs:
-  - {name: nats, release: bosh}
-  - {name: postgres, release: bosh}
-  - {name: blobstore, release: bosh}
-  - {name: director, release: bosh}
-  - {name: health_monitor, release: bosh}
-  - {name: registry, release: bosh}
-  - {name: powerdns, release: bosh}   # dynamic networking requirement
-  - {name: aws_cpi, release: bosh-aws-cpi}
-
-  resource_pool: vms
-  persistent_disk_pool: disks
-
+  - name: nats
+    release: bosh
+  - name: postgres-9.4
+    release: bosh
+  - name: blobstore
+    release: bosh
+  - name: director
+    release: bosh
+  - name: health_monitor
+    release: bosh
+  - name: registry
+    release: bosh
+  - name: aws_cpi
+    release: bosh-aws-cpi
+  name: bosh
   networks:
-  - name: private
-    static_ips: [10.0.0.6]
-    default: [dns, gateway]
+  - default:
+    - dns
+    - gateway
+    name: default
+    static_ips:
+    - 10.0.0.6
   - name: public
-    static_ips: [52.70.98.70] # <--- Replace with Elastic IP
-
+    static_ips:
+    - 52.70.98.70
+  persistent_disk_pool: disks
   properties:
-    dns:
-      address: 10.0.0.6
-      db: *db
-      recursor: 8.8.8.8   # Concourse requires recursion
-
-    nats:
-      address: 127.0.0.1
-      user: nats
-      password: ((password_nats))
-
-    postgres: &db
-      listen_address: 127.0.0.1
-      host: 127.0.0.1
-      user: postgres
-      password: ((password_postgres))
-      database: bosh
-      adapter: postgres
-
-    registry:
-      address: 10.0.0.6
-      host: 10.0.0.6
-      db: *db
-      http: {user: admin, password: ((password_director)), port: 25777}
-      username: admin
-      password: ((password_director))
-      port: 25777
-
+    agent:
+      mbus: nats://nats:((nats_password))@10.0.0.6:4222
+    aws:
+      access_key_id: ((aws_access_key_id))
+      default_key_name: aws_nono
+      default_security_groups:
+      - bosh
+      region: us-east-1
+      secret_access_key: ((aws_secret_access_key))
     blobstore:
       address: 10.0.0.6
+      agent:
+        password: ((blobstore_agent_password))
+        user: agent
+      director:
+        password: ((blobstore_director_password))
+        user: director
       port: 25250
       provider: dav
-      director: {user: director, password: ((password_director))}
-      agent: {user: agent, password: ((password_agent))}
-
     director:
       address: 127.0.0.1
-      name: aws
-      db: *db
       cpi_job: aws_cpi
-      max_threads: 2
-      user_management:
-        provider: local
-        local:
-          users:
-          - {name: admin, password: ((password_director))}
-          - {name: hm, password: ((password_hm))}
+      db:
+        adapter: postgres
+        database: bosh
+        host: 127.0.0.1
+        listen_address: 127.0.0.1
+        password: ((postgres_password))
+        user: postgres
+      default_ssh_options:
+        gateway_host: 52.70.98.70
+      enable_dedicated_status_worker: true
+      enable_post_deploy: true
+      events:
+        record_events: true
+      flush_arp: true
+      generate_vm_passwords: true
+      name: bosh-aws
       ssl:
         cert: |
           -----BEGIN CERTIFICATE-----
-          MIIFXDCCBESgAwIBAgIQOvRHkhKyb/k9O4xvIi9zZTANBgkqhkiG9w0BAQsFADCB
-          kDELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
-          A1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxNjA0BgNV
-          BAMTLUNPTU9ETyBSU0EgRG9tYWluIFZhbGlkYXRpb24gU2VjdXJlIFNlcnZlciBD
-          QTAeFw0xNjA3MDYwMDAwMDBaFw0xOTA3MDYyMzU5NTlaMFoxITAfBgNVBAsTGERv
-          bWFpbiBDb250cm9sIFZhbGlkYXRlZDEhMB8GA1UECxMYUG9zaXRpdmVTU0wgTXVs
-          dGktRG9tYWluMRIwEAYDVQQDDAkqLm5vbm8uaW8wggEiMA0GCSqGSIb3DQEBAQUA
-          A4IBDwAwggEKAoIBAQC3LnOi4qIl91BDjkNRHUC+ECvODAwDF/9z7ZAQq55FKoJ+
-          bqWMBcDV0BVh1OzREpqS0ORW/e5rvpiyO6ajRvE0g6PmzNhuSL5eeAVIbvLsfN6l
-          vEdE69QCXZ3UI+l1KzhPnx5xeSQf9UOvlkpMVkSyIuLcvMCSAekJne3S6YOHwLSA
-          oQOwnO5dp2Im4pOoQ86Pth25szfRu8uvd3nXBZQOiDv/ttk7dLQvdDM+KAqefhwo
-          cQFaWPxrQERjwDpsmf2jjjLZzP1uemwA9h74lxeAJKV6Ph9uJ6EjWRYuAYlo7i0v
-          mn9o20VslP1wnWKHreq2jFLU93SPzNCWmZr+nAIRAgMBAAGjggHlMIIB4TAfBgNV
-          HSMEGDAWgBSQr2o6lFoL2JDqElZz30O0Oija5zAdBgNVHQ4EFgQUbfZ/qwsJA124
-          awOjcusTRuVBi+IwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0l
-          BBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCME8GA1UdIARIMEYwOgYLKwYBBAGyMQEC
-          AgcwKzApBggrBgEFBQcCARYdaHR0cHM6Ly9zZWN1cmUuY29tb2RvLmNvbS9DUFMw
-          CAYGZ4EMAQIBMFQGA1UdHwRNMEswSaBHoEWGQ2h0dHA6Ly9jcmwuY29tb2RvY2Eu
-          Y29tL0NPTU9ET1JTQURvbWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5jcmww
-          gYUGCCsGAQUFBwEBBHkwdzBPBggrBgEFBQcwAoZDaHR0cDovL2NydC5jb21vZG9j
-          YS5jb20vQ09NT0RPUlNBRG9tYWluVmFsaWRhdGlvblNlY3VyZVNlcnZlckNBLmNy
-          dDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuY29tb2RvY2EuY29tMDMGA1UdEQQs
-          MCqCCSoubm9uby5pb4IKKi5ub25vLmNvbYIIbm9uby5jb22CB25vbm8uaW8wDQYJ
-          KoZIhvcNAQELBQADggEBAIM9PPckdm0CUoywdKmfpRG14bZ5iHN/iTNk+qnQeNlU
-          ovxM6FHS1w+x3/TSQhh1FNtWDNQcLn2BD+Yk+3b5mBc+WbpcAbBp2dbpGlSPeLD4
-          6SorB8ZHwHiY40FWE/6uyuC5wpy1BN+OwH9KoKVdiXlsY2ApXoU2U57s5haV7Jjm
-          gn9ZpyWhsvbpcLO9d029vNim3qT96mY3LMx6PM269Ref0Aieq7rGw38Xu3FQLBMU
-          l9E/Q+90B+aR9UsmslfjWFZz7MyhZG/bJXt+0XxFAjF08Nwe1qX5n+3Tn4ogwuuO
-          NaaNSyS8pHUJhaq+ZiC7zM2YsuLBICPQfsunHGrho4k=
+          MIIDPDCCAiSgAwIBAgIQXjGjLYf8pQDf3S45BV5t7TANBgkqhkiG9w0BAQsFADAz
+          MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxCzAJBgNVBAMT
+          AmNhMB4XDTE3MDIyMTIxMjYxM1oXDTE4MDIyMTIxMjYxM1owOTEMMAoGA1UEBhMD
+          VVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MREwDwYDVQQDEwgxMC4wLjAuNjCC
+          ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMD/qzno9zIPzxi/8sN5t0rt
+          uddlsK/iVQeodR90xLP+EewAOPGl9AT4IMeiMFsPw2iKmFTTAjpFHK7IktSojhNd
+          5P2MGyU4qnpXcVgQCSvZlXp9Zn1zNCoEeTzPbN62LfF4CaD5YNLy/7fs8AC0KnSh
+          jOv4Nvn97sp/IJgdm+WOnd1VPAiuCVqwQCbFX4/TwFRmmHEgqZ8l9An8KbmWczyp
+          pOhNrG3UKGP1r8cD2PQfrBwYS4gLvvXtrfOmkdukupp4eTfl3/bjLvfJB+YH7Uta
+          kMlwh1RnSvZ8If2HPBVliAoqUATX1MLlhiFfkOBVupd/ciYC8KA6FC/f59mD08MC
+          AwEAAaNGMEQwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMAwG
+          A1UdEwEB/wQCMAAwDwYDVR0RBAgwBocECgAABjANBgkqhkiG9w0BAQsFAAOCAQEA
+          RoDZGgbnqrq6cpY8sae1WrAWCNVtwUWbKXc9/Bo6y4Pi0gnERBxieMggdcpvmUkE
+          NcmFE0dlS4iWFOuYkhhrZj8RAHZXd+d/yahGYyeWdPcCV0rG0ihtqbhOb098jSvA
+          jhw/E6N7f2Ze6evpC/Od/e6Ax0bP5XgK/M9n6gSbFjvnel0Rw6XzFCoLd5nyH7sb
+          WUMzUE8C+wt15BD15oGCyyuexoRcUq+lc2m/S7rXhG2M6icrfZeGYbH00UE2jWQT
+          TW5pVj8TjDs/zg4cTILrjZ6UeQvZ2HgUVMxgD+8j4cN3mOk5aeAg1HOaHpgWcHOl
+          8kl+GdCQ4hY/0HXLbfZ7mg==
           -----END CERTIFICATE-----
-          -----BEGIN CERTIFICATE-----
-          MIIGCDCCA/CgAwIBAgIQKy5u6tl1NmwUim7bo3yMBzANBgkqhkiG9w0BAQwFADCB
-          hTELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
-          A1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxKzApBgNV
-          BAMTIkNPTU9ETyBSU0EgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTQwMjEy
-          MDAwMDAwWhcNMjkwMjExMjM1OTU5WjCBkDELMAkGA1UEBhMCR0IxGzAZBgNVBAgT
-          EkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMR
-          Q09NT0RPIENBIExpbWl0ZWQxNjA0BgNVBAMTLUNPTU9ETyBSU0EgRG9tYWluIFZh
-          bGlkYXRpb24gU2VjdXJlIFNlcnZlciBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEP
-          ADCCAQoCggEBAI7CAhnhoFmk6zg1jSz9AdDTScBkxwtiBUUWOqigwAwCfx3M28Sh
-          bXcDow+G+eMGnD4LgYqbSRutA776S9uMIO3Vzl5ljj4Nr0zCsLdFXlIvNN5IJGS0
-          Qa4Al/e+Z96e0HqnU4A7fK31llVvl0cKfIWLIpeNs4TgllfQcBhglo/uLQeTnaG6
-          ytHNe+nEKpooIZFNb5JPJaXyejXdJtxGpdCsWTWM/06RQ1A/WZMebFEh7lgUq/51
-          UHg+TLAchhP6a5i84DuUHoVS3AOTJBhuyydRReZw3iVDpA3hSqXttn7IzW3uLh0n
-          c13cRTCAquOyQQuvvUSH2rnlG51/ruWFgqUCAwEAAaOCAWUwggFhMB8GA1UdIwQY
-          MBaAFLuvfgI9+qbxPISOre44mOzZMjLUMB0GA1UdDgQWBBSQr2o6lFoL2JDqElZz
-          30O0Oija5zAOBgNVHQ8BAf8EBAMCAYYwEgYDVR0TAQH/BAgwBgEB/wIBADAdBgNV
-          HSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwGwYDVR0gBBQwEjAGBgRVHSAAMAgG
-          BmeBDAECATBMBgNVHR8ERTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNv
-          bS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9uQXV0aG9yaXR5LmNybDBxBggrBgEFBQcB
-          AQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29tb2RvY2EuY29tL0NPTU9E
-          T1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21v
-          ZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAE4rdk+SHGI2ibp3wScF9BzWRJ2p
-          mj6q1WZmAT7qSeaiNbz69t2Vjpk1mA42GHWx3d1Qcnyu3HeIzg/3kCDKo2cuH1Z/
-          e+FE6kKVxF0NAVBGFfKBiVlsit2M8RKhjTpCipj4SzR7JzsItG8kO3KdY3RYPBps
-          P0/HEZrIqPW1N+8QRcZs2eBelSaz662jue5/DJpmNXMyYE7l3YphLG5SEXdoltMY
-          dVEVABt0iN3hxzgEQyjpFv3ZBdRdRydg1vs4O2xyopT4Qhrf7W8GjEXCBgCq5Ojc
-          2bXhc3js9iPc0d1sjhqPpepUfJa3w/5Vjo1JXvxku88+vZbrac2/4EjxYoIQ5QxG
-          V/Iz2tDIY+3GH5QFlkoakdH368+PUq4NCNk+qKBR6cGHdNXJ93SrLlP7u3r7l+L4
-          HyaPs9Kg4DdbKDsx5Q5XLVq4rXmsXiBmGqW5prU5wfWYQ//u+aen/e7KJD2AFsQX
-          j4rBYKEMrltDR5FL1ZoXX/nUh8HCjLfn4g8wGTeGrODcQgPmlKidrv0PJFGUzpII
-          0fxQ8ANAe4hZ7Q7drNJ3gjTcBpUC2JD5Leo31Rpg0Gcg19hCC0Wvgmje3WYkN5Ap
-          lBlGGSW4gNfL1IYoakRwJiNiqZ+Gb7+6kHDSVneFeO/qJakXzlByjAA6quPbYzSf
-          +AZxAeKCINT+b72x
-          -----END CERTIFICATE-----
-          -----BEGIN CERTIFICATE-----
-          MIIFdDCCBFygAwIBAgIQJ2buVutJ846r13Ci/ITeIjANBgkqhkiG9w0BAQwFADBv
-          MQswCQYDVQQGEwJTRTEUMBIGA1UEChMLQWRkVHJ1c3QgQUIxJjAkBgNVBAsTHUFk
-          ZFRydXN0IEV4dGVybmFsIFRUUCBOZXR3b3JrMSIwIAYDVQQDExlBZGRUcnVzdCBF
-          eHRlcm5hbCBDQSBSb290MB4XDTAwMDUzMDEwNDgzOFoXDTIwMDUzMDEwNDgzOFow
-          gYUxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
-          BgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYD
-          VQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MIICIjANBgkq
-          hkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAkehUktIKVrGsDSTdxc9EZ3SZKzejfSNw
-          AHG8U9/E+ioSj0t/EFa9n3Byt2F/yUsPF6c947AEYe7/EZfH9IY+Cvo+XPmT5jR6
-          2RRr55yzhaCCenavcZDX7P0N+pxs+t+wgvQUfvm+xKYvT3+Zf7X8Z0NyvQwA1onr
-          ayzT7Y+YHBSrfuXjbvzYqOSSJNpDa2K4Vf3qwbxstovzDo2a5JtsaZn4eEgwRdWt
-          4Q08RWD8MpZRJ7xnw8outmvqRsfHIKCxH2XeSAi6pE6p8oNGN4Tr6MyBSENnTnIq
-          m1y9TBsoilwie7SrmNnu4FGDwwlGTm0+mfqVF9p8M1dBPI1R7Qu2XK8sYxrfV8g/
-          vOldxJuvRZnio1oktLqpVj3Pb6r/SVi+8Kj/9Lit6Tf7urj0Czr56ENCHonYhMsT
-          8dm74YlguIwoVqwUHZwK53Hrzw7dPamWoUi9PPevtQ0iTMARgexWO/bTouJbt7IE
-          IlKVgJNp6I5MZfGRAy1wdALqi2cVKWlSArvX31BqVUa/oKMoYX9w0MOiqiwhqkfO
-          KJwGRXa/ghgntNWutMtQ5mv0TIZxMOmm3xaG4Nj/QN370EKIf6MzOi5cHkERgWPO
-          GHFrK+ymircxXDpqR+DDeVnWIBqv8mqYqnK8V0rSS527EPywTEHl7R09XiidnMy/
-          s1Hap0flhFMCAwEAAaOB9DCB8TAfBgNVHSMEGDAWgBStvZh6NLQm9/rEJlTvA73g
-          JMtUGjAdBgNVHQ4EFgQUu69+Aj36pvE8hI6t7jiY7NkyMtQwDgYDVR0PAQH/BAQD
-          AgGGMA8GA1UdEwEB/wQFMAMBAf8wEQYDVR0gBAowCDAGBgRVHSAAMEQGA1UdHwQ9
-          MDswOaA3oDWGM2h0dHA6Ly9jcmwudXNlcnRydXN0LmNvbS9BZGRUcnVzdEV4dGVy
-          bmFsQ0FSb290LmNybDA1BggrBgEFBQcBAQQpMCcwJQYIKwYBBQUHMAGGGWh0dHA6
-          Ly9vY3NwLnVzZXJ0cnVzdC5jb20wDQYJKoZIhvcNAQEMBQADggEBAGS/g/FfmoXQ
-          zbihKVcN6Fr30ek+8nYEbvFScLsePP9NDXRqzIGCJdPDoCpdTPW6i6FtxFQJdcfj
-          Jw5dhHk3QBN39bSsHNA7qxcS1u80GH4r6XnTq1dFDK8o+tDb5VCViLvfhVdpfZLY
-          Uspzgb8c8+a4bmYRBbMelC1/kZWSWfFMzqORcUx8Rww7Cxn2obFshj5cqsQugsv5
-          B5a6SE2Q8pTIqXOi6wZ7I53eovNNVZ96YUWYGGjHXkBrI/V5eu+MtWuLt29G9Hvx
-          PUsE2JOAWVrgQSQdso8VYFhH2+9uRv0V9dlfmrPb2LjkQLPNlzmuhbsdjrzch5vR
-          pu/xO28QOG8=
-          -----END CERTIFICATE-----
-        key: ((nono_io_key))
+        key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          MIIEpAIBAAKCAQEAwP+rOej3Mg/PGL/yw3m3Su2512Wwr+JVB6h1H3TEs/4R7AA4
+          8aX0BPggx6IwWw/DaIqYVNMCOkUcrsiS1KiOE13k/YwbJTiqeldxWBAJK9mVen1m
+          fXM0KgR5PM9s3rYt8XgJoPlg0vL/t+zwALQqdKGM6/g2+f3uyn8gmB2b5Y6d3VU8
+          CK4JWrBAJsVfj9PAVGaYcSCpnyX0CfwpuZZzPKmk6E2sbdQoY/WvxwPY9B+sHBhL
+          iAu+9e2t86aR26S6mnh5N+Xf9uMu98kH5gftS1qQyXCHVGdK9nwh/Yc8FWWICipQ
+          BNfUwuWGIV+Q4FW6l39yJgLwoDoUL9/n2YPTwwIDAQABAoIBAC4gLJ0Ph5zIWHeS
+          0INVYLAgtsy6+gpfLnFBGpTlBGn8K+5ac0GVpwdVAgiUQ7hPwSUIErYbJConAF7p
+          guYeTq5kP2k1hftUWrIYmfcxBfAb9XSr6cXLtcjg/tTAwkVMBxjx1mNJlpF0EBe2
+          IfoZFRiAz7xJu2HuBZcR4QlZ8jtfevJiH3fYnNuIdEfMM63NXcNtr8DEE0ghESRb
+          Y4v/DKNuQarDecSevEiWWvb09bi4AE2rqpUfY5ejt6l/Eu/3K0SGaN8nDBgRGmgd
+          YIXI09LxpcpVZUMHYvun4B0BNGzy6Xm899HXAFiatzMb9CKobuUiLOiXTaHZjuO5
+          euR6KwECgYEA0BRVEPaZlYEbd2IQYYdcL0zVIRlyEiCBPTYmEYsVbPDhquFJ6ALj
+          zCE16yPwoUsc8hfshlCRP8Oyvh6UGvbo08OiJK40L6YPdC6D2kCUV9UQACltpZDi
+          v4qyZrNVaP33qk9/YR+z9iWVcOtQ/IlnIzrAIrPnaGcG2s3oibvo/EMCgYEA7XI6
+          VwElW3pvq2TGU2YmzOK0X+GQnZqm2dBH6tpOFeWdblUv2viipSJtEtKjWKXtFiNK
+          eiJ6At1ykVe7fVUdhalKg9hkmu+CmvoLhY8zhVFURxvhnJJTyh3tIxPpAQAAmQ5s
+          u/QELM/U9v5WPrfo1DxA9/VyTNNwC505eFUgEoECgYEAp0zBvJrZj6g3wjwZeaEQ
+          0IMRFcTUv5hc8S9ZWl+egXIHr5HmD2JLb7QAGyhRcA3pnwj3RmL+9erOCyig4jFF
+          sAYqlx1tniYBZOOFZfTokNohPFAS9bzRYzoMCKEF+h3AhLHYc+m+kxlS13CMNA/x
+          2hSBqSVG2N2FWGWYIy3vvOsCgYEAwODtKwevROPsGhm+ULjGA+CUDN66Dow1xPE/
+          ujKjA36Fp75jJUibNfEFESkxryz5reX09clTu0gPbKkLj/+3/39JHFiHQKQWP7Wl
+          7lQo0b8C6tBnMDxc++3bV4cw2rMZyTrCcNsDGTOqFwj7He9enihjzgf/VRDcD1Mj
+          /++GIgECgYAcAshiIDDDNcTrvzgsGQBBTJ4bTJWmlZvpUoYjkB2dUGalXtikS9ja
+          iXSL8QT9saRuGvB+cLAUKGrDWg8v+UAC7cdcbo93IcsoaiY0vsTlnlhps9ycIbjJ
+          IV4IQAuQykUu4zb3yod5/LaFM/mlxEaQmCj4SItberY3tkLQoCuvrA==
+          -----END RSA PRIVATE KEY-----
+      user_management:
+        local:
+          users:
+          - name: admin
+            password: ((admin_password))
+          - name: hm
+            password: ((hm_password))
+        provider: local
+      workers: 4
     hm:
-      director_account: {user: hm, password: ((password_hm))}
+      director_account:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDFDCCAfygAwIBAgIRAJshPm6aMTH6mgh5jbMrJQkwDQYJKoZIhvcNAQELBQAw
+          MzEMMAoGA1UEBhMDVVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQD
+          EwJjYTAeFw0xNzAyMjEyMTI2MTJaFw0xODAyMjEyMTI2MTJaMDMxDDAKBgNVBAYT
+          A1VTQTEWMBQGA1UEChMNQ2xvdWQgRm91bmRyeTELMAkGA1UEAxMCY2EwggEiMA0G
+          CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDiV/v/Xkb78JayiRXS5CteDPZDxviH
+          Y3vwxhbOMGgnDYheFVZ+HB+/nva/GNUlzAzkSgNIFkSYy5fyrWschWNW9ET8kouo
+          wKyimGL2j1yXNJUJalTialnENvl1JNqdnWIK4IzL12Xs9Iz0WnLh5ZfOT1lXDKTf
+          KgnFPqiCzTQqMxCFwr6+ad5BXR6o5CkjNVl6RrOjIZ1bqMlYqIwkmUPd8su4EC09
+          BpLr4ZjGeaTKLgFr6c2xNPzfp8UqQ4fw1aq9klR+RZpM8RrxOJ+1Os4XU8LQzGhZ
+          kSJTBlKdsNpNs20aTum5qndxNoPTBkrJuqg0+yavA8ridkY3lCPBsl0vAgMBAAGj
+          IzAhMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEB
+          CwUAA4IBAQCOXlhQQtqTH9fGfSMFnQzXEa62Aj+FTJOgu8vcfxaPzDrAWZUdIc5C
+          8xgPksMd+Ah3BOOZXQ8aVq/lU9rjrklVeAu0IxXN2wpALRQ6F4Q3vz5BapDtNqrr
+          byW6U57NWhKny66PFxc65AoILYOlo0CBLRCRuVzP0CjiYF6qYcag3ADHkwJwfLHT
+          +BmB+a1S5GVxIdwH3TMcf+52QNU7uNWYyKu8XuarRpUm5r0L4c3Gn+ZZZM1+kY+V
+          rfs2l0Nqc6AuQN2HvTsmKUw9xG3eQI/XVLrXl8hlXR4NumUBgNiCHNdUb2ANQ6iQ
+          p7uCgPKpE1Om4LEHUGlZV2/3vqCpuf2Y
+          -----END CERTIFICATE-----
+        password: ((hm_password))
+        user: hm
       resurrector_enabled: true
-
-    aws: &aws
-      access_key_id: ((aws_access_key_id)) # <--- Replace with AWS Access Key ID
-      secret_access_key: ((aws_secret_access_key)) # <--- Replace with AWS Secret Key
-      default_key_name: aws_nono
-      # the Security Group MUST have the VPC ID of your VPC (e.g. 'vpc-e4250881')
-      default_security_groups: [bosh]
-      region: us-east-1 # <--- Replace with Region
-
-    # agent: {mbus: "nats://nats:password_nats@10.0.0.6:4222"}
-    agent: {mbus: ((aws_director_agent_mbus)) }
-
-    ntp: &ntp [0.pool.ntp.org, 1.pool.ntp.org]
-
+    nats:
+      address: 127.0.0.1
+      password: ((nats_password))
+      user: nats
+    ntp:
+    - time1.google.com
+    - time2.google.com
+    - time3.google.com
+    - time4.google.com
+    postgres:
+      adapter: postgres
+      database: bosh
+      host: 127.0.0.1
+      listen_address: 127.0.0.1
+      password: ((postgres_password))
+      user: postgres
+    registry:
+      address: 10.0.0.6
+      db:
+        adapter: postgres
+        database: bosh
+        host: 127.0.0.1
+        password: ((postgres_password))
+        user: postgres
+      host: 10.0.0.6
+      http:
+        password: ((registry_password))
+        port: 25777
+        user: registry
+      password: ((registry_password))
+      port: 25777
+      username: registry
+  resource_pool: vms
+name: bosh
 networks:
-- name: private
-  type: manual
+- name: default
   subnets:
-  - range: 10.0.0.0/24
+  - cloud_properties:
+      subnet: subnet-1c90ef6b
+    dns:
+    - 8.8.8.8
     gateway: 10.0.0.1
-    dns: [10.0.0.2]
-    cloud_properties: {subnet: subnet-1c90ef6b} # <--- Replace with Subnet ID
+    range: 10.0.0.0/24
+    static:
+    - 10.0.0.6
+  type: manual
 - name: public
   type: vip
-
-name: bosh-aws
-
 releases:
 - name: bosh
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=260.2
-  sha1: ef578498b66839b965bb920dd0ea601d23486fe6
+  sha1: 16966c90fb3535a2de6e2e19bf8252524d2f2d27
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-260.5-ubuntu-trusty-3312.15-20170124-025145-688314225-20170124025151.tgz?versionId=XdnsJBm4uh.wTJ1aKy5BZ.B.NtBOZFTD
+  version: 260.5
 - name: bosh-aws-cpi
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=62
-  sha1: f36967927ceae09e5663a41fdda199edfe649dc6
-
+  sha1: 8e40a9ff892204007889037f094a1b0d23777058
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=60
+  version: 60
 resource_pools:
-- name: vms
-  network: private
-  stemcell:
-    url:  https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-3363.1-aws-xen-hvm-ubuntu-trusty-go_agent.tgz
-    sha1: 671b49cf788d36500e12a8120efb2ada8813c3fd
-    #url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3306
-    #sha1: 95ecc2709ac62f21d0a1c6cac023585c3919b825
-  cloud_properties:
+- cloud_properties:
+    availability_zone: us-east-1b
+    ephemeral_disk:
+      size: 20000
     instance_type: t2.micro
-    ephemeral_disk: {size: 20_000, type: gp2}
-    availability_zone: us-east-1a # <--- Replace with Availability Zone
+  env:
+    bosh:
+      password: '*'
+  name: vms
+  network: default
+  stemcell:
+    sha1: f5e78f61b8026377300db544e9d3ca0b89516af3
+    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3312.15
+variables:
+- name: admin_password
+  type: password
+- name: blobstore_director_password
+  type: password
+- name: blobstore_agent_password
+  type: password
+- name: hm_password
+  type: password
+- name: mbus_bootstrap_password
+  type: password
+- name: nats_password
+  type: password
+- name: postgres_password
+  type: password
+- name: default_ca
+  options:
+    common_name: ca
+    is_ca: true
+  type: certificate
+- name: director_ssl
+  options:
+    alternative_names:
+    - 10.0.0.6
+    - 52.70.98.70
+    ca: default_ca
+    common_name: 10.0.0.6
+  type: certificate
+- name: registry_password
+  type: password
