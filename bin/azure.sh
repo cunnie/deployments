@@ -1,0 +1,21 @@
+gobosh create-env ~/workspace/bosh-deployment/bosh.yml \
+  --state=./state.json \
+  -o ~/workspace/bosh-deployment/azure/cpi.yml \
+  -o ~/workspace/bosh-deployment/external-ip-with-registry-not-recommended.yml \
+  -o ~/workspace/bosh-deployment/jumpbox-user.yml \
+  -o instancetype.yml \
+  --vars-store ./creds.yml \
+  -v director_name=bosh \
+  -v client_id=xxxx \
+  -v client_secret=xxxx \
+  -v default_security_group=nsg-bosh \
+  -v resource_group_name=bosh-res-group \
+  -v storage_account_name=xxxx \
+  -v subnet_name=bosh \
+  -v subscription_id=xxxx \
+  -v tenant_id=xxxx \
+  -v vnet_name=boshnet \
+  -v internal_cidr=10.0.0.0/24 \
+  -v internal_ip=10.0.0.6 \
+  -v internal_gw=10.0.0.1 \
+  -v external_ip=xxxx
