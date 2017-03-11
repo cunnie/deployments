@@ -30,6 +30,6 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   cat - /tmp/bosh-aws.yml.$$ > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml
-# bosh -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
+# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml
+# bosh2 -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
 EOF
