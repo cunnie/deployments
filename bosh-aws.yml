@@ -1,7 +1,7 @@
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml
-# bosh -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
+# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml
+# bosh2 -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
 cloud_provider:
   mbus: https://mbus:((mbus_bootstrap_password))@52.70.98.70:6868
   properties:
@@ -112,52 +112,52 @@ instance_groups:
       ssl:
         cert: |
           -----BEGIN CERTIFICATE-----
-          MIIDQzCCAiugAwIBAgIRAMyBGydFrQR/dTVgTRyG/dIwDQYJKoZIhvcNAQELBQAw
-          MzEMMAoGA1UEBhMDVVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQD
-          EwJjYTAeFw0xNzAzMTExOTE5MTVaFw0xODAzMTExOTE5MTVaMDkxDDAKBgNVBAYT
-          A1VTQTEWMBQGA1UEChMNQ2xvdWQgRm91bmRyeTERMA8GA1UEAxMIMTAuMC4wLjYw
-          ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDKU2gQV1nJHzzU78JIyBp4
-          YYdrHSpu3nBYWdh5GbzRGxFliCHu0/RMXg88tjeBxPuKY5hKgXiTrJxmgJGooyBG
-          Qc9VovXyB3urP7TC56rcmlZPrR07oVVlN17174aOu7jcEMNLXro1SO6iFCGvMdrK
-          29hXbUoHWA/At4aZASbVmKwL9+rY4/NSCyy//e9evNfBbvjPcE1USf2l8ybgb6Ya
-          tp5iMIPlGQPo3PPrfG2M7OWKLVeckdbXFnuEPPTQXkKlb6yLy8zI6xV2J5ejdOwS
-          TxhFVU1jjFZc0eRS+t4qwASbwRgkp3aToNakm2F7OiUqXCPisRenuHTrmaQ1Fm47
-          AgMBAAGjTDBKMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDATAM
-          BgNVHRMBAf8EAjAAMBUGA1UdEQQOMAyHBAoAAAaHBDRGYkYwDQYJKoZIhvcNAQEL
-          BQADggEBABYGwMV5HcHTUOYLbPjCgjpdbogIx7bLL3X8w+/pPofVMq5yAPiyS93c
-          3PZykSPRonRgxfNj1Qvi84QFCqUwWC2n5Vj+r/rAnwxeI3/A7Uj2ffyFgPnsojF4
-          E7sbCAOUrKZfvioGcm6C5te8plO46F4sq48quuu+hZ0sOexaVjQvrpY/Op1wa99+
-          S6tIIJxd6q7ExRYnN4DbLSfHASDxb2tgs5utC/dwxL1e+AKUS4zl6Hzo1+Zwww34
-          DqIjqECZlmxv++05Cs3qYR8euTMFydr/dvhoXl9QqpjoqLJjbd7T83vs8pew9wYL
-          Y1pRvubwJ2Nunf+1gLeROOVCUPyesKc=
+          MIIDQjCCAiqgAwIBAgIQJjhYtE9QeBJBtVa33rI2TjANBgkqhkiG9w0BAQsFADAz
+          MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxCzAJBgNVBAMT
+          AmNhMB4XDTE3MDMxMTIyMTQxOFoXDTE4MDMxMTIyMTQxOFowOTEMMAoGA1UEBhMD
+          VVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MREwDwYDVQQDEwgxMC4wLjAuNjCC
+          ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANVLyNY1ZFm1+R066Oa0F9sO
+          QPcy1seVaD6Ox8K4tpGcy4FmiRWFvJOPndDKcm5MoainDVXEXBJcJtEo8OLIwBiw
+          BJ/hxNjuGgpacZ9HqXHHlIAwuOa6nxmNj1lBmyhOfhH2Sh8W2alTDXvTGrdNr4w4
+          GtZKBJcYDvVIqqN968Qb4+O87ik0RUhU2hiVxnewYV6qSfPWdFs3Fm5M2JQmTcLV
+          h2CY+JQpTWTbUbepMSg7wpda3/C09982w7/m48WlWAsECRyafBDijf+9f3yhLIdg
+          lkCkADfpZISEF+vsS849+uEXTlGnpfkxl4ukw9q9W1LaFiYRFlPqpLVLpTzHqD0C
+          AwEAAaNMMEowDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMAwG
+          A1UdEwEB/wQCMAAwFQYDVR0RBA4wDIcECgAABocENEZiRjANBgkqhkiG9w0BAQsF
+          AAOCAQEAZ3ARZ2VJu8FI7w4UUyZGQCM/SMacIj7FX9ZwVPCnDajPZzFboUL8lr1v
+          otf+ih9HGGx0CZzM9dH2GPae0l5fJ1PApahIuPJ1VTPGalBCxf9Pr7244MXRVofb
+          ftmZnUoBxKOSq7lZC9R1loT1E1qvLQrbPs0iQIvQcUIcs0Fdb1VEyH/CBk4s5mLD
+          bfl+TxWBAn4mhTeLuk9V0Y8KYccFvfd2RNu94G9hKBKQZe9UXpG+cAjwWC4KENtX
+          wft1iUMPKBuzweqkZBEldSLj2+Z+GG9tkAWTMOn1kD/9NQHOTDfrthSgBwMvWHD6
+          GUrvIyl3p0Ue6Mi/yErsIoDTbfGXeQ==
           -----END CERTIFICATE-----
         key: |
           -----BEGIN RSA PRIVATE KEY-----
-          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
+          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
           -----END RSA PRIVATE KEY-----
       user_management:
         local:
@@ -172,23 +172,23 @@ instance_groups:
       director_account:
         ca_cert: |
           -----BEGIN CERTIFICATE-----
-          MIIDFDCCAfygAwIBAgIRAJdR25clJecm7wBePYhZ6uIwDQYJKoZIhvcNAQELBQAw
+          MIIDFDCCAfygAwIBAgIRAKghhw7iIDYVccFGiC1M/BEwDQYJKoZIhvcNAQELBQAw
           MzEMMAoGA1UEBhMDVVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQD
-          EwJjYTAeFw0xNzAzMTExOTE5MTRaFw0xODAzMTExOTE5MTRaMDMxDDAKBgNVBAYT
+          EwJjYTAeFw0xNzAzMTEyMjE0MThaFw0xODAzMTEyMjE0MThaMDMxDDAKBgNVBAYT
           A1VTQTEWMBQGA1UEChMNQ2xvdWQgRm91bmRyeTELMAkGA1UEAxMCY2EwggEiMA0G
-          CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPudFG0Hhwqnc+WUx4w984CmF3GPAo
-          ZSrybM0nxTvmawqPbDn1zf+SKxgVXxZFAPFHQM646alJNDQkyutTqiwX3wBpBD+3
-          XdQDCpyV3EXgnj54eJNwbO9dCqF0lU71YDEN7GwBRVYtietU8bLbKzhy6/Zkyq0q
-          WLxUelFtSFsMPcCwZ+KDFBM8GqQRgub7THTopiHv3QLXRXZR2RLuOvuHMBcZGhlo
-          jIk1GCx422aeY0VEon5dsYmQmokLrCfP0TIi1stdhv4cL1bnG9mZ11ZygNKv2YMR
-          ZnGMisGRrscf3oP7SPfSDrCq6G/W/zWYtzWEhdV1OMNgvgv+URHQETAdAgMBAAGj
+          CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDLc/eXVaKshWSkk2L2wNyzelP+zX7u
+          tgffbpKiANxfQ8xmPLBUvm9AaBJdJ8khuoDxqJUAWz3+CS7tSmFRm6beeF7IGyJI
+          HTi8ace7RGj2Tu+cPlmHEij5NSEbnb0ecg/7Bz3r9sCNDl4xpos2T4A9NFkG/loh
+          CgTwiQdvvIClMiC7ccvlPRJr1atQjR9vDD/ViiWP9fRoR0oA3uyVm4S9p86niiyl
+          QUlls7wpotrKK6jhFW3xV8K1VeLCpXqm3WrRDWGhzxfD0tTyeLyA7V/5fDvtWU28
+          YYozKtLSCrcWrIT6crQ+VNDXTwaaYevf4Ux3/diqM22GPTFpyHEAZC2tAgMBAAGj
           IzAhMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEB
-          CwUAA4IBAQCsJOSvugdL7IwZjHDBaoaPORe2bBtgI+/l8Ij+QfRMSTnIXqmuEU/Z
-          8/GhBZ43VrYTvy21vWflDWFCGeFkNuOxTqgS6aarled/sN4kzRc+9EFE4wbP0cao
-          PxRQLeK2wh2U8SM7z27x8IeZv8bI82TkkaEn4Mx7zRjnOhl04XOAwB+W9avrTwBv
-          c3bfZiNJbdJTr3MkStcPPiaWE+0cTR1UrA+wTS7q+EE2+zVNd/fuzh2Ap5BeMEmR
-          63ZBnDhGqQbZYcKYnVbakq3+cfBURUa7r2Qg4l/k4ktEjuornBcC5QRIGepYe+kg
-          8rKiNcwoIIGMrZpbNsRBOuREkEhVPMRG
+          CwUAA4IBAQBWoBjjOi7bciDNYX2eUn+wh5iXH9vKJLW7HAHjhTRyD32ebIZHRWmZ
+          8RdqxmGV69ehUwJGaRXjzUe35xCjZRmd5u2mmo+xLuc9oKj2hzFld1qrDtTPkahj
+          Oz1O8j70XAMuJcnNqK7ro7I7Tb6IVpQzNKXERf45PHMHy6wnE71B/azmnMmHvZKq
+          BjO8EuVhH5Td0c5P9Y+uPt2qto83ghhjedewSEx1MOJyMqkTBkz1/vvM0ZW9zfvA
+          /yqccUGNwwiJcgDNvzMY+cj5B6rPSeE4h+S5m5Z85+B+uyrsSZ5SplGboc083nYc
+          pa5M8bPRwTRRcizioqYh9/poKQguSZfF
           -----END CERTIFICATE-----
         password: ((hm_password))
         user: hm
@@ -243,9 +243,9 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 16966c90fb3535a2de6e2e19bf8252524d2f2d27
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-260.5-ubuntu-trusty-3312.15-20170124-025145-688314225-20170124025151.tgz?versionId=XdnsJBm4uh.wTJ1aKy5BZ.B.NtBOZFTD
-  version: 260.5
+  sha1: 78e4ef89a3be9fc7d8813c3c4a4883698b3e430c
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-261.3-ubuntu-trusty-3363.9-20170306-221541-985485166-20170306221548.tgz?versionId=5EA3waYPDXZtAN64W3GbLEHWz1rBM7nA
+  version: 261.3
 - name: bosh-aws-cpi
   sha1: 8e40a9ff892204007889037f094a1b0d23777058
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=60
@@ -259,7 +259,7 @@ resource_pools:
     availability_zone: us-east-1a
     ephemeral_disk:
       size: 20000
-    instance_type: t2.micro
+    instance_type: t2.small
   env:
     bosh:
       password: '*'
