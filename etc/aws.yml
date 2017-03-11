@@ -16,3 +16,8 @@
 - type: replace
   path: /disk_pools/name=disks/disk_size?
   value: 20_000
+
+# I don't want my jumpbox user to have auto-generated creds; I want MY creds
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=user_add/properties/users/name=jumpbox/public_key?
+  value: ((aws_jumpbox_user_public_key))

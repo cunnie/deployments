@@ -2,6 +2,7 @@ DEPLOYMENTS_DIR=~/workspace/deployments/
 bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/aws/cpi.yml \
   -o ~/workspace/bosh-deployment/external-ip-with-registry-not-recommended.yml \
+  -o ~/workspace/bosh-deployment/jumpbox-user.yml \
   -o etc/aws.yml \
   --vars-store $DEPLOYMENTS_DIR/aws-creds.yml \
   -v access_key_id="((aws_access_key_id))" \
@@ -24,7 +25,7 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v nats_password="((nats_password))" \
   -v postgres_password="((postgres_password))" \
   -v registry_password="((registry_password))" \
-  -v private_key=../../.ssh/aws_nono.pem \
+  -v private_key=$HOME/.ssh/aws_nono.pem \
   > /tmp/bosh-aws.yml.$$
   cat - /tmp/bosh-aws.yml.$$ > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED

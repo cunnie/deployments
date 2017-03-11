@@ -141,6 +141,38 @@ director_ssl:
     IV4IQAuQykUu4zb3yod5/LaFM/mlxEaQmCj4SItberY3tkLQoCuvrA==
     -----END RSA PRIVATE KEY-----
 hm_password: 4tg2qgwdrj1s3c7sa6ey
+jumpbox_ssh:
+  private_key: |
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpQIBAAKCAQEAyJWDgzh/7u6dzzxChDVEXCM7qmhoggN+U5xK3I7r+S5KHjeq
+    2h9Z7yka2znjcERlWK+/ykWfzJhhRA9a7ROcltpb0v0eMWr/lHx+MmRWfPbJBWk7
+    FKx7T1UIZzjoQGQO1aQtfjba9qdoANcF7a85ZsIzU7/smURP5Jvq20m4tWULpeGK
+    q6wTbAuz7h3siS3cyP185+DYlFn3aX6ej6BKAS2rKUduzD4sbmleHI89lX7HP9Px
+    tsKuVYkziSyNCVkDt+AW0hHM+RCu0WiQ5WC2OLOiE3kvPFfG0nTpdEAlf4PINHYN
+    AF6FJ+DrOs5h/gN6nHX2973qMRvDQgkR9sUy3wIDAQABAoIBAQDGCaAjsWfWPi7+
+    yY8euvy4P20MTTNJkitqX3gmFNH0Xnh9Jxb/bk676wiCA8CDOnQZQMQJ7/3a4WO+
+    764lPeSvp/1a7d+eiPa34sYx+JDPplRIjGHxgm3ooJrAVxYvZNqkogjsgTpkplnv
+    4lwPFJ6GzxwgBvCRTjnXCv2w7jN4mwCHsm+Y0lWqLR9FwkiNtzNo/CKEcK6SgCif
+    zsoHmOb7XvUfOdqdNt+k9/EVFei642y431gAyeQ3GYM8IQ4dU2jQDKNm8x1rs4Fy
+    5g8TLuPItYWyaNsqk7w1sgyivdNzUEaQN+iYeh4YNOLmUwzf5shr/PfHll3YIGI4
+    F67HKiJxAoGBAOXszn/FMwKCtw8B9WMBpRE4vPoJzNIsb3X8HJB+S/YU4afHE5/Y
+    qrcVjMjNmQk+VuuRzjtOpkeVWh4uZBCB7gnBE0OnJnoDg1vnar3nu7xyE3+NQ9b5
+    ERRplKSIm7V2INjmDOsRK7YEltjpa7b0fbo4b50q3m0Fpo6vYrlHhGppAoGBAN9U
+    4NSc/p3xn8deFs+tPW/RP/SPj/SvNTG/xhbzyHxnbcV5DQAjK3bqG3prp1mOKUGb
+    l9LSNu3bw+MM2TaU+3vpKRk+z1/cnnZlxRztaE3c+2ZfhTTtIy5Vt9JKwbnrEs9W
+    I7/lktpVTnNtZqjLShRd2OiFmwBsBY7PFqJPZroHAoGAcb8zcZZ3Y9iTA4OuiCp6
+    JQjyxKgwghGlmrL81qcEoVs3P6+HD986pZStr3G3MhF7ItNhOYnxTRygFqpQqrH8
+    tyqjgyagLGCsjbzw275W7CVrbADQ/Pr+7iBFfxhuH9mu6l71KR23iDbBAdKIjVxr
+    DsN4xEI/A6R1/8TYjFzLL3ECgYEAxYq9aDMJ4Mkl7GIkSURScIKlUHxf+C22HrAj
+    1o+CCdAuv5pITpPNUVzYO1vX5hYiFf87tuXsYk6eoUnvJCF5pOvjR4pQQdnSbKWu
+    Sd0RArZxxOa+28bZ9JUriJ5JZ1swAyeNbaLyV59XSjA9uxY+C2/Lejkblq7155Dz
+    01PqaKcCgYEAxFw1KkGwrBWzIbY5rdoMtWHrpF8FxjNiaOVhr9o2vXiJ5+rRnqsm
+    m1UJdJALFyxv48fxo8yUmWnVQI8wHo8DMUnSUWLxag0hEQEsGfs1NJKFgH1ZyxtZ
+    II/rssDPSkF/QIME6zR/CA9Qj6grfBpY05I17P49VaLNJWDfEymGMXA=
+    -----END RSA PRIVATE KEY-----
+  public_key: |
+    ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIlYODOH/u7p3PPEKENURcIzuqaGiCA35TnErcjuv5LkoeN6raH1nvKRrbOeNwRGVYr7/KRZ/MmGFED1rtE5yW2lvS/R4xav+UfH4yZFZ89skFaTsUrHtPVQhnOOhAZA7VpC1+Ntr2p2gA1wXtrzlmwjNTv+yZRE/km+rbSbi1ZQul4YqrrBNsC7PuHeyJLdzI/Xzn4NiUWfdpfp6PoEoBLaspR27MPixuaV4cjz2Vfsc/0/G2wq5ViTOJLI0JWQO34BbSEcz5EK7RaJDlYLY4s6ITeS88V8bSdOl0QCV/g8g0dg0AXoUn4Os6zmH+A3qcdfb3veoxG8NCCRH2xTLf
+  public_key_fingerprint: 53:1a:f5:c6:b6:2f:42:12:a9:bc:f6:e8:c1:a2:7a:a9
 mbus_bootstrap_password: zxuruoscex0ggkj4o0pd
 nats_password: r03iavdmy1nqwltxuxop
 postgres_password: d8i78oac8bx83t5mm88d
