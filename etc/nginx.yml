@@ -53,8 +53,11 @@
       pre_start: |
         #!/bin/bash -ex
         NGINX_DIR=/var/vcap/store/nginx
+        # in case there's no persistent disk:
         if [ ! -d $(dirname $NGINX_DIR) ]; then
           mkdir -p $(dirname $NGINX_DIR)
+        fi
+        if [ ! -d $NGINX_DIR ]; then
           cd $(dirname $NGINX_DIR)
           curl -L https://github.com/cunnie/sslip.io/archive/v1.tar.gz |
             tar xzf -

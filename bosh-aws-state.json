@@ -1,11 +1,18 @@
 {
     "director_id": "2aacb117-8be7-4a7f-6a78-534168de2e15",
     "installation_id": "08cb6f00-a809-47c0-4aab-e310115f5127",
-    "current_vm_cid": "i-091caee3274774519",
+    "current_vm_cid": "i-05cf23b6a75206bb3",
     "current_stemcell_id": "be272948-24d8-447d-4ea1-c7b43abb1032",
     "current_disk_id": "4ee9ac92-de46-4014-50c3-2b6cd8d3c748",
-    "current_release_ids": [],
-    "current_manifest_sha": "",
+    "current_release_ids": [
+        "8dbb076d-deaa-468a-56ca-4ad5f3bca03b",
+        "5cde8c87-bc64-4214-7be3-baf86df4c41c",
+        "08c456f5-a311-4e69-5998-79cf5a9e121b",
+        "76258580-5308-4069-47c4-71b48eaf60b5",
+        "05f1caf4-0545-4033-7f9e-a58ff2527353",
+        "22b73704-418a-45da-4a0d-e614013398c5"
+    ],
+    "current_manifest_sha": "c7cf62bd41c39b3f3867b5795d1821e91eb231e1fe9e99e9012c6e71a7ceb5bc3b306e4643cfe140a4f51d59e98340e5b75a36479020265d1cf43fb162edc466",
     "disks": [
         {
             "id": "4ee9ac92-de46-4014-50c3-2b6cd8d3c748",
@@ -24,5 +31,36 @@
             "cid": "ami-fcb05dea light"
         }
     ],
-    "releases": []
+    "releases": [
+        {
+            "id": "8dbb076d-deaa-468a-56ca-4ad5f3bca03b",
+            "name": "bosh",
+            "version": "261.3"
+        },
+        {
+            "id": "5cde8c87-bc64-4214-7be3-baf86df4c41c",
+            "name": "bosh-aws-cpi",
+            "version": "60"
+        },
+        {
+            "id": "08c456f5-a311-4e69-5998-79cf5a9e121b",
+            "name": "os-conf",
+            "version": "11"
+        },
+        {
+            "id": "76258580-5308-4069-47c4-71b48eaf60b5",
+            "name": "nginx",
+            "version": "4"
+        },
+        {
+            "id": "05f1caf4-0545-4033-7f9e-a58ff2527353",
+            "name": "ntp",
+            "version": "4"
+        },
+        {
+            "id": "22b73704-418a-45da-4a0d-e614013398c5",
+            "name": "pdns",
+            "version": "4.0.1"
+        }
+    ]
 }
