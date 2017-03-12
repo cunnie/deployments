@@ -1,4 +1,24 @@
+#
+# usage:
+#   bin/aws.sh
+#
+# Generate manifest for AWS BOSH/NTP/nginx/DNS server
+#
+# creds.yml has mostly valid certs, but decoy keys, so I can check
+# it into a public repo without fear.
+#
+# --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
+#
 DEPLOYMENTS_DIR=~/workspace/deployments/
+
+cat > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
+# DON'T EDIT; THIS FILE IS AUTO-GENERATED
+#
+# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+# bosh2 -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
+#
+EOF
+
 bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/aws/cpi.yml \
   -o ~/workspace/bosh-deployment/external-ip-with-registry-not-recommended.yml \
@@ -19,7 +39,7 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v internal_cidr=10.0.0.0/24 \
   -v internal_gw=10.0.0.1 \
   -v internal_ip=10.0.0.6 \
-  -v external_ip=52.70.98.70 \
+  -v external_ip=52.0.56.137 \
   -v admin_password="((admin_password))" \
   -v blobstore_agent_password="((blobstore_agent_password))" \
   -v blobstore_director_password="((blobstore_director_password))" \
@@ -29,10 +49,4 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v postgres_password="((postgres_password))" \
   -v registry_password="((registry_password))" \
   -v private_key=$HOME/.ssh/aws_nono.pem \
-  > /tmp/bosh-aws.yml.$$
-  cat - /tmp/bosh-aws.yml.$$ > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
-# DON'T EDIT; THIS FILE IS AUTO-GENERATED
-#
-# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
-# bosh2 -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
-EOF
+  >> $DEPLOYMENTS_DIR/bosh-aws.yml
