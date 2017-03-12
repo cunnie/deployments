@@ -58,6 +58,25 @@ instance_groups:
       - name: jumpbox
         public_key: ((aws_jumpbox_user_public_key))
     release: os-conf
+  - name: ntpd
+    properties:
+      ntp_conf: |
+        # Our upstream timekeepers; thank you Google
+        server time1.google.com iburst
+        server time2.google.com iburst
+        server time3.google.com iburst
+        server time4.google.com iburst
+        # "Batten down the hatches!"
+        # see http://support.ntp.org/bin/view/Support/AccessRestrictions
+        restrict default limited kod nomodify notrap nopeer
+        # Amazon AWS doesn't have IPv6, but I restrict it anyway
+        restrict -6 default limited kod nomodify notrap nopeer
+        restrict 127.0.0.0 mask 255.0.0.0
+        restrict -6 ::1
+        # require at least 1s between packets from an address, rather than the default of 2s
+        # http://lists.ntp.org/pipermail/questions/2010-April/026306.html
+        discard minimum 0
+    release: ntp
   name: bosh
   networks:
   - default:
@@ -254,6 +273,10 @@ releases:
   sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
   version: 11
+- name: ntp
+  sha1: 44fae7426d3937fba23f2b57b6a794a0ded62922
+  url: https://github.com/cloudfoundry-community/ntp-release/releases/download/v4/ntp-4.tgz
+  version: 4
 resource_pools:
 - cloud_properties:
     availability_zone: us-east-1a

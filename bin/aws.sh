@@ -4,6 +4,7 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/external-ip-with-registry-not-recommended.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
   -o etc/aws.yml \
+  -o etc/ntp.yml \
   --vars-store $DEPLOYMENTS_DIR/aws-creds.yml \
   -v access_key_id="((aws_access_key_id))" \
   -v secret_access_key="((aws_secret_access_key))" \
