@@ -13,6 +13,15 @@
     ephemeral_disk: {size: 20_000}
     availability_zone: ((az))
 
+# I want a password for vcap so that I can `sudo` during the compilation phase
+- type: replace
+  path: /resource_pools/name=vms/env?
+  value:
+    bosh:
+      # c1oudc0w is a default password for vcap user
+      # python -c "import crypt, getpass, pwd; print crypt.crypt('c1oudc0w', '\$6\$cunnie\$')"
+      password: "$6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/"
+
 - type: replace
   path: /disk_pools/name=disks/disk_size?
   value: 20_000

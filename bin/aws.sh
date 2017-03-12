@@ -4,7 +4,9 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/external-ip-with-registry-not-recommended.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
   -o etc/aws.yml \
+  -o etc/nginx.yml \
   -o etc/ntp.yml \
+  -o etc/pdns.yml \
   --vars-store $DEPLOYMENTS_DIR/aws-creds.yml \
   -v access_key_id="((aws_access_key_id))" \
   -v secret_access_key="((aws_secret_access_key))" \
@@ -31,6 +33,6 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   cat - /tmp/bosh-aws.yml.$$ > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml
+# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
 # bosh2 -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
 EOF
