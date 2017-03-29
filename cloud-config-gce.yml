@@ -16,8 +16,7 @@ vm_types:
     root_disk_type: pd-standard
 - name: concourse
   cloud_properties:
-    cpu: 1
-    ram: 2560
+    machine_type: n1-standard-1
     root_disk_size_gb: 100
     root_disk_type: pd-standard
 - name: n1-highcpu-4
