@@ -1,3 +1,4 @@
 .vagrant
 bosh
 aws-creds.yml
+vsphere-creds.yml

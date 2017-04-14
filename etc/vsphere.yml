@@ -1,0 +1,26 @@
+---
+- type: replace
+  path: /cloud_provider/properties/vcenter/datacenters/0/clusters/0/((vcenter_cluster))?
+  value:
+    resource_pool: ((vcenter_resource_pool))
+
+- type: replace
+  path: /resource_pools/name=vms/stemcell?
+  value:
+    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent?v=3363.15
+    sha1: d5571cd8e13d1daca99dc821e4fb751f4cdd42f8
+
+- type: replace
+  path: /releases/name=bosh-vsphere-cpi?
+  value:
+    url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=39
+    sha1: 2b68e45b553c3867fc4f7021a723eae7ec3c23fd
+
+# I want a password for vcap so that I can `sudo` during the compilation phase
+- type: replace
+  path: /resource_pools/name=vms/env?
+  value:
+    bosh:
+      # c1oudc0w is a default password for vcap user
+      # python -c "import crypt, getpass, pwd; print crypt.crypt('c1oudc0w', '\$6\$cunnie\$')"
+      password: "$6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/"
