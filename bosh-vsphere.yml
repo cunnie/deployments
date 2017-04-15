@@ -1,10 +1,10 @@
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh2 create-env bosh-vsphere.yml -l <(lpass show --note deployments) -l vsphere-creds.yml -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
-# bosh2 -e bosh-vsphere.nono.io --ca-cert <(bosh2 int vsphere-creds.yml --path /director_ssl/ca) alias-env vsphere
+# bosh2 create-env bosh-vsphere.yml -l <(lpass show --note deployments-vsphere) -l vsphere-creds.yml
+# bosh2 -e 10.85.46.6 --ca-cert <(bosh2 int vsphere-creds.yml --path /director_ssl/ca) alias-env nsx-t
 #
 cloud_provider:
-  mbus: https://mbus:hu4c0qi3xdvmik76mkbe@((internal_ip)):6868
+  mbus: https://mbus:hu4c0qi3xdvmik76mkbe@10.85.46.6:6868
   properties:
     agent:
       mbus: https://mbus:hu4c0qi3xdvmik76mkbe@0.0.0.0:6868
@@ -20,21 +20,21 @@ cloud_provider:
       address: ((vcenter_ip))
       datacenters:
       - clusters:
-        - ((vcenter_cluster)):
-            resource_pool: ((vcenter_resource_pool))
-        datastore_pattern: ((vcenter_ds))
-        disk_path: ((vcenter_disks))
-        name: ((vcenter_dc))
-        persistent_datastore_pattern: ((vcenter_ds))
-        template_folder: ((vcenter_templates))
-        vm_folder: ((vcenter_vms))
+        - private:
+            resource_pool: mouse
+        datastore_pattern: vnx5600-pizza-2
+        disk_path: delete-me
+        name: private
+        persistent_datastore_pattern: vnx5600-pizza-2
+        template_folder: delete-me
+        vm_folder: delete-me
       password: ((vcenter_password))
-      user: ((vcenter_user))
+      user: root
   template:
     name: vsphere_cpi
     release: bosh-vsphere-cpi
 disk_pools:
-- disk_size: 20000
+- disk_size: 32768
   name: disks
 instance_groups:
 - instances: 1
@@ -62,13 +62,13 @@ instance_groups:
   networks:
   - name: default
     static_ips:
-    - ((internal_ip))
+    - 10.85.46.6
   persistent_disk_pool: disks
   properties:
     agent:
-      mbus: nats://nats:rc3sggxh073240mh8unc@((internal_ip)):4222
+      mbus: nats://nats:rc3sggxh073240mh8unc@10.85.46.6:4222
     blobstore:
-      address: ((internal_ip))
+      address: 10.85.46.6
       agent:
         password: bxbq9f7ee6qq2xu5gd20
         user: agent
@@ -93,10 +93,57 @@ instance_groups:
         record_events: true
       flush_arp: true
       generate_vm_passwords: true
-      name: ((director_name))
+      name: nsx-t
       ssl:
-        cert: ((director_ssl.certificate))
-        key: ((director_ssl.private_key))
+        cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDPzCCAiegAwIBAgIQKxGVaP2/zXDHonHaTcJZ3DANBgkqhkiG9w0BAQsFADAz
+          MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxCzAJBgNVBAMT
+          AmNhMB4XDTE3MDQxNDIyMzAxNFoXDTE4MDQxNDIyMzAxNFowPDEMMAoGA1UEBhMD
+          VVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MRQwEgYDVQQDEwsxMC4xMS4xMi4x
+          MzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMvOVwZRzIxylPBIf9+R
+          P0VEkbPdS30+bk5LnyivfUns7TOlZvzTuc4ijPqveIX2uHPCnbTaX6lQWvzEFkHQ
+          IuA6JK6SaxxTruLp93zMFbQwiRx8Ed0EC6sZnLo/I03INVFY2w0wCld28OwBkydS
+          GvWc11Jo7r9ICn65ckn7AnwDa/jPlapbRKwRLgoPFAFn3Uvz2VGAoSypJtNK+o6O
+          YrdWtLMAPItHT3hUIf1hOFgIB38il8FIx8XzYJFerTYyYCV1culDN6QSVDEl7jL3
+          wYSwabuZ+Lq1aFCAPkXixY6EYEQ1yU5CaJ/juCQbIFptDfeezcPX9eVGbHbWy+Tb
+          EoECAwEAAaNGMEQwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMB
+          MAwGA1UdEwEB/wQCMAAwDwYDVR0RBAgwBocECgsMDTANBgkqhkiG9w0BAQsFAAOC
+          AQEAGzWdXp1irq79Ju1SgOttUqHJ+CYxYdSW84+eli9UxzuzW9nNGa5KlC53Gt3w
+          FO/aUMgKxLC6EBItHMRTe5aVndY/8kNILnRiKkhR3XvKf9+HPi3N9dnGygormFyN
+          GDcvwcarkI2NKo8gSnhRXxTri4fUiBLDZiVGdhv/wVEFUYxXVFYVtykD1sK8WNXM
+          4+b7FWEiJCdBNNlYD7VpfNr1jUXDQlEuPPYARmF2X6RMeXvl0FNxiSDu6yqy2ryk
+          JtkaPhIY9iUUTS3iMkUJgt17PX0AdVykMNTNQjDI2QsyVBXQYjEkUAgxuSf8tdLw
+          /EEb+rku1wzK+Oqz55lgumO37A==
+          -----END CERTIFICATE-----
+        key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          MIIEowIBAAKCAQEAy85XBlHMjHKU8Eh/35E/RUSRs91LfT5uTkufKK99SeztM6Vm
+          /NO5ziKM+q94hfa4c8KdtNpfqVBa/MQWQdAi4DokrpJrHFOu4un3fMwVtDCJHHwR
+          3QQLqxmcuj8jTcg1UVjbDTAKV3bw7AGTJ1Ia9ZzXUmjuv0gKfrlySfsCfANr+M+V
+          qltErBEuCg8UAWfdS/PZUYChLKkm00r6jo5it1a0swA8i0dPeFQh/WE4WAgHfyKX
+          wUjHxfNgkV6tNjJgJXVy6UM3pBJUMSXuMvfBhLBpu5n4urVoUIA+ReLFjoRgRDXJ
+          TkJon+O4JBsgWm0N957Nw9f15UZsdtbL5NsSgQIDAQABAoIBAB551HmVccjuuWbU
+          8Io15ggtoLwMs2UfGM+Mb1heJZYQX8gBS80yu+4fLIWwB43AvwRQbdTFctiWs4Ro
+          rgtZXF27VBDmxC2QNe6oneGDgxtWxqoDw4gROs1zHwSavGS9M3velaL7NBCwMIaa
+          Fa8jj/R6Z5hjKJBh7W/Vu0lkx5JTjEfw/QbXNvAggqc94zLc7NVbZLlkZYUZDiwf
+          er+Bf6yzB6zmynCZ9xq136rP39/abgxroNLgQnCvkjWjRVv1DhcdSpdUStMo0nvY
+          Ls+q4GfC0aJCP/0WfncRF1RqHfQyF1zECe3bogyGOMrZ9hGUOFqOshdZDPiTPhc3
+          D+nPHgECgYEA2mNFsK/d5Cnkvzz2mfdq5P7ItSEACI3c8Q5Y1R6wfcc4Wu/odS6q
+          cmeNE0Z5jb8ei4WQsAZgdT+GrVlJ+TV3N0FPONddliMSO/feTWo7s1xniSJWu8Re
+          X8OUhNHCrB1bsA48wW/YwnF0iTIjPhLIedBxd6jfo6YxKWewPEJ05rkCgYEA7ugo
+          K9O3vYWIGiu/zjz519mYzSECMSLo9rsvaCDC9ROTDlJ+MiqNMqAB7XgDmXfVRKAV
+          N2Pxlms0aK+u2g6rbspbQ1pxLEfaijRnUtaxL7vy80YyQIg/U23LX93Uzgtie5Ps
+          vCssAKpaJYNYng9eGiQRNi69sbUmpGElHvi7pgkCgYA5oApKlg1Z4EgQwjhb5jJZ
+          nHU/fiaxGyXaoauFCOUPO1s+e6F+EkM9jt9l36nBYlXgAO1t1TDsn0edRDtFu/rq
+          JJyP5hw2uqhcFIqfKNH6AP7864exYh547HWrGmJg4hpIeWlErYunuyJB9W3hOjmW
+          Ew9twKzKVNcSEt8o92w7WQKBgQDTl5JcnrsRg/6zDyRlyOOPJQ2MQDvswPqL6+Vk
+          1/9Th+6qtK1ISR+dQtHyPGUTu2qLySyBTmddzb0xKsg2IN/81ARYdvXdPhZ0aU1J
+          tRRhLplSlU1Ukldj0M5bLeGYS8UBplX5olLqk/YbW2VVOE8j3+XOkz828TY0SEXU
+          VH/94QKBgA43oORW9LUFySdf7o13ONd01i+fs1IudkNMOO2cK3cZEkLvYKOcggIp
+          WZRRm+bFMSMRBntGlwt2gKBjSQ9m23TYQKvf3PNmV16bq7vmC8xv8CYB+fykxPzy
+          NmEikyO+ODlq8U5FWCGXZd9bIBFVE1iR4Gk03EnPP77Ewq+Ukgrw
+          -----END RSA PRIVATE KEY-----
       user_management:
         local:
           users:
@@ -108,7 +155,26 @@ instance_groups:
       workers: 4
     hm:
       director_account:
-        ca_cert: ((director_ssl.ca))
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDEzCCAfugAwIBAgIQXUugGVdhZiioMjabAYkHdjANBgkqhkiG9w0BAQsFADAz
+          MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxCzAJBgNVBAMT
+          AmNhMB4XDTE3MDQxNDIwNTEzMVoXDTE4MDQxNDIwNTEzMVowMzEMMAoGA1UEBhMD
+          VVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQDEwJjYTCCASIwDQYJ
+          KoZIhvcNAQEBBQADggEPADCCAQoCggEBAM5feHMzm7KkAGGUSPkQ9UqgGDNr4TiE
+          UNA0hOHYaxIHZ9AeAYYRFDQ20dszbmUzhdpjurwIOrTUDDGp/+0c06OrfT4orFi1
+          tmDLWoTSh6vcXm6BhlCiIR0omJV7Kai6Hq+9bMA2GOGrC7WuMpPFI2MDbLCQJrDA
+          l3g3XsSFLWhieXYOCjWACfkG4KtweCAnixebu3bdRtVOWiRfuP6D3dWUU2pddUtv
+          T+pkGpYbLS/q6DOWud+gvkjERN6p2ZVsSfNxLvoQgftKeJEH8ZCKJEJCXM+wH5ra
+          HxHFztjzYbvdPRAwITi2rXd/FIt0vpYZ7UzX0xB4lqAMMRuQhvSll7sCAwEAAaMj
+          MCEwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEL
+          BQADggEBADMfPNzd6eiqjCITy6N703kHpO7mpFORbNjpgn59ZgMTj1aMo+l+mjkc
+          oEmftFJLGD2Ans04ho0IsWu2pUC5BYnZ0/bazSJ2f/4DIBj8zV9VBSkGQHV/8gII
+          gf7rr0MKA81I6wN42CPEmdGwSKU/dRv6poO4+hFrSlAtc6WUiGUmhK0ERiaPOGCX
+          Hof7WoWADmSeFC7F1rzP2tHtVN+vqSzzJKRCAg/HtZyf7WHWULfl29y/HRZGBzxy
+          nc+JYqGsAt9x2l1eTMMVsyPcH/AtGe57IzzL6Xyhdd1adwuwKM6xxbH1jvnvNB+7
+          p40hegPkEfTL9HFlYAW75jQu+ayvsis=
+          -----END CERTIFICATE-----
         password: oy80iagd0vcbktq0wwd8
         user: hm
       resurrector_enabled: true
@@ -132,36 +198,46 @@ instance_groups:
       address: ((vcenter_ip))
       datacenters:
       - clusters:
-        - ((vcenter_cluster)): {}
-        datastore_pattern: ((vcenter_ds))
-        disk_path: ((vcenter_disks))
-        name: ((vcenter_dc))
-        persistent_datastore_pattern: ((vcenter_ds))
-        template_folder: ((vcenter_templates))
-        vm_folder: ((vcenter_vms))
+        - private: {}
+        datastore_pattern: vnx5600-pizza-2
+        disk_path: delete-me
+        name: private
+        persistent_datastore_pattern: vnx5600-pizza-2
+        template_folder: delete-me
+        vm_folder: delete-me
       password: ((vcenter_password))
-      user: ((vcenter_user))
+      user: root
   resource_pool: vms
 name: bosh
 networks:
 - name: default
   subnets:
   - cloud_properties:
-      name: ((network_name))
+      name: mouse
     dns:
     - 8.8.8.8
-    gateway: ((internal_gw))
-    range: ((internal_cidr))
+    gateway: 10.85.46.1
+    range: 10.85.46.0/24
     static:
-    - ((internal_ip))
+    - 10.85.46.6
+  type: manual
+- name: internetless
+  subnets:
+  - cloud_properties:
+      name: opaque
+    dns:
+    - 8.8.8.8
+    range: 192.168.0.0/24
+    static:
+    - 192.168.0.1
   type: manual
 releases:
 - name: bosh
   sha1: 16966c90fb3535a2de6e2e19bf8252524d2f2d27
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-260.5-ubuntu-trusty-3312.15-20170124-025145-688314225-20170124025151.tgz?versionId=XdnsJBm4uh.wTJ1aKy5BZ.B.NtBOZFTD
   version: 260.5
-- sha1: 2b68e45b553c3867fc4f7021a723eae7ec3c23fd
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=39
+- sha1: f8958a21f8e0b9e57a7168122565fe1c0805aa0a
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=40
 - name: os-conf
   sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
@@ -202,9 +278,9 @@ variables:
 - name: director_ssl
   options:
     alternative_names:
-    - ((internal_ip))
+    - 10.85.46.6
     ca: default_ca
-    common_name: ((internal_ip))
+    common_name: 10.85.46.6
   type: certificate
 - name: jumpbox_ssh
   type: ssh

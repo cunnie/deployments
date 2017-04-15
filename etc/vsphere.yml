@@ -13,8 +13,22 @@
 - type: replace
   path: /releases/name=bosh-vsphere-cpi?
   value:
-    url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=39
-    sha1: 2b68e45b553c3867fc4f7021a723eae7ec3c23fd
+    url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=40
+    sha1: f8958a21f8e0b9e57a7168122565fe1c0805aa0a
+
+- type: replace
+  path: /networks/-
+  value:
+    name: internetless
+    subnets:
+    - cloud_properties:
+        name: opaque
+      dns:
+      - 8.8.8.8
+      range: 192.168.0.0/24
+      static:
+      - 192.168.0.1
+    type: manual
 
 # I want a password for vcap so that I can `sudo` during the compilation phase
 - type: replace
