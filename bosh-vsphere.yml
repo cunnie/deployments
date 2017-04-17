@@ -60,9 +60,15 @@ instance_groups:
     release: os-conf
   name: bosh
   networks:
-  - name: default
+  - default:
+    - dns
+    - gateway
+    name: default
     static_ips:
     - 10.85.46.6
+  - name: internetless
+    static_ips:
+    - 192.168.0.2
   persistent_disk_pool: disks
   properties:
     agent:

@@ -32,6 +32,17 @@
       - 192.168.0.1
     type: manual
 
+- type: replace
+  path: /instance_groups/0/networks/name=default/default?
+  value: [ dns, gateway ]
+
+- type: replace
+  path: /instance_groups/0/networks/-
+  value:
+    name: internetless
+    static_ips:
+    - 192.168.0.2
+
 # I want a password for vcap so that I can `sudo` during the compilation phase
 - type: replace
   path: /resource_pools/name=vms/env?
