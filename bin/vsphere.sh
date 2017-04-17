@@ -34,5 +34,6 @@ bosh2 interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v internal_ip=10.85.46.6 \
   -v internal_gw=10.85.46.1 \
   -v internal_cidr=10.85.46.0/24 \
+  -v nats_password=SingGoddessTheAngerOfPeleus \
   -v director_name=nsx-t \
   >> $DEPLOYMENTS_DIR/bosh-vsphere.yml

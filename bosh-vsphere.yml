@@ -72,7 +72,7 @@ instance_groups:
   persistent_disk_pool: disks
   properties:
     agent:
-      mbus: nats://nats:2s0va7zkc6lh4o45186l@10.85.46.6:4222
+      mbus: nats://nats:SingGoddessTheAngerOfPeleus @192.168.0.2:4222
     blobstore:
       address: 10.85.46.6
       agent:
@@ -186,7 +186,7 @@ instance_groups:
       resurrector_enabled: true
     nats:
       address: 127.0.0.1
-      password: 2s0va7zkc6lh4o45186l
+      password: SingGoddessTheAngerOfPeleus
       user: nats
     ntp:
     - time1.google.com
