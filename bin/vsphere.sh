@@ -9,7 +9,7 @@
 #
 # --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
 #
-DEPLOYMENTS_DIR=~/workspace/deployments/
+DEPLOYMENTS_DIR=$PWD
 
 cat > $DEPLOYMENTS_DIR/bosh-vsphere.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED

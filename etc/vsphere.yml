@@ -13,7 +13,8 @@
 - type: replace
   path: /releases/name=bosh-vsphere-cpi?
   value:
-    url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=40
+    name: bosh-vsphere-cpi
+    url:  https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=40
     sha1: f8958a21f8e0b9e57a7168122565fe1c0805aa0a
 
 - type: replace
@@ -26,6 +27,7 @@
       dns:
       - 8.8.8.8
       range: 192.168.0.0/24
+      gateway: 192.168.0.1
       static:
       - 192.168.0.1
     type: manual
