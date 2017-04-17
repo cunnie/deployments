@@ -4,9 +4,6 @@
 #
 # Generate manifest for vSphere dual-homed server
 #
-# creds.yml has mostly valid certs, but decoy keys, so I can check
-# it into a public repo without fear.
-#
 # --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
 #
 DEPLOYMENTS_DIR=$PWD
