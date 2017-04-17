@@ -49,7 +49,7 @@
 # must set `-v nats_password=SingGoddessTheAngerOfPeleus`
 - type: replace
   path: /instance_groups/0/properties/agent/mbus
-  value: nats://nats:SingGoddessTheAngerOfPeleus @192.168.0.2:4222
+  value: nats://nats:SingGoddessTheAngerOfPeleus@192.168.0.2:4222
 
 # I want a password for vcap so that I can `sudo` during the compilation phase
 - type: replace

@@ -72,7 +72,7 @@ instance_groups:
   persistent_disk_pool: disks
   properties:
     agent:
-      mbus: nats://nats:SingGoddessTheAngerOfPeleus @192.168.0.2:4222
+      mbus: nats://nats:SingGoddessTheAngerOfPeleus@192.168.0.2:4222
     blobstore:
       address: 10.85.46.6
       agent:
