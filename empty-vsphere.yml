@@ -4,15 +4,15 @@ name: empty
 
 releases:
 - name: bosh-vsphere-cpi
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=36
-  sha1: a5905550a0d9347eb7c478a3d9140a8b6aebc4e5
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=40
+  sha1: f8958a21f8e0b9e57a7168122565fe1c0805aa0a
 
 resource_pools:
 - name: vms
   network: private
   stemcell:
-    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-centos-7-go_agent?v=3312.7
-    sha1: 14514115c526dc29303fd9fabf33e774ae38b9ff
+    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-centos-7-go_agent?v=3363.20
+    sha1: d0557b82010572700c5b9740953c2b5f52cf2dd2
   cloud_properties:
     cpu: 1
     ram: 640
