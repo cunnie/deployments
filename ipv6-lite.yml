@@ -1,4 +1,4 @@
-# bosh deploy -nd ipv6 ipv6-lite.yml
+# bosh2 deploy -nd ipv6 ipv6-lite.yml
 ---
 name: ipv6
 

@@ -1,5 +1,5 @@
 ---
-# bosh create-env bosh-gce.yml -l <(lpass show --note deployments)
+# bosh2 create-env bosh-gce.yml -l <(lpass show --note deployments)
 # to debug: bosh interpolate bosh-gce.yml -l <(lpass show --note deployments)
 name: bosh-gce
 

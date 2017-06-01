@@ -1,4 +1,4 @@
-# bosh create-env nginx-aws-ipv6.yml -l <(lpass show --note deployments)
+# bosh2 create-env nginx-aws-ipv6.yml -l <(lpass show --note deployments)
 ---
 name: nginx
 
