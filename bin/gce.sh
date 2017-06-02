@@ -24,26 +24,22 @@ bosh2 interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/external-ip-not-recommended.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
   -o etc/gce.yml \
-  --vars-store $DEPLOYMENTS_DIR/gce-creds.yml
+  --vars-store $DEPLOYMENTS_DIR/gce-creds.yml \
+  -v internal_gw="10.128.0.1" \
+  -v internal_cidr="10.128.0.0/20" \
+  -v internal_ip="10.128.0.2" \
+  -v external_ip="104.154.39.128" \
+  -v network="cf" \
+  -v subnetwork="cf-e6ecf3fd8a498fbe" \
+  -v tags="[ cf-internal, cf-bosh ]" \
+  -v zone="us-central1-b" \
+  -v project_id="blabbertabber" \
+  -v director_name="gce" \
+  -v admin_password="((admin_password))" \
+  -v blobstore_agent_password="((blobstore_agent_password))" \
+  -v blobstore_director_password="((blobstore_director_password))" \
+  -v hm_password="((hm_password))" \
+  -v mbus_bootstrap_password="((mbus_bootstrap_password))" \
+  -v nats_password="((nats_password))" \
+  -v postgres_password="((postgres_password))" \
   >> $DEPLOYMENTS_DIR/bosh-gce.yml
-#   -v access_key_id="((gce_access_key_id))" \
-#   -v secret_access_key="((gce_secret_access_key))" \
-#   -v region=us-east-1 \
-#   -v az=us-east-1a \
-#   -v default_key_name=gce_nono \
-#   -v default_security_groups=[bosh] \
-#   -v subnet_id=subnet-1c90ef6b \
-#   -v director_name=bosh-gce \
-#   -v internal_cidr=10.0.0.0/24 \
-#   -v internal_gw=10.0.0.1 \
-#   -v internal_ip=10.0.0.6 \
-#   -v external_ip=52.0.56.137 \
-#   -v admin_password="((admin_password))" \
-#   -v blobstore_agent_password="((blobstore_agent_password))" \
-#   -v blobstore_director_password="((blobstore_director_password))" \
-#   -v hm_password="((hm_password))" \
-#   -v mbus_bootstrap_password="((mbus_bootstrap_password))" \
-#   -v nats_password="((nats_password))" \
-#   -v postgres_password="((postgres_password))" \
-#   -v registry_password="((registry_password))" \
-#   -v private_key=$HOME/.ssh/gce_nono.pem \

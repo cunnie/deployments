@@ -119,3 +119,7 @@
     PUsE2JOAWVrgQSQdso8VYFhH2+9uRv0V9dlfmrPb2LjkQLPNlzmuhbsdjrzch5vR
     pu/xO28QOG8=
     -----END CERTIFICATE-----
+
+# I don't need a ca_cert for HM
+- type: remove
+  path: /instance_groups/name=bosh/properties/hm/director_account/ca_cert
