@@ -1,4 +1,7 @@
 .vagrant
-bosh # weird private key; not sure what it's used for
-*-creds.yml # credential files; shouldn't be used if I'm doing my job right
-.*.swp # vim swap files
+# weird private key; not sure what it's used for
+bosh
+# ignore the credentails
+*-creds.yml
+# vim swap files
+.*.swp
