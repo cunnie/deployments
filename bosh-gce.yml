@@ -1,116 +1,94 @@
----
-# bosh2 create-env bosh-gce.yml -l <(lpass show --note deployments)
-# to debug: bosh interpolate bosh-gce.yml -l <(lpass show --note deployments)
-name: bosh-gce
-
-releases:
-- name: bosh
-  url:  https://bosh.io/d/github.com/cloudfoundry/bosh?v=261.1
-  sha1: f46ad38ad49925e96ec93bd69d0e77f67ba07af9
-- name: bosh-google-cpi
-  url:  https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.6.2
-  sha1: b4865397d867655fdcc112bc5a7f9a5025cdf311
-
-resource_pools:
-- name: vms
-  network: private
-  stemcell:
-    # url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3312.18-google-kvm-ubuntu-trusty-go_agent.tgz
-    # sha1: a0f19414d61deff1bf6439bb1598bd6a732712df
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3363.1-google-kvm-ubuntu-trusty-go_agent.tgz
-    sha1: 279768e7cf49fc4096cdbc38880de8c03f521497
-    # url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-3363-google-kvm-ubuntu-trusty-go_agent.tgz
-    # sha1: d6a71a9b134abd1f634dd815e4034c4442bdfc60
-  cloud_properties:
-    machine_type: g1-small
-    root_disk_size_gb: 40
-    root_disk_type: pd-standard
-    zone: us-central1-b # <--- replace with the gce zone to use by default
-    service_scopes:
-    - compute
-    - devstorage.full_control
-
-disk_pools:
-- name: disks
-  disk_size: 20_000
-  cloud_properties: {type: pd-standard} # 4x cheaper than pd-ssd
-
-networks:
-- name: private
-  type: manual
-  subnets:
-  - range: 10.128.0.0/20
-    gateway: 10.128.0.1
-    static: [10.128.0.2-10.128.0.7]
-    cloud_properties:
-      network_name: cf
-      subnetwork_name: cf-e6ecf3fd8a498fbe
-      tags:
-      - cf-internal
-      - cf-bosh
-- name: public
-  type: vip
-
-instance_groups:
-- name: bosh
-  instances: 1
-
-  jobs:
-  - {name: nats, release: bosh}
-  - {name: postgres, release: bosh}
-  - {name: blobstore, release: bosh}
-  - {name: director, release: bosh}
-  - {name: health_monitor, release: bosh}
-  - {name: powerdns, release: bosh}   # dynamic networking requirement
-  - {name: google_cpi, release: bosh-google-cpi}
-
-  resource_pool: vms
-  persistent_disk_pool: disks
-
-  networks:
-  - name: private
-    static_ips: [10.128.0.2]
-    default: [dns, gateway]
-  - name: public
-    static_ips: [104.154.39.128] # <--- replace with the static Internal IP
-
+# DON'T EDIT; THIS FILE IS AUTO-GENERATED
+#
+# bosh2 create-env bosh-gce.yml -l <(lpass show --note deployments) -l gce-creds.yml -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+# bosh2 -e bosh-gce.nono.io --ca-cert <(bosh int gce-creds.yml --path /director_ssl/ca) alias-env gce
+#
+cloud_provider:
+  mbus: https://mbus:((mbus_bootstrap_password))@104.154.39.128:6868
   properties:
-    dns:
-      address: 10.128.0.2 # <--- replace with the static Internal IP
-      db: *db
-      recursor: 8.8.8.8   # Concourse requires recursion
-
-    nats:
-      address: 127.0.0.1
-      user: nats
-      password: ((password_nats))
-
-    postgres: &db
-      listen_address: 127.0.0.1
-      host: 127.0.0.1
-      user: postgres
-      password: ((password_postgres))
-      database: bosh
-      adapter: postgres
-
+    agent:
+      mbus: https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868
+    blobstore:
+      path: /var/vcap/micro_bosh/data/cache
+      provider: local
+    google:
+      json_key: ((gcp_credentials_json))
+      project: blabbertabber
+    ntp:
+    - 169.254.169.254
+  template:
+    name: google_cpi
+    release: bosh-google-cpi
+disk_pools:
+- cloud_properties:
+    type: pd-standard
+  disk_size: 32768
+  name: disks
+instance_groups:
+- instances: 1
+  jobs:
+  - name: nats
+    release: bosh
+  - name: postgres-9.4
+    release: bosh
+  - name: blobstore
+    release: bosh
+  - name: director
+    release: bosh
+  - name: health_monitor
+    release: bosh
+  - name: google_cpi
+    release: bosh-google-cpi
+  - name: user_add
+    properties:
+      users:
+      - name: jumpbox
+        public_key: ((gce_jumpbox_user_public_key))
+    release: os-conf
+  name: bosh
+  networks:
+  - default:
+    - dns
+    - gateway
+    name: default
+    static_ips:
+    - 10.128.0.2
+  - name: public
+    static_ips:
+    - 104.154.39.128
+  persistent_disk_pool: disks
+  properties:
+    agent:
+      mbus: nats://nats:((nats_password))@10.128.0.2:4222
     blobstore:
       address: 10.128.0.2
+      agent:
+        password: ((blobstore_agent_password))
+        user: agent
+      director:
+        password: ((blobstore_director_password))
+        user: director
       port: 25250
       provider: dav
-      director: {user: director, password: ((password_director))}
-      agent: {user: agent, password: ((password_agent))}
-
     director:
       address: 127.0.0.1
-      name: gce
-      db: *db
       cpi_job: google_cpi
-      user_management:
-        provider: local
-        local:
-          users:
-          - {name: admin, password: ((password_director))}
-          - {name: hm, password: ((password_hm))}
+      db:
+        adapter: postgres
+        database: bosh
+        host: 127.0.0.1
+        listen_address: 127.0.0.1
+        password: ((postgres_password))
+        user: postgres
+      default_ssh_options:
+        gateway_host: 104.154.39.128
+      enable_dedicated_status_worker: true
+      enable_post_deploy: true
+      events:
+        record_events: true
+      flush_arp: true
+      generate_vm_passwords: true
+      name: gce
       ssl:
         cert: |
           -----BEGIN CERTIFICATE-----
@@ -212,36 +190,82 @@ instance_groups:
           pu/xO28QOG8=
           -----END CERTIFICATE-----
         key: ((nono_io_key))
+      user_management:
+        local:
+          users:
+          - name: admin
+            password: ((admin_password))
+          - name: hm
+            password: ((hm_password))
+        provider: local
+      workers: 4
+    google:
+      json_key: ((gcp_credentials_json))
+      project: blabbertabber
     hm:
-      director_account: {user: hm, password: ((password_hm))}
+      director_account:
+        password: ((hm_password))
+        user: hm
       resurrector_enabled: true
-
-    google: &google_properties
-      project: blabbertabber # <--- replace with your gce project
-      default_zone: us-central1-b # <--- replace with the gce zone to use by default
-      # https://developers.google.com/identity/protocols/application-default-credentials
-      json_key: ((gce_credentials_json))
-
-    # agent: {mbus: "nats://nats:password_nats@10.128.0.2:4222"}
-    agent: {mbus: ((gce_director_agent_mbus)) }
-
-    ntp: &ntp [169.254.169.254]
-
-cloud_provider:
-  template: {name: google_cpi, release: bosh-google-cpi}
-
-  # ssh_tunnel:
-    # host: 104.154.39.128 # <--- replace with External IP
-    # port: 22
-    # user: vcap # <--- replace with the user corresponding to your private ssh key
-    # private_key: /Users/cunnie/.ssh/google # <--- replace with the location of your google_compute_engine ssh private key
-
-  # mbus: "https://mbus:password_director@104.154.39.128.6868" # <--- Replace with Elastic IP
-  mbus: ((gce_cloud_provider_mbus)) # <--- Replace with Elastic IP
-
-  properties:
-    google: *google_properties
-    # agent: {mbus: "https://mbus:password_director@0.0.0.0:6868"}
-    agent: {mbus: ((gce_cloud_provider_agent_mbus)) }
-    blobstore: {provider: local, path: /var/vcap/micro_bosh/data/cache}
-    ntp: *ntp
+    nats:
+      address: 127.0.0.1
+      password: ((nats_password))
+      user: nats
+    ntp:
+    - 169.254.169.254
+    postgres:
+      adapter: postgres
+      database: bosh
+      host: 127.0.0.1
+      listen_address: 127.0.0.1
+      password: ((postgres_password))
+      user: postgres
+  resource_pool: vms
+name: bosh
+networks:
+- name: default
+  subnets:
+  - cloud_properties:
+      ephemeral_external_ip: false
+      network_name: cf
+      subnetwork_name: cf-e6ecf3fd8a498fbe
+      tags:
+      - cf-internal
+      - cf-bosh
+    dns:
+    - 8.8.8.8
+    gateway: 10.128.0.1
+    range: 10.128.0.0/20
+    static:
+    - 10.128.0.2
+  type: manual
+- name: public
+  type: vip
+releases:
+- name: bosh
+  sha1: 294818cc3eb7097a0a0b4d1bd66dd2a8b2123c94
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-261.4-ubuntu-trusty-3363.20-20170426-001237-447388998-20170426001244.tgz?versionId=k6LkHkoch7VCqUkUv6bSmwjv9JdTWhx4
+  version: "261.4"
+- name: bosh-google-cpi
+  sha1: 3fbda22fde33878b54dec77f4182f8044be72687
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.9.0
+  version: 25.9.0
+- name: os-conf
+  sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
+  version: 11
+resource_pools:
+- cloud_properties:
+    machine_type: n1-standard-1
+    root_disk_size_gb: 40
+    root_disk_type: pd-standard
+    zone: us-central1-b
+  env:
+    bosh:
+      password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
+  name: vms
+  network: default
+  stemcell:
+    sha1: e785b42faffc5b546ed13fc28e523a4e0c622f0a
+    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3363.20
+variables: []
