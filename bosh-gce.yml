@@ -1,7 +1,7 @@
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh2 create-env bosh-gce.yml -l <(lpass show --note deployments) -l gce-creds.yml -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
-# bosh2 -e bosh-gce.nono.io --ca-cert <(bosh int gce-creds.yml --path /director_ssl/ca) alias-env gce
+# bosh2 create-env bosh-gce.yml -l <(lpass show --note deployments)
+# bosh2 -e bosh-gce.nono.io alias-env gce
 #
 cloud_provider:
   mbus: https://mbus:((mbus_bootstrap_password))@104.154.39.128:6868
@@ -36,6 +36,8 @@ instance_groups:
   - name: director
     release: bosh
   - name: health_monitor
+    release: bosh
+  - name: powerdns
     release: bosh
   - name: google_cpi
     release: bosh-google-cpi
@@ -199,6 +201,14 @@ instance_groups:
             password: ((hm_password))
         provider: local
       workers: 4
+    dns:
+      address: 10.128.0.2
+      db:
+        database: powerdns
+        host: 127.0.0.1
+        password: ((postgres_password))
+        user: postgres
+      recursor: 169.254.169.254
     google:
       json_key: ((gcp_credentials_json))
       project: blabbertabber
@@ -215,6 +225,8 @@ instance_groups:
     - 169.254.169.254
     postgres:
       adapter: postgres
+      additional_databases:
+      - powerdns
       database: bosh
       host: 127.0.0.1
       listen_address: 127.0.0.1
@@ -233,7 +245,7 @@ networks:
       - cf-internal
       - cf-bosh
     dns:
-    - 8.8.8.8
+    - 169.254.169.254
     gateway: 10.128.0.1
     range: 10.128.0.0/20
     static:
