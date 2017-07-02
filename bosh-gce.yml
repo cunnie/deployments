@@ -84,7 +84,9 @@ instance_groups:
         user: postgres
       default_ssh_options:
         gateway_host: 104.154.39.128
+        gateway_user: jumpbox
       enable_dedicated_status_worker: true
+      enable_nats_delivered_templates: true
       enable_post_deploy: true
       events:
         record_events: true
@@ -255,9 +257,9 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 294818cc3eb7097a0a0b4d1bd66dd2a8b2123c94
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-261.4-ubuntu-trusty-3363.20-20170426-001237-447388998-20170426001244.tgz?versionId=k6LkHkoch7VCqUkUv6bSmwjv9JdTWhx4
-  version: "261.4"
+  sha1: 07c07d8520b3508fbc25c4a747c9c038a4b8b672
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-262.2-ubuntu-trusty-3421.9-20170628-223206-395348439-20170628223211.tgz?versionId=LSWubg7BOnAZxXFDaCHEpIXWcxyqkb1o
+  version: "262.2"
 - name: bosh-google-cpi
   sha1: 3fbda22fde33878b54dec77f4182f8044be72687
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.9.0
@@ -278,6 +280,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: e785b42faffc5b546ed13fc28e523a4e0c622f0a
-    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3363.20
+    sha1: 408f78a2091d108bb5418964026e73c822def32d
+    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3421.9
 variables: []
