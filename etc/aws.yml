@@ -137,3 +137,7 @@
     PUsE2JOAWVrgQSQdso8VYFhH2+9uRv0V9dlfmrPb2LjkQLPNlzmuhbsdjrzch5vR
     pu/xO28QOG8=
     -----END CERTIFICATE-----
+
+# I don't need a cert for cloud_provider; I don't even know why they have it
+- type: remove
+  path: /cloud_provider/cert

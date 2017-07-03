@@ -101,8 +101,11 @@ instance_groups:
       pre_start: |
         #!/bin/bash -ex
         NGINX_DIR=/var/vcap/store/nginx
+        # in case there's no persistent disk:
         if [ ! -d $(dirname $NGINX_DIR) ]; then
           mkdir -p $(dirname $NGINX_DIR)
+        fi
+        if [ ! -d $NGINX_DIR ]; then
           cd $(dirname $NGINX_DIR)
           curl -L https://github.com/cunnie/sslip.io/archive/v1.tar.gz |
             tar xzf -
@@ -279,7 +282,9 @@ instance_groups:
         user: postgres
       default_ssh_options:
         gateway_host: 52.0.56.137
+        gateway_user: jumpbox
       enable_dedicated_status_worker: true
+      enable_nats_delivered_templates: true
       enable_post_deploy: true
       events:
         record_events: true
@@ -400,23 +405,23 @@ instance_groups:
       director_account:
         ca_cert: |
           -----BEGIN CERTIFICATE-----
-          MIIDFDCCAfygAwIBAgIRAKK+kfSLKKjmmeZa502zJJgwDQYJKoZIhvcNAQELBQAw
-          MzEMMAoGA1UEBhMDVVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQD
-          EwJjYTAeFw0xNzAzMTIxODIyMzRaFw0xODAzMTIxODIyMzRaMDMxDDAKBgNVBAYT
-          A1VTQTEWMBQGA1UEChMNQ2xvdWQgRm91bmRyeTELMAkGA1UEAxMCY2EwggEiMA0G
-          CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDnxfvJlKQ7IXangE1jUlvgdUnSmsTZ
-          arAkfxQOKQZemk1NpySVA1JeW8Jti4P2ClpDIh5BE5kXRb/p2ZYU3Qr2WiS/OIrh
-          AiafBIHeiQlLTVwFxkkNr5XMhKp10Di987NI3gdKQKIt5OtlFnoDock6l0aEjX25
-          Csy13xyJcUnRECpV8e5KPfHj1ubXzBv8e7a59fXasXB6cDT4lnAwCFB8YU++UcnK
-          wndRxYRht9vH5lhOp0zY/p8+lBmQT17xDU1NvtMqz4vB0XlHt4c7FshUENKpnv0e
-          z6PWVJ2CXCAgFVtArOUD/t/V9nzNPjh6Tu5FDoHYyUjRuoTw+XJKI9Z9AgMBAAGj
-          IzAhMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEB
-          CwUAA4IBAQBYf3v/R6I/Csp6gWnbfMlkGxm/DXk6r5YYmemOACyfc8iMGo9yuF5L
-          yVXMK5m0jtHpaI4195hr/9hFK1IerOHSOHDbq3xEetdn05OgNXsmZeAp12/oozCg
-          ZaehtBLOobwReSs3mHjWHZgCXAf3it/fspR68go/9cMjoqeiOvEP5Brt+IBljr/2
-          /C/fMlorsbsvCt/34d8aGLFCIBjTVlcQt1crZKfoMoH4OSXAwKltb+NXRNWeJRJ2
-          Q/Kh9KVXlmsC4VQXwfHkJfy7+enCdAtpRmTC3NKDy/IY0t1gCpfa+iisTOeKPo2s
-          r/NDg4yS9y3W02+vVxBTN077yPW0Pz+A
+          MIIDEzCCAfugAwIBAgIQBLmD2VDOnWNOBM9jZ+gAjzANBgkqhkiG9w0BAQsFADAz
+          MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxCzAJBgNVBAMT
+          AmNhMB4XDTE3MDcwMzExMzMyOVoXDTE4MDcwMzExMzMyOVowMzEMMAoGA1UEBhMD
+          VVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQDEwJjYTCCASIwDQYJ
+          KoZIhvcNAQEBBQADggEPADCCAQoCggEBAM3+3xwLJIdcTNko/PZwLcGpLhhUALXX
+          43LyndPn5WFqatqFHcjSBH/TAXe45lYAdsnLCFC/iDR5w2skYZvHY1XO1vjCVsa7
+          08dRYvn52aAGf1anGJllkfVx1kWzLpeDshS3o7Vg46BwWoGPzdR7L0alTFMalk3n
+          z5P2jFnmwBQgbcV6oDSdlQ7sBfuQksvdvQsRADAPswMsyETft3+HhiBHSWNJvjDI
+          fG0j97d+6SVDqQSqmsgTYh4YtQiQ1qIgGx2j84viAfqbWsyzOYObFKjOnV54FF4D
+          Gq5xXNZZ1iBMPMGnQFPkfxhT+Trw0bzXcO5bU9Dk4R+YxlOc7D1IdHECAwEAAaMj
+          MCEwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEL
+          BQADggEBAEEMqlj2bHGBkHYzLRCHYgtRJTL2uc9q73XE0AZOHFYpyIM8u0Fkup/I
+          Ne0Z2ksMXmyf5SEzTEJCsrBE6k+DvwNSJx4iFX8nwkSN9K5/uRbvkW8kxIqjsVPh
+          zh9hwuNn/X0cIO0nA4+Yp/Ln50nG66sDKzMLlaB4BiQlFAD7IaMIKQJKEwnFtqLQ
+          kxHUKf19JCTB0l8ICotzhEOCOM3qjlN+AcKBkxY6lSa0ynVnBV5AxPBCChjEDZh3
+          WfjqcCLSUU59KgfKfNfH7E8Suy8/lgqXmeyFLIzF0f/wbfHsF/Eq6neNn1vSz4EA
+          mAiID8zDI8ol8RSYieXKUz6gS2un2wA=
           -----END CERTIFICATE-----
         password: ((hm_password))
         user: hm
@@ -471,13 +476,13 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 78e4ef89a3be9fc7d8813c3c4a4883698b3e430c
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-261.3-ubuntu-trusty-3363.9-20170306-221541-985485166-20170306221548.tgz?versionId=5EA3waYPDXZtAN64W3GbLEHWz1rBM7nA
-  version: 261.3
+  sha1: 07c07d8520b3508fbc25c4a747c9c038a4b8b672
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-262.2-ubuntu-trusty-3421.9-20170628-223206-395348439-20170628223211.tgz?versionId=LSWubg7BOnAZxXFDaCHEpIXWcxyqkb1o
+  version: "262.2"
 - name: bosh-aws-cpi
-  sha1: 8e40a9ff892204007889037f094a1b0d23777058
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=60
-  version: 60
+  sha1: 26b3a5c43e6f82594a373309a495660d6db26254
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=65
+  version: 65
 - name: os-conf
   sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
@@ -527,6 +532,14 @@ variables:
   options:
     common_name: ca
     is_ca: true
+  type: certificate
+- name: mbus_bootstrap_ssl
+  options:
+    alternative_names:
+    - 10.0.0.6
+    - 52.0.56.137
+    ca: default_ca
+    common_name: 10.0.0.6
   type: certificate
 - name: director_ssl
   options:

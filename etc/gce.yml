@@ -124,6 +124,6 @@
 - type: remove
   path: /instance_groups/name=bosh/properties/hm/director_account/ca_cert
 
-# I don't need a cert for cloud_provider
+# I don't need a cert for cloud_provider; I don't even know why they have it
 - type: remove
   path: /cloud_provider/cert
