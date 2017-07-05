@@ -53,6 +53,7 @@
       pre_start: |
         #!/bin/bash -ex
         NGINX_DIR=/var/vcap/store/nginx
+        mkdir -p /var/vcap/packages/nginx/proxy_temp
         # in case there's no persistent disk:
         if [ ! -d $(dirname $NGINX_DIR) ]; then
           mkdir -p $(dirname $NGINX_DIR)
