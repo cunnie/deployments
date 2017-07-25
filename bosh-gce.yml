@@ -39,6 +39,10 @@ instance_groups:
     release: bosh
   - name: powerdns
     release: bosh
+  - name: registry
+    release: bosh
+  - name: aws_cpi
+    release: bosh-aws-cpi
   - name: google_cpi
     release: bosh-google-cpi
   - name: user_add
@@ -62,6 +66,13 @@ instance_groups:
   properties:
     agent:
       mbus: nats://nats:((nats_password))@10.128.0.2:4222
+    aws:
+      access_key_id: ((aws_access_key_id))
+      default_key_name: aws_nono
+      default_security_groups:
+      - bosh
+      region: us-east-1
+      secret_access_key: ((aws_secret_access_key))
     blobstore:
       address: 10.128.0.2
       agent:
@@ -234,6 +245,22 @@ instance_groups:
       listen_address: 127.0.0.1
       password: ((postgres_password))
       user: postgres
+    registry:
+      address: 10.128.0.2
+      db:
+        adapter: postgres
+        database: bosh
+        host: 127.0.0.1
+        password: ((postgres_password))
+        user: postgres
+      host: 10.128.0.2
+      http:
+        password: ((registry_password))
+        port: 25777
+        user: registry
+      password: ((registry_password))
+      port: 25777
+      username: registry
   resource_pool: vms
 name: bosh
 networks:
@@ -257,17 +284,21 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 07c07d8520b3508fbc25c4a747c9c038a4b8b672
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-262.2-ubuntu-trusty-3421.9-20170628-223206-395348439-20170628223211.tgz?versionId=LSWubg7BOnAZxXFDaCHEpIXWcxyqkb1o
-  version: "262.2"
+  sha1: 1eae3f06282417e54ebb199656458f9d6c38e2af
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-262.3-ubuntu-trusty-3421.9-20170706-183731-831697577-20170706183736.tgz?versionId=7GmwKfufgb5JwWhJ.cwIWLnejOtm2Hu4
+  version: "262.3"
+- name: bosh-aws-cpi
+  sha1: 26b3a5c43e6f82594a373309a495660d6db26254
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=65
+  version: 65
 - name: bosh-google-cpi
   sha1: 3fbda22fde33878b54dec77f4182f8044be72687
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.9.0
   version: 25.9.0
 - name: os-conf
-  sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
-  version: 11
+  sha1: af5a2c9f228b9d7ec4bd051d71fef0e712fa1549
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=12
+  version: 12
 resource_pools:
 - cloud_properties:
     machine_type: n1-standard-1

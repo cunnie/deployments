@@ -127,3 +127,11 @@
 # I don't need a cert for cloud_provider; I don't even know why they have it
 - type: remove
   path: /cloud_provider/cert
+
+# Multi-CPI : don't need AWS cloud properties for deployment of BOSH Director
+- type: remove
+  path: /cloud_provider/properties/aws
+
+# Multi-CPI : don't need ssh_tunnel, either (needed for AWS, not GCE)
+- type: remove
+  path: /cloud_provider/ssh_tunnel

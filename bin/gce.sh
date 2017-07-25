@@ -21,6 +21,7 @@ EOF
 
 bosh2 interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/powerdns.yml \
+  -o ~/workspace/bosh-deployment/aws/cpi.yml \
   -o ~/workspace/bosh-deployment/gcp/cpi.yml \
   -o ~/workspace/bosh-deployment/external-ip-not-recommended.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
@@ -44,4 +45,10 @@ bosh2 interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v mbus_bootstrap_password="((mbus_bootstrap_password))" \
   -v nats_password="((nats_password))" \
   -v postgres_password="((postgres_password))" \
+  -v registry_password="((registry_password))" \
+  -v access_key_id="((aws_access_key_id))" \
+  -v secret_access_key="((aws_secret_access_key))" \
+  -v default_key_name="aws_nono" \
+  -v default_security_groups="[ bosh ]" \
+  -v region="us-east-1" \
   >> $DEPLOYMENTS_DIR/bosh-gce.yml
