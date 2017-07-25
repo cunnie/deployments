@@ -1,15 +1,16 @@
 {
     "director_id": "c62c3e85-614d-4b59-4ef4-e5e80cd9775e",
     "installation_id": "7e5b0151-3544-4b23-6321-5cf1da75ff25",
-    "current_vm_cid": "vm-0eab9074-db61-4aa4-48b2-6dad5f1b2545",
+    "current_vm_cid": "vm-979028cc-0fec-4a75-763c-85238fdca696",
     "current_stemcell_id": "d53bcb85-3df6-4f65-4810-3448de36e272",
     "current_disk_id": "99b4ade4-b95f-4f52-6724-3cc17f6347d4",
     "current_release_ids": [
-        "a0405ffa-6d8f-4e1e-6f5c-c38486f4acc1",
-        "52ccbf30-89fe-4a6c-6f3c-d8ac0a7d920f",
-        "ed32fc76-80ca-415e-61fc-da269fed5eda"
+        "4951838d-91ee-4833-4ceb-304ce7e2f444",
+        "536cb25e-ff91-462c-4f4d-8b9c75d4e89f",
+        "97d2344f-db4f-47f9-689a-7f8ff07d58b3",
+        "a7c2bca8-2057-4956-5d7e-a49f8df962f0"
     ],
-    "current_manifest_sha": "7d13211ffe13ba09bda5607c07f6fc21d6f9fbceac1b629da2d1cd749dcb8c8074260b07adb6f044dbd4f9e2f14b3fbbd54ddeba7dd27f2be7ee16ff09abffdc",
+    "current_manifest_sha": "70a93bea19dcef512f69eda36af05aaabe332c396da2a43d05ef50ad25aba8cb821cddcec1504caaf50600b21a18d6d93a6d65bf3ee867e95e44f2c3d69511bb",
     "disks": [
         {
             "id": "99b4ade4-b95f-4f52-6724-3cc17f6347d4",
@@ -30,19 +31,24 @@
     ],
     "releases": [
         {
-            "id": "a0405ffa-6d8f-4e1e-6f5c-c38486f4acc1",
+            "id": "4951838d-91ee-4833-4ceb-304ce7e2f444",
             "name": "bosh",
-            "version": "262.2"
+            "version": "262.3"
         },
         {
-            "id": "52ccbf30-89fe-4a6c-6f3c-d8ac0a7d920f",
+            "id": "536cb25e-ff91-462c-4f4d-8b9c75d4e89f",
+            "name": "bosh-aws-cpi",
+            "version": "65"
+        },
+        {
+            "id": "97d2344f-db4f-47f9-689a-7f8ff07d58b3",
             "name": "bosh-google-cpi",
             "version": "25.9.0"
         },
         {
-            "id": "ed32fc76-80ca-415e-61fc-da269fed5eda",
+            "id": "a7c2bca8-2057-4956-5d7e-a49f8df962f0",
             "name": "os-conf",
-            "version": "11"
+            "version": "12"
         }
     ]
 }
