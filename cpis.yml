@@ -1,0 +1,16 @@
+# bosh2 -e gce update-cpi-config cpis.yml -l <(lpass show --note deployments)
+cpis:
+- name: google
+  type: google
+  properties:
+    json_key: ((gcp_credentials_json))
+    project: blabbertabber
+- name: aws
+  type: aws
+  properties:
+    access_key_id: ((aws_access_key_id))
+    default_key_name: aws_nono
+    default_security_groups:
+    - bosh
+    region: us-east-1
+    secret_access_key: ((aws_secret_access_key))
