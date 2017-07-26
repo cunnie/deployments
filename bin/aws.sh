@@ -19,7 +19,7 @@ cat > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
 #
 EOF
 
-bosh interpolate etc/nginx-ntp-pdns-aws.yml \
+bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/aws/cpi.yml \
   -o ~/workspace/bosh-deployment/external-ip-with-registry-not-recommended.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
@@ -40,6 +40,13 @@ bosh interpolate etc/nginx-ntp-pdns-aws.yml \
   -v internal_gw=10.0.0.1 \
   -v internal_ip=10.0.0.6 \
   -v external_ip=52.0.56.137 \
+  -v admin_password="((admin_password))" \
+  -v blobstore_agent_password="((blobstore_agent_password))" \
+  -v blobstore_director_password="((blobstore_director_password))" \
+  -v hm_password="((hm_password))" \
   -v mbus_bootstrap_password="((mbus_bootstrap_password))" \
+  -v nats_password="((nats_password))" \
+  -v postgres_password="((postgres_password))" \
+  -v registry_password="((registry_password))" \
   -v private_key=$HOME/.ssh/aws_nono.pem \
   >> $DEPLOYMENTS_DIR/bosh-aws.yml

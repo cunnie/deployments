@@ -39,6 +39,16 @@ disk_pools:
 instance_groups:
 - instances: 1
   jobs:
+  - name: nats
+    release: bosh
+  - name: postgres-9.4
+    release: bosh
+  - name: blobstore
+    release: bosh
+  - name: director
+    release: bosh
+  - name: health_monitor
+    release: bosh
   - name: registry
     release: bosh
   - name: aws_cpi
@@ -242,6 +252,8 @@ instance_groups:
     - 52.0.56.137
   persistent_disk_pool: disks
   properties:
+    agent:
+      mbus: nats://nats:((nats_password))@10.0.0.6:4222
     aws:
       access_key_id: ((aws_access_key_id))
       default_key_name: aws_nono
@@ -249,28 +261,155 @@ instance_groups:
       - bosh
       region: us-east-1
       secret_access_key: ((aws_secret_access_key))
+    blobstore:
+      address: 10.0.0.6
+      agent:
+        password: ((blobstore_agent_password))
+        user: agent
+      director:
+        password: ((blobstore_director_password))
+        user: director
+      port: 25250
+      provider: dav
     director:
+      address: 127.0.0.1
       cpi_job: aws_cpi
+      db:
+        adapter: postgres
+        database: bosh
+        host: 127.0.0.1
+        listen_address: 127.0.0.1
+        password: ((postgres_password))
+        user: postgres
       default_ssh_options:
         gateway_host: 52.0.56.137
+        gateway_user: jumpbox
+      enable_dedicated_status_worker: true
+      enable_nats_delivered_templates: true
+      enable_post_deploy: true
+      events:
+        record_events: true
+      flush_arp: true
+      generate_vm_passwords: true
+      name: bosh-aws
+      ssl:
+        cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDQjCCAiqgAwIBAgIQHWYwGQz8twtq3Rgs6AIESDANBgkqhkiG9w0BAQsFADAz
+          MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxCzAJBgNVBAMT
+          AmNhMB4XDTE3MDcwNTIxNDUwN1oXDTE4MDcwNTIxNDUwN1owOTEMMAoGA1UEBhMD
+          VVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MREwDwYDVQQDEwgxMC4wLjAuNjCC
+          ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK07GGnbwV378KPUjthNiLfW
+          1OmShF9jwUm9AARBZmxBx6vjC13WikX3Y3PGvjrDRLs5U9QjqdJOjklmsEphzsvD
+          tmIe9ELZ/kt/6+kOEMoPdU+dNHpIm2kS80irALiSpQRliKEg5Q9qoCdKHLw09iwB
+          9XugJ28v2PJM6T7kzcuFyl200A5073pMwz9Y6tRmJg3huLOQDqGeeawM4HNMhQd4
+          SJiBjk+zQ8z43r2faGKBYwTkGt2HdjfrbjdZptk+qRtODA3zDAKnK7xcEQpKB7B3
+          tldidY5z3s4F64eSrAjO6+BPEA7thrgKOzx36H2YKo0zuqgV7VuVQZbrUzqyiQEC
+          AwEAAaNMMEowDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMAwG
+          A1UdEwEB/wQCMAAwFQYDVR0RBA4wDIcECgAABocENAA4iTANBgkqhkiG9w0BAQsF
+          AAOCAQEAo2yMBO+9NHYnjGpT8LlN2qylvUdbogNg7n7rl0vNwg6KnnYIGl3Ician
+          Qe6Q+66yb/qxW5xo8w0phcVqkhJqob7gWbeZeJDcCIE1Zu/m/pA5JiymYbMmbXxZ
+          baaJ5j1A3H9fHyWrYVyoA0l7B4vObt5wLE7+Zz86SOQfdTaaNTJ0vLL1/aVVwzyK
+          clbUainw0dbCp9c9cH5tJvrER4Jf9oRzo43yXYcOoq/ePyd7NWsiSoVj2+F23od8
+          7twNYkTmQsrN6eS880+4hwuqTjXGgpNLcOX96VJOpjSkRFyORISEr2wchLAR4bYk
+          vsqRNv2JHATsNxvhu3U0ltH+kdCx3g==
+          -----END CERTIFICATE-----
+        key: |
+          -----BEGIN RSA PRIVATE KEY-----
+          MIIEowIBAAKCAQEArTsYadvBXfvwo9SO2E2It9bU6ZKEX2PBSb0ABEFmbEHHq+ML
+          XdaKRfdjc8a+OsNEuzlT1COp0k6OSWawSmHOy8O2Yh70Qtn+S3/r6Q4Qyg91T500
+          ekibaRLzSKsAuJKlBGWIoSDlD2qgJ0ocvDT2LAH1e6Anby/Y8kzpPuTNy4XKXbTQ
+          DnTvekzDP1jq1GYmDeG4s5AOoZ55rAzgc0yFB3hImIGOT7NDzPjevZ9oYoFjBOQa
+          3Yd2N+tuN1mm2T6pG04MDfMMAqcrvFwRCkoHsHe2V2J1jnPezgXrh5KsCM7r4E8Q
+          Du2GuAo7PHfofZgqjTO6qBXtW5VBlutTOrKJAQIDAQABAoIBAFA9wGhAf8heDDCH
+          JAezmnG1lHgBA0oANidG4bwW4y+gJLJNABXea7xPBIU7eSBVFQA4ZMkuH9qnwqbj
+          ZyN9PMIMDO5UckaJHY6xWYBhoItIL8nKAuXlvf8k5QYzF6lnXAK2WVxxlUjX1gl8
+          /eR8D8+AtMon/Dw3iKFr2NrmNyFfO2z5aWFomIO+qFi08Sr+ma5JL26WWQH2Hb30
+          hIw1t0kfSTXnG5e9ygYHcrKFQjM0Xs+PgNyv/d5647bInaUkewkHoYENfrIn1Z4E
+          fxSimWbhj1QbV+HHFeN58Zg2fUz8v7eNNxwFe+6+FL3hk+MSvomf1ru+618Lb7wW
+          fq9Sf/ECgYEA3bGyimFMVSklplEwuxY3vBUW2Z+Ixdr+0nTcifr5Gx1f9Y0JhzCR
+          SWNksW6eq3u8kGVqw2hUcG79hP2DtSeyhxpEBIHM1Bc9E6GF18y+krb3gM5JKqZj
+          XUhASmd8YG7PHKPtac9NQmaf2j/RSUn8qwhiHKXNocsfPP0P3msOWaUCgYEAyAmM
+          gtNRa0iMuKI/0Rd2lg1PoDIGw81RgdtcImpgHjirMLzjPZVEYv/xfX+Cf5+dbqI4
+          cj9ujgQFciNb6k7sMQCE5uXKuQO9NicdQPbC0bMaRPzRpWZZQGxy/E9Ry0osF/WY
+          d3XagWNEns0Na//dogGw9AmJplh8CFUXwQeo+y0CgYEAmiy/Nr9Nv5fbCBxEoIdm
+          AVZFStlI3BhdyOzehtLUNMgr+O+5pZvgHkKSP1bn3+gwjdcJ9ZVzy7FUfA12cCCI
+          Zq6ciOngEcuLfUCCfT51dkDqRViwx4lpZvEdTOFFPScyv/88164EU95c4wIowShE
+          IIm2+adRJ2jEc7ymMY8QLsUCgYAzgdnvWdBOKpkpdYWvJjZ/vp+xJRB+3GBPapdX
+          uUJUpczWuNxeYBAC2dppsSp+CDB2a0jTiifCY6CvWhFxzK6ek36lIahIaYEP75Rl
+          xOQ3MMHj36Fv0GHM59/XvejWypt989w1bmA8Dr59kVkSZQjBjWPuAoKyFXiigJ6k
+          Mn+9ZQKBgHalS6+X8uuZXNN6UEkxxzu1TlRKejjOZpZlFWtzkopbxtPMnsqzq2od
+          O04koV2vHRT8UVqaOArUr07OgvZIYT+DTl9dut2DrPGV/xolOAjrTPw3Gjj3IwNj
+          1TlImMKLd7Shs/cvcr15hC51lb2R5yxfFAsYIGrdTkrJBA6eOSjf
+          -----END RSA PRIVATE KEY-----
+      user_management:
+        local:
+          users:
+          - name: admin
+            password: ((admin_password))
+          - name: hm
+            password: ((hm_password))
+        provider: local
+      workers: 4
+    hm:
+      director_account:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIDFDCCAfygAwIBAgIRAIq+wo+ZuBM22hYTb8J5P8UwDQYJKoZIhvcNAQELBQAw
+          MzEMMAoGA1UEBhMDVVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQD
+          EwJjYTAeFw0xNzA3MDUyMTQ1MDdaFw0xODA3MDUyMTQ1MDdaMDMxDDAKBgNVBAYT
+          A1VTQTEWMBQGA1UEChMNQ2xvdWQgRm91bmRyeTELMAkGA1UEAxMCY2EwggEiMA0G
+          CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCm1w09pqn3OHye6qKP3HLBENc1ZVKK
+          +er71vlEDkXVE5mUbfFm8G020+uwg2A2by2qPvRuNir4SQn0AA4oca9Nz/nYOggO
+          vd41KiSiPR0qBdVPXL08jUT/TgYprmbAcC/idjuEqBHGkiJrdm6S2BkJIcimKyT8
+          A4IaZoNI1zAQsI14hcwQT/BASdF0MOaSx0ehs2OTqaecRjhpOK/SAPxLxmXI1gc+
+          Qu0uzOQKrmdOBJOmGAZtxAD+Iyj3BIXNK0ISLgrioHJt41vqOCxPIK7v+XksVoV2
+          fhkELaotxe0t+daPPNMIx9nkOrWj3OpJQCmexpCW+UNfz9W3OqeKplANAgMBAAGj
+          IzAhMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEB
+          CwUAA4IBAQBZdXv6ERylP9llVRU640kD+BPl5ER1J2gdLJ/Nop2+q4+H1cNZvRKu
+          lP7tYfxKq2SP0l2Q4YSmjq3Z+pmcrFSkUHl0J7vvJMHtps/aK4FrWXz0INQQDV3e
+          6GnDNHmQ4lomFVtQYBtmDLs2KWNlWOQ0K0WURAuG13Sqf1vaBavvnhkk4hJlOMuE
+          /mo4I/QFfMBarNN5mv76SxJeuo2c19Y/Tvu4pjO9M5aFyxup4/JdaTZm3qvzNywj
+          Sm3uTa5eyd0Hf6yqlN79wsDQV9Ac/j5U/Q+UeWLfomAad703d8V3EWOFpdEWdJoy
+          6KRWGzOC8o6NOvlS+23w1Oz9Rwsv9oC1
+          -----END CERTIFICATE-----
+        password: ((hm_password))
+        user: hm
+      resurrector_enabled: true
+    nats:
+      address: 127.0.0.1
+      password: ((nats_password))
+      user: nats
+    ntp:
+    - time1.google.com
+    - time2.google.com
+    - time3.google.com
+    - time4.google.com
+    postgres:
+      adapter: postgres
+      database: bosh
+      host: 127.0.0.1
+      listen_address: 127.0.0.1
+      password: ((postgres_password))
+      user: postgres
     registry:
       address: 10.0.0.6
       db:
         adapter: postgres
         database: bosh
         host: 127.0.0.1
-        password: k7qhkvoqnw8xknwo7uqu
+        password: ((postgres_password))
         user: postgres
       host: 10.0.0.6
       http:
-        password: aspv9nh59lhyk61i7jx3
+        password: ((registry_password))
         port: 25777
         user: registry
-      password: aspv9nh59lhyk61i7jx3
+      password: ((registry_password))
       port: 25777
       username: registry
   resource_pool: vms
-name: nginx-ntp-pdns
+name: bosh
 networks:
 - name: default
   subnets:
@@ -286,18 +425,22 @@ networks:
 - name: public
   type: vip
 releases:
+- name: bosh
+  sha1: 1eae3f06282417e54ebb199656458f9d6c38e2af
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-262.3-ubuntu-trusty-3421.9-20170706-183731-831697577-20170706183736.tgz?versionId=7GmwKfufgb5JwWhJ.cwIWLnejOtm2Hu4
+  version: "262.3"
 - name: bosh-aws-cpi
   sha1: 26b3a5c43e6f82594a373309a495660d6db26254
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=65
   version: 65
 - name: os-conf
-  sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
-  version: 11
+  sha1: af5a2c9f228b9d7ec4bd051d71fef0e712fa1549
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=12
+  version: 12
 - name: nginx
-  sha1: a79fbefbeee989a0513f0f5f6196d07431fab46b
-  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.12.0/nginx-1.12.0.tgz
-  version: 1.12.0
+  sha1: 13fd766b9fbd58ddb5efc307987ddfeaa232a169
+  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.12.1/nginx-1.12.1.tgz
+  version: 1.12.1
 - name: ntp
   sha1: 44fae7426d3937fba23f2b57b6a794a0ded62922
   url: https://github.com/cloudfoundry-community/ntp-release/releases/download/v4/ntp-4.tgz
@@ -321,6 +464,20 @@ resource_pools:
     sha1: f5e78f61b8026377300db544e9d3ca0b89516af3
     url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3312.15
 variables:
+- name: admin_password
+  type: password
+- name: blobstore_director_password
+  type: password
+- name: blobstore_agent_password
+  type: password
+- name: hm_password
+  type: password
+- name: mbus_bootstrap_password
+  type: password
+- name: nats_password
+  type: password
+- name: postgres_password
+  type: password
 - name: default_ca
   options:
     common_name: ca
