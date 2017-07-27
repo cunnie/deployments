@@ -3,9 +3,9 @@
   path: /releases/-
   value:
     name: pdns
-    version: 4
-    url: https://github.com/cloudfoundry-community/pdns-release/releases/download/v4.0.1/pdns-4.0.1.tgz
-    sha1: 9033648bd579a19c74b0e95933f35c5eaed37684
+    version: 4.0.4
+    url: https://github.com/cloudfoundry-community/pdns-release/releases/download/v4.0.4/pdns-4.0.4.tgz
+    sha1: 1f1534b88098300fc282a720bc50c55750ba873a
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
