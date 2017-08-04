@@ -1,7 +1,7 @@
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
-# bosh2 -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
+# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+# bosh2 -e bosh-aws.nono.io alias-env aws
 #
 cloud_provider:
   mbus: https://mbus:((mbus_bootstrap_password))@52.0.56.137:6868
@@ -494,43 +494,3 @@ resource_pools:
   stemcell:
     sha1: f5e78f61b8026377300db544e9d3ca0b89516af3
     url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3312.15
-variables:
-- name: admin_password
-  type: password
-- name: blobstore_director_password
-  type: password
-- name: blobstore_agent_password
-  type: password
-- name: hm_password
-  type: password
-- name: mbus_bootstrap_password
-  type: password
-- name: nats_password
-  type: password
-- name: postgres_password
-  type: password
-- name: default_ca
-  options:
-    common_name: ca
-    is_ca: true
-  type: certificate
-- name: mbus_bootstrap_ssl
-  options:
-    alternative_names:
-    - 10.0.0.6
-    - 52.0.56.137
-    ca: default_ca
-    common_name: 10.0.0.6
-  type: certificate
-- name: director_ssl
-  options:
-    alternative_names:
-    - 10.0.0.6
-    - 52.0.56.137
-    ca: default_ca
-    common_name: 10.0.0.6
-  type: certificate
-- name: registry_password
-  type: password
-- name: jumpbox_ssh
-  type: ssh
