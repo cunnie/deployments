@@ -1,7 +1,7 @@
 .vagrant
 # weird private key; not sure what it's used for
 bosh
-# ignore the credentails
+# ignore the credentials
 *-creds.yml
 # vim swap files
 .*.swp
