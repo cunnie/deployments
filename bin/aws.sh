@@ -14,8 +14,8 @@ DEPLOYMENTS_DIR=~/workspace/deployments/
 cat > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l aws-creds.yml -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
-# bosh2 -e bosh-aws.nono.io --ca-cert <(bosh int aws-creds.yml --path /director_ssl/ca) alias-env aws
+# bosh2 create-env bosh-aws.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+# bosh2 -e bosh-aws.nono.io alias-env aws
 #
 EOF
 
