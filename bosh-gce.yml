@@ -1,7 +1,7 @@
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh2 create-env bosh-gce.yml -l <(lpass show --note deployments)
-# bosh2 -e bosh-gce.nono.io alias-env gce
+# bosh create-env bosh-gce.yml -l <(lpass show --note deployments)
+# bosh -e bosh-gce.nono.io alias-env gce
 #
 cloud_provider:
   mbus: https://mbus:((mbus_bootstrap_password))@104.154.39.128:6868

@@ -11,12 +11,12 @@ DEPLOYMENTS_DIR=$PWD
 cat > $DEPLOYMENTS_DIR/bosh-vsphere.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh2 create-env bosh-vsphere.yml -v vcenter_ip=vcenter.XXXXX -v vcenter_password=XXXX -l vsphere-creds.yml
-# bosh2 -e 10.85.46.6 --ca-cert <(bosh2 int vsphere-creds.yml --path /director_ssl/ca) alias-env nsx-t
+# bosh create-env bosh-vsphere.yml -v vcenter_ip=vcenter.XXXXX -v vcenter_password=XXXX -l vsphere-creds.yml
+# bosh -e 10.85.46.6 --ca-cert <(bosh int vsphere-creds.yml --path /director_ssl/ca) alias-env nsx-t
 #
 EOF
 
-bosh2 interpolate ~/workspace/bosh-deployment/bosh.yml \
+bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/vsphere/cpi.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
   -o etc/vsphere.yml \

@@ -1,5 +1,5 @@
 ---
-# bosh2 deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+# bosh deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
 name: concourse
 
 releases:

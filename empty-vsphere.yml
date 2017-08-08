@@ -1,4 +1,4 @@
-# bosh2 create-env empty-vsphere.yml -l <(lpass show 'Cork Pez vCenter'  | egrep -v '^Shared-BOSH|^Notes:$')
+# bosh create-env empty-vsphere.yml -l <(lpass show 'Cork Pez vCenter'  | egrep -v '^Shared-BOSH|^Notes:$')
 ---
 name: empty
 

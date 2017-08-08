@@ -1,4 +1,4 @@
-# bosh2 create-env bosh-aws-ipv6.yml -l <(lpass show --note deployments)
+# bosh create-env bosh-aws-ipv6.yml -l <(lpass show --note deployments)
 ---
 name: bosh
 

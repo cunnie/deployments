@@ -1,5 +1,5 @@
 ---
-# bosh2 create-env nginx-ntp-pdns-azure.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+# bosh create-env nginx-ntp-pdns-azure.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
 name: nginx-ntp-pdns
 
 releases:

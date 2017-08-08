@@ -14,13 +14,13 @@ DEPLOYMENTS_DIR=~/workspace/deployments/
 cat > $DEPLOYMENTS_DIR/bosh-gce.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh2 create-env bosh-gce.yml -l <(lpass show --note deployments)
-# bosh2 -e bosh-gce.nono.io alias-env gce
+# bosh create-env bosh-gce.yml -l <(lpass show --note deployments)
+# bosh -e bosh-gce.nono.io alias-env gce
 #
 EOF
 
-bosh2 interpolate ~/workspace/bosh-deployment/bosh.yml \
-  -o ~/workspace/bosh-deployment/powerdns.yml \
+bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
+  -o ~/workspace/bosh-deployment/misc/powerdns.yml \
   -o ~/workspace/bosh-deployment/aws/cpi.yml \
   -o ~/workspace/bosh-deployment/gcp/cpi.yml \
   -o ~/workspace/bosh-deployment/external-ip-not-recommended.yml \
