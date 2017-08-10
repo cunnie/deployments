@@ -1,6 +1,6 @@
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-aws.yml -l <(lpass show --note deployments) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+# bosh create-env bosh-aws.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
 # bosh -e bosh-aws.nono.io alias-env aws
 #
 cloud_provider:

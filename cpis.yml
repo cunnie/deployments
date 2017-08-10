@@ -1,4 +1,4 @@
-# bosh -e gce update-cpi-config cpis.yml -l <(lpass show --note deployments)
+# bosh -e gce update-cpi-config cpis.yml -l <(lpass show --note deployments.yml)
 cpis:
 - name: google
   type: google

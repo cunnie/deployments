@@ -1,5 +1,5 @@
 ---
-# bosh create-env bosh-azure.yml -l <(lpass show --note deployments)
+# bosh create-env bosh-azure.yml -l <(lpass show --note deployments.yml)
 name: bosh
 
 releases:
