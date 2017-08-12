@@ -1,10 +1,4 @@
 ---
-- type: replace
-  path: /resource_pools/name=vms/stemcell?
-  value:
-    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3312.15
-    sha1: f5e78f61b8026377300db544e9d3ca0b89516af3
-
 # Configure AWS sizes
 - type: replace
   path: /resource_pools/name=vms/cloud_properties?
@@ -30,10 +24,6 @@
 - type: replace
   path: /instance_groups/name=bosh/jobs/name=user_add/properties/users/name=jumpbox/public_key?
   value: ((aws_jumpbox_user_public_key))
-
-# I don't need a cert for cloud_provider; I don't even know why they have it
-- type: remove
-  path: /cloud_provider/cert
 
 # I don't want auto-generated certificates -- I spent $100 for a wildcard
 # certificate, and gosh-darn I plan to use it (*.nono.io)
