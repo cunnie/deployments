@@ -21,12 +21,11 @@ EOF
 
 bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/misc/powerdns.yml \
-  -o ~/workspace/bosh-deployment/aws/cpi.yml \
   -o ~/workspace/bosh-deployment/gcp/cpi.yml \
   -o ~/workspace/bosh-deployment/external-ip-not-recommended.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
   -o etc/gce.yml \
-  --vars-store $DEPLOYMENTS_DIR/gce-creds.yml \
+  --var-file mbus_bootstrap_ssl=etc/mbus_bootstrap_ssl.yml \
   -v dns_recursor_ip="169.254.169.254" \
   -v internal_gw="10.128.0.1" \
   -v internal_cidr="10.128.0.0/20" \
@@ -38,16 +37,6 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v zone="us-central1-b" \
   -v project_id="blabbertabber" \
   -v director_name="gce" \
-  -v admin_password="((admin_password))" \
-  -v blobstore_agent_password="((blobstore_agent_password))" \
-  -v blobstore_director_password="((blobstore_director_password))" \
-  -v hm_password="((hm_password))" \
-  -v mbus_bootstrap_password="((mbus_bootstrap_password))" \
-  -v nats_password="((nats_password))" \
-  -v postgres_password="((postgres_password))" \
-  -v registry_password="((registry_password))" \
-  -v access_key_id="((aws_access_key_id))" \
-  -v secret_access_key="((aws_secret_access_key))" \
   -v default_key_name="aws_nono" \
   -v default_security_groups="[ bosh ]" \
   -v region="us-east-1" \
