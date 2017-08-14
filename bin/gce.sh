@@ -37,7 +37,4 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v zone="us-central1-b" \
   -v project_id="blabbertabber" \
   -v director_name="gce" \
-  -v default_key_name="aws_nono" \
-  -v default_security_groups="[ bosh ]" \
-  -v region="us-east-1" \
   >> $DEPLOYMENTS_DIR/bosh-gce.yml
