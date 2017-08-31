@@ -8,10 +8,10 @@
 #
 DEPLOYMENTS_DIR=$PWD
 
-cat > $DEPLOYMENTS_DIR/bosh-vsphere.yml <<EOF
+cat > $DEPLOYMENTS_DIR/bosh-vsphere-mouse.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-vsphere.yml -v vcenter_ip=vcenter.XXXXX -v vcenter_password=XXXX -l vsphere-creds.yml
+# bosh create-env bosh-vsphere-mouse.yml -v vcenter_ip=vcenter.XXXXX -v vcenter_password=XXXX -l vsphere-creds.yml
 # bosh -e 10.85.46.6 --ca-cert <(bosh int vsphere-creds.yml --path /director_ssl/ca) alias-env nsx-t
 #
 EOF
@@ -36,4 +36,4 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v internal_cidr=10.85.46.0/24 \
   -v nats_password=SingGoddessTheAngerOfPeleus \
   -v director_name=nsx-t \
-  >> $DEPLOYMENTS_DIR/bosh-vsphere.yml
+  >> $DEPLOYMENTS_DIR/bosh-vsphere-mouse.yml
