@@ -25,7 +25,7 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/external-ip-not-recommended.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
   -o etc/gce.yml \
-  --var-file mbus_bootstrap_ssl=etc/mbus_bootstrap_ssl.yml \
+  --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="169.254.169.254" \
   -v internal_gw="10.128.0.1" \
   -v internal_cidr="10.128.0.0/20" \
