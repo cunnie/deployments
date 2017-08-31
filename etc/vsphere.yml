@@ -1,0 +1,36 @@
+---
+# I want a password for vcap so that I can `sudo` during the compilation phase
+- type: replace
+  path: /resource_pools/name=vms/env?
+  value:
+    bosh:
+      # c1oudc0w is a default password for vcap user
+      # python -c "import crypt, getpass, pwd; print crypt.crypt('c1oudc0w', '\$6\$cunnie\$')"
+      password: "$6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/"
+
+# I don't want my jumpbox user to have auto-generated creds; I want MY creds
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=user_add/properties/users/name=jumpbox/public_key?
+  value: ((gce_jumpbox_user_public_key))
+
+# I don't want auto-generated certificates -- I spent $100 for a wildcard
+# certificate, and gosh-darn I plan to use it (*.nono.io)
+- type: replace
+  path: /cloud_provider/cert
+  value:
+    certificate: ((nono_io_crt))
+    private_key: ((nono_io_key))
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/ssl/key?
+  value: ((nono_io_key))
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/ssl/cert?
+  value: ((nono_io_crt))
+
+# I don't need a ca_cert for HM
+- type: remove
+  path: /instance_groups/name=bosh/properties/hm/director_account/ca_cert
+
+# And I don't use any variables, either
+- type: remove
+  path: /variables
