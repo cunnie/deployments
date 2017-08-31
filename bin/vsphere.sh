@@ -33,8 +33,8 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v vcenter_templates=bosh-templates \
   -v director_name=vsphere \
   -v network_name="VM Network" \
-  -v internal_ip=2601:646:102:95::106 \
-  -v internal_gw=2601:646:102:95:82ea:96ff:fee7:5524 \
-  -v internal_cidr=2601:646:102:95::/64 \
+  -v internal_ip=2601:0646:0102:0095:0000:0000:0000:0106 \
+  -v internal_gw=2601:0646:0102:0095:82ea:96ff:fee7:5524 \
+  -v internal_cidr=2601:0646:0102:0095:0000:0000:0000:0000/64 \
   -v director_name=vsphere \
   >> $DEPLOYMENTS_DIR/bosh-vsphere.yml

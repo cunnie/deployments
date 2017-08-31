@@ -106,7 +106,7 @@ cloud_provider:
       pu/xO28QOG8=
       -----END CERTIFICATE-----
     private_key: ((nono_io_key))
-  mbus: https://mbus:((mbus_bootstrap_password))@[2601:646:102:95::106]:6868
+  mbus: https://mbus:((mbus_bootstrap_password))@[2601:0646:0102:0095:0000:0000:0000:0106]:6868
   properties:
     agent:
       mbus: https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868
@@ -160,15 +160,21 @@ instance_groups:
     release: os-conf
   name: bosh
   networks:
-  - name: default
+  - default:
+    - dns
+    - gateway
+    name: default
     static_ips:
-    - 2601:646:102:95::106
+    - 2601:0646:0102:0095:0000:0000:0000:0106
+  - name: ipv4
+    static_ips:
+    - 10.0.9.106
   persistent_disk_pool: disks
   properties:
     agent:
-      mbus: nats://nats:((nats_password))@[2601:646:102:95::106]:4222
+      mbus: nats://nats:((nats_password))@[2601:0646:0102:0095:0000:0000:0000:0106]:4222
     blobstore:
-      address: '[2601:646:102:95::106]'
+      address: '[2601:0646:0102:0095:0000:0000:0000:0106]'
       agent:
         password: ((blobstore_agent_password))
         user: agent
@@ -354,10 +360,22 @@ networks:
     dns:
     - 2001:4860:4860:0000:0000:0000:0000:8888
     - 2001:4860:4860:0000:0000:0000:0000:8844
-    gateway: 2601:646:102:95:82ea:96ff:fee7:5524
-    range: 2601:646:102:95::/64
+    gateway: 2601:0646:0102:0095:82ea:96ff:fee7:5524
+    range: 2601:0646:0102:0095:0000:0000:0000:0000/64
     static:
-    - 2601:646:102:95::106
+    - 2601:0646:0102:0095:0000:0000:0000:0106
+  type: manual
+- name: ipv4
+  subnets:
+  - cloud_properties:
+      name: VM Network
+    dns:
+    - 8.8.8.8
+    - 8.8.4.4
+    gateway: 10.0.9.1
+    range: 10.0.9.0/24
+    static:
+    - 10.0.9.106
   type: manual
 releases:
 - name: bosh
