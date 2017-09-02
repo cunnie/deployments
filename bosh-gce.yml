@@ -358,13 +358,13 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 1eae3f06282417e54ebb199656458f9d6c38e2af
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-262.3-ubuntu-trusty-3421.9-20170706-183731-831697577-20170706183736.tgz?versionId=7GmwKfufgb5JwWhJ.cwIWLnejOtm2Hu4
-  version: "262.3"
+  sha1: cc71c2ee6992071b1e1f6ae9f2119c03a42521c5
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263-ubuntu-trusty-3445.7-20170901-012146-902840377-20170901012153.tgz?versionId=89a.ZxB3Jc_gl6s4YESlL41xNOfoJKrO
+  version: "263"
 - name: bosh-google-cpi
-  sha1: 3fbda22fde33878b54dec77f4182f8044be72687
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.9.0
-  version: 25.9.0
+  sha1: 3a551822bff0fd040d73fd385ab34fbc17b476f5
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.10.0
+  version: 25.10.0
 - name: os-conf
   sha1: af5a2c9f228b9d7ec4bd051d71fef0e712fa1549
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=12
@@ -381,5 +381,5 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 408f78a2091d108bb5418964026e73c822def32d
-    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3421.9
+    sha1: 4bc264aab6717c81fb3a37783e796982fe9956ca
+    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3445.7

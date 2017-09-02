@@ -1,18 +1,18 @@
 {
     "director_id": "2aacb117-8be7-4a7f-6a78-534168de2e15",
     "installation_id": "08cb6f00-a809-47c0-4aab-e310115f5127",
-    "current_vm_cid": "i-0e2d23ea2d338cdf5",
-    "current_stemcell_id": "be272948-24d8-447d-4ea1-c7b43abb1032",
+    "current_vm_cid": "i-0749d07da0f3df21a",
+    "current_stemcell_id": "d9f4f9cc-74bb-444b-53d3-d7768b93ba79",
     "current_disk_id": "4ee9ac92-de46-4014-50c3-2b6cd8d3c748",
     "current_release_ids": [
-        "f929d6c5-0fec-4554-5f7b-8fe721011f74",
-        "bbe1d2db-cee0-4d52-62a4-ff2924d6236e",
-        "e2860208-99ec-4304-4ded-37ef456317e8",
-        "e42f65b6-7811-46ce-7f94-d65815b46fd5",
-        "ed510f40-1de6-49fb-74d4-d32d51050a5d",
-        "cf11b763-c711-4092-78f2-001da1f4a870"
+        "832fd683-02dc-49a9-7f41-6c1dcd01d7a2",
+        "8e18d345-7c86-4354-744c-aee626c89fb1",
+        "49182a09-3bf1-47a2-5d3b-8420bcc8a2ca",
+        "0d4782be-5a56-4b24-5457-5448ad1de3c7",
+        "22bd5d4b-ab4c-47ef-5d76-b21038488327",
+        "0cd1cdf6-6d9f-433e-779a-eb4fe1aa5ad0"
     ],
-    "current_manifest_sha": "aa0d36454fddf48811198f994263b460b66d1f24b48d38bc633c5a4cbd507e747cff7e9a4c5cc657466f7125021711eb5c38f23a67fe759e10162e5a200248e3",
+    "current_manifest_sha": "5f743dc0dab3515d356491e47370a8205b163701b3f121a7197a2bec31b18c62b975195c83b3c6836bb246ce4978e5a90f66cbb91bdeeaa18e1b5451d8fc7c7e",
     "disks": [
         {
             "id": "4ee9ac92-de46-4014-50c3-2b6cd8d3c748",
@@ -25,40 +25,40 @@
     ],
     "stemcells": [
         {
-            "id": "be272948-24d8-447d-4ea1-c7b43abb1032",
+            "id": "d9f4f9cc-74bb-444b-53d3-d7768b93ba79",
             "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
-            "version": "3312.15",
-            "cid": "ami-fcb05dea light"
+            "version": "3445.7",
+            "cid": "ami-5612192d light"
         }
     ],
     "releases": [
         {
-            "id": "f929d6c5-0fec-4554-5f7b-8fe721011f74",
+            "id": "832fd683-02dc-49a9-7f41-6c1dcd01d7a2",
             "name": "bosh",
-            "version": "262.3"
+            "version": "263"
         },
         {
-            "id": "bbe1d2db-cee0-4d52-62a4-ff2924d6236e",
+            "id": "8e18d345-7c86-4354-744c-aee626c89fb1",
             "name": "bosh-aws-cpi",
-            "version": "65"
+            "version": "66"
         },
         {
-            "id": "e2860208-99ec-4304-4ded-37ef456317e8",
+            "id": "49182a09-3bf1-47a2-5d3b-8420bcc8a2ca",
             "name": "os-conf",
             "version": "12"
         },
         {
-            "id": "e42f65b6-7811-46ce-7f94-d65815b46fd5",
+            "id": "0d4782be-5a56-4b24-5457-5448ad1de3c7",
             "name": "nginx",
             "version": "1.12.1"
         },
         {
-            "id": "ed510f40-1de6-49fb-74d4-d32d51050a5d",
+            "id": "22bd5d4b-ab4c-47ef-5d76-b21038488327",
             "name": "ntp",
             "version": "4"
         },
         {
-            "id": "cf11b763-c711-4092-78f2-001da1f4a870",
+            "id": "0cd1cdf6-6d9f-433e-779a-eb4fe1aa5ad0",
             "name": "pdns",
             "version": "4.0.4"
         }
