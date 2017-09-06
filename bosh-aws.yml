@@ -158,7 +158,7 @@ instance_groups:
     properties:
       users:
       - name: jumpbox
-        public_key: ((aws_jumpbox_user_public_key))
+        public_key: ((jumpbox_user_public_key))
     release: os-conf
   - name: nginx
     properties:
