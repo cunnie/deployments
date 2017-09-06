@@ -11,7 +11,7 @@
 # I don't want my jumpbox user to have auto-generated creds; I want MY creds
 - type: replace
   path: /instance_groups/name=bosh/jobs/name=user_add/properties/users/name=jumpbox/public_key?
-  value: ((gce_jumpbox_user_public_key))
+  value: ((jumpbox_user_public_key))
 
 # I don't want auto-generated certificates -- I spent $100 for a wildcard
 # certificate, and gosh-darn I plan to use it (*.nono.io)
