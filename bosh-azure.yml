@@ -160,7 +160,7 @@ instance_groups:
     properties:
       users:
       - name: jumpbox
-        public_key: ((aws_jumpbox_user_public_key))
+        public_key: ((jumpbox_user_public_key))
     release: os-conf
   - name: nginx
     properties:
@@ -593,7 +593,7 @@ resource_pools:
     ephemeral_disk:
       size: 20000
       use_root_disk: true
-    instance_type: BASIC_A1
+    instance_type: BASIC_A2
   env:
     bosh:
       password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/

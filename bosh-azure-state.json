@@ -1,25 +1,18 @@
 {
-    "director_id": "9d6ec8c3-d503-4d7c-46c6-897d7ab8cd36",
-    "installation_id": "a57c5124-9263-4a31-5339-7d5ee85c008d",
-    "current_vm_cid": "agent_id:72d203e3-4b39-4534-51c1-848e31f66a07;resource_group_name:bosh-res-group;storage_account_name:cunniestore",
-    "current_stemcell_id": "2d31e0ff-6fa9-41c1-4ae3-06d36fe007e9",
-    "current_disk_id": "5506e8a5-69d8-46c7-704b-7d6183b273d3",
+    "director_id": "d04dad3d-28d8-4158-7d3e-00608d700e3a",
+    "installation_id": "3e61dd7f-2671-43e4-4dc5-286eec272262",
+    "current_vm_cid": "",
+    "current_stemcell_id": "50f848a7-96b3-4fa3-4fa3-83e47442da1a",
+    "current_disk_id": "",
     "current_release_ids": [],
     "current_manifest_sha": "",
-    "disks": [
-        {
-            "id": "5506e8a5-69d8-46c7-704b-7d6183b273d3",
-            "cid": "caching:None;disk_name:bosh-data-78afa046-7001-4603-b25f-8725264e589f;storage_account_name:cunniestore",
-            "size": 20000,
-            "cloud_properties": {}
-        }
-    ],
+    "disks": null,
     "stemcells": [
         {
-            "id": "2d31e0ff-6fa9-41c1-4ae3-06d36fe007e9",
+            "id": "50f848a7-96b3-4fa3-4fa3-83e47442da1a",
             "name": "bosh-azure-hyperv-ubuntu-trusty-go_agent",
             "version": "3445.7",
-            "cid": "bosh-stemcell-434325f6-223b-4c39-8135-c22024a3f647"
+            "cid": "bosh-stemcell-ee64e1f5-3d2b-4431-a774-d2f4e42d8366"
         }
     ],
     "releases": []
