@@ -129,7 +129,7 @@ cloud_provider:
     - time3.google.com
     - time4.google.com
   ssh_tunnel:
-    host: 10.0.0.5
+    host: 52.187.42.158
     port: 22
     private_key: ((ssh.private_key))
     user: vcap
@@ -593,7 +593,7 @@ resource_pools:
     ephemeral_disk:
       size: 20000
       use_root_disk: true
-    instance_type: STANDARD_A1
+    instance_type: BASIC_A1
   env:
     bosh:
       password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/

@@ -21,7 +21,7 @@ EOF
 
 bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/azure/cpi.yml \
-  -o ~/workspace/bosh-deployment/external-ip-not-recommended.yml \
+  -o ~/workspace/bosh-deployment/external-ip-with-registry-not-recommended.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
   -o etc/azure.yml \
   -o etc/nginx.yml \
