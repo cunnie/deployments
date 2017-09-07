@@ -106,7 +106,7 @@ cloud_provider:
       pu/xO28QOG8=
       -----END CERTIFICATE-----
     private_key: ((nono_io_key))
-  mbus: https://mbus:((mbus_bootstrap_password))@[2601:0646:0102:0095:0000:0000:0000:0106]:6868
+  mbus: https://mbus:((mbus_bootstrap_password))@10.0.9.106:6868
   properties:
     agent:
       mbus: https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868
@@ -135,7 +135,7 @@ cloud_provider:
     name: vsphere_cpi
     release: bosh-vsphere-cpi
 disk_pools:
-- disk_size: 32768
+- disk_size: 20000
   name: disks
 instance_groups:
 - instances: 1
@@ -156,32 +156,25 @@ instance_groups:
     properties:
       users:
       - name: jumpbox
-        public_key: ((gce_jumpbox_user_public_key))
+        public_key: ((jumpbox_user_public_key))
     release: os-conf
   name: bosh
   networks:
-  - default:
-    - dns
-    - gateway
-    name: default
-    static_ips:
-    - 2601:0646:0102:0095:0000:0000:0000:0106
-  - name: ipv4
+  - name: default
     static_ips:
     - 10.0.9.106
   persistent_disk_pool: disks
   properties:
     agent:
-      mbus: nats://nats:((nats_password))@[2601:0646:0102:0095:0000:0000:0000:0106]:4222
+      mbus: nats://nats:((nats_password))@10.0.9.106:4222
     blobstore:
-      address: '[2601:0646:0102:0095:0000:0000:0000:0106]'
+      address: 10.0.9.106
       agent:
         password: ((blobstore_agent_password))
         user: agent
       director:
         password: ((blobstore_director_password))
         user: director
-      ipv6_listen: true
       port: 25250
       provider: dav
     director:
@@ -203,7 +196,6 @@ instance_groups:
         record_events: true
       flush_arp: true
       generate_vm_passwords: true
-      ipv6_listen: true
       name: vsphere
       ssl:
         cert: |
@@ -322,7 +314,6 @@ instance_groups:
       resurrector_enabled: true
     nats:
       address: 127.0.0.1
-      listen_address: '::'
       password: ((nats_password))
       user: nats
     ntp:
@@ -358,20 +349,7 @@ networks:
   - cloud_properties:
       name: VM Network
     dns:
-    - 2001:4860:4860:0000:0000:0000:0000:8888
-    - 2001:4860:4860:0000:0000:0000:0000:8844
-    gateway: 2601:0646:0102:0095:82ea:96ff:fee7:5524
-    range: 2601:0646:0102:0095:0000:0000:0000:0000/64
-    static:
-    - 2601:0646:0102:0095:0000:0000:0000:0106
-  type: manual
-- name: ipv4
-  subnets:
-  - cloud_properties:
-      name: VM Network
-    dns:
     - 8.8.8.8
-    - 8.8.4.4
     gateway: 10.0.9.1
     range: 10.0.9.0/24
     static:
@@ -379,13 +357,13 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 1eae3f06282417e54ebb199656458f9d6c38e2af
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-262.3-ubuntu-trusty-3421.9-20170706-183731-831697577-20170706183736.tgz?versionId=7GmwKfufgb5JwWhJ.cwIWLnejOtm2Hu4
-  version: "262.3"
+  sha1: cc71c2ee6992071b1e1f6ae9f2119c03a42521c5
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263-ubuntu-trusty-3445.7-20170901-012146-902840377-20170901012153.tgz?versionId=89a.ZxB3Jc_gl6s4YESlL41xNOfoJKrO
+  version: "263"
 - name: bosh-vsphere-cpi
-  sha1: 924e13a70f6ee26b388ced696080e4f020fdf84f
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=42
-  version: 42
+  sha1: a4540e8182c6b3568e06c7b8c7c1801cc00e5667
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=44
+  version: 44
 - name: os-conf
   sha1: af5a2c9f228b9d7ec4bd051d71fef0e712fa1549
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=12
@@ -401,5 +379,5 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: f5de77161ee2cc4014cde055c845f7b1cfc9f005
-    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent?v=3421.9
+    sha1: 7384d9dec403ed7943f76c0ea508f7185a01ba0b
+    url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent?v=3445.7

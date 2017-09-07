@@ -8,6 +8,10 @@
       # python -c "import crypt, getpass, pwd; print crypt.crypt('c1oudc0w', '\$6\$cunnie\$')"
       password: "$6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/"
 
+- type: replace
+  path: /disk_pools/name=disks/disk_size?
+  value: 20_000
+
 # I don't want my jumpbox user to have auto-generated creds; I want MY creds
 - type: replace
   path: /instance_groups/name=bosh/jobs/name=user_add/properties/users/name=jumpbox/public_key?
@@ -26,32 +30,6 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/director/ssl/cert?
   value: ((nono_io_crt))
-
-# I want a second interface, one with an IPv4 address.
-# Were I a better man, I wouldn't hard-code IP addresses
-- type: replace
-  path: /networks/-
-  value:
-    name: ipv4
-    subnets:
-    - cloud_properties:
-        name: VM Network
-      dns:
-      - 8.8.8.8
-      - 8.8.4.4
-      gateway: 10.0.9.1
-      range: 10.0.9.0/24
-      static:
-      - 10.0.9.106
-    type: manual
-- type: replace
-  path: /instance_groups/name=bosh/networks/0/default?
-  value: [dns, gateway]
-- type: replace
-  path: /instance_groups/name=bosh/networks/-
-  value:
-    name: ipv4
-    static_ips: [ 10.0.9.106 ]
 
 # I don't need a ca_cert for HM
 - type: remove

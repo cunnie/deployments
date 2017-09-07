@@ -1,4 +1,4 @@
-
+#
 # usage:
 #   bin/vsphere.sh
 #
@@ -20,7 +20,6 @@ EOF
 bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/vsphere/cpi.yml \
   -o ~/workspace/bosh-deployment/jumpbox-user.yml \
-  -o ~/workspace/bosh-deployment/misc/ipv6/bosh.yml \
   -o etc/vsphere.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v vcenter_ip=vcenter.nono.io \
@@ -33,8 +32,8 @@ bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
   -v vcenter_templates=bosh-templates \
   -v director_name=vsphere \
   -v network_name="VM Network" \
-  -v internal_ip=2601:0646:0102:0095:0000:0000:0000:0106 \
-  -v internal_gw=2601:0646:0102:0095:82ea:96ff:fee7:5524 \
-  -v internal_cidr=2601:0646:0102:0095:0000:0000:0000:0000/64 \
+  -v internal_ip=10.0.9.106 \
+  -v internal_gw=10.0.9.1 \
+  -v internal_cidr=10.0.9.0/24 \
   -v director_name=vsphere \
   >> $DEPLOYMENTS_DIR/bosh-vsphere.yml
