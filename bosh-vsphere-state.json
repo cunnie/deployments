@@ -1,19 +1,46 @@
 {
     "director_id": "22d6746e-f649-4792-44c4-ebd074f9653e",
     "installation_id": "6ac830cf-e279-427a-6f2f-39972f3a2a4f",
-    "current_vm_cid": "vm-6bfe519f-a727-4818-93c4-147e0b955465",
-    "current_stemcell_id": "2eda49b4-8670-4dd9-69a0-1299a17c943b",
-    "current_disk_id": "",
-    "current_release_ids": [],
-    "current_manifest_sha": "",
-    "disks": null,
-    "stemcells": [
+    "current_vm_cid": "vm-f86ff8e1-eb86-40c0-9cad-1c160663ad9c",
+    "current_stemcell_id": "94134ed1-fae3-4da1-6595-2e49aaceda42",
+    "current_disk_id": "a25b3164-0d43-4478-46fc-623f4c5ae60f",
+    "current_release_ids": [
+        "40f5c614-49b5-4189-7966-62cd161b3c3f",
+        "36dec3e2-502f-4b1a-428f-fd2feaef70a5",
+        "c9c16a91-a7a8-415d-5854-91b19399f276"
+    ],
+    "current_manifest_sha": "9a8e6ff65e767f548ded6f2333cfc0406b9ccab2747a686029e1daf98539ecf5622b72fd63c1a44034d1452ed34fdb225592b56350e4efa98b748d16675dcf9e",
+    "disks": [
         {
-            "id": "2eda49b4-8670-4dd9-69a0-1299a17c943b",
-            "name": "bosh-vsphere-esxi-ubuntu-trusty-go_agent",
-            "version": "3421.9",
-            "cid": "sc-f45a971f-59f9-4562-8a36-eb7558eca5db"
+            "id": "a25b3164-0d43-4478-46fc-623f4c5ae60f",
+            "cid": "disk-a7c149cb-8b24-4581-a2b4-bccbebf4c352",
+            "size": 20000,
+            "cloud_properties": {}
         }
     ],
-    "releases": []
+    "stemcells": [
+        {
+            "id": "94134ed1-fae3-4da1-6595-2e49aaceda42",
+            "name": "bosh-vsphere-esxi-ubuntu-trusty-go_agent",
+            "version": "3445.7",
+            "cid": "sc-daae5739-4d1d-4e18-9104-7b461d666539"
+        }
+    ],
+    "releases": [
+        {
+            "id": "40f5c614-49b5-4189-7966-62cd161b3c3f",
+            "name": "bosh",
+            "version": "263"
+        },
+        {
+            "id": "36dec3e2-502f-4b1a-428f-fd2feaef70a5",
+            "name": "bosh-vsphere-cpi",
+            "version": "44"
+        },
+        {
+            "id": "c9c16a91-a7a8-415d-5854-91b19399f276",
+            "name": "os-conf",
+            "version": "12"
+        }
+    ]
 }
