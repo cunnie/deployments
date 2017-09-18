@@ -1,0 +1,40 @@
+# fly -t nono sp -p BOSH -c ~/workspace/deployments/ci/pipeline.yml -l <(lpass show --note deployments.yml)  -v deployments_yml="$(lpass show --note deployments.yml)"
+
+jobs:
+- name: bosh-azure.nono.io
+  plan:
+  - get: cunnie-deployments
+  - get: bosh-deployment
+  - task: deploy
+    file: cunnie-deployments/ci/tasks/bosh.yml
+    params:
+      DEPLOYMENTS_YML: ((deployments_yml))
+      IAAS: azure
+  - put: cunnie-deployments
+    params:
+      repository: cunnie-deployments/
+- name: bosh-aws.nono.io
+  plan:
+  - get: cunnie-deployments
+    # passed: [ bosh-azure.nono.io ]
+  - get: bosh-deployment
+    # passed: [ bosh-azure.nono.io ]
+  - task: deploy
+    file: cunnie-deployments/ci/tasks/bosh.yml
+    params:
+      DEPLOYMENTS_YML: ((deployments_yml))
+      IAAS: aws
+  - put: cunnie-deployments
+    params:
+      repository: cunnie-deployments/
+
+resources:
+- name: cunnie-deployments
+  type: git
+  source:
+    uri: git@github.com:cunnie/deployments.git
+    private_key: ((github_deployments_key))
+- name: bosh-deployment
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry/bosh-deployment.git

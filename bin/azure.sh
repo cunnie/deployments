@@ -1,15 +1,13 @@
+#!/bin/bash -ex
 #
 # usage:
 #   bin/azure.sh
 #
 # Generate manifest for Azure BOSH server
 #
-# creds.yml has mostly valid certs, but decoy keys, so I can check
-# it into a public repo without fear.
-#
 # --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
 #
-DEPLOYMENTS_DIR=~/workspace/deployments/
+DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 
 cat > $DEPLOYMENTS_DIR/bosh-azure.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
@@ -19,10 +17,10 @@ cat > $DEPLOYMENTS_DIR/bosh-azure.yml <<EOF
 #
 EOF
 
-bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
-  -o ~/workspace/bosh-deployment/azure/cpi.yml \
-  -o ~/workspace/bosh-deployment/external-ip-with-registry-not-recommended.yml \
-  -o ~/workspace/bosh-deployment/jumpbox-user.yml \
+bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/azure/cpi.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-with-registry-not-recommended.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
   -o etc/azure.yml \
   -o etc/nginx.yml \
   -o etc/ntp.yml \
