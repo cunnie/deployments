@@ -111,7 +111,7 @@ cloud_provider:
       mbus: https://mbus:((mbus_bootstrap_password))@0.0.0.0:6868
     aws:
       access_key_id: ((access_key_id))
-      default_key_name: aws_nono
+      default_key_name: bosh_deployment_no_ecdsa
       default_security_groups:
       - bosh
       region: us-east-1
@@ -127,7 +127,7 @@ cloud_provider:
   ssh_tunnel:
     host: 52.0.56.137
     port: 22
-    private_key: /Users/cunnie/.ssh/aws_nono.pem
+    private_key: ((bosh_deployment_key_no_ecdsa))
     user: vcap
   template:
     name: aws_cpi
@@ -357,7 +357,7 @@ instance_groups:
       mbus: nats://nats:((nats_password))@10.0.0.6:4222
     aws:
       access_key_id: ((access_key_id))
-      default_key_name: aws_nono
+      default_key_name: bosh_deployment_no_ecdsa
       default_security_groups:
       - bosh
       region: us-east-1
@@ -558,9 +558,9 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: cc71c2ee6992071b1e1f6ae9f2119c03a42521c5
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263-ubuntu-trusty-3445.7-20170901-012146-902840377-20170901012153.tgz?versionId=89a.ZxB3Jc_gl6s4YESlL41xNOfoJKrO
-  version: "263"
+  sha1: 37630c636a030454d55703cfdd495d733525353f
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263.2.0-ubuntu-trusty-3445.7-20170915-052445-759948783-20170915052451.tgz?versionId=3kjVQuRK7JyrnbKEbKhLRi7qyo0wBXZJ
+  version: 263.2.0
 - name: bosh-aws-cpi
   sha1: 117d5518f1b1de8937c163244de8db45ad8ce1a9
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=66
