@@ -52,6 +52,7 @@ resources:
   source:
     uri: git@github.com:cunnie/deployments.git
     private_key: ((github_deployments_key))
+    branch: master
 - name: bosh-deployment
   type: git
   source:
