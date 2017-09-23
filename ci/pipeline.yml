@@ -1,10 +1,26 @@
 # fly -t nono sp -p BOSH -c ~/workspace/deployments/ci/pipeline.yml -l <(lpass show --note deployments.yml)  -v deployments_yml="$(lpass show --note deployments.yml)"
 
 jobs:
-- name: bosh-azure.nono.io
+- name: bosh-aws.nono.io
   plan:
   - get: cunnie-deployments
   - get: bosh-deployment
+  - task: deploy
+    file: cunnie-deployments/ci/tasks/bosh.yml
+    params:
+      DEPLOYMENTS_YML: ((deployments_yml))
+      IAAS: aws
+  - put: cunnie-deployments
+    params:
+      repository: cunnie-deployments/
+- name: bosh-azure.nono.io
+  plan:
+  - get: cunnie-deployments
+    passed: [ bosh-aws.nono.io ]
+    trigger: true
+  - get: bosh-deployment
+    passed: [ bosh-aws.nono.io ]
+    trigger: true
   - task: deploy
     file: cunnie-deployments/ci/tasks/bosh.yml
     params:
@@ -13,17 +29,19 @@ jobs:
   - put: cunnie-deployments
     params:
       repository: cunnie-deployments/
-- name: bosh-aws.nono.io
+- name: bosh-gce.nono.io
   plan:
   - get: cunnie-deployments
-    # passed: [ bosh-azure.nono.io ]
+    passed: [ bosh-azure.nono.io ]
+    trigger: true
   - get: bosh-deployment
-    # passed: [ bosh-azure.nono.io ]
+    passed: [ bosh-azure.nono.io ]
+    trigger: true
   - task: deploy
     file: cunnie-deployments/ci/tasks/bosh.yml
     params:
       DEPLOYMENTS_YML: ((deployments_yml))
-      IAAS: aws
+      IAAS: gce
   - put: cunnie-deployments
     params:
       repository: cunnie-deployments/
