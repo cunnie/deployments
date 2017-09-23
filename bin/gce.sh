@@ -17,11 +17,11 @@ cat > $DEPLOYMENTS_DIR/bosh-gce.yml <<EOF
 #
 EOF
 
-bosh interpolate ~/workspace/bosh-deployment/bosh.yml \
-  -o ~/workspace/bosh-deployment/misc/powerdns.yml \
-  -o ~/workspace/bosh-deployment/gcp/cpi.yml \
-  -o ~/workspace/bosh-deployment/external-ip-not-recommended.yml \
-  -o ~/workspace/bosh-deployment/jumpbox-user.yml \
+bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/powerdns.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/gcp/cpi.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-not-recommended.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
   -o etc/gce.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="169.254.169.254" \
