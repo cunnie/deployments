@@ -1,15 +1,13 @@
+#!/bin/bash
 #
 # usage:
 #   bin/gce.sh
 #
 # Generate manifest for GCE BOSH server
 #
-# creds.yml has mostly valid certs, but decoy keys, so I can check
-# it into a public repo without fear.
-#
 # --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
 #
-DEPLOYMENTS_DIR=~/workspace/deployments/
+DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 
 cat > $DEPLOYMENTS_DIR/bosh-gce.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
