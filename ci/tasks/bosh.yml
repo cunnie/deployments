@@ -10,6 +10,9 @@ inputs:
 - name: cunnie-deployments
 - name: bosh-deployment
 
+outputs:
+- name: cunnie-deployments
+
 params:
   # vainly default branch to master, but it's always overridden from the pipeline
   DEPLOYMENTS_BRANCH: 'master'
