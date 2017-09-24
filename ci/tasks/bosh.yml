@@ -11,6 +11,8 @@ inputs:
 - name: bosh-deployment
 
 params:
+  # vainly default branch to master, but it's always overridden from the pipeline
+  DEPLOYMENTS_BRANCH: 'master'
   DEPLOYMENTS_YML: ''
   IAAS: ''
 

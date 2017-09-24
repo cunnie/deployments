@@ -1,4 +1,4 @@
-# fly -t nono sp -p BOSH -c ~/workspace/deployments/ci/pipeline.yml -l <(lpass show --note deployments.yml)  -v deployments_yml="$(lpass show --note deployments.yml)"
+# fly -t nono sp -p BOSH -c ~/workspace/deployments/ci/pipeline.yml -l <(lpass show --note deployments.yml) -v deployments_branch=master -v deployments_yml="$(lpass show --note deployments.yml)"
 
 jobs:
 - name: bosh-aws.nono.io
@@ -8,6 +8,7 @@ jobs:
   - task: deploy
     file: cunnie-deployments/ci/tasks/bosh.yml
     params:
+      DEPLOYMENTS_BRANCH: ((deployments_branch))
       DEPLOYMENTS_YML: ((deployments_yml))
       IAAS: aws
   - put: cunnie-deployments
@@ -24,6 +25,7 @@ jobs:
   - task: deploy
     file: cunnie-deployments/ci/tasks/bosh.yml
     params:
+      DEPLOYMENTS_BRANCH: ((deployments_branch))
       DEPLOYMENTS_YML: ((deployments_yml))
       IAAS: azure
   - put: cunnie-deployments
@@ -40,6 +42,7 @@ jobs:
   - task: deploy
     file: cunnie-deployments/ci/tasks/bosh.yml
     params:
+      DEPLOYMENTS_BRANCH: ((deployments_branch))
       DEPLOYMENTS_YML: ((deployments_yml))
       IAAS: gce
   - put: cunnie-deployments
@@ -52,7 +55,7 @@ resources:
   source:
     uri: git@github.com:cunnie/deployments.git
     private_key: ((github_deployments_key))
-    branch: master
+    branch: ((deployments_branch))
 - name: bosh-deployment
   type: git
   source:
