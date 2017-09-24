@@ -1,7 +1,7 @@
 {
     "director_id": "c62c3e85-614d-4b59-4ef4-e5e80cd9775e",
     "installation_id": "7e5b0151-3544-4b23-6321-5cf1da75ff25",
-    "current_vm_cid": "vm-01cbc4a3-6663-4f5e-5b02-f0f1511a7ee6",
+    "current_vm_cid": "vm-b9d7efba-d9e9-489b-5f51-cd52d5236ac2",
     "current_stemcell_id": "506a62fa-a563-430c-6005-9564c3041e45",
     "current_disk_id": "99b4ade4-b95f-4f52-6724-3cc17f6347d4",
     "current_release_ids": [
