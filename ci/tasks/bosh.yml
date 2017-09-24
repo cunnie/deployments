@@ -11,7 +11,7 @@ inputs:
 - name: bosh-deployment
 
 outputs:
-- name: cunnie-deployments
+- name: cunnie-deployments-with-state
 
 params:
   # vainly default branch to master, but it's always overridden from the pipeline
