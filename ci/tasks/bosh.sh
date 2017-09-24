@@ -12,7 +12,7 @@ if ! git diff --quiet HEAD --; then
   git config --global user.email brian.cunnie@gmail.com
 
   # check out branch because git-resource leaves us in `detached HEAD` state
-  git co $DEPLOYMENTS_BRANCH
+  git checkout $DEPLOYMENTS_BRANCH
   git add .
   git commit -m"Concourse CI automated BOSH deployer :airplane:"
 fi
