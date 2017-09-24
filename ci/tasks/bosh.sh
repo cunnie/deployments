@@ -14,7 +14,7 @@ if ! git diff --quiet HEAD --; then
   # check out branch because git-resource leaves us in `detached HEAD` state
   git checkout $DEPLOYMENTS_BRANCH
   git add .
-  git commit -m"Concourse CI automated BOSH deployer :airplane:"
+  git commit -m"Concourse CI automated $IAAS BOSH deployer :airplane:"
 fi
 popd
 
