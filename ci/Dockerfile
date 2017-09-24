@@ -9,6 +9,7 @@ RUN dnf update -y; \
   dnf groupinstall -y "Development Tools"; \
   dnf install -y golang; \
   dnf install -y ruby rubygems ruby-devel redhat-rpm-config; \
+  dnf install -y zlib-devel; \
   gem install json
 
 RUN curl -L https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.40-linux-amd64 -o /usr/local/bin/bosh; \
