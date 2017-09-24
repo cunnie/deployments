@@ -13,7 +13,7 @@ jobs:
       IAAS: aws
   - put: cunnie-deployments
     params:
-      repository: cunnie-deployments/
+      repository: cunnie-deployments-with-state/
 - name: bosh-azure.nono.io
   plan:
   - get: cunnie-deployments
@@ -30,7 +30,7 @@ jobs:
       IAAS: azure
   - put: cunnie-deployments
     params:
-      repository: cunnie-deployments/
+      repository: cunnie-deployments-with-state/
 - name: bosh-gce.nono.io
   plan:
   - get: cunnie-deployments
@@ -47,7 +47,7 @@ jobs:
       IAAS: gce
   - put: cunnie-deployments
     params:
-      repository: cunnie-deployments/
+      repository: cunnie-deployments-with-state/
 
 resources:
 - name: cunnie-deployments

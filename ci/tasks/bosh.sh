@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cd cunnie-deployments
+pushd cunnie-deployments
 bin/$IAAS.sh
 bosh create-env bosh-$IAAS.yml \
   -l <(echo "$DEPLOYMENTS_YML") \
@@ -16,3 +16,6 @@ if ! git diff --quiet HEAD --; then
   git add .
   git commit -m"Concourse CI automated BOSH deployer :airplane:"
 fi
+popd
+
+rsync -avH cunnie-deployments/ cunnie-deployments-with-state/
