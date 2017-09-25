@@ -13,6 +13,8 @@ releases:
   version: latest
 - name: sysctl
   version: latest
+- name: postgres
+  version: latest
 
 stemcells:
 - alias: ubuntu
@@ -33,11 +35,19 @@ instance_groups:
   - name: dynamic
     default: [ dns, gateway ]
   jobs:
-  - name: atc
-    release: concourse
+  - release: concourse
+    name: atc
     properties:
+      log_level: debug
+
       # replace with your CI's externally reachable URL, e.g. https://ci.foo.com
       external_url: https://ci.nono.io
+
+      postgresql:
+        database: atc
+        role:
+          name: atc
+          password: ((postgres_password))
       github_auth:
         authorize:
         - user: cunnie
@@ -148,29 +158,37 @@ instance_groups:
         PUsE2JOAWVrgQSQdso8VYFhH2+9uRv0V9dlfmrPb2LjkQLPNlzmuhbsdjrzch5vR
         pu/xO28QOG8=
         -----END CERTIFICATE-----
-  - name: tsa
-    release: concourse
-    properties: {}
-  - name: postgresql
-    release: concourse
+  - release: concourse
+    name: tsa
+    properties: {log_level: debug}
+
+  - release: postgres
+    name: postgres
     properties:
       databases:
-      - name: *atc_db
-        # make up a role and password
-        role: atc
-        password: ((concourse_postgres_passwd))
-  - name: groundcrew
-    release: concourse
-    properties: {}
-  - name: baggageclaim
-    release: concourse
-    properties: {}
-  - name: garden
-    release: garden-runc
+        port: 5432
+        databases:
+        - name: atc
+        roles:
+        - name: atc
+          password: ((concourse_postgres_passwd))
+
+  - release: concourse
+    name: groundcrew
+    properties: {drain_timeout: 10m}
+
+  - release: concourse
+    name: baggageclaim
+    properties: {log_level: debug}
+
+  - release: garden-runc
+    name: garden
     properties:
       garden:
         listen_network: tcp
         listen_address: 0.0.0.0:7777
+        allow_host_access: true
+
   - release: ntp
     name: ntpd
     properties:
