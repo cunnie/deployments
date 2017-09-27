@@ -1,8 +1,7 @@
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
 # bosh create-env bosh-vsphere.yml -l <(lpass show --note deployments.yml)
-#
-# bosh -e bosh-vsphere.nono.io vsphere
+# bosh -e bosh-vsphere.nono.io alias-env vsphere
 #
 cloud_provider:
   cert:
@@ -122,11 +121,12 @@ cloud_provider:
       address: vcenter.nono.io
       datacenters:
       - clusters:
-        - cl: {}
-        datastore_pattern: SSD
+        - cl:
+            resource_pool: cunnie
+        datastore_pattern: SSD-1
         disk_path: bosh-disks
         name: dc
-        persistent_datastore_pattern: SSD
+        persistent_datastore_pattern: SSD-1
         template_folder: bosh-templates
         vm_folder: bosh-vms
       password: ((vcenter_password))
@@ -332,11 +332,12 @@ instance_groups:
       address: vcenter.nono.io
       datacenters:
       - clusters:
-        - cl: {}
-        datastore_pattern: SSD
+        - cl:
+            resource_pool: cunnie
+        datastore_pattern: SSD-1
         disk_path: bosh-disks
         name: dc
-        persistent_datastore_pattern: SSD
+        persistent_datastore_pattern: SSD-1
         template_folder: bosh-templates
         vm_folder: bosh-vms
       password: ((vcenter_password))
@@ -357,9 +358,9 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: cc71c2ee6992071b1e1f6ae9f2119c03a42521c5
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263-ubuntu-trusty-3445.7-20170901-012146-902840377-20170901012153.tgz?versionId=89a.ZxB3Jc_gl6s4YESlL41xNOfoJKrO
-  version: "263"
+  sha1: 37630c636a030454d55703cfdd495d733525353f
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263.2.0-ubuntu-trusty-3445.7-20170915-052445-759948783-20170915052451.tgz?versionId=3kjVQuRK7JyrnbKEbKhLRi7qyo0wBXZJ
+  version: 263.2.0
 - name: bosh-vsphere-cpi
   sha1: a4540e8182c6b3568e06c7b8c7c1801cc00e5667
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-vsphere-cpi-release?v=44
