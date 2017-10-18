@@ -577,9 +577,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=12
   version: 12
 - name: nginx
-  sha1: 13fd766b9fbd58ddb5efc307987ddfeaa232a169
-  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.12.1/nginx-1.12.1.tgz
-  version: 1.12.1
+  sha1: e5e5f54d46e2a70fac85ba16e96ccb7e4148bdfa
+  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.12.2/nginx-1.12.2.tgz
+  version: 1.12.2
 - name: ntp
   sha1: 44fae7426d3937fba23f2b57b6a794a0ded62922
   url: https://github.com/cloudfoundry-community/ntp-release/releases/download/v4/ntp-4.tgz
