@@ -558,17 +558,17 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 37630c636a030454d55703cfdd495d733525353f
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263.2.0-ubuntu-trusty-3445.7-20170915-052445-759948783-20170915052451.tgz?versionId=3kjVQuRK7JyrnbKEbKhLRi7qyo0wBXZJ
-  version: 263.2.0
+  sha1: 05ef27afdfcf44233f6dfbf6ff488d339b02fb85
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263.4.0-ubuntu-trusty-3468.1-20171027-222051-753655659-20171027222057.tgz?versionId=voyAXchUonLZgkBqlQCx9Nm.aCGw8Gom
+  version: 263.4.0
 - name: bosh-aws-cpi
-  sha1: 117d5518f1b1de8937c163244de8db45ad8ce1a9
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=66
-  version: 66
+  sha1: cfcbc98affa9cad674087ab6b8bd4b1188b18439
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=67
+  version: 67
 - name: os-conf
-  sha1: af5a2c9f228b9d7ec4bd051d71fef0e712fa1549
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=12
-  version: 12
+  sha1: 36bce1030fda4acc102315344d4110994fa1fa43
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=17
+  version: 17
 - name: nginx
   sha1: e5e5f54d46e2a70fac85ba16e96ccb7e4148bdfa
   url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.12.2/nginx-1.12.2.tgz
@@ -593,5 +593,5 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: ad82e910dc07b1ef4fe475776e11adbc83470538
-    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3445.7
+    sha1: 741c71747118200c9251545883e184c43c059da9
+    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent?v=3468.1
