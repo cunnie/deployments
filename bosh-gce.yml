@@ -358,17 +358,17 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 37630c636a030454d55703cfdd495d733525353f
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263.2.0-ubuntu-trusty-3445.7-20170915-052445-759948783-20170915052451.tgz?versionId=3kjVQuRK7JyrnbKEbKhLRi7qyo0wBXZJ
-  version: 263.2.0
+  sha1: 05ef27afdfcf44233f6dfbf6ff488d339b02fb85
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-263.4.0-ubuntu-trusty-3468.1-20171027-222051-753655659-20171027222057.tgz?versionId=voyAXchUonLZgkBqlQCx9Nm.aCGw8Gom
+  version: 263.4.0
 - name: bosh-google-cpi
   sha1: 3a551822bff0fd040d73fd385ab34fbc17b476f5
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.10.0
   version: 25.10.0
 - name: os-conf
-  sha1: af5a2c9f228b9d7ec4bd051d71fef0e712fa1549
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=12
-  version: 12
+  sha1: 36bce1030fda4acc102315344d4110994fa1fa43
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=17
+  version: 17
 resource_pools:
 - cloud_properties:
     machine_type: n1-standard-1
@@ -381,5 +381,5 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 4bc264aab6717c81fb3a37783e796982fe9956ca
-    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3445.7
+    sha1: e7ec554900af7140d8e947f629af5d5c0a9defc3
+    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3468.1
