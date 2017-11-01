@@ -11,9 +11,10 @@ jobs:
       DEPLOYMENTS_BRANCH: master
       DEPLOYMENTS_YML: ((deployments_yml))
       IAAS: aws
-  - put: cunnie-deployments
-    params:
-      repository: cunnie-deployments-with-state/
+    ensure:
+      put: cunnie-deployments
+      params:
+        repository: cunnie-deployments-with-state/
 - name: bosh-azure.nono.io
   plan:
   - get: cunnie-deployments
@@ -28,9 +29,10 @@ jobs:
       DEPLOYMENTS_BRANCH: master
       DEPLOYMENTS_YML: ((deployments_yml))
       IAAS: azure
-  - put: cunnie-deployments
-    params:
-      repository: cunnie-deployments-with-state/
+    ensure:
+      put: cunnie-deployments
+      params:
+        repository: cunnie-deployments-with-state/
 - name: bosh-gce.nono.io
   plan:
   - get: cunnie-deployments
@@ -45,9 +47,10 @@ jobs:
       DEPLOYMENTS_BRANCH: master
       DEPLOYMENTS_YML: ((deployments_yml))
       IAAS: gce
-  - put: cunnie-deployments
-    params:
-      repository: cunnie-deployments-with-state/
+    ensure:
+      put: cunnie-deployments
+      params:
+        repository: cunnie-deployments-with-state/
 
 resources:
 - name: cunnie-deployments
