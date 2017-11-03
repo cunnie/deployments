@@ -573,9 +573,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=30
   version: 30
 - name: os-conf
-  sha1: 36bce1030fda4acc102315344d4110994fa1fa43
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=17
-  version: 17
+  sha1: 78d79f08ff5001cc2a24f572837c7a9c59a0e796
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
+  version: 18
 - name: nginx
   sha1: e5e5f54d46e2a70fac85ba16e96ccb7e4148bdfa
   url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.12.2/nginx-1.12.2.tgz
