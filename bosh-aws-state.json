@@ -1,18 +1,18 @@
 {
     "director_id": "2aacb117-8be7-4a7f-6a78-534168de2e15",
     "installation_id": "08cb6f00-a809-47c0-4aab-e310115f5127",
-    "current_vm_cid": "i-0e65b5d9ca5258109",
+    "current_vm_cid": "i-0eeb5eeb23cce5d6f",
     "current_stemcell_id": "09ddcd37-7126-426e-546d-6ddf93b61f9f",
     "current_disk_id": "4ee9ac92-de46-4014-50c3-2b6cd8d3c748",
     "current_release_ids": [
-        "4e7a5e87-28de-42b9-4749-f76d831e4dca",
-        "eec40660-2e80-4d9c-6b8e-ca0a5967522e",
-        "59ac9336-6af8-4f31-4a11-1fbfdfa34a90",
-        "8ca6d4ce-7dde-4e11-602c-c9c606f96420",
-        "a2165180-e7e7-4871-5ae5-7e096f4f0ee4",
-        "e5ad9b40-0000-47f8-5050-e392e8384aa9"
+        "6983d073-7af9-451b-7b36-52124a5fdefc",
+        "c991eef4-78e3-44ce-4fe7-89baef181347",
+        "39dd5cdc-489b-44ee-7299-14a211754485",
+        "bb108112-1290-40a5-7ceb-5b51a32ddaae",
+        "1a9661ce-8df7-4034-57ee-e53d66fd6b69",
+        "c47a1a41-d4b7-4c9d-65dd-f39e7274f6cb"
     ],
-    "current_manifest_sha": "d2d97758507671408bc3b14edaed18560213a71ac7fb2a57ee46a979125636e99de58d0e45a0d4ea853e0e547cdbe3717633d75af34f911bfc1ed455edb948bc",
+    "current_manifest_sha": "302957b3f1928588650baa93728c41a8373b570d1c369e20f0858835d6ac6a544fa8c8bcdce6503fc36acd0546170884225dfb947ea251efc66d858945be2a04",
     "disks": [
         {
             "id": "4ee9ac92-de46-4014-50c3-2b6cd8d3c748",
@@ -33,32 +33,32 @@
     ],
     "releases": [
         {
-            "id": "4e7a5e87-28de-42b9-4749-f76d831e4dca",
+            "id": "6983d073-7af9-451b-7b36-52124a5fdefc",
             "name": "bosh",
             "version": "263.4.0"
         },
         {
-            "id": "eec40660-2e80-4d9c-6b8e-ca0a5967522e",
+            "id": "c991eef4-78e3-44ce-4fe7-89baef181347",
             "name": "bosh-aws-cpi",
             "version": "67"
         },
         {
-            "id": "59ac9336-6af8-4f31-4a11-1fbfdfa34a90",
+            "id": "39dd5cdc-489b-44ee-7299-14a211754485",
             "name": "os-conf",
-            "version": "17"
+            "version": "18"
         },
         {
-            "id": "8ca6d4ce-7dde-4e11-602c-c9c606f96420",
+            "id": "bb108112-1290-40a5-7ceb-5b51a32ddaae",
             "name": "nginx",
             "version": "1.12.2"
         },
         {
-            "id": "a2165180-e7e7-4871-5ae5-7e096f4f0ee4",
+            "id": "1a9661ce-8df7-4034-57ee-e53d66fd6b69",
             "name": "ntp",
             "version": "4"
         },
         {
-            "id": "e5ad9b40-0000-47f8-5050-e392e8384aa9",
+            "id": "c47a1a41-d4b7-4c9d-65dd-f39e7274f6cb",
             "name": "pdns",
             "version": "4.0.4"
         }
