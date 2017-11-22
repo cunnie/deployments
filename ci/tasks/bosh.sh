@@ -43,9 +43,9 @@ if ! git diff --quiet HEAD --; then
   git config --global user.name "Concourse CI"
   git config --global user.email brian.cunnie@gmail.com
 
-  # We check out our branch's HEAD because git-resource leaves us in `detached
-  # HEAD` state. ${DEPLOYMENTS_BRANCH} is typically set to `master`, but may be
-  # set to something else, usually during testing.
+  # We check out our branch's HEAD because Concourse's git-resource leaves us
+  # in `detached HEAD` state. ${DEPLOYMENTS_BRANCH} is typically set to
+  # `master`, but may be set to something else (usually while testing).
   git checkout $DEPLOYMENTS_BRANCH
   git add .
   git commit -m"$GIT_COMMIT_MESSAGE"
