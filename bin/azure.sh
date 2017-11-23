@@ -3,7 +3,7 @@
 # usage:
 #   bin/azure.sh
 #
-# Generate manifest for Azure BOSH server
+# Generate manifest for Azure BOSH/NTP/nginx/DNS server
 #
 # --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
 #
@@ -12,7 +12,7 @@ DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 cat > $DEPLOYMENTS_DIR/bosh-azure.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-azure.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+# bosh create-env bosh-azure.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --vars-store=creds.yml
 # bosh -e bosh-azure.nono.io alias-env azure
 #
 EOF
@@ -25,6 +25,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o etc/nginx.yml \
   -o etc/ntp.yml \
   -o etc/pdns.yml \
+  --vars-store=creds.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="168.63.129.16" \
   -v internal_gw="10.0.0.1" \
@@ -40,4 +41,14 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v resource_group_name=bosh-res-group \
   -v storage_account_name=cunniestore \
   -v default_security_group=nsg-bosh \
+  \
+  -v admin_password='((admin_password))' \
+  -v blobstore_agent_password='((blobstore_agent_password))' \
+  -v blobstore_director_password='((blobstore_director_password))' \
+  -v hm_password='((hm_password))' \
+  -v mbus_bootstrap_password='((mbus_bootstrap_password))' \
+  -v nats_password='((nats_password))' \
+  -v postgres_password='((postgres_password))' \
+  -v registry_password='((registry_password))' \
+  \
   >> $DEPLOYMENTS_DIR/bosh-azure.yml

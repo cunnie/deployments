@@ -12,7 +12,7 @@ DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 cat > $DEPLOYMENTS_DIR/bosh-gce.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-gce.yml -l <(lpass show --note deployments.yml)
+# bosh create-env bosh-gce.yml -l <(lpass show --note deployments.yml) --vars-store=creds.yml
 # bosh -e bosh-gce.nono.io alias-env gce
 #
 EOF
@@ -23,6 +23,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-not-recommended.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
   -o etc/gce.yml \
+  --vars-store=creds.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="169.254.169.254" \
   -v internal_gw="10.128.0.1" \
@@ -35,4 +36,14 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v zone="us-central1-b" \
   -v project_id="blabbertabber" \
   -v director_name="gce" \
+  \
+  -v admin_password='((admin_password))' \
+  -v blobstore_agent_password='((blobstore_agent_password))' \
+  -v blobstore_director_password='((blobstore_director_password))' \
+  -v hm_password='((hm_password))' \
+  -v mbus_bootstrap_password='((mbus_bootstrap_password))' \
+  -v nats_password='((nats_password))' \
+  -v postgres_password='((postgres_password))' \
+  -v registry_password='((registry_password))' \
+  \
   >> $DEPLOYMENTS_DIR/bosh-gce.yml
