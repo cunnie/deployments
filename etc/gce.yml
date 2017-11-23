@@ -26,11 +26,3 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/director/ssl/cert?
   value: ((nono_io_crt))
-
-# I don't need a ca_cert for HM
-- type: remove
-  path: /instance_groups/name=bosh/properties/hm/director_account/ca_cert
-
-# And I don't use any variables, either
-- type: remove
-  path: /variables

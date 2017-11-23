@@ -1,11 +1,12 @@
 ---
-# Configure AWS sizes
+# Configure sizes
 - type: replace
   path: /resource_pools/name=vms/cloud_properties?
   value:
     instance_type: t2.small
-    ephemeral_disk: {size: 20_000}
     availability_zone: ((az))
+    ephemeral_disk:
+      size: 20_000
 
 # I want a password for vcap so that I can `sudo` during the compilation phase
 - type: replace
@@ -38,11 +39,3 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/director/ssl/cert?
   value: ((nono_io_crt))
-
-# I don't need a ca_cert for HM
-- type: remove
-  path: /instance_groups/name=bosh/properties/hm/director_account/ca_cert
-
-# I shouldn't need any variables
-- type: remove
-  path: /variables
