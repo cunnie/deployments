@@ -1,17 +1,24 @@
 #!/bin/bash
 
-# We abort the script as soon as we hit an error (as soon as a command exits with
-# a non-zero exit status)
+# We abort the script as soon as we hit an error (as soon as a command exits
+# with a non-zero exit status)
 set -e
 
-# `cunnie-deployments` is the checked-out GitHub repo that contains our BOSH manifests
-# and our directors' `-state.json` files
+# `cunnie-deployments` is the checked-out GitHub repo that contains our BOSH
+# manifests and our directors' `-state.json` files
 pushd cunnie-deployments
 
 # We invoke the script that generates our BOSH director's manifest, e.g.
 # `aws.sh`, `azure.sh`. The output, the BOSH director's manifest, is named
 # `bosh-$IAAS.yml`, e.g. `bosh-aws.yml`
 bin/$IAAS.sh
+
+# Does ${DEPLOYMENTS_YML} have a complete set of interpolated variables?
+# Abort if not (`--var-errs`).
+bosh int bosh-$IAAS.yml \
+  --var-errs \
+  -l <(echo "$DEPLOYMENTS_YML") \
+  -l <(curl https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
 
 # We attempt to deploy our BOSH director. We prepare a git commit message
 # regardless whether our attempt succeeds or fails because we need to retain any
