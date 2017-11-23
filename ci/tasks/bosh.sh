@@ -18,7 +18,8 @@ bin/$IAAS.sh
 bosh int bosh-$IAAS.yml \
   --var-errs \
   -l <(echo "$DEPLOYMENTS_YML") \
-  -l <(curl https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)
+  -l <(curl https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) \
+  > /dev/null
 
 # We attempt to deploy our BOSH director. We prepare a git commit message
 # regardless whether our attempt succeeds or fails because we need to retain any
