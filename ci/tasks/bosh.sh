@@ -66,7 +66,7 @@ popd
 # We copy our repo with its new commit to a new directory, which will be used as
 # an input to the subsequent job. Note that `cp -R` works as well as `rsync`; we
 # use `rsync` out of force of habit.
-rsync -avH cunnie-deployments/ cunnie-deployments-with-state/
+rsync -aH cunnie-deployments/ cunnie-deployments-with-state/
 
 # We exit with the return code of `bosh create-env`; if the deploy failed, then
 # this Concourse task failed
