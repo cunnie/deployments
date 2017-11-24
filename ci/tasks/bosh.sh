@@ -38,8 +38,10 @@ if bosh create-env bosh-$IAAS.yml \
   -l <(echo "$DEPLOYMENTS_YML") \
   -l <(curl https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml); then
   GIT_COMMIT_MESSAGE="CI PASS: $IAAS BOSH deploy :airplane:"
+  DEPLOY_EXIT_STATUS=0
 else
   GIT_COMMIT_MESSAGE="CI FAIL: $IAAS BOSH deploy :airplane:"
+  DEPLOY_EXIT_STATUS=1
 fi
 
 # Do we need to commit anything? If a new director hasn't been deployed (most
@@ -64,3 +66,7 @@ popd
 # an input to the subsequent job. Note that `cp -R` works as well as `rsync`; we
 # use `rsync` out of force of habit.
 rsync -avH cunnie-deployments/ cunnie-deployments-with-state/
+
+# We exit with the return code of `bosh create-env`; if the deploy failed, then
+# this Concourse task failed
+exit $DEPLOY_EXIT_STATUS
