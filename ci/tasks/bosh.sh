@@ -5,7 +5,8 @@
 set -e
 
 # `cunnie-deployments` is the checked-out GitHub repo that contains our BOSH
-# manifests and our directors' `-state.json` files
+# manifests and our directors' `-state.json` files; it also contains this
+# script (task script) and task definition.
 pushd cunnie-deployments
 
 # We invoke the script that generates our BOSH director's manifest, e.g.
