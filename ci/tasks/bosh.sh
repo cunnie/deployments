@@ -63,9 +63,10 @@ if ! git diff --quiet HEAD --; then
 fi
 popd
 
-# We copy our repo with its new commit to a new directory, which will be used as
-# an input to the subsequent job. Note that `cp -R` works as well as `rsync`; we
-# use `rsync` out of force of habit.
+# We copy our repo with its new commit to a new directory. The Concourse job,
+# after it finishes running this task, will push the new commit to GitHub.
+# Note that `cp -R` works as well as `rsync`; we use `rsync` by force of
+# habit.
 rsync -aH cunnie-deployments/ cunnie-deployments-with-state/
 
 # We exit with the return code of `bosh create-env`; if the deploy failed, then
