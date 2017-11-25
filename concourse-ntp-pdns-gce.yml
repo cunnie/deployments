@@ -50,7 +50,8 @@ instance_groups:
           password: ((concourse_postgres_passwd))
       github_auth:
         authorize:
-        - user: cunnie
+        - organization: blabbertabber
+          teams: all
         client_id: d4d77ce34ecc620d5220
         client_secret: ((github_concourse_nono_auth_client_secret))
       publicly_viewable: true
