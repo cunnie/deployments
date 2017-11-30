@@ -11,7 +11,7 @@ set -e
 # `cunnie-deployments`; it contains our BOSH manifests and our directors'
 # `-state.json` files; it also contains this script (task script) and task
 # definition.
-CUNNIE_DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
+CUNNIE_DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/../.."
 pushd $CUNNIE_DEPLOYMENTS_DIR
 
 # We attempt to deploy our BOSH director. We prepare a git commit message
