@@ -32,7 +32,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v external_ip="104.154.39.128" \
   -v network="cf" \
   -v subnetwork="cf-e6ecf3fd8a498fbe" \
-  -v tags="[ cf-internal, cf-bosh ]" \
+  -v tags="[ cf-internal, cf-bosh, cf-bosh-cli ]" \
   -v zone="us-central1-b" \
   -v project_id="blabbertabber" \
   -v director_name="gce" \
