@@ -670,6 +670,7 @@ networks:
       tags:
       - cf-internal
       - cf-bosh
+      - cf-bosh-cli
     dns:
     - 169.254.169.254
     gateway: 10.128.0.1
