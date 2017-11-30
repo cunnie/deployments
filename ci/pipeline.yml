@@ -60,18 +60,17 @@ jobs:
     passed: [ bosh-gce.nono.io ]
     trigger: true
   - task: deploy
-    image_resource:
-      type: docker-image
-      source:
-        repository: cunnie/fedora-golang-bosh
-    inputs:
-    - name: cunnie-deployments
-    - name: bosh-deployment
-    outputs:
-    - name: cunnie-deployments-with-state
     config:
       platform: linux
-      image: "docker:///cunnie/fedora-golang-bosh"
+      image_resource:
+        type: docker-image
+        source:
+          repository: cunnie/fedora-golang-bosh
+      inputs:
+      - name: cunnie-deployments
+      - name: bosh-deployment
+      outputs:
+      - name: cunnie-deployments-with-state
       run:
         path: cunnie-deployments/ci/tasks/bosh-simple.sh
         args: []
