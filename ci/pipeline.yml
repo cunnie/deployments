@@ -54,11 +54,7 @@ jobs:
 - name: bosh-simple.nono.io
   plan:
   - get: cunnie-deployments
-    passed: [ bosh-gce.nono.io ]
-    trigger: true
   - get: bosh-deployment
-    passed: [ bosh-gce.nono.io ]
-    trigger: true
   - task: deploy
     config:
       platform: linux
@@ -73,11 +69,10 @@ jobs:
       - name: cunnie-deployments-with-state
       run:
         path: cunnie-deployments/ci/tasks/bosh-simple.sh
-        args: []
     params:
       DEPLOYMENTS_BRANCH: master
       DEPLOYMENTS_YML: ((deployments_yml))
-      IAAS: gce
+      IAAS: simple
     ensure:
       put: cunnie-deployments
       params:
