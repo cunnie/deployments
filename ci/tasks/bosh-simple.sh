@@ -55,8 +55,10 @@ fi
 
 # Do we need to commit anything? If a new director hasn't been deployed (most
 # often because there's been no change to the manifest, releases, or stemcell),
-# then we don't need to commit
-if ! git diff --quiet HEAD --; then
+# then we don't need to commit. We must make sure to `git add` the current
+# directory to pick up any new files (e.g. `-state.json`, `creds.yml`) that
+# are created the very first time this task is run (a brand new deploy)
+if ! ( git add . && git diff --quiet HEAD -- ) ; then
   # If we're in this block, then there has been a deployment. Let's set our
   # git author to avoid git's `*** Please tell me who you are.` error.
   git config --global user.name "Concourse CI"
