@@ -51,6 +51,38 @@ jobs:
       put: cunnie-deployments
       params:
         repository: cunnie-deployments-with-state/
+- name: bosh-simple.nono.io
+  plan:
+  - get: cunnie-deployments
+    passed: [ bosh-gce.nono.io ]
+    trigger: true
+  - get: bosh-deployment
+    passed: [ bosh-gce.nono.io ]
+    trigger: true
+  - task: deploy
+    image_resource:
+      type: docker-image
+      source:
+        repository: cunnie/fedora-golang-bosh
+    inputs:
+    - name: cunnie-deployments
+    - name: bosh-deployment
+    outputs:
+    - name: cunnie-deployments-with-state
+    config:
+      platform: linux
+      image: "docker:///cunnie/fedora-golang-bosh"
+      run:
+        path: cunnie-deployments/ci/tasks/bosh-simple.sh
+        args: []
+    params:
+      DEPLOYMENTS_BRANCH: master
+      DEPLOYMENTS_YML: ((deployments_yml))
+      IAAS: gce
+    ensure:
+      put: cunnie-deployments
+      params:
+        repository: cunnie-deployments-with-state/
 
 resources:
 - name: cunnie-deployments
