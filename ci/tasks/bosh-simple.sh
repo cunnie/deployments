@@ -33,7 +33,8 @@ if bosh create-env $CUNNIE_DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $CUNNIE_DEPLOYMENTS_DIR/../bosh-deployment/external-ip-not-recommended.yml \
   -o $CUNNIE_DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
   -l <(echo "$DEPLOYMENTS_YML") \
-  --vars-store=simple-creds.yml \
+  --vars-store=$IAAS-creds.yml \
+  --state=$IAAS-state.json \
   -v dns_recursor_ip="169.254.169.254" \
   -v internal_gw="10.128.0.1" \
   -v internal_cidr="10.128.0.0/20" \
