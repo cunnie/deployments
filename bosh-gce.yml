@@ -193,6 +193,8 @@ instance_groups:
         record_events: true
       flush_arp: true
       generate_vm_passwords: true
+      local_dns:
+        enabled: true
       name: gce
       ssl:
         cert: |
@@ -682,9 +684,9 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: f262d1c35f3646a3f0394132f2705719c9d2bb6a
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.1-ubuntu-trusty-3468.1-20171109-004207-628092428-20171109004211.tgz?versionId=46RkXfd52MvTfE_IXpC.P9x1Tfv09qkB
-  version: "264.1"
+  sha1: 8dff3f38acba0947e764f8afd51c2efbef6c608c
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.3.0-ubuntu-trusty-3468.11-20171129-221922-037689141-20171129221925.tgz?versionId=4xxaLXdXJFDkf7H3ww5YGz.HH7I_nm0Y
+  version: 264.3.0
 - name: bosh-google-cpi
   sha1: 3a551822bff0fd040d73fd385ab34fbc17b476f5
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.10.0
@@ -705,6 +707,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: e7ec554900af7140d8e947f629af5d5c0a9defc3
-    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3468.1
+    sha1: 525c655e7213833aa3333bf78d91135a12a41de8
+    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3468.11
 variables: []
