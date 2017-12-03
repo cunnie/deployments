@@ -21,11 +21,11 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/aws/cpi.yml \
   \
-  -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-with-registry-not-recommended.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/local-dns.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   \
   -o etc/aws.yml \
   -o etc/nginx.yml \
