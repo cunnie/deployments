@@ -18,13 +18,20 @@ cat > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
 EOF
 
 bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
+  \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/aws/cpi.yml \
+  \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-with-registry-not-recommended.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/local-dns.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
+  \
   -o etc/aws.yml \
   -o etc/nginx.yml \
   -o etc/ntp.yml \
   -o etc/pdns.yml \
+  \
   --vars-store=creds.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v region=us-east-1 \
@@ -42,10 +49,15 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v admin_password='((admin_password))' \
   -v blobstore_agent_password='((blobstore_agent_password))' \
   -v blobstore_director_password='((blobstore_director_password))' \
+  -v credhub_cli_password='((credhub_cli_password))' \
+  -v credhub_encryption_password='((credhub_encryption_password))' \
   -v hm_password='((hm_password))' \
   -v mbus_bootstrap_password='((mbus_bootstrap_password))' \
   -v nats_password='((nats_password))' \
   -v postgres_password='((postgres_password))' \
   -v registry_password='((registry_password))' \
+  -v uaa_admin_client_secret='((uaa_admin_client_secret))' \
+  -v uaa_clients_director_to_credhub='((uaa_clients_director_to_credhub))' \
+  -v uaa_login_client_secret='((uaa_login_client_secret))' \
   \
   >> $DEPLOYMENTS_DIR/bosh-aws.yml
