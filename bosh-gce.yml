@@ -661,7 +661,7 @@ instance_groups:
       password: ((postgres_password))
       user: postgres
   resource_pool: vms
-name: bosh
+name: gce
 networks:
 - name: default
   subnets:
