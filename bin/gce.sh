@@ -22,13 +22,12 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/gcp/cpi.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-not-recommended.yml \
-  -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/local-dns.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   \
   -o etc/gce.yml \
-  --vars-store=creds.yml \
+  --vars-store=bosh-gce-creds.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="169.254.169.254" \
   -v internal_gw="10.128.0.1" \
