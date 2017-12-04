@@ -395,7 +395,7 @@ instance_groups:
           h//3UI58b+tMpQpOchTjZ671rIPsCEhFONmvLvl5La29WpJxmOp5xcisA7HMdEvX
           fOlpgZ2BHJXUP6bY6Y8onDewzognaVuCe3QnDd6YcDpEAWgLuHdt
           -----END RSA PRIVATE KEY-----
-        url: https://10.0.0.5:8443
+        url: https://10.0.0.6:8443
         zones:
           internal:
             hostnames: []
@@ -442,7 +442,7 @@ instance_groups:
               jPY9LG6fVFSibP28JE8lVrOIAj2RcSW/EiafPulhtK43C4FXC9eZz/BKWQpj/b3t
               tZap3GFRUhjIDGGx11Ux7sV8geZgehlkYohkZTKEgvDBTb5AiBhdWg==
               -----END CERTIFICATE-----
-            url: https://10.0.0.5:8443
+            url: https://10.0.0.6:8443
             verification_key: |
               -----BEGIN PUBLIC KEY-----
               MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5TT+tO/1XPJL7+f9nlb7
@@ -727,14 +727,14 @@ instance_groups:
     - gateway
     name: default
     static_ips:
-    - 10.0.0.5
+    - 10.0.0.6
   - name: public
     static_ips:
     - 52.187.42.158
   persistent_disk_pool: disks
   properties:
     agent:
-      mbus: nats://nats:((nats_password))@10.0.0.5:4222
+      mbus: nats://nats:((nats_password))@10.0.0.6:4222
     azure:
       client_id: bf7f78c1-6924-4a02-965c-b66f481a9b5f
       client_secret: ((client_secret))
@@ -748,7 +748,7 @@ instance_groups:
       subscription_id: a1ac8d5a-7a97-4ed5-bfd1-d7822e19cae9
       tenant_id: 682bd378-95db-41bd-8b1e-70fb407c4b10
     blobstore:
-      address: 10.0.0.5
+      address: 10.0.0.6
       agent:
         password: ((blobstore_agent_password))
         user: agent
@@ -809,8 +809,8 @@ instance_groups:
             -----END CERTIFICATE-----
           client_id: director_to_credhub
           client_secret: ((uaa_clients_director_to_credhub))
-          url: https://10.0.0.5:8443
-        url: https://10.0.0.5:8844/api/
+          url: https://10.0.0.6:8443
+        url: https://10.0.0.6:8844/api/
       cpi_job: azure_cpi
       db:
         adapter: postgres
@@ -946,7 +946,7 @@ instance_groups:
             QZdva7c3LOxV5bZPoDtNGipYpWfRzNvQ+0hc6U0hxwORIsp6vF9Bkl6vrov1M/tU
             WwIDAQAB
             -----END PUBLIC KEY-----
-          url: https://10.0.0.5:8443
+          url: https://10.0.0.6:8443
       workers: 4
     hm:
       director_account:
@@ -981,7 +981,7 @@ instance_groups:
         user: hm
       resurrector_enabled: true
     nats:
-      address: 10.0.0.5
+      address: 10.0.0.6
       password: ((nats_password))
       tls:
         ca: |
@@ -1298,14 +1298,14 @@ instance_groups:
       password: ((postgres_password))
       user: postgres
     registry:
-      address: 10.0.0.5
+      address: 10.0.0.6
       db:
         adapter: postgres
         database: bosh
         host: 127.0.0.1
         password: ((postgres_password))
         user: postgres
-      host: 10.0.0.5
+      host: 10.0.0.6
       http:
         password: ((registry_password))
         port: 25777
@@ -1326,7 +1326,7 @@ networks:
     gateway: 10.0.0.1
     range: 10.0.0.0/24
     static:
-    - 10.0.0.5
+    - 10.0.0.6
   type: manual
 - name: public
   type: vip
