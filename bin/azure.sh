@@ -36,7 +36,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v dns_recursor_ip="168.63.129.16" \
   -v internal_gw="10.0.0.1" \
   -v internal_cidr="10.0.0.0/24" \
-  -v internal_ip="10.0.0.5" \
+  -v internal_ip="10.0.0.6" \
   -v external_ip="52.187.42.158" \
   -v director_name="azure" \
   -v vnet_name=boshnet \
