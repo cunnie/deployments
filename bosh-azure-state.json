@@ -1,7 +1,7 @@
 {
     "director_id": "d04dad3d-28d8-4158-7d3e-00608d700e3a",
     "installation_id": "3e61dd7f-2671-43e4-4dc5-286eec272262",
-    "current_vm_cid": "agent_id:2e148b12-3c61-4c86-5967-c1fbb7b479aa;resource_group_name:bosh-res-group;storage_account_name:cunniestore",
+    "current_vm_cid": "agent_id:432c3b08-ae6e-410c-74fa-f389d06b0413;resource_group_name:bosh-res-group;storage_account_name:cunniestore",
     "current_stemcell_id": "f7767c1c-8247-44bb-5e35-b0925d95b74d",
     "current_disk_id": "55e6d06c-6036-443e-585d-0fbb1f125cd8",
     "current_release_ids": [],
