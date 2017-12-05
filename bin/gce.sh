@@ -26,7 +26,8 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   \
-  -o etc/gce.yml \
+  -o etc/common.yml \
+  \
   --vars-store=bosh-gce-creds.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="169.254.169.254" \

@@ -27,6 +27,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   \
   -o etc/aws.yml \
+  -o etc/common.yml \
   -o etc/nginx.yml \
   -o etc/ntp.yml \
   -o etc/pdns.yml \

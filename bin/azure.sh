@@ -27,9 +27,11 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   \
   -o etc/azure.yml \
+  -o etc/common.yml \
   -o etc/nginx.yml \
   -o etc/ntp.yml \
   -o etc/pdns.yml \
+  \
   --vars-store=bosh-azure-creds.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="168.63.129.16" \
