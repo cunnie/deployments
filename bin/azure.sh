@@ -30,7 +30,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o etc/nginx.yml \
   -o etc/ntp.yml \
   -o etc/pdns.yml \
-  --vars-store=creds.yml \
+  --vars-store=bosh-azure-creds.yml \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="168.63.129.16" \
   -v internal_gw="10.0.0.1" \
