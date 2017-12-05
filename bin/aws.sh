@@ -12,7 +12,7 @@ DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 cat > $DEPLOYMENTS_DIR/bosh-aws.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-aws.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --vars-store=creds.yml
+# bosh create-env bosh-aws.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --vars-store=bosh-aws-creds.yml
 # bosh -e bosh-aws.nono.io alias-env aws
 #
 EOF

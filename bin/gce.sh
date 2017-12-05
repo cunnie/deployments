@@ -12,7 +12,7 @@ DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 cat > $DEPLOYMENTS_DIR/bosh-gce.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-gce.yml -l <(lpass show --note deployments.yml) --vars-store=creds.yml
+# bosh create-env bosh-gce.yml -l <(lpass show --note deployments.yml) --vars-store=bosh-gce-creds.yml
 # bosh -e bosh-gce.nono.io alias-env gce
 #
 EOF
