@@ -22,6 +22,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/gcp/cpi.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-not-recommended.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/local-dns.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
