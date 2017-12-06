@@ -13,23 +13,9 @@
   path: /instance_groups/name=bosh/jobs/name=user_add/properties/users/name=jumpbox/public_key?
   value: ((jumpbox_user_public_key))
 
-# I don't want auto-generated certificates -- I spent $100 for a wildcard
-# certificate, and gosh-darn I plan to use it (*.nono.io)
-- type: replace
-  path: /cloud_provider/cert
-  value:
-    certificate: ((nono_io_crt))
-    private_key: ((nono_io_key))
-- type: replace
-  path: /instance_groups/name=bosh/properties/director/ssl/key?
-  value: ((nono_io_key))
-- type: replace
-  path: /instance_groups/name=bosh/properties/director/ssl/cert?
-  value: ((nono_io_crt))
-
-# 2017/12/05 attempt to get my GCE director working
-# taken from a slack channel; slightly different than this PR
-# <https://github.com/cloudfoundry/bosh-deployment/pull/144/>
+# Director must work with CredHub and UAA using an external IP address.  Taken
+# from a slack channel, these operations are slightly different than the
+# following PR <https://github.com/cloudfoundry/bosh-deployment/pull/144/>
 - type: replace
   path: /variables/name=credhub_tls/options/alternative_names/-
   value: ((external_ip))
