@@ -26,3 +26,22 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/director/ssl/cert?
   value: ((nono_io_crt))
+
+# 2017/12/05 attempt to get my GCE director working
+# taken from a slack channel; slightly different than this PR
+# <https://github.com/cloudfoundry/bosh-deployment/pull/144/>
+- type: replace
+  path: /variables/name=credhub_tls/options/alternative_names/-
+  value: ((external_ip))
+
+- type: replace
+  path: /variables/name=credhub_tls/options/common_name
+  value: ((external_ip))
+
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=credhub/properties/credhub/authentication/uaa/url
+  value: "https://((external_ip)):8443"
+
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/config_server/uaa/url
+  value: "https://((external_ip)):8443"

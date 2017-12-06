@@ -427,7 +427,7 @@ instance_groups:
               hIDyb+la8B+J+VDsrChSPU7u6lHFfQ4lw8UxpfP5yRjVuQej1F66206uEL+m5mU1
               osNacYXJM0xiuyhUpQG08x1P97ckOp6NZ940ztRC3gY7nvYmtHjtNg==
               -----END CERTIFICATE-----
-            url: https://10.128.0.2:8443
+            url: https://104.154.39.128:8443
             verification_key: |
               -----BEGIN PUBLIC KEY-----
               MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs1DhwIe0+B38KJpia4T9
@@ -631,7 +631,7 @@ instance_groups:
             -----END CERTIFICATE-----
           client_id: director_to_credhub
           client_secret: ((uaa_clients_director_to_credhub))
-          url: https://10.128.0.2:8443
+          url: https://104.154.39.128:8443
         url: https://10.128.0.2:8844/api/
       cpi_job: google_cpi
       db:
