@@ -30,11 +30,13 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -o etc/aws.yml \
   -o etc/common.yml \
+  -o etc/TLS.yml \
   -o etc/nginx.yml \
   -o etc/ntp.yml \
   -o etc/pdns.yml \
   \
   --vars-store=bosh-aws-creds.yml \
+  --var-file commercial_ca_crt=etc/COMODORSACertificationAuthority.crt \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v region=us-east-1 \
   -v az=us-east-1a \
@@ -47,6 +49,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v internal_ip=10.0.0.6 \
   -v external_ip=52.0.56.137 \
   -v private_key="((bosh_deployment_key_no_ecdsa))" \
+  -v external_fqdn="bosh-aws.nono.io" \
   \
   -v admin_password='((admin_password))' \
   -v blobstore_agent_password='((blobstore_agent_password))' \

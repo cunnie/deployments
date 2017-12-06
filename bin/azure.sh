@@ -30,11 +30,13 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -o etc/azure.yml \
   -o etc/common.yml \
+  -o etc/TLS.yml \
   -o etc/nginx.yml \
   -o etc/ntp.yml \
   -o etc/pdns.yml \
   \
   --vars-store=bosh-azure-creds.yml \
+  --var-file commercial_ca_crt=etc/COMODORSACertificationAuthority.crt \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="168.63.129.16" \
   -v internal_gw="10.0.0.1" \
@@ -50,6 +52,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v resource_group_name=bosh-res-group \
   -v storage_account_name=cunniestore \
   -v default_security_group=nsg-bosh \
+  -v external_fqdn="bosh-azure.nono.io" \
   \
   -v admin_password='((admin_password))' \
   -v blobstore_agent_password='((blobstore_agent_password))' \

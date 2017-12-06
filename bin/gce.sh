@@ -29,8 +29,10 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   \
   -o etc/common.yml \
+  -o etc/TLS.yml \
   \
   --vars-store=bosh-gce-creds.yml \
+  --var-file commercial_ca_crt=etc/COMODORSACertificationAuthority.crt \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v dns_recursor_ip="169.254.169.254" \
   -v internal_gw="10.128.0.1" \
@@ -43,6 +45,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v zone="us-central1-b" \
   -v project_id="blabbertabber" \
   -v director_name="gce" \
+  -v external_fqdn="bosh-gce.nono.io" \
   \
   -v admin_password='((admin_password))' \
   -v blobstore_agent_password='((blobstore_agent_password))' \
