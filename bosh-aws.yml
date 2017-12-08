@@ -1427,9 +1427,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.4.0-ubuntu-trusty-3468.11-20171204-211303-173868826-20171204211307.tgz?versionId=_6b6A0OxuQYWUnlEkkZ7EbxB1RvH3pIK
   version: 264.4.0
 - name: bosh-aws-cpi
-  sha1: a8384b7a4916147b3d39b936e7552b65ab83c3a3
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=68
-  version: 68
+  sha1: 8abe70219244896ea6f7208fc01f2eac56179170
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=69
+  version: 69
 - name: os-conf
   sha1: 78d79f08ff5001cc2a24f572837c7a9c59a0e796
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
