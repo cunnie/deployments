@@ -1212,9 +1212,9 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 8dff3f38acba0947e764f8afd51c2efbef6c608c
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.3.0-ubuntu-trusty-3468.11-20171129-221922-037689141-20171129221925.tgz?versionId=4xxaLXdXJFDkf7H3ww5YGz.HH7I_nm0Y
-  version: 264.3.0
+  sha1: 12f50c6d196a80d1a31eedb34ba1a1acd6904b56
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.4.0-ubuntu-trusty-3468.11-20171204-211303-173868826-20171204211307.tgz?versionId=_6b6A0OxuQYWUnlEkkZ7EbxB1RvH3pIK
+  version: 264.4.0
 - name: bosh-google-cpi
   sha1: 3a551822bff0fd040d73fd385ab34fbc17b476f5
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.10.0
