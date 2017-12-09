@@ -1,20 +1,11 @@
 {
     "director_id": "2aacb117-8be7-4a7f-6a78-534168de2e15",
     "installation_id": "08cb6f00-a809-47c0-4aab-e310115f5127",
-    "current_vm_cid": "i-07cf611fd5fad5a9a",
+    "current_vm_cid": "i-01a9fd08a367c1545",
     "current_stemcell_id": "ff55eee9-8af4-4c62-4fb8-cb448f06a74e",
     "current_disk_id": "4ee9ac92-de46-4014-50c3-2b6cd8d3c748",
-    "current_release_ids": [
-        "872a35b0-c1b3-4023-5ea9-244f6d414782",
-        "d44721d5-dd6b-40c3-4659-fa7d18a59f68",
-        "a64bcc62-d8f8-4a7c-65ab-8c23cdae2e33",
-        "34613cad-104b-41b9-73df-87c55992f3b6",
-        "e1bd7ce7-fa42-4740-52fb-c90e1f28b435",
-        "a8e71746-cf4c-400b-5adf-a0ca630bcdf2",
-        "61f5771d-461f-4f18-6d1b-30c990339f9a",
-        "312b1f53-57f5-4a78-5013-9ddcc85b666b"
-    ],
-    "current_manifest_sha": "0981109dd87b691b3ff03a78bdad5c33d250ffd3f420898d88f3243e67109507f9d6e45fc560635ecdabf0890f8299a50b60292bb117a3e53b439b2c8ba997af",
+    "current_release_ids": [],
+    "current_manifest_sha": "",
     "disks": [
         {
             "id": "4ee9ac92-de46-4014-50c3-2b6cd8d3c748",
@@ -33,46 +24,5 @@
             "cid": "ami-47850f3d light"
         }
     ],
-    "releases": [
-        {
-            "id": "872a35b0-c1b3-4023-5ea9-244f6d414782",
-            "name": "bosh",
-            "version": "264.4.0"
-        },
-        {
-            "id": "d44721d5-dd6b-40c3-4659-fa7d18a59f68",
-            "name": "bosh-aws-cpi",
-            "version": "69"
-        },
-        {
-            "id": "a64bcc62-d8f8-4a7c-65ab-8c23cdae2e33",
-            "name": "os-conf",
-            "version": "18"
-        },
-        {
-            "id": "34613cad-104b-41b9-73df-87c55992f3b6",
-            "name": "uaa",
-            "version": "52.4"
-        },
-        {
-            "id": "e1bd7ce7-fa42-4740-52fb-c90e1f28b435",
-            "name": "credhub",
-            "version": "1.6.5"
-        },
-        {
-            "id": "a8e71746-cf4c-400b-5adf-a0ca630bcdf2",
-            "name": "nginx",
-            "version": "1.12.2"
-        },
-        {
-            "id": "61f5771d-461f-4f18-6d1b-30c990339f9a",
-            "name": "ntp",
-            "version": "4"
-        },
-        {
-            "id": "312b1f53-57f5-4a78-5013-9ddcc85b666b",
-            "name": "pdns",
-            "version": "4.0.4"
-        }
-    ]
+    "releases": []
 }
