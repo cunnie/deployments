@@ -1324,8 +1324,8 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 12f50c6d196a80d1a31eedb34ba1a1acd6904b56
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.4.0-ubuntu-trusty-3468.11-20171204-211303-173868826-20171204211307.tgz?versionId=_6b6A0OxuQYWUnlEkkZ7EbxB1RvH3pIK
+  sha1: 113243c069ae0dcdc6c9ed3ca478ef8c6f1ef73a
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.4.0-ubuntu-trusty-3468.13-20171209-002254-661672111-20171209002258.tgz?versionId=vbHJppHp1CezA1h5ccRYIxeWJhfMG3rQ
   version: 264.4.0
 - name: bosh-azure-cpi
   sha1: 95de35ed69fe43d210eb628f6e9e9e75716cf368
@@ -1336,12 +1336,12 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
   version: 18
 - name: uaa
-  sha1: b3ad07f3498cc1750624c4f3e7e6719582573cbd
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-52.4-ubuntu-trusty-3468.11-20171129-192736-0357857-20171129192743.tgz?versionId=bYcMirsdLTD0dA7823lDm1mNEqOprCDL
+  sha1: 09a83ee0dff8a7791f99cd2261a92b38cc5001ff
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-52.4-ubuntu-trusty-3468.13-20171209-003153-486864753-20171209003200.tgz?versionId=_NrqFWkxlSlVlaoZR5nSZRzKhEdu.qN3
   version: "52.4"
 - name: credhub
-  sha1: 4da32598ff6016567d75b9d9c33f6b340e89c724
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.6.5-ubuntu-trusty-3468.11-20171129-222152-855845505-20171129222156.tgz?versionId=KXpgUbBK2eEzBeyl9n0yXnMOcZO3JSau
+  sha1: 57f8f066a95b64295989ccf10956b4bc19b5483f
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.6.5-ubuntu-trusty-3468.13-20171209-001956-849338543-20171209002003.tgz?versionId=WTIKGG6kAgFkjFwZkzouHIaOpDRFyxbv
   version: 1.6.5
 - name: nginx
   sha1: e5e5f54d46e2a70fac85ba16e96ccb7e4148bdfa
@@ -1367,6 +1367,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: bc8e2f357d952e9356da04ddb3c414199116b18a
-    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3468.11
+    sha1: 6bdbf8eedb670595d4f2f417d3bd6d123694f4ca
+    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3468.13
 variables: []
