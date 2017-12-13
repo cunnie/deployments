@@ -1,65 +1,43 @@
 ---
 # bosh -e gce deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)  --no-redact
-name: concourse
-
-releases:
-- name: concourse
-  version: latest
-- name: garden-runc
-  version: latest
-- name: ntp
-  version: latest
-- name: pdns
-  version: latest
-- name: sysctl
-  version: latest
-- name: postgres
-  version: latest
-
-stemcells:
-- alias: ubuntu
-  os: ubuntu-trusty
-  version: latest
-
 instance_groups:
 - name: concourse
   instances: 1
-  azs: [ us-central1-b ]
+  azs:
+  - us-central1-b
   vm_type: concourse
   persistent_disk_type: concourse
   stemcell: ubuntu
   networks:
   - name: vip
-    # CHANGEME: replace the IP address with your Elastic IP
-    static_ips: [104.155.144.4]
+    static_ips:
+    - 104.155.144.4
   - name: dynamic
-    default: [ dns, gateway ]
+    default:
+    - dns
+    - gateway
   jobs:
   - release: concourse
     name: atc
     properties:
       log_level: debug
-
-      # replace with your CI's externally reachable URL, e.g. https://ci.foo.com
       external_url: https://ci.nono.io
-
       postgresql:
         database: atc
         role:
           name: atc
-          password: ((concourse_postgres_passwd))
+          password: "((concourse_postgres_passwd))"
       github_auth:
         authorize:
         - organization: blabbertabber
           teams: all
         client_id: d4d77ce34ecc620d5220
-        client_secret: ((github_concourse_nono_auth_client_secret))
+        client_secret: "((github_concourse_nono_auth_client_secret))"
       publicly_viewable: true
-      postgresql_database: &atc_db atc
-      # replace with your SSL cert and key
+      postgresql_database: atc
       bind_port: 80
       tls_bind_port: 443
-      tls_key: ((nono_io_key))
+      tls_key: "((nono_io_key))"
       tls_cert: |
         -----BEGIN CERTIFICATE-----
         MIIFXDCCBESgAwIBAgIQOvRHkhKyb/k9O4xvIi9zZTANBgkqhkiG9w0BAQsFADCB
@@ -161,8 +139,8 @@ instance_groups:
         -----END CERTIFICATE-----
   - release: concourse
     name: tsa
-    properties: {log_level: debug}
-
+    properties:
+      log_level: debug
   - release: postgres
     name: postgres
     properties:
@@ -172,16 +150,15 @@ instance_groups:
         - name: atc
         roles:
         - name: atc
-          password: ((concourse_postgres_passwd))
-
+          password: "((concourse_postgres_passwd))"
   - release: concourse
     name: groundcrew
-    properties: {drain_timeout: 10m}
-
+    properties:
+      drain_timeout: 10m
   - release: concourse
     name: baggageclaim
-    properties: {log_level: debug}
-
+    properties:
+      log_level: debug
   - release: garden-runc
     name: garden
     properties:
@@ -189,7 +166,6 @@ instance_groups:
         listen_network: tcp
         listen_address: 0.0.0.0:7777
         allow_host_access: true
-
   - release: ntp
     name: ntpd
     properties:
@@ -212,16 +188,33 @@ instance_groups:
   - release: pdns
     name: pdns
     properties:
-      named_conf: ((pdns_named_conf))
-      pdns_conf: ((pdns_conf))
-      pipe: ((pdns_pipe))
+      named_conf: "((pdns_named_conf))"
+      pdns_conf: "((pdns_conf))"
+      pipe: "((pdns_pipe))"
   - release: sysctl
     name: sysctl
     properties:
       sysctl_conf: |
         # fixes: `nf_conntrack: table full, dropping packet`
         net.nf_conntrack_max=524288
-
+name: concourse
+releases:
+- name: concourse
+  version: 3.6.0
+- name: garden-runc
+  version: latest
+- name: ntp
+  version: latest
+- name: pdns
+  version: latest
+- name: sysctl
+  version: latest
+- name: postgres
+  version: latest
+stemcells:
+- alias: ubuntu
+  os: ubuntu-trusty
+  version: latest
 update:
   canaries: 1
   max_in_flight: 1
