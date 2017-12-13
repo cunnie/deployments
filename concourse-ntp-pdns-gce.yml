@@ -7,20 +7,19 @@ instance_groups:
   jobs:
   - name: atc
     properties:
-      bind_port: 80
       external_url: https://ci.nono.io
       github_auth:
         authorize:
         - organization: blabbertabber
           teams: all
         client_id: d4d77ce34ecc620d5220
-        client_secret: "((github_concourse_nono_auth_client_secret))"
-      log_level: debug
+        client_secret: ((github_concourse_nono_auth_client_secret))
       postgresql:
         database: atc
+        host: 127.0.0.1
         role:
           name: atc
-          password: "((concourse_postgres_passwd))"
+          password: ((concourse_postgres_passwd))
       postgresql_database: atc
       publicly_viewable: true
       tls_bind_port: 443
@@ -123,7 +122,7 @@ instance_groups:
         PUsE2JOAWVrgQSQdso8VYFhH2+9uRv0V9dlfmrPb2LjkQLPNlzmuhbsdjrzch5vR
         pu/xO28QOG8=
         -----END CERTIFICATE-----
-      tls_key: "((nono_io_key))"
+      tls_key: ((nono_io_key))
     release: concourse
   - name: tsa
     properties:
@@ -137,7 +136,7 @@ instance_groups:
         port: 5432
         roles:
         - name: atc
-          password: "((concourse_postgres_passwd))"
+          password: ((concourse_postgres_passwd))
     release: postgres
   - name: groundcrew
     properties:
