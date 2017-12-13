@@ -1,0 +1,59 @@
+# Ugly hack so that we can take advantage of the many manifest operations files
+# in `cluster/operations`: it expects the name `web` not `concourse`.
+- type: replace
+  path: /instance_groups/name=concourse/name
+  value: web
+
+# I want an AZ (do I really need this?)
+# Use an informative AZ name
+- type: replace
+  path: /instance_groups/name=web/azs?
+  value: [ us-central1-b ]
+
+# Don't use a lame http://IP:8080 URL; use the real https://fqdn URL
+- type: replace
+  path: /instance_groups/name=web/jobs/name=atc/properties/external_url
+  value: ((external_url))
+
+# I really want auth. Really.
+- type: remove
+  path: /instance_groups/name=web/jobs/name=atc/properties/no_really_i_dont_want_any_auth
+
+# It's publicly-viewable: "Look upon my works, ye mighty, and despair!"
+- type: replace
+  path: /instance_groups/name=web/jobs/name=atc/properties/publicly_viewable?
+  value: true
+
+# I need stemcells
+- type: replace
+  path: /stemcells?
+  value:
+  - alias: ubuntu
+    os: ubuntu-trusty
+    version: latest
+
+# I need an `update` section
+- type: replace
+  path: /update?
+  value:
+    canaries: 1
+    canary_watch_time: 1000-60000
+    max_in_flight: 1
+    serial: false
+    update_watch_time: 1000-60000
+
+# I shouldn't need any variables; I don't want a `creds.yml`
+- type: remove
+  path: /variables
+
+# I shouldn't need any cloud_provider, disk_pools, networks, resource_pools
+# I'm deploying with a BOSH director with a Cloud Config, not with the BOSH CLI
+- type: remove
+  path: /cloud_provider
+- type: remove
+  path: /disk_pools
+- type: remove
+  path: /networks
+- type: remove
+  path: /resource_pools
+

@@ -16,11 +16,18 @@ cat > $DEPLOYMENTS_DIR/concourse.yml <<EOF
 #
 EOF
 
-bosh int $DEPLOYMENTS_DIR/../concourse-deployment/cluster/concourse.yml \
+bosh int $DEPLOYMENTS_DIR/../concourse-deployment/lite/concourse.yml \
   -l $DEPLOYMENTS_DIR/../concourse-deployment/versions.yml \
+  -o etc/concourse.yml \
   -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/static-web.yml \
-  -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/no-auth.yml \
-  --var web_ip=10.244.15.2 \
+  -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/github-auth.yml \
+  -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/privileged-https.yml \
+  -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/tls.yml \
+  \
+  --var-file atc_tls.certificate=etc/nono.io.crt \
+  --var      atc_tls.private_key="((nono_io_key))" \
+  \
+  --var web_ip=104.155.144.4 \
   --var external_url=https://ci.nono.io \
   --var network_name=concourse \
   --var web_vm_type=concourse \
@@ -28,4 +35,9 @@ bosh int $DEPLOYMENTS_DIR/../concourse-deployment/cluster/concourse.yml \
   --var db_persistent_disk_type=db \
   --var worker_vm_type=concourse \
   --var deployment_name=concourse \
+  --var postgres_password="((concourse_postgres_passwd))" \
+  \
+  --var github_client="{ username: d4d77ce34ecc620d5220, password: ((github_concourse_nono_auth_client_secret)) }" \
+  --var github_auth.authorize="[ { organization: blabbertabber, teams: all } ]" \
+  \
   >> $DEPLOYMENTS_DIR/concourse.yml
