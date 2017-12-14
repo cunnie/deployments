@@ -20,7 +20,7 @@ instance_groups:
         role:
           name: atc
           password: ((concourse_postgres_passwd))
-      postgresql_database: atc
+        sslmode: disable
       publicly_viewable: true
       tls_bind_port: 443
       tls_cert: |
@@ -123,10 +123,15 @@ instance_groups:
         pu/xO28QOG8=
         -----END CERTIFICATE-----
       tls_key: ((nono_io_key))
+      token_signing_key: ((token_signing_key))
     release: concourse
   - name: tsa
     properties:
       log_level: debug
+      authorized_keys:
+      - ((worker_key.public_key))
+      host_key: ((tsa_host_key))
+      token_signing_key: ((token_signing_key))
     release: concourse
   - name: postgres
     properties:
@@ -140,7 +145,14 @@ instance_groups:
     release: postgres
   - name: groundcrew
     properties:
+      baggageclaim:
+        url: http://127.0.0.1:7788
       drain_timeout: 10m
+      tsa:
+        host: 127.0.0.1
+        host_public_key: ((tsa_host_key.public_key))
+        port: 2222
+        worker_key: ((worker_key))
     release: concourse
   - name: baggageclaim
     properties:
@@ -184,6 +196,12 @@ instance_groups:
         # fixes: `nf_conntrack: table full, dropping packet`
         net.nf_conntrack_max=524288
     release: sysctl
+  - name: user_add
+    properties:
+      users:
+      - name: cunnie
+        public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHdMSgO8JNBrBcrrl3iYZWbI1/f+chFPwoNIkWzN6G4w0kIDNc2EgaL5Q+HZfja2oieYWiwwyubsEBWKicDhvp30zVgt6UNqCioAjXb0lZ+exNlf/F48TVqZCpplRG4iCU68fCVGAFHJY9Q6rMY7Q/7hIlrd731wHl8GHsp3lG9og9tuKoVPZjMFobCMNFZJ6Itd+e6ryoCN4W3MWVZJ1Dhdql2TA80fdpAyFimAeAZWbg1DxpcneguLUlN52D0KAEaUyujqDnelJc4bz32igV7zun2EIBeP8G6aE9STafKjC1Q+hveVeo62Neh9wF4MkkgSFChrGJwBIrCK8cOj4x cunnie@nono.io"
+    release: os-conf
   name: concourse
   networks:
   - name: vip
@@ -199,16 +217,26 @@ instance_groups:
 name: concourse
 releases:
 - name: concourse
-  version: 3.6.0
+  sha1: 99e134676df72e18c719ccfbd7977bd9449e6fd4
+  url: https://bosh.io/d/github.com/concourse/concourse?v=3.8.0
+  version: 3.8.0
 - name: garden-runc
-  version: latest
+  sha1: 77bfe8bdb2c3daec5b40f5116a6216badabd196c
+  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.9.0
+  version: 1.9.0
+- name: postgres
+  sha1: 4b5265bfd5f92cf14335a75658658a0db0bca927
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=23
+  version: "23"
+- name: os-conf
+  version: "19"
+  sha1: f515406949ee0bba0329d1ce4a7eb1679521eabd
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=19
 - name: ntp
   version: latest
 - name: pdns
   version: latest
 - name: sysctl
-  version: latest
-- name: postgres
   version: latest
 stemcells:
 - alias: ubuntu
