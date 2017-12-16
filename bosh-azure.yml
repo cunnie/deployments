@@ -1324,9 +1324,9 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 113243c069ae0dcdc6c9ed3ca478ef8c6f1ef73a
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.4.0-ubuntu-trusty-3468.13-20171209-002254-661672111-20171209002258.tgz?versionId=vbHJppHp1CezA1h5ccRYIxeWJhfMG3rQ
-  version: 264.4.0
+  sha1: 0ff5b856bbdb901691e98283823fd1f112768569
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.5.0-ubuntu-trusty-3468.13-20171214-231004-994547171-20171214231009.tgz?versionId=66MJhlOuDZn3SM18oBXxVP6DuV2BOXZi
+  version: 264.5.0
 - name: bosh-azure-cpi
   sha1: 95de35ed69fe43d210eb628f6e9e9e75716cf368
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=32
