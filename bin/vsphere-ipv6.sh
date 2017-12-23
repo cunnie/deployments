@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# bosh-ipv6.nono.io. == 2601:646:102:95::108
+# bosh-ipv6.nono.io. == 2601:646:100:69f1::6
 # bosh alias-env -e bosh-ipv6.nono.io ipv6
 
 set -e
@@ -9,7 +9,7 @@ set -e
 
 DEPLOYMENTS_YML="$(lpass show --note deployments.yml)"
 
-bosh int ~/workspace/bosh-deployment/bosh.yml \
+bosh create-env ~/workspace/bosh-deployment/bosh.yml \
   --vars-store=bosh-vsphere-ipv6-creds.yml \
   \
   -o ~/workspace/bosh-deployment/vsphere/cpi.yml \
@@ -29,7 +29,7 @@ bosh int ~/workspace/bosh-deployment/bosh.yml \
   -v vcenter_dc=dc \
   -v vcenter_cluster=cl \
   -v vcenter_rp=BOSH-IPv6 \
-  -v vcenter_ds=SSD-0 \
+  -v vcenter_ds=FreeNAS \
   -v vcenter_ip=\"[2601:646:0100:69f0:0000:0000:0000:0105]\" \
   -v vcenter_user=administrator@vsphere.local \
   -v vcenter_password=$(bosh int --path=/vcenter_password <(echo "$DEPLOYMENTS_YML")) \
