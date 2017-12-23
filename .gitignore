@@ -3,3 +3,5 @@
 bosh
 # vim swap files
 .*.swp
+# don't accidentally check in creds for BOSH IPv6 vSphere
+bosh-vsphere-ipv6-creds.yml
