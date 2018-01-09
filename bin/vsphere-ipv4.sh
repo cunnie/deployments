@@ -39,6 +39,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v internal_cidr=10.0.9.0/24 \
   -v internal_gw=10.0.9.1 \
   -v internal_ip=10.0.9.151 \
+  -v external_ip=10.0.9.151 \
   -v private_key="((bosh_deployment_key_no_ecdsa))" \
   -v external_fqdn="bosh-vsphere-ipv4.nono.io" \
   \
