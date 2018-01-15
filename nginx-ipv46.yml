@@ -1,0 +1,59 @@
+---
+# bosh -e ipv4 deploy -d nginx nginx.yml
+name: nginx
+
+instance_groups:
+- name: nginx
+  instances: 1
+  jobs:
+  - name: nginx
+    release: nginx
+    properties:
+      nginx_conf: |
+        worker_processes  1;
+        error_log /var/vcap/sys/log/nginx/error.log   info;
+        events {
+          worker_connections  1024;
+        }
+        http {
+          include /var/vcap/packages/nginx/conf/mime.types;
+          default_type  application/octet-stream;
+          sendfile        on;
+          keepalive_timeout  65;
+          server_names_hash_bucket_size 64;
+          server {
+            server_name _; # invalid value which will never trigger on a real hostname.
+            listen *:80;
+            access_log /var/vcap/sys/log/nginx/nginx-ipv6.nono.io-access.log;
+            error_log /var/vcap/sys/log/nginx/nginx-ipv6.nono.io-error.log;
+          }
+        }
+  networks:
+  - name: IPv4
+    static_ips:
+    - 10.0.9.165
+  - name: IPv6
+    static_ips:
+    - 2601:0646:0100:69f1:0000:0000:0000:0165
+    default:
+    - dns
+    - gateway
+  persistent_disk_type: default
+  stemcell: ubuntu
+  vm_type: small
+
+releases:
+- name: nginx
+  version: latest
+
+stemcells:
+- alias: ubuntu
+  os: ubuntu-trusty
+  version: latest
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-60000
+  max_in_flight: 1
+  serial: false
+  update_watch_time: 1000-60000
