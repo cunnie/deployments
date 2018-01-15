@@ -9,7 +9,7 @@
 # using that scheme is becoming increasingly contorted & unnatural, so I'm
 # throwing in the towel & deploying my BOSH director the "recommended" way.
 #
-# bosh -e bosh-vsphere-ipv4.nono.io alias-env vsphere-ipv4
+# bosh -e bosh-vsphere-ipv4.nono.io alias-env ipv4
 #
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 
