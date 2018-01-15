@@ -1,0 +1,39 @@
+vm_types:
+- name: small
+  cloud_properties:
+    cpu: 1
+    ram: 512
+    disk: 1024
+- name: compilation
+  cloud_properties:
+    cpu: 4
+    ram: 4096
+    disk: 3072
+
+disk_types:
+- name: default
+  disk_size: 1024
+
+networks:
+- name: IPv4
+  type: manual
+  subnets:
+  - range: 10.0.9.0/24
+    gateway: 10.0.9.1
+    static: [ 10.0.9.161-10.0.9.165 ]
+    cloud_properties:
+      name: VM Network
+- name: IPv6
+  type: manual
+  subnets:
+  - range: "2601:0646:0100:69f1:0000:0000:0000:0000/64"
+    gateway: "2601:0646:0100:69f1:020d:b9ff:fe48:9249"
+    static: [  "2601:0646:0100:69f1:0000:0000:0000:0161-2601:0646:0100:69f1:0000:0000:0000:0170" ]
+    cloud_properties:
+      name: IPv6
+
+compilation:
+  workers: 5
+  reuse_compilation_vms: true
+  vm_type: compilation
+  network: IPv4
