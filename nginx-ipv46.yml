@@ -43,7 +43,7 @@ instance_groups:
             <h2>Welcome to BOSH on IPv6</h2>
             <h2>
             My   hostname/IP: <b><!--# echo var="HTTP_HOST" --></b><br />
-            Your IP <b><!--# echo var="REMOTE_ADDR" --></b>
+            Your IP: <b><!--# echo var="REMOTE_ADDR" --></b>
             </h2>
             </body></html>
         EOF
