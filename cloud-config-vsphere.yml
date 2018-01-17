@@ -1,5 +1,5 @@
 azs:
-- z1
+- name: z1
 
 vm_types:
 - name: small
@@ -32,4 +32,4 @@ compilation:
   workers: 5
   reuse_compilation_vms: true
   vm_type: compilation
-  network: IPv4
+  network: default
