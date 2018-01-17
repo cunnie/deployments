@@ -1,3 +1,6 @@
+azs:
+- z1
+
 vm_types:
 - name: small
   cloud_properties:
@@ -16,6 +19,7 @@ disk_types:
 
 networks:
 - name: default
+  azs: [ z1 ]
   type: manual
   subnets:
   - range: 10.0.9.0/24
