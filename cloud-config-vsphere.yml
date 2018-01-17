@@ -19,12 +19,12 @@ disk_types:
 
 networks:
 - name: default
-  azs: [ z1 ]
   type: manual
   subnets:
   - range: 10.0.9.0/24
     gateway: 10.0.9.1
     static: [ 10.0.9.161-10.0.9.165 ]
+    azs: [ z1 ]
     cloud_properties:
       name: VM Network
 
@@ -33,3 +33,4 @@ compilation:
   reuse_compilation_vms: true
   vm_type: compilation
   network: default
+  az: z1

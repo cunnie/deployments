@@ -5,6 +5,7 @@ name: nginx
 instance_groups:
 - name: nginx
   instances: 1
+  azs: [ z1 ]
   jobs:
   - name: nginx
     release: nginx
@@ -49,10 +50,10 @@ instance_groups:
         EOF
         fi
   networks:
-  - name: IPv4
+  - name: default
     static_ips:
     - 10.0.9.165
-  - name: IPv6
+  - name: ipv6
     static_ips:
     - 2601:0646:0100:69f1:0000:0000:0000:0165
     default:
