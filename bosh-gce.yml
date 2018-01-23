@@ -138,8 +138,6 @@ instance_groups:
     release: bosh
   - name: health_monitor
     release: bosh
-  - name: bpm
-    release: bpm
   - name: google_cpi
     release: bosh-google-cpi
   - name: user_add
@@ -1214,13 +1212,9 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 0ff5b856bbdb901691e98283823fd1f112768569
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.5.0-ubuntu-trusty-3468.13-20171214-231004-994547171-20171214231009.tgz?versionId=66MJhlOuDZn3SM18oBXxVP6DuV2BOXZi
-  version: 264.5.0
-- name: bpm
-  sha1: f2bd126b17b3591160f501d88d79ccf0aba1ae54
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.2.0
-  version: 0.2.0
+  sha1: 49c1568ad7909f6371807d0ca529986f6ad541d7
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-264.7.0-ubuntu-trusty-3468.19-20180118-022053-906946715-20180118022057.tgz?versionId=oVo1D.vkMI0Pe24qhPCNN046HfCUXy7b
+  version: 264.7.0
 - name: bosh-google-cpi
   sha1: 3a551822bff0fd040d73fd385ab34fbc17b476f5
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-google-cpi-release?v=25.10.0
@@ -1230,12 +1224,12 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
   version: 18
 - name: uaa
-  sha1: 09a83ee0dff8a7791f99cd2261a92b38cc5001ff
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-52.4-ubuntu-trusty-3468.13-20171209-003153-486864753-20171209003200.tgz?versionId=_NrqFWkxlSlVlaoZR5nSZRzKhEdu.qN3
+  sha1: 3c89c62fc6a96a9c92f00ad8e12a863874603ad1
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-52.7-ubuntu-trusty-3468.19-20180118-020822-155556967-20180118020830.tgz?versionId=DcTEzPq5JYTQ6U8R_NCJJypBXIGzKF3Y
   version: "52.4"
 - name: credhub
-  sha1: 57f8f066a95b64295989ccf10956b4bc19b5483f
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.6.5-ubuntu-trusty-3468.13-20171209-001956-849338543-20171209002003.tgz?versionId=WTIKGG6kAgFkjFwZkzouHIaOpDRFyxbv
+  sha1: feba2f9032231c24d4e26f978fb12703b1b9127d
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.6.5-ubuntu-trusty-3468.19-20180118-015616-554559819-20180118015620.tgz?versionId=Eu.GaVea3lN3Lwmie7fWD_xxcWNDzF.y
   version: 1.6.5
 resource_pools:
 - cloud_properties:
@@ -1249,6 +1243,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 8d0756f3762cb131fd4013c6bd3c713167bf78ce
-    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3468.13
+    sha1: bbdab4c7a641e6ccb3bc9ad30989ef2d13fa1a94
+    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-trusty-go_agent?v=3468.19
 variables: []
