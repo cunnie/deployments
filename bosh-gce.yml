@@ -123,7 +123,7 @@ cloud_provider:
 disk_pools:
 - cloud_properties:
     type: pd-standard
-  disk_size: 32768
+  disk_size: 65536
   name: disks
 instance_groups:
 - instances: 1
