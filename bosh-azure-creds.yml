@@ -1,4 +1,3 @@
-credhub_admin_client_secret: c50taxnfg4lzmi9c6bgc
 credhub_ca:
   ca: |
     -----BEGIN CERTIFICATE-----

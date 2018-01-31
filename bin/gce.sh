@@ -50,6 +50,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v admin_password='((admin_password))' \
   -v blobstore_agent_password='((blobstore_agent_password))' \
   -v blobstore_director_password='((blobstore_director_password))' \
+  -v credhub_admin_client_secret='((credhub_admin_client_secret))' \
   -v credhub_cli_password='((credhub_cli_password))' \
   -v credhub_encryption_password='((credhub_encryption_password))' \
   -v hm_password='((hm_password))' \
