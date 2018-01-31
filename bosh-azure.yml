@@ -266,7 +266,7 @@ instance_groups:
             authorized-grant-types: client_credentials
             override: true
             scope: ""
-            secret: c50taxnfg4lzmi9c6bgc
+            secret: ((credhub_admin_client_secret))
           credhub_cli:
             access-token-validity: 60
             authorities: ""
