@@ -14,7 +14,7 @@ DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 cat > $DEPLOYMENTS_DIR/bosh-lite.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh create-env bosh-lite.yml -l <(lpass show --note deployments.yml) --vars-store=bosh-lite-creds.yml --state=$HOME/.bosh/bosh-lite-state.json
+# bosh create-env bosh-lite.yml -l <(lpass show --note deployments.yml) --vars-store=bosh-lite-creds.yml --state=\$HOME/.bosh/bosh-lite-state.json
 # bosh -e bosh-lite.nono.io alias-env lite
 #
 EOF
