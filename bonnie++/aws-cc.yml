@@ -1,0 +1,45 @@
+#
+# bosh -e aws update-config cloud --name=bonnie++ aws-cc.yml
+#
+# we are checking standard, gp2, io1 but not st1 sc1
+azs:
+- name: z1
+  cloud_properties:
+    availabilit
+
+compilation:
+  workers: 2
+  reuse_compilation_vms: true
+  az: z1
+  vm_type: default
+  network: private
+
+disk_pools:
+- name: standard
+  disk_size: 102_400
+  cloud_properties:
+    type: standard
+- name: gp2
+  disk_size: 102_400
+  cloud_properties:
+    type: gp2
+- name: io1
+  disk_size: 102_400
+  cloud_properties:
+    type: io1
+    iops: 1000
+
+networks:
+- default:
+  name: default
+  static_ips:
+
+vm_types:
+- name: m5_large
+  network: default
+  stemcell:
+    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    version: latest
+  cloud_properties:
+    instance_type: m5.large
+    availability_zone: us-east-1a
