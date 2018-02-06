@@ -9,15 +9,15 @@ azs:
 
 disk_types:
 - name: standard
-  disk_size: 102_400
+  disk_size: 32_768
   cloud_properties:
     type: standard
 - name: gp2
-  disk_size: 102_400
+  disk_size: 32_768
   cloud_properties:
     type: gp2
 - name: io1
-  disk_size: 102_400
+  disk_size: 32_768
   cloud_properties:
     type: io1
     iops: 1000

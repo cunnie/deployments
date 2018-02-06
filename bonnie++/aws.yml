@@ -1,7 +1,8 @@
 # bosh -e aws -d bonnie++ deploy aws.yml
-# bosh -e aws -d bonnie++ run-errand standard --download-logs --logs-dir=/tmp/standard
-# bosh -e aws -d bonnie++ run-errand gp2      --download-logs --logs-dir=/tmp/standard
-# bosh -e aws -d bonnie++ run-errand io1      --download-logs --logs-dir=/tmp/standard
+# mkdir /tmp/{standard,gp2,io1}
+# bosh -e aws -d bonnie++ run-errand standard --json | jq -r .Tables[].Rows[].stdout > m4_large_standard.txt
+# bosh -e aws -d bonnie++ run-errand gp2      --json | jq -r .Tables[].Rows[].stdout > m4_large_gp2.txt
+# bosh -e aws -d bonnie++ run-errand io1      --json | jq -r .Tables[].Rows[].stdout > m4_large_io1.txt
 ---
 name: bonnie++
 
