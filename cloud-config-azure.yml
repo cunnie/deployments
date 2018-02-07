@@ -1,8 +1,6 @@
 # bosh -e azure ucc cloud-config-azure.yml
 azs:
 - name: z1
-  cloud_properties:
-    availability_zone: 1
 
 vm_types:
 - name: compilation
