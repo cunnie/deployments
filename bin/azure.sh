@@ -20,6 +20,7 @@ EOF
 bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/azure/cpi.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/azure/use-managed-disks.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-with-registry-not-recommended.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
@@ -50,7 +51,6 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v tenant_id=682bd378-95db-41bd-8b1e-70fb407c4b10 \
   -v client_id=bf7f78c1-6924-4a02-965c-b66f481a9b5f \
   -v resource_group_name=bosh-res-group \
-  -v storage_account_name=cunniestore \
   -v default_security_group=nsg-bosh \
   -v external_fqdn="bosh-azure.nono.io" \
   \
