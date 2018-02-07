@@ -1,31 +1,19 @@
 #
-# bosh -e ipv4 update-config cloud --name=bonnie++ vsphere-cc.yml
+# bosh -e gce update-config cloud --name=bonnie++ gce-cc.yml
 #
-# azs:
-# - name: z1
-#   cloud_properties:
-#     datacenters:
-#     - name: dc
-#       clusters:
-#       - cl:
-#           resource_pool: cunnie
+azs:
+- name: z1
+  cloud_properties: {}
 
 disk_types:
-- name: freenas
+- name: pd-standard
   disk_size: 20_480
   cloud_properties:
-    datastores:
-    - NAS-0
-- name: sata
+    type: pd-standard
+- name: pd-ssd
   disk_size: 20_480
   cloud_properties:
-    datastores:
-    - SSD-1
-- name: nvme
-  disk_size: 20_480
-  cloud_properties:
-    datastores:
-    - SSD-0
+    type: pd-ssd
 
 # networks:
 # - name: default
@@ -50,7 +38,4 @@ vm_types:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
     version: latest
   cloud_properties:
-    cpu: 2
-    ram: 8192
-    disk: 10_240
-    datastores: [ NAS-0, SSD-0, SSD-1 ]
+    machine_type: n1-standard-2

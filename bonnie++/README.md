@@ -9,7 +9,8 @@ the _bonnie++_ BOSH release to benchmark IaaSes.
 |         |               |       |           | io1          |
 | Azure   | D2 v3         | 2     | 8         | Standard_LRS |
 |         |               |       |           | Premium_LRS  |
-| Google  | n1-standard-2 | 2     | 7.5       |              |
+| Google  | n1-standard-2 | 2     | 7.5       | pd-standard  |
+|         |               |       |           | pd-ssd       |
 | vSphere | N/A           | 2     | 8         | FreeNAS      |
 |         |               |       |           | SATA SSD     |
 |         |               |       |           | NVMe SSD     |
