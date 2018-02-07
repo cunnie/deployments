@@ -1,5 +1,11 @@
 azs:
 - name: z1
+  cloud_properties:
+    datacenters:
+    - name: dc
+      clusters:
+      - cl:
+          resource_pool: BOSH-IPv4
 
 vm_types:
 - name: small

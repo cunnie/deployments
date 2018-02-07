@@ -1,12 +1,12 @@
-# bosh -e aws -d bonnie++ deploy aws.yml
-# bosh -e aws -d bonnie++ run-errand standard --json | jq -r .Tables[].Rows[].stdout > m4_large_standard.txt
-# bosh -e aws -d bonnie++ run-errand gp2      --json | jq -r .Tables[].Rows[].stdout > m4_large_gp2.txt
-# bosh -e aws -d bonnie++ run-errand io1      --json | jq -r .Tables[].Rows[].stdout > m4_large_io1.txt
+# bosh -e ipv4 -d bonnie++ deploy vsphere.yml
+# bosh -e ipv4 -d bonnie++ run-errand freenas --json | jq -r .Tables[].Rows[].stdout > vsphere_freenas.txt
+# bosh -e ipv4 -d bonnie++ run-errand sata    --json | jq -r .Tables[].Rows[].stdout > vsphere_sata.txt
+# bosh -e ipv4 -d bonnie++ run-errand nvme    --json | jq -r .Tables[].Rows[].stdout > vsphere_nvme.txt
 ---
 name: bonnie++
 
 instance_groups:
-- name: standard
+- name: freenas
   azs: [z1]
   lifecycle: errand
   instances: 1
@@ -15,13 +15,13 @@ instance_groups:
     release: bonnie++
     properties:
       dir: /var/vcap/store/bonnie++
-      args: -m aws_m4.large_standard
+      args: -m vsphere_freenas
   vm_type: default
-  persistent_disk_type: standard
+  persistent_disk_type: freenas
   stemcell: default
   networks:
   - name: default
-- name: gp2
+- name: sata
   azs: [z1]
   lifecycle: errand
   instances: 1
@@ -30,13 +30,13 @@ instance_groups:
     release: bonnie++
     properties:
       dir: /var/vcap/store/bonnie++
-      args: -m aws_m4.large_gp2
+      args: -m vsphere_sata
   vm_type: default
-  persistent_disk_type: gp2
+  persistent_disk_type: sata
   stemcell: default
   networks:
   - name: default
-- name: io1
+- name: nvme
   azs: [z1]
   lifecycle: errand
   instances: 1
@@ -45,9 +45,10 @@ instance_groups:
     release: bonnie++
     properties:
       dir: /var/vcap/store/bonnie++
-      args: -m aws_m4.large_io1
+      args: -m vsphere_nvme
   vm_type: default
-  persistent_disk_type: io1
+  vm_type: default
+  persistent_disk_type: nvme
   stemcell: default
   networks:
   - name: default
