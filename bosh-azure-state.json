@@ -1,20 +1,11 @@
 {
     "director_id": "d04dad3d-28d8-4158-7d3e-00608d700e3a",
     "installation_id": "3e61dd7f-2671-43e4-4dc5-286eec272262",
-    "current_vm_cid": "agent_id:b7579e31-7f57-4a0a-6521-b585d68d3140;resource_group_name:bosh-res-group;storage_account_name:cunniestore",
-    "current_stemcell_id": "4cfe9c7f-c76d-4f17-77ed-10421550085d",
+    "current_vm_cid": "",
+    "current_stemcell_id": "",
     "current_disk_id": "55e6d06c-6036-443e-585d-0fbb1f125cd8",
-    "current_release_ids": [
-        "608f866c-57a8-4249-7921-e6226e25f191",
-        "f1f09a2e-e3e3-4543-7240-5d750d0b138f",
-        "15824195-2c54-4697-49f8-71913dfd50f5",
-        "6cf58afc-d414-489f-77fb-9be7f9569cf0",
-        "eced1778-ed8a-49c8-749a-c176432f451c",
-        "29082049-de3b-47a5-7361-d876f0cc0df7",
-        "66a019d0-baea-40bb-5207-5fd29c825703",
-        "98469255-f920-4a77-709b-cea6e3d52932"
-    ],
-    "current_manifest_sha": "98ecf1088cd85e6a150141797d73978eda0d25f37677a1453348e3f722c1c7560e28acd81905be2f482b46300a0730398a179939b3db9304196dcddec9b1693c",
+    "current_release_ids": [],
+    "current_manifest_sha": "",
     "disks": [
         {
             "id": "55e6d06c-6036-443e-585d-0fbb1f125cd8",
@@ -31,46 +22,5 @@
             "cid": "bosh-stemcell-28700671-3048-4adf-8c0e-0391581716bd"
         }
     ],
-    "releases": [
-        {
-            "id": "608f866c-57a8-4249-7921-e6226e25f191",
-            "name": "bosh",
-            "version": "264.7.0"
-        },
-        {
-            "id": "f1f09a2e-e3e3-4543-7240-5d750d0b138f",
-            "name": "bosh-azure-cpi",
-            "version": "35.0.0"
-        },
-        {
-            "id": "15824195-2c54-4697-49f8-71913dfd50f5",
-            "name": "os-conf",
-            "version": "18"
-        },
-        {
-            "id": "6cf58afc-d414-489f-77fb-9be7f9569cf0",
-            "name": "uaa",
-            "version": "52.7"
-        },
-        {
-            "id": "eced1778-ed8a-49c8-749a-c176432f451c",
-            "name": "credhub",
-            "version": "1.6.5"
-        },
-        {
-            "id": "29082049-de3b-47a5-7361-d876f0cc0df7",
-            "name": "nginx",
-            "version": "1.12.2"
-        },
-        {
-            "id": "66a019d0-baea-40bb-5207-5fd29c825703",
-            "name": "ntp",
-            "version": "4"
-        },
-        {
-            "id": "98469255-f920-4a77-709b-cea6e3d52932",
-            "name": "pdns",
-            "version": "4.0.4"
-        }
-    ]
+    "releases": []
 }
