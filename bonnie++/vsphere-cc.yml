@@ -44,7 +44,7 @@ disk_types:
 #   type: manual
 
 vm_types:
-- name: default
+- name: freenas
   network: default
   stemcell:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
@@ -53,4 +53,24 @@ vm_types:
     cpu: 2
     ram: 8192
     disk: 10_240
-    datastores: [ NAS-0, SSD-0, SSD-1 ]
+    datastores: [ NAS-0 ]
+- name: nvme
+  network: default
+  stemcell:
+    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    version: latest
+  cloud_properties:
+    cpu: 2
+    ram: 8192
+    disk: 10_240
+    datastores: [ SSD-0 ]
+- name: sata
+  network: default
+  stemcell:
+    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    version: latest
+  cloud_properties:
+    cpu: 2
+    ram: 8192
+    disk: 10_240
+    datastores: [ SSD-1 ]

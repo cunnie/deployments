@@ -16,7 +16,7 @@ instance_groups:
     properties:
       dir: /var/vcap/store/bonnie++
       args: -m vsphere_freenas
-  vm_type: default
+  vm_type: freenas
   persistent_disk_type: freenas
   stemcell: default
   networks:
@@ -31,7 +31,7 @@ instance_groups:
     properties:
       dir: /var/vcap/store/bonnie++
       args: -m vsphere_sata
-  vm_type: default
+  vm_type: sata
   persistent_disk_type: sata
   stemcell: default
   networks:
@@ -46,8 +46,7 @@ instance_groups:
     properties:
       dir: /var/vcap/store/bonnie++
       args: -m vsphere_nvme
-  vm_type: default
-  vm_type: default
+  vm_type: nvme
   persistent_disk_type: nvme
   stemcell: default
   networks:
