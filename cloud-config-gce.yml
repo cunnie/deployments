@@ -26,7 +26,7 @@ vm_types:
     root_disk_type: pd-standard
 
 disk_types:
-- name: concourse
+- name: db
   disk_size: 5_120
   cloud_properties:
     type: pd-standard
@@ -36,27 +36,7 @@ disk_types:
     type: pd-standard
 
 networks:
-- name: dynamic
-  type: dynamic
-  subnets:
-  - az: us-central1-b
-    cloud_properties:
-      network_name: cf
-      tags:
-      - cf-internal
-      - cf-bosh
-      - cf-allow-ssh-ping-traceroute
-      - cf-allow-dns-http-ntp
-- name: dynamic-concourse
-  type: dynamic
-  subnets:
-  - az: us-central1-b
-    cloud_properties:
-      network_name: cf
-      tags:
-      - cf-internal
-      - cf-bosh
-- name: manual
+- name: concourse
   type: manual
   subnets:
   - range: 10.128.0.0/20
@@ -69,13 +49,6 @@ networks:
       tags:
       - cf-internal
       - cf-bosh
-- name: dynamic-wide-open
-  type: dynamic
-  cloud_properties:
-    network_name: cf
-    tags:
-    - cf-internal
-    - cf-bosh
 - name: vip
   type: vip
 
@@ -83,5 +56,5 @@ compilation:
   workers: 1
   reuse_compilation_vms: true
   vm_type: n1-highcpu-4
-  network: manual
+  network: concourse
   az: us-central1-b

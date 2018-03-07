@@ -1,5 +1,8 @@
 ---
 # bosh -e gce deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)  --no-redact
+#
+# bin/concourse.sh will build a Concourse manifest for comparison
+
 instance_groups:
 - azs:
   - us-central1-b
@@ -14,11 +17,11 @@ instance_groups:
           teams: all
         client_id: d4d77ce34ecc620d5220
         client_secret: ((github_concourse_nono_auth_client_secret))
+      log_level: debug
       postgresql:
         database: atc
-        host: 127.0.0.1
         role:
-          name: atc
+          name: concourse
           password: ((concourse_postgres_passwd))
         sslmode: disable
       publicly_viewable: true
@@ -127,10 +130,10 @@ instance_groups:
     release: concourse
   - name: tsa
     properties:
-      log_level: debug
       authorized_keys:
       - ((worker_key.public_key))
       host_key: ((tsa_host_key))
+      log_level: debug
       token_signing_key: ((token_signing_key))
     release: concourse
   - name: postgres
@@ -140,28 +143,28 @@ instance_groups:
         - name: atc
         port: 5432
         roles:
-        - name: atc
+        - name: concourse
           password: ((concourse_postgres_passwd))
     release: postgres
-  - name: groundcrew
-    properties:
+  - consumes:
       baggageclaim:
-        url: http://127.0.0.1:7788
+        from: worker-baggageclaim
+    name: groundcrew
+    properties:
       drain_timeout: 10m
       tsa:
-        host: 127.0.0.1
-        host_public_key: ((tsa_host_key.public_key))
-        port: 2222
         worker_key: ((worker_key))
     release: concourse
   - name: baggageclaim
     properties:
       log_level: debug
+    provides:
+      baggageclaim:
+        as: worker-baggageclaim
     release: concourse
   - name: garden
     properties:
       garden:
-        allow_host_access: true
         listen_address: 0.0.0.0:7777
         listen_network: tcp
     release: garden-runc
@@ -204,15 +207,14 @@ instance_groups:
     release: os-conf
   name: concourse
   networks:
+  - name: concourse
+    default:
+    - gateway
+    - dns
   - name: vip
     static_ips:
     - 104.155.144.4
-  - default:
-    - dns
-    - gateway
-    name: dynamic
-  persistent_disk_type: concourse
-  stemcell: ubuntu
+  stemcell: trusty
   vm_type: concourse
 name: concourse
 releases:
@@ -225,9 +227,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.11.1
   version: 1.11.1
 - name: postgres
-  sha1: a436047dae4d4156a1debe9f88bedf59bf40362b
-  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=26
-  version: "26"
+  sha1: 20929ee4b0c64fd97072a266311a6d00714124a7
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=25
+  version: "25"
 - name: os-conf
   version: "19"
   sha1: f515406949ee0bba0329d1ce4a7eb1679521eabd
@@ -239,12 +241,12 @@ releases:
 - name: sysctl
   version: latest
 stemcells:
-- alias: ubuntu
+- alias: trusty
   os: ubuntu-trusty
-  version: 3468.22
+  version: 3468.latest
 update:
   canaries: 1
   canary_watch_time: 1000-60000
-  max_in_flight: 1
+  max_in_flight: 3
   serial: false
   update_watch_time: 1000-60000
