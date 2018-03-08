@@ -16,7 +16,7 @@ cat > $DEPLOYMENTS_DIR/concourse.yml <<EOF
 #
 EOF
 
-bosh int $DEPLOYMENTS_DIR/../concourse-deployment/lite/concourse.yml \
+bosh int $DEPLOYMENTS_DIR/../concourse-deployment/cluster/concourse.yml \
   -l $DEPLOYMENTS_DIR/../concourse-deployment/versions.yml \
   -o etc/concourse.yml \
   -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/static-web.yml \
