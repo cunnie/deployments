@@ -200,6 +200,8 @@ instance_groups:
       sysctl_conf: |
         # fixes: `nf_conntrack: table full, dropping packet`
         net.nf_conntrack_max=524288
+        # fixes: `Could not resolve host: github.com`
+        net.ipv4.ip_forward=1
     release: sysctl
   - name: user_add
     properties:
