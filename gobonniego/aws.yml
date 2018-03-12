@@ -1,7 +1,7 @@
 # bosh -e aws -d gobonniego deploy aws.yml
-# bosh -e aws -d gobonniego run-errand standard --json | jq -r .Tables[].Rows[].stdout > c5_xlarge_standard.json
-# bosh -e aws -d gobonniego run-errand gp2      --json | jq -r .Tables[].Rows[].stdout > c5_xlarge_gp2.json
-# bosh -e aws -d gobonniego run-errand io1      --json | jq -r .Tables[].Rows[].stdout > c5_xlarge_io1.json
+# bosh -e aws -d gobonniego run-errand standard --json | jq -r .Tables[].Rows[].stdout > c4_xlarge_standard.json
+# bosh -e aws -d gobonniego run-errand gp2      --json | jq -r .Tables[].Rows[].stdout > c4_xlarge_gp2.json
+# bosh -e aws -d gobonniego run-errand io1      --json | jq -r .Tables[].Rows[].stdout > c4_xlarge_io1.json
 ---
 name: gobonniego
 

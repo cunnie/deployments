@@ -45,5 +45,5 @@ vm_types:
     name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
     version: latest
   cloud_properties:
-    instance_type: c5.xlarge
+    instance_type: c4.xlarge
     availability_zone: us-east-1a

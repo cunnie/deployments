@@ -4,7 +4,7 @@ This directory contains the Cloud Configs and manifests for using
 the _gobonniego_ BOSH release to benchmark IaaSes.
 
 | IaaS    | Instance Type | Cores | RAM (GiB) | Disk Type    |
-| AWS     | c5.xlarge     | 4     | 8         | standard     |
+| AWS     | c4.xlarge     | 4     | 7.5       | standard     |
 |         |               |       |           | gp2          |
 |         |               |       |           | io1          |
 | Azure   | F4 v2         | 4     | 8         | Standard_LRS |
