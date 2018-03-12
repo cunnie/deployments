@@ -19,7 +19,7 @@ instance_groups:
   persistent_disk_type: pd-standard
   stemcell: default
   networks:
-  - name: manual
+  - name: concourse
 - name: pd-ssd
   azs: [us-central1-b]
   lifecycle: errand
@@ -34,7 +34,7 @@ instance_groups:
   persistent_disk_type: pd-ssd
   stemcell: default
   networks:
-  - name: manual
+  - name: concourse
 
 releases:
 - name: gobonniego
