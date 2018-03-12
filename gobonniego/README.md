@@ -1,0 +1,16 @@
+## gobonniego assets
+
+This directory contains the Cloud Configs and manifests for using
+the _gobonniego_ BOSH release to benchmark IaaSes.
+
+| IaaS    | Instance Type | Cores | RAM (GiB) | Disk Type    |
+| AWS     | c5.xlarge     | 4     | 8         | standard     |
+|         |               |       |           | gp2          |
+|         |               |       |           | io1          |
+| Azure   | F4 v2         | 4     | 8         | Standard_LRS |
+|         |               |       |           | Premium_LRS  |
+| Google  | n1-highcpu-8  | 8     | 7.2       | pd-standard  |
+|         |               |       |           | pd-ssd       |
+| vSphere | N/A           | 8     | 8         | FreeNAS      |
+|         |               |       |           | SATA SSD     |
+|         |               |       |           | NVMe SSD     |

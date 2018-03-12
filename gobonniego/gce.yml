@@ -1,0 +1,52 @@
+# bosh -e gce -d gobonniego deploy gce.yml
+# bosh -e gce -d gobonniego run-errand pd-standard --json | jq -r .Tables[].Rows[].stdout > gce_pd-standard.json
+# bosh -e gce -d gobonniego run-errand pd-ssd      --json | jq -r .Tables[].Rows[].stdout > gce_pd-ssd.json
+---
+name: gobonniego
+
+instance_groups:
+- name: pd-standard
+  azs: [us-central1-b]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -runs 10 -json
+  vm_type: default
+  persistent_disk_type: pd-standard
+  stemcell: default
+  networks:
+  - name: manual
+- name: pd-ssd
+  azs: [us-central1-b]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -runs 10 -json
+  vm_type: default
+  persistent_disk_type: pd-ssd
+  stemcell: default
+  networks:
+  - name: manual
+
+releases:
+- name: gobonniego
+  version: latest
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+update:
+  canaries: 2
+  max_in_flight: 1
+  canary_watch_time: 5000-60000
+  update_watch_time: 5000-60000

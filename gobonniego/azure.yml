@@ -1,0 +1,52 @@
+# bosh -e azure -d gobonniego deploy azure.yml
+# bosh -e azure -d gobonniego run-errand standard_lrs --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs.json
+# bosh -e azure -d gobonniego run-errand premium_lrs  --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs.json
+---
+name: gobonniego
+
+instance_groups:
+- name: standard_lrs
+  azs: [z1]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -runs 10 -json
+  vm_type: standard_f4_v2
+  persistent_disk_type: standard_lrs
+  stemcell: default
+  networks:
+  - name: default
+- name: premium_lrs
+  azs: [z1]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -runs 10 -json
+  vm_type: standard_f4_v2
+  persistent_disk_type: premium_lrs
+  stemcell: default
+  networks:
+  - name: default
+
+releases:
+- name: gobonniego
+  version: latest
+
+stemcells:
+- alias: default
+  os: ubuntu-trusty
+  version: latest
+
+update:
+  canaries: 2
+  max_in_flight: 1
+  canary_watch_time: 5000-60000
+  update_watch_time: 5000-60000

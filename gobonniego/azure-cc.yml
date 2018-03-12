@@ -1,0 +1,39 @@
+#
+# bosh -e azure update-config cloud --name=gobonniego azure-cc.yml
+#
+# azs:
+# - name: z1
+#   cloud_properties:
+#     availability_zone: 1
+
+disk_types:
+- name: standard_lrs
+  disk_size: 20_480
+  cloud_properties:
+    type: Standard_LRS
+- name: premium_lrs
+  disk_size: 20_480
+  cloud_properties:
+    type: Premium_LRS
+
+# networks:
+# - name: default
+#   subnets:
+#   - range: 10.0.0.0/24
+#     gateway: 10.0.0.1
+#     reserved: [10.0.0.2-10.0.0.3]
+#     dns: [168.63.129.16]
+#     azs: [z1]
+#     cloud_properties:
+#       virtual_network_name: boshnet
+#       subnet_name: bosh
+#   type: manual
+
+vm_types:
+- name: standard_f4_v2
+  network: default
+  stemcell:
+    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    version: latest
+  cloud_properties:
+    instance_type: Standard_F4_V2
