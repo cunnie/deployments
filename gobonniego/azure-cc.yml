@@ -12,7 +12,7 @@ disk_types:
   cloud_properties:
     type: Standard_LRS
 - name: premium_lrs
-  disk_size: 20_480
+  disk_size: 262_144
   cloud_properties:
     type: Premium_LRS
 
