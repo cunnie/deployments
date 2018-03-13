@@ -1,9 +1,10 @@
-## gobonniego assets
+## GoBonnieGo assets
 
 This directory contains the Cloud Configs and manifests for using
-the _gobonniego_ BOSH release to benchmark IaaSes.
+the _GoBonnieGo_ BOSH release to benchmark IaaSes.
 
 | IaaS    | Instance Type | Cores | RAM (GiB) | Disk Type    |
+|---------|---------------|-------|-----------|--------------|
 | AWS     | c4.xlarge     | 4     | 7.5       | standard     |
 |         |               |       |           | gp2          |
 |         |               |       |           | io1          |
