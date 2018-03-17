@@ -223,13 +223,13 @@ instance_groups:
 name: concourse
 releases:
 - name: concourse
-  sha1: 235c704d50e62c9e089865dd43306659d5207690
-  url: https://bosh.io/d/github.com/concourse/concourse?v=3.9.1
-  version: 3.9.1
+  sha1: a0ebed14c296273f37ed2a7ec79b9a7814734e16
+  url: https://bosh.io/d/github.com/concourse/concourse?v=3.9.2
+  version: 3.9.2
 - name: garden-runc
-  sha1: d9a7901c0502d97c043b857496f0f414a5843e8d
-  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.11.1
-  version: 1.11.1
+  sha1: 9cb3ec63f04d6cfb3047229544f261ff737f203e
+  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.12.0
+  version: 1.12.0
 - name: postgres
   sha1: 20929ee4b0c64fd97072a266311a6d00714124a7
   url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=25
