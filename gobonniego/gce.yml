@@ -1,6 +1,8 @@
 # bosh -e gce -d gobonniego deploy gce.yml
-# bosh -e gce -d gobonniego run-errand pd-standard --json | jq -r .Tables[].Rows[].stdout > gce_pd-standard.json
-# bosh -e gce -d gobonniego run-errand pd-ssd      --json | jq -r .Tables[].Rows[].stdout > gce_pd-ssd.json
+# bosh -e gce -d gobonniego run-errand pd-standard     --json | jq -r .Tables[].Rows[].stdout > gce_pd-standard.json
+# bosh -e gce -d gobonniego run-errand pd-standard-256 --json | jq -r .Tables[].Rows[].stdout > gce_pd-standard-256.json
+# bosh -e gce -d gobonniego run-errand pd-ssd          --json | jq -r .Tables[].Rows[].stdout > gce_pd-ssd.json
+# bosh -e gce -d gobonniego run-errand pd-ssd-256      --json | jq -r .Tables[].Rows[].stdout > gce_pd-ssd-256.json
 ---
 name: gobonniego
 
@@ -20,6 +22,21 @@ instance_groups:
   stemcell: default
   networks:
   - name: concourse
+- name: pd-standard-256
+  azs: [us-central1-b]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -runs 10 -json
+  vm_type: default
+  persistent_disk_type: pd-standard-256
+  stemcell: default
+  networks:
+  - name: concourse
 - name: pd-ssd
   azs: [us-central1-b]
   lifecycle: errand
@@ -32,6 +49,21 @@ instance_groups:
       args: -runs 10 -json
   vm_type: default
   persistent_disk_type: pd-ssd
+  stemcell: default
+  networks:
+  - name: concourse
+- name: pd-ssd-256
+  azs: [us-central1-b]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -runs 10 -json
+  vm_type: default
+  persistent_disk_type: pd-ssd-256
   stemcell: default
   networks:
   - name: concourse

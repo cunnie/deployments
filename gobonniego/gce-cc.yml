@@ -10,8 +10,16 @@ disk_types:
   disk_size: 20_480
   cloud_properties:
     type: pd-standard
+- name: pd-standard-256
+  disk_size: 262_144
+  cloud_properties:
+    type: pd-standard
 - name: pd-ssd
   disk_size: 20_480
+  cloud_properties:
+    type: pd-ssd
+- name: pd-ssd-256
+  disk_size: 262_144
   cloud_properties:
     type: pd-ssd
 
