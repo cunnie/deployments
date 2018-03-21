@@ -1,5 +1,5 @@
 #
-# bosh -e azure update-config cloud --name=gobonniego azure-cc.yml
+# bosh -e azure update-config --type=cloud --name=gobonniego azure-cc.yml
 #
 # azs:
 # - name: z1
@@ -11,7 +11,15 @@ disk_types:
   disk_size: 20_480
   cloud_properties:
     type: Standard_LRS
+- name: standard_lrs-256
+  disk_size: 262_144
+  cloud_properties:
+    type: Standard_LRS
 - name: premium_lrs
+  disk_size: 20_480
+  cloud_properties:
+    type: Premium_LRS
+- name: premium_lrs-256
   disk_size: 262_144
   cloud_properties:
     type: Premium_LRS

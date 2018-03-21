@@ -1,5 +1,5 @@
 #
-# bosh -e ipv4 update-config cloud --name=gobonniego vsphere-cc.yml
+# bosh -e ipv4 update-config --type=cloud --name=gobonniego vsphere-cc.yml
 #
 # azs:
 # - name: z1

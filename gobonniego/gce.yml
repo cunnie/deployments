@@ -1,4 +1,4 @@
-# bosh -e gce -d gobonniego deploy gce.yml
+# bosh -e gce -d gobonniego -n deploy gce.yml
 # bosh -e gce -d gobonniego run-errand pd-standard     --json | jq -r .Tables[].Rows[].stdout > gce_pd-standard.json
 # bosh -e gce -d gobonniego run-errand pd-standard-256 --json | jq -r .Tables[].Rows[].stdout > gce_pd-standard-256.json
 # bosh -e gce -d gobonniego run-errand pd-ssd          --json | jq -r .Tables[].Rows[].stdout > gce_pd-ssd.json

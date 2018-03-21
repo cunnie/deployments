@@ -1,5 +1,5 @@
 #
-# bosh -e aws update-config cloud --name=gobonniego aws-cc.yml
+# bosh -e aws update-config --type=cloud --name=gobonniego aws-cc.yml
 #
 # we are checking standard, gp2, io1 but not st1 sc1
 azs:
@@ -12,12 +12,25 @@ disk_types:
   disk_size: 20_480
   cloud_properties:
     type: standard
+- name: standard-256
+  disk_size: 262_144
+  cloud_properties:
+    type: standard
 - name: gp2
   disk_size: 20_480
   cloud_properties:
     type: gp2
+- name: gp2-256
+  disk_size: 262_144
+  cloud_properties:
+    type: gp2
 - name: io1
   disk_size: 20_480
+  cloud_properties:
+    type: io1
+    iops: 1000
+- name: io1-256
+  disk_size: 262_144
   cloud_properties:
     type: io1
     iops: 1000

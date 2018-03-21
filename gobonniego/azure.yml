@@ -1,6 +1,8 @@
-# bosh -e azure -d gobonniego deploy azure.yml
-# bosh -e azure -d gobonniego run-errand standard_lrs --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs.json
-# bosh -e azure -d gobonniego run-errand premium_lrs  --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs.json
+# bosh -e azure -d gobonniego -n deploy azure.yml
+# bosh -e azure -d gobonniego run-errand standard_lrs     --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs.json
+# bosh -e azure -d gobonniego run-errand standard_lrs-256 --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs-256.json
+# bosh -e azure -d gobonniego run-errand premium_lrs      --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs.json
+# bosh -e azure -d gobonniego run-errand premium_lrs-256  --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs-256.json
 ---
 name: gobonniego
 

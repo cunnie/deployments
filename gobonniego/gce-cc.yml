@@ -1,5 +1,5 @@
 #
-# bosh -e gce update-config cloud --name=gobonniego gce-cc.yml
+# bosh -e gce update-config --type=cloud --name=gobonniego gce-cc.yml
 #
 azs:
 - name: z1
