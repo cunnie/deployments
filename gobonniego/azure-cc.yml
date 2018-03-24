@@ -10,19 +10,43 @@ disk_types:
 - name: standard_lrs
   disk_size: 20_480
   cloud_properties:
-    type: Standard_LRS
+    caching: None
+    storage_account_type: Standard_LRS
+- name: standard_lrs-rw
+  disk_size: 20_480
+  cloud_properties:
+    caching: ReadWrite
+    storage_account_type: Standard_LRS
 - name: standard_lrs-256
   disk_size: 262_144
   cloud_properties:
-    type: Standard_LRS
+    caching: None
+    storage_account_type: Standard_LRS
+- name: standard_lrs-256-rw
+  disk_size: 262_144
+  cloud_properties:
+    caching: ReadWrite
+    storage_account_type: Standard_LRS
 - name: premium_lrs
   disk_size: 20_480
   cloud_properties:
-    type: Premium_LRS
+    caching: None
+    storage_account_type: Premium_LRS
+- name: premium_lrs-rw
+  disk_size: 20_480
+  cloud_properties:
+    caching: ReadWrite
+    storage_account_type: Premium_LRS
 - name: premium_lrs-256
   disk_size: 262_144
   cloud_properties:
-    type: Premium_LRS
+    caching: None
+    storage_account_type: Premium_LRS
+- name: premium_lrs-256-rw
+  disk_size: 262_144
+  cloud_properties:
+    caching: ReadWrite
+    storage_account_type: Premium_LRS
 
 # networks:
 # - name: default
