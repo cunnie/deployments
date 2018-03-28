@@ -4,6 +4,7 @@
 # bosh -e aws -d gobonniego run-errand standard-lr  --json | jq -r .Tables[].Rows[].stdout > aws_standard-lr.json
 # bosh -e aws -d gobonniego run-errand gp2          --json | jq -r .Tables[].Rows[].stdout > aws_gp2.json
 # bosh -e aws -d gobonniego run-errand gp2-256      --json | jq -r .Tables[].Rows[].stdout > aws_gp2-256.json
+# bosh -e aws -d gobonniego run-errand gp2-lr       --json | jq -r .Tables[].Rows[].stdout > aws_gp2-lr.json
 # bosh -e aws -d gobonniego run-errand io1          --json | jq -r .Tables[].Rows[].stdout > aws_io1.json
 # bosh -e aws -d gobonniego run-errand io1-256      --json | jq -r .Tables[].Rows[].stdout > aws_io1-256.json
 ---
@@ -41,7 +42,6 @@ instance_groups:
   networks:
   - name: default
 - name: standard-lr
-  # lr == "long running"
   azs: [z1]
   lifecycle: errand
   instances: 1
@@ -83,6 +83,21 @@ instance_groups:
       args: -runs 10 -json
   vm_type: default
   persistent_disk_type: gp2-256
+  stemcell: default
+  networks:
+  - name: default
+- name: gp2-lr
+  azs: [z1]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -runs 100 -json
+  vm_type: default
+  persistent_disk_type: gp2
   stemcell: default
   networks:
   - name: default
