@@ -1,6 +1,7 @@
 # bosh -e aws -d gobonniego -n deploy aws.yml
 # bosh -e aws -d gobonniego run-errand standard     --json | jq -r .Tables[].Rows[].stdout > aws_standard.json
 # bosh -e aws -d gobonniego run-errand standard-256 --json | jq -r .Tables[].Rows[].stdout > aws_standard-256.json
+# bosh -e aws -d gobonniego run-errand standard-lr  --json | jq -r .Tables[].Rows[].stdout > aws_standard-lr.json
 # bosh -e aws -d gobonniego run-errand gp2          --json | jq -r .Tables[].Rows[].stdout > aws_gp2.json
 # bosh -e aws -d gobonniego run-errand gp2-256      --json | jq -r .Tables[].Rows[].stdout > aws_gp2-256.json
 # bosh -e aws -d gobonniego run-errand io1          --json | jq -r .Tables[].Rows[].stdout > aws_io1.json
@@ -36,6 +37,22 @@ instance_groups:
       args: -runs 10 -json
   vm_type: default
   persistent_disk_type: standard-256
+  stemcell: default
+  networks:
+  - name: default
+- name: standard-lr
+  # lr == "long running"
+  azs: [z1]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -runs 50 -json
+  vm_type: default
+  persistent_disk_type: standard
   stemcell: default
   networks:
   - name: default
