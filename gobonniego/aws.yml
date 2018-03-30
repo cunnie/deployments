@@ -95,7 +95,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 100 -json
+      args: -runs 40 -json
   vm_type: default
   persistent_disk_type: gp2
   stemcell: default
