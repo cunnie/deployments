@@ -151,7 +151,7 @@ instance_groups:
   - consumes:
       baggageclaim:
         from: worker-baggageclaim
-    name: groundcrew
+    name: worker
     properties:
       drain_timeout: 10m
       tsa:
@@ -223,17 +223,17 @@ instance_groups:
 name: concourse
 releases:
 - name: concourse
-  sha1: a0ebed14c296273f37ed2a7ec79b9a7814734e16
-  url: https://bosh.io/d/github.com/concourse/concourse?v=3.9.2
-  version: 3.9.2
+  sha1: fb3bedc9f9bf2304449b90c86f6d624a6819d363
+  url: https://bosh.io/d/github.com/concourse/concourse?v=3.10.0
+  version: 3.10.0
 - name: garden-runc
-  sha1: 9cb3ec63f04d6cfb3047229544f261ff737f203e
-  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.12.0
-  version: 1.12.0
+  sha1: ed353e41eec34c3713d6d80c4cc890afc7291cca
+  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.12.1
+  version: 1.12.1
 - name: postgres
-  sha1: 20929ee4b0c64fd97072a266311a6d00714124a7
-  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=25
-  version: "25"
+  sha1: c1fcec62cb9d2e95e3b191e3c91d238e2b9d23fa
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=28
+  version: "28"
 - name: os-conf
   version: "19"
   sha1: f515406949ee0bba0329d1ce4a7eb1679521eabd
@@ -247,7 +247,7 @@ releases:
 stemcells:
 - alias: trusty
   os: ubuntu-trusty
-  version: 3468.latest
+  version: latest
 update:
   canaries: 1
   canary_watch_time: 1000-60000
