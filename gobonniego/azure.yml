@@ -1,9 +1,10 @@
 # bosh -e azure -d gobonniego -n deploy azure.yml
 # bosh -e azure -d gobonniego run-errand standard_lrs        --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs.json
-# bosh -e azure -d gobonniego run-errand standard_lrs-rw     --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs-rw.json
 # bosh -e azure -d gobonniego run-errand standard_lrs-256    --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs-256.json
 # bosh -e azure -d gobonniego run-errand premium_lrs         --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs.json
 # bosh -e azure -d gobonniego run-errand premium_lrs-256     --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs-256.json
+#
+# bosh -e azure -d gobonniego run-errand standard_lrs-rw     --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs-rw.json
 # bosh -e azure -d gobonniego run-errand premium_lrs-256-rw  --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs-256-rw.json
 #
 # bosh -e azure -d gobonniego ssh --gw-host=bosh-azure.nono.io --gw-user=jumpbox --gw-private-key=~/.ssh/bosh_deployment
@@ -20,7 +21,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: standard_f4_v2
   persistent_disk_type: standard_lrs
   stemcell: default
@@ -35,7 +36,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: standard_f4_v2
   persistent_disk_type: standard_lrs-rw
   stemcell: default
@@ -50,7 +51,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: standard_f4_v2
   persistent_disk_type: standard_lrs-256
   stemcell: default
@@ -65,7 +66,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: standard_f4_v2
   persistent_disk_type: premium_lrs
   stemcell: default
@@ -80,7 +81,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: standard_f4_v2
   persistent_disk_type: premium_lrs-256
   stemcell: default
@@ -95,7 +96,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: standard_f4_v2
   persistent_disk_type: premium_lrs-256-rw
   stemcell: default
