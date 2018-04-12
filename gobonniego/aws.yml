@@ -18,7 +18,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: default
   persistent_disk_type: standard
   stemcell: default
@@ -33,7 +33,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: default
   persistent_disk_type: standard-256
   stemcell: default
@@ -48,7 +48,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: default
   persistent_disk_type: gp2
   stemcell: default
@@ -63,7 +63,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: default
   persistent_disk_type: gp2-256
   stemcell: default
