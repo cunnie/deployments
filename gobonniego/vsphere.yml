@@ -15,7 +15,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: freenas
   persistent_disk_type: freenas
   stemcell: default
@@ -30,7 +30,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: sata
   persistent_disk_type: sata
   stemcell: default
@@ -45,7 +45,7 @@ instance_groups:
     release: gobonniego
     properties:
       dir: /var/vcap/store/gobonniego
-      args: -runs 40 -iops-duration 60 -json
+      args: -seconds 86400 -iops-duration 60 -json
   vm_type: nvme
   persistent_disk_type: nvme
   stemcell: default
