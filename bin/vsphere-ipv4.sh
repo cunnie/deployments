@@ -47,7 +47,7 @@ bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v vcenter_dc=dc \
   -v vcenter_cluster=cl \
   -v vcenter_rp=BOSH-IPv4 \
-  -v vcenter_ds=NAS-0 \
+  -v vcenter_ds=SSD-0 \
   -v vcenter_ip=vcenter.nono.io \
   -v vcenter_user=administrator@vsphere.local \
   -v vcenter_templates=bosh-vsphere-ipv4-templates \
