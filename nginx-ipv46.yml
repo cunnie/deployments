@@ -1,5 +1,5 @@
 ---
-# bosh -e ipv4 deploy -d nginx nginx.yml
+# bosh -e ipv4 deploy -d nginx nginx-ipv46.yml
 name: nginx
 
 instance_groups:
