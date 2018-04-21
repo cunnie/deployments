@@ -14,6 +14,7 @@
     name: nginx
     properties:
       nginx_conf: |
+        user  nobody vcap; # group vcap can read /var/vcap/data/nginx
         worker_processes  1;
         error_log /var/vcap/sys/log/nginx/error.log   info;
         #pid        logs/nginx.pid; # PIDFILE is configured via monit's ctl
