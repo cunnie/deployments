@@ -3,9 +3,9 @@
   path: /releases/-
   value:
     name: nginx
-    version: 1.12.2
-    url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.12.2/nginx-1.12.2.tgz
-    sha1: e5e5f54d46e2a70fac85ba16e96ccb7e4148bdfa
+    version: 1.13.12
+    url: https://github.com/cloudfoundry-community/nginx-release/releases/download/1.13.12/nginx-release-1.13.12.tgz
+    sha1: c5d767f43a68b89d9603bccac2a60b6a5dc29836
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-

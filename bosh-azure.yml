@@ -1347,9 +1347,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.6.5-ubuntu-trusty-3541.10-20180329-193725-445975294-20180329193729.tgz?versionId=scvcFwaTcvkrpBoriVwjpomlFufz34Zh
   version: 1.6.5
 - name: nginx
-  sha1: e5e5f54d46e2a70fac85ba16e96ccb7e4148bdfa
-  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/v1.12.2/nginx-1.12.2.tgz
-  version: 1.12.2
+  sha1: c5d767f43a68b89d9603bccac2a60b6a5dc29836
+  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/1.13.12/nginx-release-1.13.12.tgz
+  version: 1.13.12
 - name: ntp
   sha1: 44fae7426d3937fba23f2b57b6a794a0ded62922
   url: https://github.com/cloudfoundry-community/ntp-release/releases/download/v4/ntp-4.tgz
