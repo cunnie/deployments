@@ -158,7 +158,8 @@ instance_groups:
     properties:
       users:
       - name: jumpbox
-        public_key: ((jumpbox_user_public_key))
+        public_key: |
+          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD cunnie@nono.io
     release: os-conf
   - name: uaa
     properties:
