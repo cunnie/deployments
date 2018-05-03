@@ -1,3 +1,4 @@
+# bosh -e ipv4 ucc cloud-config-vsphere.yml
 azs:
 - name: z1
   cloud_properties:
@@ -18,6 +19,11 @@ vm_types:
     cpu: 4
     ram: 4096
     disk: 3072
+- name: concourse-workers
+  cloud_properties:
+    cpu: 4
+    ram: 8192
+    disk: 32_768
 
 disk_types:
 - name: default
@@ -33,6 +39,15 @@ networks:
     azs: [ z1 ]
     cloud_properties:
       name: VM Network
+- name: guest
+  type: manual
+  subnets:
+  - range: 10.2.0.0/24
+    gateway: 10.2.0.1
+    static: [ 10.2.0.224-10.2.0.239 ]
+    azs: [ z1 ]
+    cloud_properties:
+      name: Guest
 
 compilation:
   workers: 5
