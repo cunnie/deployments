@@ -2,3 +2,11 @@
 - type: replace
   path: /disk_pools/name=disks/disk_size?
   value: 20_000
+
+- type: replace
+  path: /releases/name=bosh/url
+  value: https://s3.amazonaws.com/bosh-alpha-compiled-release-tarballs/bosh-265.2.0%2Bdev.1-ubuntu-trusty-3541.12-20180505-012020-273646396-20180505012024.tgz?versionId=h_IcgYvE6GJGWggyJXQ7BjN9eJRO0UFD
+
+- type: replace
+  path: /releases/name=bosh/sha1
+  value: 0c1cc626f337b083ee3b7c6af9cab1a4dc57d15d

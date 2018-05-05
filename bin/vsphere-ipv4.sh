@@ -22,6 +22,8 @@ bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/local-dns.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/bpm.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/blobstore-https.yml \
   \
   --state=$DEPLOYMENTS_DIR/bosh-vsphere-ipv4-state.json \
   \
