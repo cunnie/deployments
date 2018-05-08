@@ -2,6 +2,7 @@
 # bosh -e ipv4 -d gobonniego run-errand freenas --json | jq -r .Tables[].Rows[].stdout > vsphere_freenas.json
 # bosh -e ipv4 -d gobonniego run-errand sata    --json | jq -r .Tables[].Rows[].stdout > vsphere_sata.json
 # bosh -e ipv4 -d gobonniego run-errand nvme    --json | jq -r .Tables[].Rows[].stdout > vsphere_nvme.json
+# bosh -e ipv4 -d gobonniego deld
 ---
 name: gobonniego
 

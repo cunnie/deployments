@@ -3,9 +3,9 @@
 # bosh -e azure -d gobonniego run-errand standard_lrs-256    --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs-256.json
 # bosh -e azure -d gobonniego run-errand premium_lrs         --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs.json
 # bosh -e azure -d gobonniego run-errand premium_lrs-256     --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs-256.json
-#
 # bosh -e azure -d gobonniego run-errand standard_lrs-rw     --json | jq -r .Tables[].Rows[].stdout > azure_standard_lrs-rw.json
 # bosh -e azure -d gobonniego run-errand premium_lrs-256-rw  --json | jq -r .Tables[].Rows[].stdout > azure_premium_lrs-256-rw.json
+# bosh -e azure -d gobonniego deld
 #
 # bosh -e azure -d gobonniego ssh --gw-host=bosh-azure.nono.io --gw-user=jumpbox --gw-private-key=~/.ssh/bosh_deployment
 ---

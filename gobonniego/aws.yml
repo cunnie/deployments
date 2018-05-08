@@ -5,6 +5,7 @@
 # bosh -e aws -d gobonniego run-errand gp2-256      --json | jq -r .Tables[].Rows[].stdout > aws_gp2-256.json
 # bosh -e aws -d gobonniego run-errand io1          --json | jq -r .Tables[].Rows[].stdout > aws_io1.json
 # bosh -e aws -d gobonniego run-errand io1-256      --json | jq -r .Tables[].Rows[].stdout > aws_io1-256.json
+# bosh -e aws -d gobonniego deld
 ---
 name: gobonniego
 
