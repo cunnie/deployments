@@ -219,7 +219,7 @@ instance_groups:
     static_ips:
     - 104.155.144.4
   persistent_disk_type: db
-  stemcell: trusty
+  stemcell: xenial
   vm_type: concourse
 name: concourse
 releases:
@@ -246,8 +246,8 @@ releases:
 - name: sysctl
   version: latest
 stemcells:
-- alias: trusty
-  os: ubuntu-trusty
+- alias: xenial
+  os: ubuntu-xenial
   version: latest
 update:
   canaries: 1
