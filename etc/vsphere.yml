@@ -10,3 +10,11 @@
 - type: replace
   path: /releases/name=bosh/sha1
   value: 0c1cc626f337b083ee3b7c6af9cab1a4dc57d15d
+
+# Let's use the Xenial Stemcell; get rid of this when there's a real
+# `bosh-deployment` manifest operations file for Xenial
+- type: replace
+  path: /resource_pools/name=vms/stemcell
+  value:
+    sha1: b0e1898be1d99b42a082c1d7e1943a451d243d3a
+    url:  https://s3.amazonaws.com/bosh-core-stemcells/vsphere/bosh-stemcell-50-vsphere-esxi-ubuntu-xenial-go_agent.tgz
