@@ -30,6 +30,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -o etc/common.yml \
   -o etc/TLS.yml \
+  -o etc/gce.yml \
   \
   --vars-store=bosh-gce-creds.yml \
   --var-file commercial_ca_crt=etc/COMODORSACertificationAuthority.crt \

@@ -1,0 +1,7 @@
+# Let's use the Xenial Stemcell; get rid of this when there's a real
+# `bosh-deployment` manifest operations file for Xenial
+- type: replace
+  path: /resource_pools/name=vms/stemcell
+  value:
+    sha1: 4ff7c62401efc741e43e3a5fe61f44e4cc9c07d8
+    url:  https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-50-google-kvm-ubuntu-xenial-go_agent.tgz
