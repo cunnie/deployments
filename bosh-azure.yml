@@ -1386,6 +1386,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 60a6561e0bfe48d92acd40e38708d061799103f4
-    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3541.10
+    sha1: a37670eb9be009b83cdf3377531d71d68e0bdea7
+    url: https://s3.amazonaws.com/bosh-core-stemcells/azure/bosh-stemcell-40-azure-hyperv-ubuntu-xenial-go_agent.tgz
 variables: []
