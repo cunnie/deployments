@@ -185,9 +185,11 @@ instance_groups:
         restrict -6 default limited kod nomodify notrap nopeer
         restrict 127.0.0.0 mask 255.0.0.0
         restrict -6 ::1
-        # require at least 1s between packets from an address, rather than the default of 2s
-        # http://lists.ntp.org/pipermail/questions/2010-April/026306.html
-        discard minimum 0
+      post_start: |
+        #!/bin/bash -x
+        # on Xenial we disable chrony because we're running ntpd
+        systemctl disable chrony.service
+        systemctl stop    chrony.service
     release: ntp
   - name: pdns
     properties:
