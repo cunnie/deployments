@@ -805,9 +805,11 @@ instance_groups:
         restrict -6 default limited kod nomodify notrap nopeer
         restrict 127.0.0.0 mask 255.0.0.0
         restrict -6 ::1
-        # require at least 1s between packets from an address, rather than the default of 2s
-        # http://lists.ntp.org/pipermail/questions/2010-April/026306.html
-        discard minimum 0
+      post_start: |
+        #!/bin/bash -x
+        # on Xenial we disable chrony because we're running ntpd
+        systemctl disable chrony.service
+        systemctl stop    chrony.service
     release: ntp
   - name: pdns
     properties:
@@ -1461,9 +1463,9 @@ releases:
   url: https://github.com/cloudfoundry-community/nginx-release/releases/download/1.13.12/nginx-release-1.13.12.tgz
   version: 1.13.12
 - name: ntp
-  sha1: 44fae7426d3937fba23f2b57b6a794a0ded62922
-  url: https://github.com/cloudfoundry-community/ntp-release/releases/download/v4/ntp-4.tgz
-  version: 4
+  sha1: 39b40f23a5a823382d6e118e6427f27d7cb08630
+  url: https://github.com/cloudfoundry-community/ntp-release/releases/download/4.2.8p11/ntp-release-4.2.8p11.tgz
+  version: 4.2.8p11
 - name: pdns
   sha1: 1f1534b88098300fc282a720bc50c55750ba873a
   url: https://github.com/cloudfoundry-community/pdns-release/releases/download/v4.0.4/pdns-4.0.4.tgz
@@ -1480,6 +1482,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 0b6a8d8edfe976480b3dd1edc82f762c5945b9cb
-    url: https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-40-aws-xen-hvm-ubuntu-xenial-go_agent.tgz
+    sha1: ef246b69b381e75f3a48754ec24dbff9252260e1
+    url: https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-50-aws-xen-hvm-ubuntu-xenial-go_agent.tgz
 variables: []
