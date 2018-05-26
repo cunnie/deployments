@@ -1,7 +1,9 @@
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
 # bosh create-env bosh-lite.yml -l <(lpass show --note deployments.yml) --vars-store=bosh-lite-creds.yml --state=$HOME/.bosh/bosh-lite-state.json
-# bosh -e bosh-lite.nono.io alias-env lite
+# sudo route add -net 10.244.0.0/16     192.168.50.6
+# bosh -e bosh-lite.nono.io alias-env vbox
+# bosh -e vbox update-cloud-config ~/workspace/bosh-deployment/warden/cloud-config.yml
 #
 cloud_provider:
   cert:
