@@ -3,5 +3,5 @@
 - type: replace
   path: /resource_pools/name=vms/stemcell
   value:
-    sha1: 4ff7c62401efc741e43e3a5fe61f44e4cc9c07d8
-    url:  https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-50-google-kvm-ubuntu-xenial-go_agent.tgz
+    sha1: 2e3083d6060bab5ff7c2d1e91129d213e95075d0
+    url:  https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-60-google-kvm-ubuntu-xenial-go_agent.tgz
