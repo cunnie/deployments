@@ -696,6 +696,7 @@ ssh:
   public_key: |
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZafQe8j1BULlBKORLGpMJG39zbqVJ9UX5wSTdkFlVtCl5gla2xXWZazM3hZd5OCw6mWVvv0LG7tYZx5Xj62V7o0gu5fjjc2SzyDtCrUIC/nTjBHZt3d1fOBVm8qvxAbr8nAv90bI9TGmZ9kfYtVuxtS0SSAVkyElmxQZBMp31jwpxHUzqMYLPCvDkus2a/2kigMhQk6ScJVszhfIXNjXnkAduUjdzZPQ8N9shP8w7n0oFeftcnIXO1Di8iqEuke+RnfH8A0//eMiLP1KQDmTdYb+MlyIRHMv4UqvAlGnwR7e3pnqgYCtauluYOtPYglTqLClFeWgEE4SU3Jk94zKP
   public_key_fingerprint: 3c:5c:dc:61:33:b9:9f:7a:63:7c:d3:17:50:15:a1:60
+uaa_encryption_key_1: d4c65y1nroor4m3r55zt
 uaa_jwt_signing_key:
   private_key: |
     -----BEGIN RSA PRIVATE KEY-----
