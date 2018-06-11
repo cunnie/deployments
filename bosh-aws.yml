@@ -163,6 +163,11 @@ instance_groups:
     release: os-conf
   - name: uaa
     properties:
+      encryption:
+        active_key_label: uaa-encryption-key-1
+        encryption_keys:
+        - label: uaa-encryption-key-1
+          passphrase: 7czvugojniuux6xjfoq9
       login:
         saml:
           serviceProviderCertificate: |
@@ -1439,25 +1444,25 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: a8f8f5138ef1e3b356bd5078a32694625e8846a5
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-265.2.0-ubuntu-trusty-3541.10-20180327-211954-148015419-20180327211957.tgz?versionId=cMRVRXQgYNbDeRdF52IyQ1yNBu7klA5j
+  sha1: aaf26badc09a5b55a0bb781b3f5e260f4ebaad93
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-265.2.0-ubuntu-trusty-3586.16-20180601-214605-618730395-20180601214609.tgz?versionId=DHYhTaGMeojmyVFd5Tc1i_Y_pUVNaCWlhtt
   version: 265.2.0
 - name: bosh-aws-cpi
-  sha1: 8abe70219244896ea6f7208fc01f2eac56179170
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=69
+  sha1: 1007fde7a40090cdd76ea526466559f5e35c34d8
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=71
   version: "69"
 - name: os-conf
   sha1: 78d79f08ff5001cc2a24f572837c7a9c59a0e796
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
   version: 18
 - name: uaa
-  sha1: 5bb561fb03dc82696902df1eabc1b74896eb3b4f
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-52.8-ubuntu-trusty-3541.10-20180329-210152-478744903-20180329210159.tgz?versionId=yMo4REJsAJ04xxMyuwhx7mhMKXYvTcss
-  version: "52.8"
+  sha1: c5b9c9c59ec383989daa4134494e78623544dd8c
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-59-ubuntu-trusty-3586.16-20180605-222612-468773014-20180605222623.tgz?versionId=B1Ex1AVvXDtBc6TvtzTmHOx0qnlnfhUW
+  version: "59"
 - name: credhub
-  sha1: f56ec2497e39ea00acb0cd0bbe818ae285b9b441
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.6.5-ubuntu-trusty-3541.10-20180329-193725-445975294-20180329193729.tgz?versionId=scvcFwaTcvkrpBoriVwjpomlFufz34Zh
-  version: 1.6.5
+  sha1: e3979c6c51396da421ababa4a67cabd26b19d049
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.9.1-ubuntu-trusty-3586.16-20180530-222858-285012348-20180530222906.tgz?versionId=dNjBsljuC30hVwFJNgWWFCSbTEpFxntP
+  version: 1.9.1
 - name: nginx
   sha1: c5d767f43a68b89d9603bccac2a60b6a5dc29836
   url: https://github.com/cloudfoundry-community/nginx-release/releases/download/1.13.12/nginx-release-1.13.12.tgz
@@ -1482,6 +1487,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: ef246b69b381e75f3a48754ec24dbff9252260e1
-    url: https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-50-aws-xen-hvm-ubuntu-xenial-go_agent.tgz
+    sha1: e59c5e343575a3a74f5863c58c4d82b409f40718
+    url: https://s3.amazonaws.com/bosh-aws-light-stemcells/light-bosh-stemcell-60-aws-xen-hvm-ubuntu-xenial-go_agent.tgz
 variables: []
