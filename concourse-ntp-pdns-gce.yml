@@ -225,24 +225,26 @@ instance_groups:
   vm_type: concourse
 name: concourse
 releases:
-- name: concourse
-  sha1: aaa4e4d42adb2293abc79422351ca71ed548f95c
-  url: https://bosh.io/d/github.com/concourse/concourse?v=3.13.0
-  version: 3.13.0
-- name: garden-runc
-  sha1: 54cbb89cae1be0708aa056185671665d7f4b2a4f
-  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.13.1
-  version: 1.13.1
+- name: "concourse"
+  version: "3.14.1"
+  url: "https://bosh.io/d/github.com/concourse/concourse?v=3.14.1"
+  sha1: "6be91b70ecc7ce233d2aff5d03ed28c8eab3d132"
+- name: "garden-runc"
+  version: "1.14.0"
+  url: "https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.14.0"
+  sha1: "be5e6d6a263be1437d99dc5e818deeb8ab2a03a4"
 - name: postgres
   sha1: c1fcec62cb9d2e95e3b191e3c91d238e2b9d23fa
   url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=28
   version: "28"
-- name: os-conf
-  version: "19"
-  sha1: f515406949ee0bba0329d1ce4a7eb1679521eabd
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=19
-- name: ntp
-  version: latest
+- name: "os-conf"
+  version: "20"
+  url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=20"
+  sha1: "42b1295896c1fbcd36b55bfdedfe86782b2c9fba"
+- name: "ntp"
+  version: "4.2.8p11"
+  url: "https://bosh.io/d/github.com/cloudfoundry-community/ntp-release?v=4.2.8p11"
+  sha1: "4ff8708d8ec35a6793fa4974a326fd014d501f96"
 - name: pdns
   version: latest
 - name: sysctl
