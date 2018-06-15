@@ -140,6 +140,8 @@ disk_pools:
 instance_groups:
 - instances: 1
   jobs:
+  - name: bpm
+    release: bpm
   - name: nats
     release: bosh
   - name: postgres-9.4
@@ -836,6 +838,37 @@ instance_groups:
   persistent_disk_pool: disks
   properties:
     agent:
+      env:
+        bosh:
+          blobstores:
+          - options:
+              endpoint: http://10.0.0.6:25250
+              password: ((blobstore_agent_password))
+              tls:
+                cert:
+                  ca: |
+                    -----BEGIN CERTIFICATE-----
+                    MIIDUzCCAjugAwIBAgIQUNfcUZW8DLQfwV9cyGQezDANBgkqhkiG9w0BAQsFADBT
+                    MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxKzApBgNVBAMT
+                    ImRlZmF1bHQuYmxvYnN0b3JlLWNhLmJvc2gtaW50ZXJuYWwwHhcNMTgwNjE1MTkz
+                    NjU4WhcNMTkwNjE1MTkzNjU4WjBTMQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNs
+                    b3VkIEZvdW5kcnkxKzApBgNVBAMTImRlZmF1bHQuYmxvYnN0b3JlLWNhLmJvc2gt
+                    aW50ZXJuYWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDYGNn2JrVt
+                    SiZP0wBhNR89crlUGEVSqi4db0fd7Za9v9jtO8FAgYz8yRcUt6tgZgkYJBLREY8s
+                    JikWli0vOdC5P6TYG3sbe1ohBwX6idwBB+IwsDsAvDIarDj1W/4dz+PZGdQ1YOpb
+                    Fv0W5IMfDj4Ly6JudAOyHG+DNwXHFSYr4AM6OMuDBtzonT7hjpEFsib0jyiqR8yN
+                    2T8wnfgrImYhmpkUnQPNjhBpzzEoxnLch+u2cHNaDe8E5JXv/OlKCzCtRAR2wSAv
+                    uR/vKFPpUNcM5XuWAJdXQshmXeRFF896KssPUCH4BKSK3prR+EF5A/lEmrbikr11
+                    yZqfq/NhIw8zAgMBAAGjIzAhMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTAD
+                    AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA54/QdB3ZJ1jCzyZMkoggDqe8zl/ELhjFm
+                    j9l1K/qtF6yQFkPXjCVIQ3Fogn3Kaa7w9elBzROciChDmmPHgL7JhjUA0ebexq3O
+                    gU/Sollp+KK+Q+79G9mkbbE+JYuuIAClJpWPPNKAK+3M1voAx1DU4/zknSroH464
+                    5H70ptk1DkXvFlvWXKDSNMzKE3v1SeQrn2L0NIPdUV2YE9KFyvvsjvw92Dh5jmJp
+                    2sVhlaL9PHW7GSDW7H8KbNVdQnfgrIyXwEhrfJwL4aSZNNMXfs7izGISD8yXsLNS
+                    0mPGzdTku3u/eHR4D8HkVmH/42qcyl+NpYbUHKnZx0es0259ZJ+q
+                    -----END CERTIFICATE-----
+              user: agent
+            provider: dav
       mbus: nats://nats:((nats_password))@10.0.0.6:4222
     aws:
       access_key_id: ((access_key_id))
@@ -854,6 +887,78 @@ instance_groups:
         user: director
       port: 25250
       provider: dav
+      tls:
+        cert:
+          ca: |
+            -----BEGIN CERTIFICATE-----
+            MIIDUzCCAjugAwIBAgIQUNfcUZW8DLQfwV9cyGQezDANBgkqhkiG9w0BAQsFADBT
+            MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxKzApBgNVBAMT
+            ImRlZmF1bHQuYmxvYnN0b3JlLWNhLmJvc2gtaW50ZXJuYWwwHhcNMTgwNjE1MTkz
+            NjU4WhcNMTkwNjE1MTkzNjU4WjBTMQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNs
+            b3VkIEZvdW5kcnkxKzApBgNVBAMTImRlZmF1bHQuYmxvYnN0b3JlLWNhLmJvc2gt
+            aW50ZXJuYWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDYGNn2JrVt
+            SiZP0wBhNR89crlUGEVSqi4db0fd7Za9v9jtO8FAgYz8yRcUt6tgZgkYJBLREY8s
+            JikWli0vOdC5P6TYG3sbe1ohBwX6idwBB+IwsDsAvDIarDj1W/4dz+PZGdQ1YOpb
+            Fv0W5IMfDj4Ly6JudAOyHG+DNwXHFSYr4AM6OMuDBtzonT7hjpEFsib0jyiqR8yN
+            2T8wnfgrImYhmpkUnQPNjhBpzzEoxnLch+u2cHNaDe8E5JXv/OlKCzCtRAR2wSAv
+            uR/vKFPpUNcM5XuWAJdXQshmXeRFF896KssPUCH4BKSK3prR+EF5A/lEmrbikr11
+            yZqfq/NhIw8zAgMBAAGjIzAhMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTAD
+            AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA54/QdB3ZJ1jCzyZMkoggDqe8zl/ELhjFm
+            j9l1K/qtF6yQFkPXjCVIQ3Fogn3Kaa7w9elBzROciChDmmPHgL7JhjUA0ebexq3O
+            gU/Sollp+KK+Q+79G9mkbbE+JYuuIAClJpWPPNKAK+3M1voAx1DU4/zknSroH464
+            5H70ptk1DkXvFlvWXKDSNMzKE3v1SeQrn2L0NIPdUV2YE9KFyvvsjvw92Dh5jmJp
+            2sVhlaL9PHW7GSDW7H8KbNVdQnfgrIyXwEhrfJwL4aSZNNMXfs7izGISD8yXsLNS
+            0mPGzdTku3u/eHR4D8HkVmH/42qcyl+NpYbUHKnZx0es0259ZJ+q
+            -----END CERTIFICATE-----
+          certificate: |
+            -----BEGIN CERTIFICATE-----
+            MIIDXDCCAkSgAwIBAgIQXAb2q2chM8OFm+4D/SUvRzANBgkqhkiG9w0BAQsFADBT
+            MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxKzApBgNVBAMT
+            ImRlZmF1bHQuYmxvYnN0b3JlLWNhLmJvc2gtaW50ZXJuYWwwHhcNMTgwNjE1MTkz
+            NjU4WhcNMTkwNjE1MTkzNjU4WjA5MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNs
+            b3VkIEZvdW5kcnkxETAPBgNVBAMTCDEwLjAuMC42MIIBIjANBgkqhkiG9w0BAQEF
+            AAOCAQ8AMIIBCgKCAQEAxzk/XVSawLHxdMRNymNai+lMuSNPSs3A5YKn7ZI61q4Q
+            Hg4hFscjfxsX1d9ITsEM8K/WacgSnfozgQXgwOXjzOUYK/qFbcsUQGDv1EVCeRGf
+            FQBVmfOf4HNrwf6yabfQ3qiuEGXAWVOU1agDGg4vm14skXAezv78GRkPnYb1f3LZ
+            wIe19ywqGn1gGU1i3CPVxcMLdOiLh78GbCWXG8jqomF0j3AUxEsTYP6UvWnwrCo+
+            B8AyHQDCMGkCuVc4vOiwgqHUITqG8VhzvjjYY6bCr3qKpqg2KU5wP3jQXbKmHtmN
+            4xGk6fBC6eQQkRUV6tRqAEiwqiqQRMf+uP21ReB5xwIDAQABo0YwRDAOBgNVHQ8B
+            Af8EBAMCBaAwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDAYDVR0TAQH/BAIwADAPBgNV
+            HREECDAGhwQKAAAGMA0GCSqGSIb3DQEBCwUAA4IBAQBwp7W4VfBcGBImmfOEkX2N
+            RXnbqIMsvvM8BG2pf4u009SnEPISMtvnG+ACTTaO1v2DitFu4St+SHVjxdKVjwMO
+            nxzRhWfnw8+UF+ji9apIZEGVIaqdvqtbCqKITu5G06FtdMzuWycroaZZTQecDmUi
+            Dq/5q6Obw3dQWe1cL3/bVG6KbR9eaF3Tv3I+Bah68rpNCqU1lS4C5P+uaM9QTKpm
+            KWKh2mAbu2n+MdlzMQWNeaupZGK8CdgMewsVS/gSBJxpU3PDMrro/49h8g3B/O8f
+            JqAEqNJpJahJ8sjm5Et6WQgmXDa3i1/e8eh9F7giPOgGsnsZu/hRIz0sb6Vm8uou
+            -----END CERTIFICATE-----
+          private_key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            MIIEowIBAAKCAQEAxzk/XVSawLHxdMRNymNai+lMuSNPSs3A5YKn7ZI61q4QHg4h
+            FscjfxsX1d9ITsEM8K/WacgSnfozgQXgwOXjzOUYK/qFbcsUQGDv1EVCeRGfFQBV
+            mfOf4HNrwf6yabfQ3qiuEGXAWVOU1agDGg4vm14skXAezv78GRkPnYb1f3LZwIe1
+            9ywqGn1gGU1i3CPVxcMLdOiLh78GbCWXG8jqomF0j3AUxEsTYP6UvWnwrCo+B8Ay
+            HQDCMGkCuVc4vOiwgqHUITqG8VhzvjjYY6bCr3qKpqg2KU5wP3jQXbKmHtmN4xGk
+            6fBC6eQQkRUV6tRqAEiwqiqQRMf+uP21ReB5xwIDAQABAoIBACGl9KLR0FVteIet
+            RCpDv55T6CZ45UKQH91jxPMmOJPb0FMTNdmABunH7K2tyaurhYD9Yex541MVWC+Z
+            i41pBqGrq/p5lKGnpCL/fGJQ1FpYdJL6fHrFICKru+6HEyEx77A7szKHzQYJTOEN
+            QIDdFoNaU5K46isx++hNSErl6X793aSm31OINhfISq2HLgUksI9AwcKvwdZrSd8B
+            d/G1OdpuC2wVGDqbZZyNjl0QOvxyb083scBJTL3WR2dEnglVKRDUP+yDrV8FKGas
+            gyl/jI3PcQbjQtko395k10ceV0OTm7wZ0gA2WWq2Pns+nSN+6nD7E8rFGnE83zKz
+            QLvN+wkCgYEA5ynRl+f+vxf9dHAl1gxH94drp/TZ3lsphXdmKAd8aZZMA//eSK4B
+            iEzkylrUTTZfVsBvkumse6qq7+5UTTK7I8iw1U5gf2CaTh+fk1q1acZYrxnctzDf
+            nHW+9/0l+gcdxq+pjOh2phw8y5LXdB+I74IZHtA1GRJbJQHpjopv8OUCgYEA3KDs
+            AV8j8cBqQy4SiZb4txb4hMs10cf5zTln64ZuDKFr3wP7b+g5w+GWCMTo2cV1Jtdm
+            bpYs9TPS5+bVX+tVKH3HcNNG9qSY4OlBvDwPwkuKYBBWnWt57YvGEHCEMtwFVwnV
+            WLFsEXseX1jsDUn2t5NP//0jcEAztw6Dkf810TsCgYB1iLPC0viZ3O7Hx0XVoYTt
+            /HLmgP5NqnhgHidY7wV5AixAVFaHCcJJtR8XLDuJzr2G9G1Ge31xm4MyXzGJ1uOD
+            /ES9EA7MdSe/1SBj4dkfoPPyg+nPUxA/Ezc4DATFLd0b6rEArim1p+HZeB4IMwiD
+            DtkK674zszuYg3JnQUhNaQKBgFSi8wZvrgVOsDUHVpsrrEvoZvviTMomMeEVlZUX
+            o936irwp9envJ0HKp1jD2SO5iQCWfzgLKkICWHUX62D5kViQL9NLaZyydedJ9Cq2
+            y8DYY8QIYIHROhvzk864qy4rk2zZW9vDbFakaXlgTmWmqxuvSnBEdrTYHD6sNbLr
+            OYUDAoGBANDGaOoW/36/oKRgnpujvSzsDH4bEkrNgPRRkGlfFx+6aJuK7/eTXLqN
+            ERG/WlNpaidfT63R+spniZJ+PwicH2AR4xiRMKiRITEDyGhT/zYowihA7BNPjIOm
+            ZvsXwHtL5J4pIMp5k9oQyCU3o6CnFa9NOCPUVWMu9lCg/UtQruC2
+            -----END RSA PRIVATE KEY-----
     director:
       address: 127.0.0.1
       config_server:
@@ -1444,13 +1549,17 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: aaf26badc09a5b55a0bb781b3f5e260f4ebaad93
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-265.2.0-ubuntu-trusty-3586.16-20180601-214605-618730395-20180601214609.tgz?versionId=DHYhTaGMeojmyVFd5Tc1i_Y_pUVNaCWlhtt
-  version: 265.2.0
+  sha1: 8dd0cfdf58a591200d45141cee51358202fbe380
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-266.2.0-ubuntu-trusty-3586.16-20180611-175207-293401672-20180611175210.tgz?versionId=SBu7LrRQFLuPNYoCGHQPO_3UlgYS5qc2
+  version: 266.2.0
+- name: bpm
+  sha1: 1bd9d9742b6b1d772b5e43911b04d41eb19c37ff
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.6.0-ubuntu-trusty-3586.16-20180530-222940-937586714-20180530222946.tgz?versionId=Jl9xZNytqSoBWcigYleEl6U0z91tS0lShtt
+  version: 0.6.0
 - name: bosh-aws-cpi
   sha1: 1007fde7a40090cdd76ea526466559f5e35c34d8
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=71
-  version: "69"
+  version: "71"
 - name: os-conf
   sha1: 78d79f08ff5001cc2a24f572837c7a9c59a0e796
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
