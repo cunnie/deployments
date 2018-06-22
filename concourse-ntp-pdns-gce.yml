@@ -1,7 +1,7 @@
 ---
 # bosh -e gce deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)  --no-redact
 #
-# bosh -e gce -d concourse ssh  --gw-host=bosh-gce.nono.io --gw-user=jumpbox --gw-private-key=~/.ssh/bosh_deployment
+# bosh -e gce -d concourse ssh
 #
 # bin/concourse.sh will build a Concourse manifest for comparison
 
