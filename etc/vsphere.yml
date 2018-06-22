@@ -3,18 +3,10 @@
   path: /disk_pools/name=disks/disk_size?
   value: 20_000
 
-- type: replace
-  path: /releases/name=bosh/url
-  value: https://s3.amazonaws.com/bosh-alpha-compiled-release-tarballs/bosh-265.2.0%2Bdev.1-ubuntu-trusty-3541.12-20180505-012020-273646396-20180505012024.tgz?versionId=h_IcgYvE6GJGWggyJXQ7BjN9eJRO0UFD
-
-- type: replace
-  path: /releases/name=bosh/sha1
-  value: 0c1cc626f337b083ee3b7c6af9cab1a4dc57d15d
-
 # Let's use the Xenial Stemcell; get rid of this when there's a real
 # `bosh-deployment` manifest operations file for Xenial
 - type: replace
   path: /resource_pools/name=vms/stemcell
   value:
-    sha1: ba7ac25804641ff8aa236e83985c44c51e28e912
-    url:  https://s3.amazonaws.com/bosh-core-stemcells/vsphere/bosh-stemcell-60-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: 7f465f5fdd3de30a8975b359f66f8302f468a7c2
+    url:  https://s3.amazonaws.com/bosh-core-stemcells/vsphere/bosh-stemcell-81-vsphere-esxi-ubuntu-xenial-go_agent.tgz
