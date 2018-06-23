@@ -239,7 +239,7 @@ instance_groups:
             authorized-grant-types: password,refresh_token
             override: true
             refresh-token-validity: 86400
-            scope: openid,bosh.admin,bosh.read,bosh.*.admin,bosh.*.read
+            scope: openid,bosh.admin,bosh.read,bosh.*.admin,bosh.*.read,bosh.teams.*.admin,bosh.teams.*.read
             secret: ""
           credhub-admin:
             access-token-validity: 3600
@@ -1371,6 +1371,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 2e3083d6060bab5ff7c2d1e91129d213e95075d0
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-60-google-kvm-ubuntu-xenial-go_agent.tgz
+    sha1: 6d148bc7d4e71551a0bd0cbfbb962c422fceefe2
+    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-81-google-kvm-ubuntu-xenial-go_agent.tgz
 variables: []
