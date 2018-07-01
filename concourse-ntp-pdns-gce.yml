@@ -209,7 +209,7 @@ instance_groups:
     properties:
       users:
       - name: cunnie
-        public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHdMSgO8JNBrBcrrl3iYZWbI1/f+chFPwoNIkWzN6G4w0kIDNc2EgaL5Q+HZfja2oieYWiwwyubsEBWKicDhvp30zVgt6UNqCioAjXb0lZ+exNlf/F48TVqZCpplRG4iCU68fCVGAFHJY9Q6rMY7Q/7hIlrd731wHl8GHsp3lG9og9tuKoVPZjMFobCMNFZJ6Itd+e6ryoCN4W3MWVZJ1Dhdql2TA80fdpAyFimAeAZWbg1DxpcneguLUlN52D0KAEaUyujqDnelJc4bz32igV7zun2EIBeP8G6aE9STafKjC1Q+hveVeo62Neh9wF4MkkgSFChrGJwBIrCK8cOj4x cunnie@nono.io"
+        public_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD cunnie@nono.io"
     release: os-conf
   name: concourse
   networks:
