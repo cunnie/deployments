@@ -2,6 +2,13 @@
 # fly -t nono expose-pipeline -p BOSH
 # fly -t nono unpause-pipeline -p BOSH
 
+groups:
+- name: BOSH
+  jobs:
+  - bosh-aws.nono.io
+  - bosh-azure.nono.io
+  - bosh-gce.nono.io
+
 jobs:
 - name: bosh-aws.nono.io
   plan:
