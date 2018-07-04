@@ -8,5 +8,5 @@
 - type: replace
   path: /resource_pools/name=vms/stemcell
   value:
-    sha1: 7f465f5fdd3de30a8975b359f66f8302f468a7c2
-    url:  https://s3.amazonaws.com/bosh-core-stemcells/vsphere/bosh-stemcell-81-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: b13b5d0f869809feb130b7b0c26529db4d646639
+    url:  https://s3.amazonaws.com/bosh-core-stemcells/vsphere/bosh-stemcell-87-vsphere-esxi-ubuntu-xenial-go_agent.tgz
