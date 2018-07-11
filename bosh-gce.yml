@@ -319,6 +319,11 @@ instance_groups:
           client_secret: ((uaa_login_client_secret))
         port: -1
         scim:
+          groups:
+            bosh.admin: User has admin access on any Director
+            bosh.read: User has read access on any Director
+            bosh.releases.upload: User can upload new releases
+            bosh.stemcells.upload: User can upload new stemcells
           users:
           - groups:
             - bosh.admin
@@ -1371,6 +1376,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 6d148bc7d4e71551a0bd0cbfbb962c422fceefe2
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-81-google-kvm-ubuntu-xenial-go_agent.tgz
+    sha1: 0d1009eaa854044d3d998d756d03d4b107952474
+    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-87-google-kvm-ubuntu-xenial-go_agent.tgz
 variables: []
