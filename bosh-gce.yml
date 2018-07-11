@@ -1376,6 +1376,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 0d1009eaa854044d3d998d756d03d4b107952474
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-87-google-kvm-ubuntu-xenial-go_agent.tgz
+    sha1: 675c873825d261edc06e1a4fd3793011bf1512e5
+    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-87.1-google-kvm-ubuntu-xenial-go_agent.tgz
 variables: []
