@@ -1477,9 +1477,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
   version: 18
 - name: uaa
-  sha1: 6aaab8dd2bc1e30750b83bc557b3df4d4f911e9f
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-60-ubuntu-trusty-3586.24-20180626-235737-955768119-20180626235749.tgz?versionId=FYd8djZY0Ti913cTYkFBw1EcfteGNcTzhtt
-  version: "60"
+  sha1: ab2f9afc80e7655ab51514e15a7b3ead79d66d54
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-60.2-ubuntu-trusty-3586.25-20180719-211521-859356054-20180719211535.tgz?versionId=xPYgwJsDhNEtSKGpTBe5ts8kaHCINK0y
+  version: "60.2"
 - name: credhub
   sha1: ce5606206c6cd10b1cac6745537eeb5be8721182
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.9.3-ubuntu-trusty-3586.24-20180618-221934-781997794-20180618221943.tgz?versionId=mHSM2jQnHSB5KE5AZMvscria7F47BLfs
