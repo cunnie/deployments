@@ -16,13 +16,13 @@ cat > $DEPLOYMENTS_DIR/concourse.yml <<EOF
 #
 EOF
 
-bosh int $DEPLOYMENTS_DIR/../concourse-deployment/cluster/concourse.yml \
-  -l $DEPLOYMENTS_DIR/../concourse-deployment/versions.yml \
+bosh int $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/concourse.yml \
+  -l $DEPLOYMENTS_DIR/../concourse-bosh-deployment/versions.yml \
   -o etc/concourse.yml \
-  -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/static-web.yml \
-  -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/github-auth.yml \
-  -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/privileged-https.yml \
-  -o $DEPLOYMENTS_DIR/../concourse-deployment/cluster/operations/tls.yml \
+  -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/static-web.yml \
+  -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/github-auth.yml \
+  -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/privileged-https.yml \
+  -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/tls.yml \
   \
   --var-file atc_tls.certificate=etc/nono.io.crt \
   --var      atc_tls.private_key="((nono_io_key))" \
