@@ -12,14 +12,17 @@ instance_groups:
   jobs:
   - name: atc
     properties:
+      auth_duration: 240h
       external_url: https://ci.nono.io
       github_auth:
-        authorize:
-        - organization: blabbertabber
-          teams: all
         client_id: d4d77ce34ecc620d5220
         client_secret: ((github_concourse_nono_auth_client_secret))
       log_level: debug
+      main_team:
+        auth:
+          github:
+            orgs:
+            - blabbertabber
       postgresql:
         database: atc
         role:
