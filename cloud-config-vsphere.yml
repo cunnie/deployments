@@ -44,12 +44,9 @@ networks:
     cloud_properties:
       name: VM Network
 - name: guest
-  type: manual
+  type: dynamic
   subnets:
-  - range: 10.2.0.0/24
-    gateway: 10.2.0.1
-    static: [ 10.2.0.224-10.2.0.239 ]
-    azs: [ z1 ]
+  - az: z1
     cloud_properties:
       name: Guest
 
