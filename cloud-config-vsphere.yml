@@ -23,7 +23,7 @@ vm_types:
   cloud_properties:
     cpu: 4
     ram: 8192
-    disk: 32_768
+    disk: 65_536
 
 disk_types:
 - name: default

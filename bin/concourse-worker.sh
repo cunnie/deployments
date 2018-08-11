@@ -19,6 +19,6 @@ pushd $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster
     -v azs=[z1] \
     -v deployment_name=concourse-worker \
     -v tsa_host=ci.nono.io \
-    -v worker_tags=[vsphere] \
+    -v worker_tags=[] \
     -l <(lpass show --note deployments.yml)
 popd
