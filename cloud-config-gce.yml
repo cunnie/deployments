@@ -12,8 +12,8 @@ vm_types:
 - name: g1-small
   cloud_properties:
     machine_type: g1-small
-    root_disk_size_gb: 15
-    root_disk_type: pd-standard
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
 - name: concourse
   cloud_properties:
     machine_type: n1-standard-1
@@ -29,7 +29,7 @@ disk_types:
 - name: db
   disk_size: 5_120
   cloud_properties:
-    type: pd-standard
+    type: pd-ssd
 - name: nginx
   disk_size: 5_120
   cloud_properties:

@@ -151,28 +151,6 @@ instance_groups:
         - name: concourse
           password: ((concourse_postgres_passwd))
     release: postgres
-  - consumes:
-      baggageclaim:
-        from: worker-baggageclaim
-    name: worker
-    properties:
-      drain_timeout: 10m
-      tsa:
-        worker_key: ((worker_key))
-    release: concourse
-  - name: baggageclaim
-    properties:
-      log_level: debug
-    provides:
-      baggageclaim:
-        as: worker-baggageclaim
-    release: concourse
-  - name: garden
-    properties:
-      garden:
-        listen_address: 0.0.0.0:7777
-        listen_network: tcp
-    release: garden-runc
   - name: ntpd
     properties:
       ntp_conf: |
@@ -225,7 +203,7 @@ instance_groups:
     - 104.155.144.4
   persistent_disk_type: db
   stemcell: xenial
-  vm_type: concourse
+  vm_type: g1-small
 name: concourse
 releases:
 - name: concourse
