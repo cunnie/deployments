@@ -1366,7 +1366,7 @@ releases:
   version: 1.9.3
 resource_pools:
 - cloud_properties:
-    machine_type: n1-standard-1
+    machine_type: g1-small
     root_disk_size_gb: 40
     root_disk_type: pd-standard
     zone: us-central1-b

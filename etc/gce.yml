@@ -5,3 +5,6 @@
   value:
     sha1: 8207390827ff8bc48ffe99cf2cca39082fd0f4f9
     url:  https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-97.5-google-kvm-ubuntu-xenial-go_agent.tgz
+- type: replace
+  path: /resource_pools/name=vms/cloud_properties/machine_type
+  value: g1-small
