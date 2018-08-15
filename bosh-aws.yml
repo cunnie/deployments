@@ -1554,17 +1554,17 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: f81a70a860bb094ad0c2759b742630350c03fee5
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-266.7.0-ubuntu-trusty-3586.26-20180725-181814-986023348-20180725181819.tgz?versionId=4YCNv_rX5NgVVkBz_bY2yvWCM5R7YE6ehtt
-  version: 266.7.0
+  sha1: e6c80d1a9a0f2bbad668ae0d7e525106f48cd10d
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-267.4.0-ubuntu-trusty-3586.26-20180815-173347-501312573-20180815173351.tgz?versionId=42aY5ipEEm4L.RgEc7kDyKhxtCewZS1I
+  version: 267.4.0
 - name: bpm
   sha1: 2ddb3e63a34a6eb201551d058120aec0767c267e
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.9.0-ubuntu-trusty-3586.26-20180725-183738-797989964-20180725183745.tgz?versionId=SZ82i5RS89h3BvuA68Gg2cYylTnwJIYI
   version: 0.9.0
 - name: bosh-aws-cpi
-  sha1: 1007fde7a40090cdd76ea526466559f5e35c34d8
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=71
-  version: "71"
+  sha1: b7999e95115bb691a630c07f0439ef5b577884c2
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-aws-cpi-release?v=72
+  version: "72"
 - name: os-conf
   sha1: 78d79f08ff5001cc2a24f572837c7a9c59a0e796
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
