@@ -12,7 +12,6 @@ DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 pushd $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster
   git pull -r
   bosh -e ipv4 deploy -d concourse-worker external-worker.yml \
-    -o $DEPLOYMENTS_DIR/etc/concourse-worker.yml \
     -l ../versions.yml \
     -v external_worker_network_name=guest \
     -v worker_vm_type=concourse-workers \

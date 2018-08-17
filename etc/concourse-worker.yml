@@ -1,5 +1,0 @@
----
-# My containers aren't getting reaped; reap them after 1 hour
-- type: replace
-  path: /instance_groups/name=worker/jobs/name=garden/properties/garden/default_container_grace_time?
-  value: 1h
