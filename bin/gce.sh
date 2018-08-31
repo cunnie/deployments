@@ -28,7 +28,6 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-not-recommended-uaa.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/bpm.yml \
-  -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/xenial-compiled-releases.yml \
   \
   -o etc/common.yml \
   -o etc/TLS.yml \

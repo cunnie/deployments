@@ -2,11 +2,3 @@
 - type: replace
   path: /disk_pools/name=disks/disk_size?
   value: 20_000
-
-# Let's use the Xenial Stemcell; get rid of this when there's a real
-# `bosh-deployment` manifest operations file for Xenial
-- type: replace
-  path: /resource_pools/name=vms/stemcell
-  value:
-    sha1: d756a6632d88a08aa556a62c0c57993ba3a6a251
-    url:  https://s3.amazonaws.com/bosh-core-stemcells/vsphere/bosh-stemcell-97.12-vsphere-esxi-ubuntu-xenial-go_agent.tgz

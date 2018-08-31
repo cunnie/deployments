@@ -1,10 +1,4 @@
-# Let's use the Xenial Stemcell; get rid of this when there's a real
-# `bosh-deployment` manifest operations file for Xenial
-- type: replace
-  path: /resource_pools/name=vms/stemcell
-  value:
-    sha1: 736d08538728c3b4ca6a2bb5353dd84241d03f75
-    url:  https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-97.12-google-kvm-ubuntu-xenial-go_agent.tgz
+# smaller machine types saves me $$
 - type: replace
   path: /resource_pools/name=vms/cloud_properties/machine_type
   value: g1-small
