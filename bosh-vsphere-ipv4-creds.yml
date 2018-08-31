@@ -1,3 +1,5 @@
+admin_password: pujla9h95th29isqyvhs
+blobstore_agent_password: o4o9teuqtbxviw1tbziu
 blobstore_ca:
   ca: |
     -----BEGIN CERTIFICATE-----
@@ -140,6 +142,7 @@ blobstore_ca_cert:
     gzqgTDvWaEcehc954qIvn9l+0h0idqmE7cufao6p5kJ6FHAkbSu+lz4BlMXGHH4f
     FL4FpMmsorFkvU2bD6UU/oIbNUz120OgkxPlo2IHhj+nfxvBK/Z+6Q==
     -----END RSA PRIVATE KEY-----
+blobstore_director_password: 6gxc5tqebxo7a5rlvw99
 blobstore_server_tls:
   ca: |
     -----BEGIN CERTIFICATE-----
@@ -283,6 +286,7 @@ blobstore_ssl:
     AGRjC+LITQyW3Qgw1MwQI0JPNnClOVM5UcXcqN/egdAilAIMUHpLhw4CgeZLKkVu
     aYbavMq+Tz2xPRtQQiGmSpeVwGT8mJgpT2v2dIS39J2aH0/rQXSo1g==
     -----END RSA PRIVATE KEY-----
+credhub_admin_client_secret: eukbttx6chwsol5hhxdy
 credhub_ca:
   ca: |
     -----BEGIN CERTIFICATE-----
@@ -352,6 +356,7 @@ credhub_ca:
     nr2+lS5RmmJ+hkzf/dCbiENEppb6dUb6LbB89Swy9PHG1mVFZ42fwzGcXSPQeaHD
     +cE+sfavNbhwZRtxpa3G29jp5Bt3xIrjMvEjqrUPk2nng0zsgC+YLA==
     -----END RSA PRIVATE KEY-----
+credhub_encryption_password: 6o8a1hm1zrgt4db98it1
 credhub_tls:
   ca: |
     -----BEGIN CERTIFICATE-----
@@ -561,6 +566,7 @@ director_ssl:
     t5XIw4M7incLK7b3YteGW70ZRFIS9pC/6C7UCb4nzyD6PlsLHXXzfszNPERLvYOP
     hGcLfQ2vB4siGU0V0ZLFJKqsbU0mPERVIII1ZcIE/mdxSJClLdAS
     -----END RSA PRIVATE KEY-----
+hm_password: m8ppdzyzfdgmk309djfg
 jumpbox_ssh:
   private_key: |
     -----BEGIN RSA PRIVATE KEY-----
@@ -593,6 +599,7 @@ jumpbox_ssh:
   public_key: |
     ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCitxBEDs8lPmC35wJhyBPsvDOeqX5WoDIgTsC4PbfWf0VPolJHCm8e/ZBip92T2tr9AAeBCVKEiQiEZqkcaJu3Xlkn9JRsLKLsfbXpT071xzzGP4mOJ9nLdBzO3Ub8zi0YjuwEdK7qVvFZiNObaok+BVbwGiAN7wEC2ndSCAQq0NLKKi9GjH0anr9zbVcmbyv35y9hM4xDeilcVD0+wHs7rsOTW/lCGH/s3gA1rXT1jkFP00Co9c9CJ3jDyrM52OAUg8OZBjQWsXMksi6gT6cMjamlkxz52NZRuQeTgjCvUnHMtAKftmkbVb5RgLGLmxT/VeZMU6+ttjjjGgbE8lr7
   public_key_fingerprint: 2d:bb:11:fd:61:f0:4e:08:89:c8:4c:62:c0:d0:e4:1a
+mbus_bootstrap_password: amr5wctkgi4nw86gfw59
 mbus_bootstrap_ssl:
   ca: |
     -----BEGIN CERTIFICATE-----
@@ -877,6 +884,7 @@ nats_clients_health_monitor_tls:
     uvESx5Km3HfnpRpcd+lu98SmspLBhniPteU7GUo9VeTU/Zhd0XYudHAGHWtp/o1N
     iQ/EoV4Soc9GlMVdCMko9W/QsR+rlQwYP/uogQgJryvnsuwhmVAO
     -----END RSA PRIVATE KEY-----
+nats_password: 6twvjff12dzu0dw3hefj
 nats_server_tls:
   ca: |
     -----BEGIN CERTIFICATE-----
@@ -949,6 +957,9 @@ nats_server_tls:
     UNEEW6MxlVpDEES7hAAvoRCkRsSoWq4QCjeTgWr9otM6Uzv96LAF0BVVVOv89SNc
     GoLBxQRyWs87olLS6tuRaF8rzsXUWww82L+JQgVaPQGUsvzw3El6lQ==
     -----END RSA PRIVATE KEY-----
+postgres_password: sizvc4708rcmjhspmf8i
+uaa_admin_client_secret: dl9am3710lmmhvl15nxu
+uaa_clients_director_to_credhub: q4sraxwmdud6ex6v9p1p
 uaa_encryption_key_1: c38o42fhpddsmyayoxce
 uaa_jwt_signing_key:
   private_key: |
@@ -989,6 +1000,7 @@ uaa_jwt_signing_key:
     ADcouH7sqEPT+CGT5yq3MbZwNJ9vIYhj1JvYgvaQMeweOHm3a2aVMhF4DBgU5uVc
     FwIDAQAB
     -----END PUBLIC KEY-----
+uaa_login_client_secret: fqv6l4ft2ma2uswgigke
 uaa_service_provider_ssl:
   ca: |
     -----BEGIN CERTIFICATE-----
