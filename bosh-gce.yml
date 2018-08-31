@@ -1361,10 +1361,6 @@ releases:
   sha1: 7703e7a0517e02ec736c1e89a73700aa4ca9ae87
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.9.3-ubuntu-xenial-97.12-20180815-230755-343182304-20180815230804.tgz?versionId=jhFK3zlmI.eqpOkz_YrRzXwoTeDAXmMd
   version: 1.9.3
-- name: backup-and-restore-sdk
-  sha1: 56d8644ee362531d3242f9f64ca95604d77d5f72
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/backup-and-restore-sdk-1.9.0-ubuntu-xenial-97.12-20180815-231632-167459407-20180815231656.tgz?versionId=vXg0sHpm_5ZP8FP7WkNbKMaK5sYAEyrc
-  version: 1.9.0
 resource_pools:
 - cloud_properties:
     machine_type: g1-small
@@ -1378,5 +1374,5 @@ resource_pools:
   network: default
   stemcell:
     sha1: 736d08538728c3b4ca6a2bb5353dd84241d03f75
-    url: https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-97.12-google-kvm-ubuntu-xenial-go_agent.tgz
+    url: https://bosh.io/d/stemcells/bosh-google-kvm-ubuntu-xenial-go_agent?v=97.12
 variables: []
