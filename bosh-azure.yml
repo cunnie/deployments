@@ -1481,10 +1481,6 @@ releases:
   sha1: 7703e7a0517e02ec736c1e89a73700aa4ca9ae87
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.9.3-ubuntu-xenial-97.12-20180815-230755-343182304-20180815230804.tgz?versionId=jhFK3zlmI.eqpOkz_YrRzXwoTeDAXmMd
   version: 1.9.3
-- name: backup-and-restore-sdk
-  sha1: 56d8644ee362531d3242f9f64ca95604d77d5f72
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/backup-and-restore-sdk-1.9.0-ubuntu-xenial-97.12-20180815-231632-167459407-20180815231656.tgz?versionId=vXg0sHpm_5ZP8FP7WkNbKMaK5sYAEyrc
-  version: 1.9.0
 - name: nginx
   sha1: c5d767f43a68b89d9603bccac2a60b6a5dc29836
   url: https://github.com/cloudfoundry-community/nginx-release/releases/download/1.13.12/nginx-release-1.13.12.tgz
@@ -1510,5 +1506,5 @@ resource_pools:
   network: default
   stemcell:
     sha1: a04ddc9b87dfb8431838df706a7b0d5ddaf2db4d
-    url: https://s3.amazonaws.com/bosh-core-stemcells/azure/bosh-stemcell-97.12-azure-hyperv-ubuntu-xenial-go_agent.tgz
+    url: https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=97.12
 variables: []
