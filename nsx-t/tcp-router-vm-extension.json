@@ -1,0 +1,14 @@
+{
+  "cloud_properties": {
+    "nsxt": {
+      "lb": {
+        "server_pools": [
+          {
+            "name": "PAS-TCPRouterServerPool"
+          }
+        ]
+      }
+    }
+  },
+  "name": "tcp_lb"
+}
