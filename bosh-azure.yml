@@ -541,6 +541,9 @@ instance_groups:
               YB3XeU6Fk8gFTVUQwOnM2QhO97iln+BhQHQC8HBuzg3gA++5iBPKY1LJMaGplObk
               DwIDAQAB
               -----END PUBLIC KEY-----
+        authorization:
+          acls:
+            enabled: false
         data_storage:
           database: credhub
           host: 127.0.0.1
@@ -552,7 +555,8 @@ instance_groups:
         encryption:
           keys:
           - active: true
-            encryption_password: ((credhub_encryption_password))
+            key_properties:
+              encryption_password: ((credhub_encryption_password))
             provider_name: internal
           providers:
           - name: internal
@@ -1458,9 +1462,9 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 37499312e1186237434ee7a2492812b084c4e345
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-267.5.0-ubuntu-xenial-97.12-20180820-234355-048784588-20180820234358.tgz?versionId=X168wrj6izNJTi0V0bSPNpeKl_kZeahW
-  version: 267.5.0
+  sha1: 469fbd6f30378565d9c9d2af6e117ac50c14fd27
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-268.0.1-ubuntu-trusty-3586.42-20180912-171413-254460215-20180912171417.tgz?versionId=YPjq9tt4qPDAhoIGWM3w6TQ6TiJnv_fK
+  version: 268.0.1
 - name: bpm
   sha1: 6008b48192ac38ce6ac6ff23ea5029ac2b5bc2b9
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.11.0-ubuntu-xenial-97.12-20180820-235033-474094256-20180820235039.tgz?versionId=hzs0XSVxZzPFsTPDY3c3trwPf0OtugqB
@@ -1478,9 +1482,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-60.2-ubuntu-xenial-97.12-20180815-231707-188963409-20180815231720.tgz?versionId=AJarW.I0RXfMpEAgq.d.qCuG_oAht_80
   version: "60.2"
 - name: credhub
-  sha1: 7703e7a0517e02ec736c1e89a73700aa4ca9ae87
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-1.9.3-ubuntu-xenial-97.12-20180815-230755-343182304-20180815230804.tgz?versionId=jhFK3zlmI.eqpOkz_YrRzXwoTeDAXmMd
-  version: 1.9.3
+  sha1: afb03addb21543d3feafbebff8fdc242543ef0cb
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.0.2-ubuntu-xenial-97.16-20180912-174457-075145067-20180912174506.tgz?versionId=XXig9OLrmykqimvtJUYYlhKhykxk0M6i
+  version: 2.0.2
 - name: nginx
   sha1: c5d767f43a68b89d9603bccac2a60b6a5dc29836
   url: https://github.com/cloudfoundry-community/nginx-release/releases/download/1.13.12/nginx-release-1.13.12.tgz
