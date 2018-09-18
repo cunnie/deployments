@@ -2,7 +2,6 @@
 # - name: z1
 #   cloud_properties:
 #     availability_zone: us-east-1a
-#
 
 env: &env
   bosh:
@@ -11,29 +10,37 @@ env: &env
     password: "$6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/"
 
 vm_types:
-- name: t2.nano
+- name: t3.nano
   env: *env
   cloud_properties:
-    instance_type: t2.nano
+    instance_type: t3.nano
     availability_zone: us-east-1a
     ephemeral_disk:
       size: 4_000
       type: gp2
-- name: t2.micro.100G
+- name: t3.micro.100G
   env: *env
   cloud_properties:
-    instance_type: t2.micro
+    instance_type: t3.micro
     availability_zone: us-east-1a
     ephemeral_disk:
       size: 100_000
       type: gp2
-- name: t2.micro
+- name: t3.micro
   env: *env
   cloud_properties:
-    instance_type: t2.micro
+    instance_type: t3.micro
     availability_zone: us-east-1a
     ephemeral_disk:
       size: 25_000
+      type: gp2
+- name: default
+  env: *env
+  cloud_properties:
+    instance_type: t3.micro
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 5_000
       type: gp2
 - name: c4.large
   env: *env
@@ -64,6 +71,16 @@ networks:
   cloud_properties:
     subnet: subnet-1c90ef6b
     security_groups: [concourse]
+- name: default
+  type: manual
+  subnets:
+  - range: 10.0.0.0/24
+    gateway: 10.0.0.1
+    dns: [10.0.0.6, 10.0.0.2]
+    reserved: [10.0.0.2 - 10.0.0.10]
+    cloud_properties:
+      subnet: subnet-1c90ef6b
+      security_groups: [default]
 - name: manual-concourse
   type: manual
   subnets:
@@ -78,7 +95,7 @@ networks:
   type: dynamic
   cloud_properties:
     subnet: subnet-1c90ef6b
-    security_groups: [no-filter]
+    security_groups: [default]
 - name: vip
   type: vip
 
