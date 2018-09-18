@@ -1603,7 +1603,7 @@ resource_pools:
     availability_zone: us-east-1a
     ephemeral_disk:
       size: 20000
-    instance_type: t2.small
+    instance_type: t3.small
   env:
     bosh:
       password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
