@@ -47,7 +47,7 @@ vm_types:
 - name: freenas
   network: default
   stemcell:
-    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    name: bosh-aws-xen-hvm-ubuntu-xenial-go_agent
     version: latest
   cloud_properties:
     cpu: 8
@@ -57,7 +57,7 @@ vm_types:
 - name: nvme
   network: default
   stemcell:
-    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    name: bosh-aws-xen-hvm-ubuntu-xenial-go_agent
     version: latest
   cloud_properties:
     cpu: 8
@@ -67,7 +67,7 @@ vm_types:
 - name: sata
   network: default
   stemcell:
-    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    name: bosh-aws-xen-hvm-ubuntu-xenial-go_agent
     version: latest
   cloud_properties:
     cpu: 8

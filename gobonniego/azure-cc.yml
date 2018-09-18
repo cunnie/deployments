@@ -65,7 +65,7 @@ vm_types:
 - name: standard_f4_v2
   network: default
   stemcell:
-    name: bosh-aws-xen-hvm-ubuntu-trusty-go_agent
+    name: bosh-aws-xen-hvm-ubuntu-xenial-go_agent
     version: latest
   cloud_properties:
     instance_type: Standard_F4s_v2
