@@ -3,7 +3,7 @@
 - type: replace
   path: /resource_pools/name=vms/cloud_properties?
   value:
-    instance_type: t3.small
+    instance_type: t2.small
     availability_zone: ((az))
     ephemeral_disk:
       size: 20_000
