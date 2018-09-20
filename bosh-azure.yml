@@ -1474,9 +1474,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-268.0.1-ubuntu-xenial-97.16-20180913-164505-926305445-20180913164509.tgz?versionId=l.f_ZQSVWthpQw.O66KLGsgtsjiBVWaH
   version: 268.0.1
 - name: bpm
-  sha1: 6008b48192ac38ce6ac6ff23ea5029ac2b5bc2b9
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.11.0-ubuntu-xenial-97.12-20180820-235033-474094256-20180820235039.tgz?versionId=hzs0XSVxZzPFsTPDY3c3trwPf0OtugqB
-  version: 0.11.0
+  sha1: f57c590660fb00a55e23fa9a955e79d39ef21d1a
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.12.3-ubuntu-xenial-97.17-20180919-183904-508666998-20180919183910.tgz?versionId=prHEVL4zedQ.NxMXbIOUGlwq6hidaqYq
+  version: 0.12.3
 - name: bosh-azure-cpi
   sha1: d581c4181d31846e05e59054a15e09621f1e90b1
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=35.2.0
