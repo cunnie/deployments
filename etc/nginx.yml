@@ -47,13 +47,13 @@
             ssl_certificate_key /var/vcap/jobs/nginx/etc/ssl.key.pem;
             access_log /var/vcap/sys/log/nginx/sslip.io-access.log;
             error_log /var/vcap/sys/log/nginx/sslip.io-error.log;
-            root /var/vcap/store/nginx/document_root;
+            root /var/vcap/data/nginx/document_root;
             index index.shtml index.html index.htm;
           }
         }
       pre_start: |
         #!/bin/bash -ex
-        NGINX_DIR=/var/vcap/store/nginx
+        NGINX_DIR=/var/vcap/data/nginx
         mkdir -p /var/vcap/packages/nginx/proxy_temp
         # in case there's no persistent disk:
         if [ ! -d $(dirname $NGINX_DIR) ]; then
@@ -61,9 +61,9 @@
         fi
         if [ ! -d $NGINX_DIR ]; then
           cd $(dirname $NGINX_DIR)
-          curl -L https://github.com/cunnie/sslip.io/archive/v1.tar.gz |
+          curl -L http://api.github.com/repos/cunnie/sslip.io/tarball/master |
             tar xzf -
-          mv sslip.io-1 $NGINX_DIR
+          mv cunnie-sslip.io-* $NGINX_DIR
           chown -R vcap:vcap $NGINX_DIR
         fi
       ssl_key: ((sslip_io_key))
