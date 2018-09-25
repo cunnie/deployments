@@ -691,17 +691,11 @@ instance_groups:
         #!/bin/bash -ex
         NGINX_DIR=/var/vcap/data/nginx
         mkdir -p /var/vcap/packages/nginx/proxy_temp
-        # in case there's no persistent disk:
-        if [ ! -d $(dirname $NGINX_DIR) ]; then
-          mkdir -p $(dirname $NGINX_DIR)
-        fi
-        if [ ! -d $NGINX_DIR ]; then
-          cd $(dirname $NGINX_DIR)
-          curl -L http://api.github.com/repos/cunnie/sslip.io/tarball/master |
-            tar xzf -
-          mv cunnie-sslip.io-* $NGINX_DIR
-          chown -R vcap:vcap $NGINX_DIR
-        fi
+        cd $NGINX_DIR
+        curl -L http://api.github.com/repos/cunnie/sslip.io/tarball/master |
+          tar xzf -
+        mv cunnie-sslip.io-*/* .
+        chown -R vcap:vcap .
       ssl_chained_cert: |
         -----BEGIN CERTIFICATE-----
         MIIGyjCCBbKgAwIBAgIRAKJsJWop/HUa+6EZmIsRSmswDQYJKoZIhvcNAQELBQAw
