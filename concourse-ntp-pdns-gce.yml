@@ -206,18 +206,18 @@ instance_groups:
   vm_type: g1-small
 name: concourse
 releases:
-- name: "concourse"
-  version: "4.2.1"
-  url: "https://bosh.io/d/github.com/concourse/concourse?v=4.2.1"
-  sha1: "470a6fdd7cb82fc723d7d78930c7d261ca4a6cb4"
-- name: "garden-runc"
-  version: "1.16.4"
-  url: "https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.16.4"
-  sha1: "dd02cad84283fdc282005b78624864e5976de209"
-- name: "postgres"
+- name: concourse
+  sha1: 470a6fdd7cb82fc723d7d78930c7d261ca4a6cb4
+  url: https://bosh.io/d/github.com/concourse/concourse?v=4.2.1
+  version: 4.2.1
+- name: garden-runc
+  sha1: 2a7c813e7e4d862e19334addf022916fb6b91eb0
+  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.16.3
+  version: 1.16.3
+- name: postgres
+  sha1: a798999d29b9f5aa12035cff907b26674b491200
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=30
   version: "30"
-  url: "https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=30"
-  sha1: "a798999d29b9f5aa12035cff907b26674b491200"
 - name: "os-conf"
   version: "20.0.0"
   url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=20.0.0"
