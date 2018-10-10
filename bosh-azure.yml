@@ -1496,9 +1496,9 @@ releases:
   url: https://github.com/cloudfoundry-community/ntp-release/releases/download/4.2.8p11/ntp-release-4.2.8p11.tgz
   version: 4.2.8p11
 - name: pdns
-  sha1: b84f40860413048a6ea3bc6900c8f6349eb3970f
-  url: https://github.com/cloudfoundry-community/pdns-release/releases/download/4.1.3/pdns-release-4.1.3.tgz
-  version: 4.1.3
+  sha1: a8e8739915e7899764295609db419e20f1718d88
+  url: https://github.com/cloudfoundry-community/pdns-release/releases/download/4.1.4/pdns-release-4.1.4.tgz
+  version: 4.1.4
 resource_pools:
 - cloud_properties:
     ephemeral_disk:
