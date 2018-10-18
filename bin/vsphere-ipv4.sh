@@ -45,7 +45,7 @@ bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v external_ip=10.0.9.151 \
   -v external_fqdn="bosh-vsphere-ipv4.nono.io" \
   \
-  -v network_name="VM Network" \
+  -v network_name=nono \
   -v vcenter_dc=dc \
   -v vcenter_cluster=cl \
   -v vcenter_rp=BOSH-IPv4 \
