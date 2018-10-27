@@ -4,18 +4,8 @@
     "current_vm_cid": "agent_id:87c94e2b-2485-4fe3-5d06-3b48f2f0e21d;resource_group_name:bosh-res-group",
     "current_stemcell_id": "4c0f82d4-c831-49a3-7c40-dac7073e91a2",
     "current_disk_id": "de82993b-5fce-4b28-7384-bf4a1f4c048e",
-    "current_release_ids": [
-        "e87601a2-dc8a-4b21-6508-6fccdf769e79",
-        "ab32d0d1-20f5-40f9-4806-8af8907636b5",
-        "81e31cf4-0ea8-4fb2-7c67-2ce6f1403e03",
-        "67f3e6ad-3222-4cb0-79af-397337b915c4",
-        "09f8d1fa-79d8-4bf0-69cd-b0143de4f744",
-        "c3675a72-f20b-41c9-408a-6bba8b6fdcb3",
-        "4b6e4f73-1410-422b-5845-52909bb3d181",
-        "80bf83bd-add0-4d3f-72aa-c7e9926fdc49",
-        "9d24ae42-441f-42c0-5036-76aac2758db2"
-    ],
-    "current_manifest_sha": "90e9afc0f78a98427ce9a6d925b80d8becc7760431479ab19f97932f435e1c50269be43a3dc655f12faa19a8da68d41c07bbc3978aa73d5474c2f4313c53e10c",
+    "current_release_ids": [],
+    "current_manifest_sha": "",
     "disks": [
         {
             "id": "de82993b-5fce-4b28-7384-bf4a1f4c048e",
@@ -32,51 +22,5 @@
             "cid": "bosh-stemcell-8cb10fcc-cdd6-40a3-bcaa-43c4b052adcd"
         }
     ],
-    "releases": [
-        {
-            "id": "e87601a2-dc8a-4b21-6508-6fccdf769e79",
-            "name": "bosh",
-            "version": "268.1.0"
-        },
-        {
-            "id": "ab32d0d1-20f5-40f9-4806-8af8907636b5",
-            "name": "bpm",
-            "version": "0.12.3"
-        },
-        {
-            "id": "81e31cf4-0ea8-4fb2-7c67-2ce6f1403e03",
-            "name": "bosh-azure-cpi",
-            "version": "35.4.0"
-        },
-        {
-            "id": "67f3e6ad-3222-4cb0-79af-397337b915c4",
-            "name": "os-conf",
-            "version": "18"
-        },
-        {
-            "id": "09f8d1fa-79d8-4bf0-69cd-b0143de4f744",
-            "name": "uaa",
-            "version": "60.2"
-        },
-        {
-            "id": "c3675a72-f20b-41c9-408a-6bba8b6fdcb3",
-            "name": "credhub",
-            "version": "2.0.2"
-        },
-        {
-            "id": "4b6e4f73-1410-422b-5845-52909bb3d181",
-            "name": "nginx",
-            "version": "1.13.12"
-        },
-        {
-            "id": "80bf83bd-add0-4d3f-72aa-c7e9926fdc49",
-            "name": "ntp",
-            "version": "4.2.8p11"
-        },
-        {
-            "id": "9d24ae42-441f-42c0-5036-76aac2758db2",
-            "name": "pdns",
-            "version": "4.1.4"
-        }
-    ]
+    "releases": []
 }
