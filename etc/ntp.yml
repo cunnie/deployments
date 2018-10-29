@@ -3,9 +3,9 @@
   path: /releases/-
   value:
     name: ntp
-    version: 4.2.8p11
-    url:  https://github.com/cloudfoundry-community/ntp-release/releases/download/4.2.8p11/ntp-release-4.2.8p11.tgz
-    sha1: 39b40f23a5a823382d6e118e6427f27d7cb08630
+    version: 4.2.8p12
+    url:  https://github.com/cloudfoundry-community/ntp-release/releases/download/4.2.8p12/ntp-release-4.2.8p12.tgz
+    sha1: 050fa819c4c3848943b7bd1e993fd0846bb63114
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
