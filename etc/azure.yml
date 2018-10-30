@@ -3,7 +3,8 @@
 - type: replace
   path: /resource_pools/name=vms/cloud_properties?
   value:
-    instance_type: Standard_B2s
+    instance_type: Standard_B1ms
+    # instance_type: Standard_B2s
     # instance_type: BASIC_A1
     ephemeral_disk:
       size: 20_000
