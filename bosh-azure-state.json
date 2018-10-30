@@ -1,8 +1,8 @@
 {
     "director_id": "1942ed8b-fcf8-4cc0-4e51-aa7111fe2497",
     "installation_id": "9a7c3d15-ef29-4a44-7119-0323ef43f5e4",
-    "current_vm_cid": "",
-    "current_stemcell_id": "",
+    "current_vm_cid": "agent_id:3d4ceba3-36b5-4997-50e5-906bd2f49094;resource_group_name:bosh-res-group",
+    "current_stemcell_id": "4c0f82d4-c831-49a3-7c40-dac7073e91a2",
     "current_disk_id": "de82993b-5fce-4b28-7384-bf4a1f4c048e",
     "current_release_ids": [],
     "current_manifest_sha": "",
