@@ -1504,7 +1504,7 @@ resource_pools:
     ephemeral_disk:
       size: 20000
       use_root_disk: true
-    instance_type: Standard_B2s
+    instance_type: Standard_B1ms
   env:
     bosh:
       password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
