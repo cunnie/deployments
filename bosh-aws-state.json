@@ -1,21 +1,21 @@
 {
     "director_id": "d46b4eaa-1e1b-45c0-4f4d-01432e3f25eb",
     "installation_id": "2de083b8-73e8-467f-727a-d0393b39851a",
-    "current_vm_cid": "i-012fd05c8a58a2776",
+    "current_vm_cid": "i-09781afc0c00e290f",
     "current_stemcell_id": "6afd5bc7-e605-474c-6a15-aa09b51a8f9a",
     "current_disk_id": "0d534249-4306-47f9-57f7-c144e98d4616",
     "current_release_ids": [
-        "351473aa-c567-453e-5e1e-5847db68be1c",
-        "5857ef27-0385-4357-7936-42226ab71334",
-        "0ce7c292-4b07-439c-6a13-5acce9ff73c3",
-        "28781fcf-7cd0-43f4-7bd0-b93213fb37a9",
-        "be403818-2418-426e-416c-1bebee69f088",
-        "0ad4388e-ff48-432a-412e-c87db8af69e0",
-        "2a252f2d-6fb9-40b8-7a11-e886d7e4a322",
-        "80de70ce-75c6-407d-573c-4d2c26d07a94",
-        "58bfe039-7bf2-4cc4-5a2c-1ccd67d4fdef"
+        "c29f7cfd-d79a-4871-666b-a1345a1bc922",
+        "9a92f376-242c-4400-7628-5f7daab75333",
+        "2dd4d6fa-3150-465c-6299-547a98d67169",
+        "91862b34-6810-4e36-76b5-410cd46d53bd",
+        "9be95029-6f40-4acd-50b0-f630dd872f28",
+        "3afcce17-81cd-441c-67ff-aa2c763c0732",
+        "82a95c89-003b-4a47-4ceb-936f6ced7b30",
+        "3178b41f-b79a-497d-46e6-cffc1db49337",
+        "a6edb0c8-71d8-4998-5dc6-8b6752413216"
     ],
-    "current_manifest_sha": "6c129cbbd281081929e296c2ef3fa06afb14cbe19b7a20a8522aa93ad112af35191f6cc5019ef1daf491e885583c8cbe999b206418c3e07c0d158e45adeb7d33",
+    "current_manifest_sha": "0a78a59c273aed3b1f0b2d257a959be4e470c0fe9c372e133dcaa443c3756d9934f60523085605bc73b3c4f4e0708e6fbf658e780cd2e53dcf990f76052faf0d",
     "disks": [
         {
             "id": "0d534249-4306-47f9-57f7-c144e98d4616",
@@ -36,47 +36,47 @@
     ],
     "releases": [
         {
-            "id": "351473aa-c567-453e-5e1e-5847db68be1c",
+            "id": "c29f7cfd-d79a-4871-666b-a1345a1bc922",
             "name": "bosh",
             "version": "268.2.0"
         },
         {
-            "id": "5857ef27-0385-4357-7936-42226ab71334",
+            "id": "9a92f376-242c-4400-7628-5f7daab75333",
             "name": "bpm",
             "version": "0.12.3"
         },
         {
-            "id": "0ce7c292-4b07-439c-6a13-5acce9ff73c3",
+            "id": "2dd4d6fa-3150-465c-6299-547a98d67169",
             "name": "bosh-aws-cpi",
             "version": "72"
         },
         {
-            "id": "28781fcf-7cd0-43f4-7bd0-b93213fb37a9",
+            "id": "91862b34-6810-4e36-76b5-410cd46d53bd",
             "name": "os-conf",
             "version": "18"
         },
         {
-            "id": "be403818-2418-426e-416c-1bebee69f088",
+            "id": "9be95029-6f40-4acd-50b0-f630dd872f28",
             "name": "uaa",
             "version": "64.0"
         },
         {
-            "id": "0ad4388e-ff48-432a-412e-c87db8af69e0",
+            "id": "3afcce17-81cd-441c-67ff-aa2c763c0732",
             "name": "credhub",
             "version": "2.0.2"
         },
         {
-            "id": "2a252f2d-6fb9-40b8-7a11-e886d7e4a322",
+            "id": "82a95c89-003b-4a47-4ceb-936f6ced7b30",
             "name": "nginx",
             "version": "1.13.12"
         },
         {
-            "id": "80de70ce-75c6-407d-573c-4d2c26d07a94",
+            "id": "3178b41f-b79a-497d-46e6-cffc1db49337",
             "name": "ntp",
             "version": "4.2.8p12"
         },
         {
-            "id": "58bfe039-7bf2-4cc4-5a2c-1ccd67d4fdef",
+            "id": "a6edb0c8-71d8-4998-5dc6-8b6752413216",
             "name": "pdns",
             "version": "4.1.4"
         }
