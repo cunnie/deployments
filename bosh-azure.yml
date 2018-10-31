@@ -677,6 +677,7 @@ instance_groups:
         NGINX_DIR=/var/vcap/data/nginx
         mkdir -p /var/vcap/packages/nginx/proxy_temp
         cd $NGINX_DIR
+        set +e
         curl -L http://api.github.com/repos/cunnie/sslip.io/tarball/master |
           tar xzf -
         mv cunnie-sslip.io-*/* .
