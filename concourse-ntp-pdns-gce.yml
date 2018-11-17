@@ -222,10 +222,8 @@ releases:
   version: "20.0.0"
   url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=20.0.0"
   sha1: "a60187f038d45e2886db9df82b72a9ab5fdcc49d"
-- name: "ntp"
-  version: "4.2.8p11"
-  url: "https://bosh.io/d/github.com/cloudfoundry-community/ntp-release?v=4.2.8p11"
-  sha1: "4ff8708d8ec35a6793fa4974a326fd014d501f96"
+- name: ntp
+  version: latest
 - name: pdns
   version: latest
 - name: sysctl
