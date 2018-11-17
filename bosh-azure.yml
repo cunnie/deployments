@@ -353,6 +353,11 @@ instance_groups:
             - bosh.admin
             name: admin
             password: ((admin_password))
+          - groups:
+            - credhub.read
+            - credhub.write
+            name: credhub_cli_user
+            password: vgcnp3uoaoooduh13k70
         sslCertificate: |
           -----BEGIN CERTIFICATE-----
           MIIFXDCCBESgAwIBAgIQOvRHkhKyb/k9O4xvIi9zZTANBgkqhkiG9w0BAQsFADCB
