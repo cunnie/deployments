@@ -858,7 +858,6 @@ nats_server_tls:
     eRfWJ91TFYcJ8sWXVWGigpPPM0QnWw9OpNTmy+n43D5c1zCV8gQE6TmdA/pKis7d
     7rHGz3XFoIjYog6rbn2mjTnpxKXFT4sauGYyDgBWhu1b2Rqe0aYnfw==
     -----END RSA PRIVATE KEY-----
-uaa_encryption_key_1: vwul5fnyjb9t714levde
 uaa_jwt_signing_key:
   private_key: |
     -----BEGIN RSA PRIVATE KEY-----
