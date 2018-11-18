@@ -356,6 +356,7 @@ credhub_ca:
     nr2+lS5RmmJ+hkzf/dCbiENEppb6dUb6LbB89Swy9PHG1mVFZ42fwzGcXSPQeaHD
     +cE+sfavNbhwZRtxpa3G29jp5Bt3xIrjMvEjqrUPk2nng0zsgC+YLA==
     -----END RSA PRIVATE KEY-----
+credhub_cli_user_password: dl9213kguvf4ezed5t4n
 credhub_encryption_password: 6o8a1hm1zrgt4db98it1
 credhub_tls:
   ca: |
