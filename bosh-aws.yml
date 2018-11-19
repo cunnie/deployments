@@ -169,7 +169,7 @@ instance_groups:
         active_key_label: uaa-encryption-key-1
         encryption_keys:
         - label: uaa-encryption-key-1
-          passphrase: 7czvugojniuux6xjfoq9
+          passphrase: 4crpcr6fxvnx9ubpn31d
       login:
         saml:
           activeKeyId: uaa-saml-key-1
@@ -344,7 +344,7 @@ instance_groups:
             - credhub.read
             - credhub.write
             name: credhub_cli_user
-            password: 2azk9n3ai1ugvndn094r
+            password: pr6qa4uw5mv8lpt2xix1
         sslCertificate: |
           -----BEGIN CERTIFICATE-----
           MIIFXDCCBESgAwIBAgIQOvRHkhKyb/k9O4xvIi9zZTANBgkqhkiG9w0BAQsFADCB
