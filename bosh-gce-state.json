@@ -1,18 +1,18 @@
 {
     "director_id": "7d60f895-bd23-487f-7930-94b26426b3bf",
     "installation_id": "413dc89a-bca9-4f49-4b61-96dd71e60ba1",
-    "current_vm_cid": "vm-4122ab5c-c11b-4e18-4f1e-89cebc47a874",
+    "current_vm_cid": "vm-387c4e8e-8c8d-4526-59cc-0575291f23f2",
     "current_stemcell_id": "62565b7c-ef87-4f1d-6ebc-6f6163fbb778",
     "current_disk_id": "c2148c28-9c74-49b0-5142-1fc7f1deb709",
     "current_release_ids": [
-        "fc18c928-ea86-48ee-45fa-a65e72b3d21d",
-        "a280b568-031f-40f3-6d5f-af9ab8070712",
-        "cc3acd92-6ee6-4463-52c5-905ce8e4005a",
-        "17417ee0-2342-4408-500d-7d98e7407746",
-        "160077de-6263-4429-7390-01d9c64492ed",
-        "7e674f69-d101-4f0f-7353-cb16d8313250"
+        "4d8f3710-63f9-4d0e-5887-0b1615333f38",
+        "7ed237e1-fbc5-4c4d-7af6-8e66520e00d9",
+        "1bb13104-aea7-4385-6cf3-b1d6dc98c383",
+        "e2a5b08d-c76b-4dd4-6181-1405312debba",
+        "9823af46-a626-474c-6974-3ade123ca969",
+        "4e732e2d-eea6-452d-6fa7-f634a0e7810b"
     ],
-    "current_manifest_sha": "a67b16f2da8e707be3b55ad5fecbac03a37137eec21f1ed7094e5ebc7db15747c272bdd6d4aaf129105038d69ad1a618866d1fe4a05017af4dec618b89af7738",
+    "current_manifest_sha": "bcf80d7741cb53aa154e73cb8bfc75b7557611e84339d247a02ecb2752eb8ec2ff5f5cac7b55f1e6d46c053ae76b0ee3c5ea87a05ff7a182e89959f624b5db44",
     "disks": [
         {
             "id": "c2148c28-9c74-49b0-5142-1fc7f1deb709",
@@ -33,32 +33,32 @@
     ],
     "releases": [
         {
-            "id": "fc18c928-ea86-48ee-45fa-a65e72b3d21d",
+            "id": "4d8f3710-63f9-4d0e-5887-0b1615333f38",
             "name": "bosh",
             "version": "268.2.0"
         },
         {
-            "id": "a280b568-031f-40f3-6d5f-af9ab8070712",
+            "id": "7ed237e1-fbc5-4c4d-7af6-8e66520e00d9",
             "name": "bpm",
             "version": "0.12.3"
         },
         {
-            "id": "cc3acd92-6ee6-4463-52c5-905ce8e4005a",
+            "id": "1bb13104-aea7-4385-6cf3-b1d6dc98c383",
             "name": "bosh-google-cpi",
             "version": "27.0.1"
         },
         {
-            "id": "17417ee0-2342-4408-500d-7d98e7407746",
+            "id": "e2a5b08d-c76b-4dd4-6181-1405312debba",
             "name": "os-conf",
             "version": "18"
         },
         {
-            "id": "160077de-6263-4429-7390-01d9c64492ed",
+            "id": "9823af46-a626-474c-6974-3ade123ca969",
             "name": "uaa",
             "version": "64.0"
         },
         {
-            "id": "7e674f69-d101-4f0f-7353-cb16d8313250",
+            "id": "4e732e2d-eea6-452d-6fa7-f634a0e7810b",
             "name": "credhub",
             "version": "2.0.2"
         }

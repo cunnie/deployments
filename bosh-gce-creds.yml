@@ -234,6 +234,7 @@ credhub_ca:
     raIKfguSxeeKpEP78XV6nr9b/F3Gi2+zfnqWTZ8AL+tiBs2nl/6KWwYIGIl7dcWk
     8I5/0JVG/opyeuQkf6dMXnaAxD6+PPMviUhKEigvh/9oK4+/WOBV
     -----END RSA PRIVATE KEY-----
+credhub_cli_user_password: 7q952j97szywpo22j3pa
 credhub_tls:
   ca: |
     -----BEGIN CERTIFICATE-----
@@ -1009,6 +1010,7 @@ nats_server_tls:
     bUMJX3FU9ybYl6Bk/Jcx39H3ApdagX371aXAh0vKeXWl7rXtWusIoyF7mK/6Bdrj
     szjO1v8WmGWQwbpjPKmu//T5uKvBNZbKGDYnNK0kl261ADQHKCYQPQ==
     -----END RSA PRIVATE KEY-----
+uaa_encryption_key_1: axgs3ioqo2og8n33bhpu
 uaa_jwt_signing_key:
   private_key: |
     -----BEGIN RSA PRIVATE KEY-----
