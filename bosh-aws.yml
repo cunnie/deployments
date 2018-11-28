@@ -856,7 +856,7 @@ instance_groups:
         bosh:
           blobstores:
           - options:
-              endpoint: http://10.0.0.6:25250
+              endpoint: https://10.0.0.6:25250
               password: ((blobstore_agent_password))
               tls:
                 cert:
@@ -1563,12 +1563,12 @@ networks:
   type: vip
 releases:
 - name: bosh
-  sha1: 8fba2997c289dfce22933d516d684e4a131db571
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-268.3.0-ubuntu-xenial-97.33-20181119-194039-996670096-20181119194044.tgz
+  sha1: 55db35a445d93eb263a2feeec2bc88cbbd8ffe33
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-268.3.0-ubuntu-xenial-170.9-20181126-235012-624865282-20181126235018.tgz
   version: 268.3.0
 - name: bpm
-  sha1: f57c590660fb00a55e23fa9a955e79d39ef21d1a
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.12.3-ubuntu-xenial-97.17-20180919-183904-508666998-20180919183910.tgz?versionId=prHEVL4zedQ.NxMXbIOUGlwq6hidaqYq
+  sha1: 1cc709f4be6fb2ec7ea3205d81ecad7039a979b4
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.12.3-ubuntu-xenial-170.9-20181126-234429-76772131-20181126234436.tgz
   version: 0.12.3
 - name: bosh-aws-cpi
   sha1: b7999e95115bb691a630c07f0439ef5b577884c2
@@ -1579,12 +1579,12 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
   version: 18
 - name: uaa
-  sha1: bece5470a905b9dc80a83a044162e69019b90f55
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-64.0-ubuntu-xenial-97.28-20181030-165754-391158715-20181030165806.tgz?versionId=v9ZRyeGVbtXdw79oHosFY_7ZMx_I2DLj
+  sha1: e788ee7c1fce8ab9447e3772e54e11a2d69d475a
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-64.0-ubuntu-xenial-170.9-20181126-235054-308376184-20181126235108.tgz
   version: "64.0"
 - name: credhub
-  sha1: afb03addb21543d3feafbebff8fdc242543ef0cb
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.0.2-ubuntu-xenial-97.16-20180912-174457-075145067-20180912174506.tgz?versionId=XXig9OLrmykqimvtJUYYlhKhykxk0M6i
+  sha1: c1759ba08a927cd8b4476baefe5f803cbb95d515
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.0.2-ubuntu-xenial-170.9-20181126-235205-877343813-20181126235215.tgz
   version: 2.0.2
 - name: nginx
   sha1: c5d767f43a68b89d9603bccac2a60b6a5dc29836
@@ -1610,6 +1610,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 41014fc439770a6f403dfaf6963a03400d47149d
-    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=97.12
+    sha1: 87b2b4990544baed1d3b0561bc391ca98cb28062
+    url: https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=170.9
 variables: []
