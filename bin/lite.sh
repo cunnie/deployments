@@ -52,6 +52,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v blobstore_director_password='((blobstore_director_password))' \
   -v credhub_admin_client_secret='((credhub_admin_client_secret))' \
   -v credhub_cli_password='((credhub_cli_password))' \
+  -v credhub_cli_user_password='((credhub_cli_user_password))' \
   -v credhub_encryption_password='((credhub_encryption_password))' \
   -v hm_password='((hm_password))' \
   -v mbus_bootstrap_password='((mbus_bootstrap_password))' \
@@ -60,6 +61,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v registry_password='((registry_password))' \
   -v uaa_admin_client_secret='((uaa_admin_client_secret))' \
   -v uaa_clients_director_to_credhub='((uaa_clients_director_to_credhub))' \
+  -v uaa_encryption_key_1='((uaa_encryption_key_1))' \
   -v uaa_login_client_secret='((uaa_login_client_secret))' \
   \
   >> $DEPLOYMENTS_DIR/bosh-lite.yml
