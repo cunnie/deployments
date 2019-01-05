@@ -1,18 +1,11 @@
 {
     "director_id": "2ead9af2-14df-471b-5cea-69ebd6c78d04",
     "installation_id": "854972ac-030b-4e5a-798d-fc5e2c4a7d6d",
-    "current_vm_cid": "vm-35b624ad-ecc9-42a1-a56f-5ba13d888a09",
+    "current_vm_cid": "vm-0203a343-19ec-4231-80e6-04d7c55068a1",
     "current_stemcell_id": "ac0c2a1e-6fa8-4722-4714-00ccd6343929",
     "current_disk_id": "fb33ce71-1287-4bd9-79b7-21823673cae2",
-    "current_release_ids": [
-        "055e022c-328d-4034-7621-fd6afff2c019",
-        "f7e2f958-795f-4138-7868-5054b1590f46",
-        "ea006509-62cf-4eed-69a1-11958ab8ce65",
-        "b89a1b6d-e81a-46a8-4f09-53b6dc21b189",
-        "ff8de8af-0ac7-4b29-7569-d67fc7e3ecd0",
-        "5e63f260-a429-4a3d-68a4-d58e8e55bb8c"
-    ],
-    "current_manifest_sha": "f31e7a270e4f2704228c8c3e99e9526752886f982c64a3aafcd2edbf12cc70175d0aa2dc0e1fe5d49bbd87c8693d314b41cbc582f1db98d553a3cef08cd4f40f",
+    "current_release_ids": [],
+    "current_manifest_sha": "",
     "disks": [
         {
             "id": "fb33ce71-1287-4bd9-79b7-21823673cae2",
@@ -30,36 +23,5 @@
             "cid": "sc-daa81de2-7881-4734-aad3-4dfadf6dabd8"
         }
     ],
-    "releases": [
-        {
-            "id": "055e022c-328d-4034-7621-fd6afff2c019",
-            "name": "bosh",
-            "version": "268.4.0"
-        },
-        {
-            "id": "f7e2f958-795f-4138-7868-5054b1590f46",
-            "name": "bpm",
-            "version": "0.12.3"
-        },
-        {
-            "id": "ea006509-62cf-4eed-69a1-11958ab8ce65",
-            "name": "bosh-vsphere-cpi",
-            "version": "51"
-        },
-        {
-            "id": "b89a1b6d-e81a-46a8-4f09-53b6dc21b189",
-            "name": "os-conf",
-            "version": "18"
-        },
-        {
-            "id": "ff8de8af-0ac7-4b29-7569-d67fc7e3ecd0",
-            "name": "uaa",
-            "version": "64.0"
-        },
-        {
-            "id": "5e63f260-a429-4a3d-68a4-d58e8e55bb8c",
-            "name": "credhub",
-            "version": "2.0.2"
-        }
-    ]
+    "releases": []
 }
