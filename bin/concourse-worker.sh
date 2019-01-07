@@ -12,7 +12,7 @@ DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 pushd $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster
   git pull -r
   bosh \
-    -e ipv4 deploy \
+    -e vsphere deploy \
     -d concourse-worker \
     external-worker.yml \
     --no-redact \
