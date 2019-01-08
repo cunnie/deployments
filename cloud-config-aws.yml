@@ -1,110 +1,119 @@
-# azs:
-# - name: z1
-#   cloud_properties:
-#     availability_zone: us-east-1a
-
-env: &env
-  bosh:
-    # c1oudc0w is a default password for vcap user
-    # python -c "import crypt, getpass, pwd; print crypt.crypt('c1oudc0w', '\$6\$cunnie\$')"
-    password: "$6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/"
-
-vm_types:
-- name: t3.nano
-  env: *env
-  cloud_properties:
-    instance_type: t3.nano
-    availability_zone: us-east-1a
-    ephemeral_disk:
-      size: 4_000
-      type: gp2
-- name: t3.micro.100G
-  env: *env
-  cloud_properties:
-    instance_type: t3.micro
-    availability_zone: us-east-1a
-    ephemeral_disk:
-      size: 100_000
-      type: gp2
-- name: t3.micro
-  env: *env
-  cloud_properties:
-    instance_type: t3.micro
-    availability_zone: us-east-1a
-    ephemeral_disk:
-      size: 25_000
-      type: gp2
-- name: default
-  env: *env
-  cloud_properties:
-    instance_type: t3.micro
-    availability_zone: us-east-1a
-    ephemeral_disk:
-      size: 5_000
-      type: gp2
-- name: c4.large
-  env: *env
-  cloud_properties:
-    instance_type: c4.large
-    availability_zone: us-east-1a
-    ephemeral_disk:
-      size: 4_000
-      type: gp2
-
-disk_types:
-- name: concourse
-  disk_size: 5_120
-  cloud_properties:
-    type: gp2
-- name: nginx
-  disk_size: 5_120
-  cloud_properties:
-    type: gp2
-
-networks:
-- name: dynamic
-  type: dynamic
-  cloud_properties:
-    subnet: subnet-1c90ef6b
-- name: dynamic-concourse
-  type: dynamic
-  cloud_properties:
-    subnet: subnet-1c90ef6b
-    security_groups: [concourse]
-- name: default
-  type: manual
-  subnets:
-  - range: 10.0.0.0/24
-    gateway: 10.0.0.1
-    dns: [10.0.0.2, 10.0.0.6]
-    reserved: [10.0.0.2 - 10.0.0.10]
-    cloud_properties:
-      subnet: subnet-1c90ef6b
-      security_groups: [default]
-- name: manual-concourse
-  type: manual
-  subnets:
-  - range: 10.0.0.0/24
-    gateway: 10.0.0.1
-    dns: [10.0.0.6, 10.0.0.2]
-    reserved: [10.0.0.2 - 10.0.0.10]
-    cloud_properties:
-      subnet: subnet-1c90ef6b
-      security_groups: [concourse]
-- name: dynamic-wide-open
-  type: dynamic
-  cloud_properties:
-    subnet: subnet-1c90ef6b
-    security_groups: [default]
-- name: vip
-  type: vip
-
 compilation:
-  workers: 1
+  network: dynamic
   reuse_compilation_vms: true
   vm_type: c4.large
-  network: dynamic
-
+  workers: 1
+disk_types:
+- cloud_properties:
+    type: gp2
+  disk_size: 5120
+  name: concourse
+- cloud_properties:
+    type: gp2
+  disk_size: 5120
+  name: nginx
+env:
+  bosh:
+    password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
+networks:
+- cloud_properties:
+    subnet: subnet-1c90ef6b
+  name: dynamic
+  type: dynamic
+- cloud_properties:
+    security_groups:
+    - concourse
+    subnet: subnet-1c90ef6b
+  name: dynamic-concourse
+  type: dynamic
+- name: default
+  subnets:
+  - cloud_properties:
+      security_groups:
+      - default
+      subnet: subnet-1c90ef6b
+    dns:
+    - 10.0.0.2
+    - 10.0.0.6
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
+    reserved:
+    - 10.0.0.2 - 10.0.0.10
+  type: manual
+- name: manual-concourse
+  subnets:
+  - cloud_properties:
+      security_groups:
+      - concourse
+      subnet: subnet-1c90ef6b
+    dns:
+    - 10.0.0.6
+    - 10.0.0.2
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
+    reserved:
+    - 10.0.0.2 - 10.0.0.10
+  type: manual
+- cloud_properties:
+    security_groups:
+    - default
+    subnet: subnet-1c90ef6b
+  name: dynamic-wide-open
+  type: dynamic
+- name: vip
+  type: vip
 properties:
   aws:
-    default_security_groups: [bosh]
+    default_security_groups:
+    - bosh
+vm_types:
+- cloud_properties:
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 4000
+      type: gp2
+    instance_type: t3.nano
+  env:
+    bosh:
+      password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
+  name: t3.nano
+- cloud_properties:
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 100000
+      type: gp2
+    instance_type: t3.micro
+  env:
+    bosh:
+      password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
+  name: t3.micro.100G
+- cloud_properties:
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 25000
+      type: gp2
+    instance_type: t3.micro
+  env:
+    bosh:
+      password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
+  name: t3.micro
+- cloud_properties:
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 5000
+      type: gp2
+    instance_type: t3.micro
+  env:
+    bosh:
+      password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
+  name: default
+- cloud_properties:
+    availability_zone: us-east-1a
+    ephemeral_disk:
+      size: 4000
+      type: gp2
+    instance_type: c4.large
+  env:
+    bosh:
+      password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
+  name: c4.large

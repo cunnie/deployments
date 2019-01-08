@@ -1,63 +1,61 @@
-# bosh -e ipv4 ucc cloud-config-vsphere.yml
 azs:
-- name: z1
-  cloud_properties:
+- cloud_properties:
     datacenters:
-    - name: dc
-      clusters:
+    - clusters:
       - cl:
           resource_pool: BOSH
-
-vm_types:
-- name: small
-  cloud_properties:
-    cpu: 1
-    ram: 512
-    disk: 1024
-- name: compilation
-  cloud_properties:
-    cpu: 4
-    ram: 4096
-    disk: 3072
-- name: concourse-workers
-  cloud_properties:
-    cpu: 4
-    ram: 8192
-    disk: 65_536
-
+      name: dc
+  name: z1
+compilation:
+  az: z1
+  network: default
+  reuse_compilation_vms: true
+  vm_type: compilation
+  workers: 5
 disk_types:
-- name: default
-  disk_size: 1024
-
+- disk_size: 1024
+  name: default
 networks:
 - name: default
-  type: manual
   subnets:
-  - range: 10.0.9.0/24
+  - azs:
+    - z1
+    cloud_properties:
+      name: VM Network
     gateway: 10.0.9.1
-    static: [ 10.0.9.152-10.0.9.155 ]
+    range: 10.0.9.0/24
     reserved:
     - 10.0.9.1-10.0.9.151
     - 10.0.9.160-10.0.9.170
     - 10.0.9.180-10.0.9.255
-    azs: [ z1 ]
-    cloud_properties:
-      name: VM Network
-- name: guest
+    static:
+    - 10.0.9.152-10.0.9.155
   type: manual
+- name: guest
   subnets:
-  - range: 10.2.0.0/24
+  - azs:
+    - z1
+    cloud_properties:
+      name: Guest
     gateway: 10.2.0.1
+    range: 10.2.0.0/24
     reserved:
     - 10.2.0.1-10.2.0.240
     - 10.2.0.251-10.2.0.255
-    azs: [ z1 ]
-    cloud_properties:
-      name: Guest
-
-compilation:
-  workers: 5
-  reuse_compilation_vms: true
-  vm_type: compilation
-  network: default
-  az: z1
+  type: manual
+vm_types:
+- cloud_properties:
+    cpu: 1
+    disk: 1024
+    ram: 512
+  name: small
+- cloud_properties:
+    cpu: 4
+    disk: 3072
+    ram: 4096
+  name: compilation
+- cloud_properties:
+    cpu: 4
+    disk: 65536
+    ram: 8192
+  name: concourse-workers

@@ -1,43 +1,37 @@
-# bosh -e azure ucc cloud-config-azure.yml
 azs:
 - name: z1
-
-vm_types:
-- name: compilation
-  cloud_properties:
-    instance_type: Standard_D2_V3
-- name: standard_a0
-  cloud_properties:
-    instance_type: Standard_A0
-    ephemeral_disk:
-      use_root_disk: true
-
-# Don't even think of using a persistent disk with Standard_A0
-# you wil get `cannot find an available lun in the virtual machine`,
-# if not on the initial deploy then on a subsequent deploy if you change
-# the disk size
+compilation:
+  az: z1
+  network: default
+  reuse_compilation_vms: true
+  vm_type: compilation
+  workers: 1
 disk_types:
-- name: default
-  disk_size: 3_072
-
+- disk_size: 3072
+  name: default
 networks:
 - name: default
-  type: manual
   subnets:
-  - range: 10.0.0.0/24
-    gateway: 10.0.0.1
-    reserved: [10.0.0.2-10.0.0.3]
-    dns: [168.63.129.16]
-    azs: [z1]
+  - azs:
+    - z1
     cloud_properties:
-      virtual_network_name: boshnet
       subnet_name: bosh
+      virtual_network_name: boshnet
+    dns:
+    - 168.63.129.16
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
+    reserved:
+    - 10.0.0.2-10.0.0.3
+  type: manual
 - name: vip
   type: vip
-
-compilation:
-  workers: 1
-  reuse_compilation_vms: true
-  az: z1
-  vm_type: compilation
-  network: default
+vm_types:
+- cloud_properties:
+    instance_type: Standard_D2_V3
+  name: compilation
+- cloud_properties:
+    ephemeral_disk:
+      use_root_disk: true
+    instance_type: Standard_A0
+  name: standard_a0
