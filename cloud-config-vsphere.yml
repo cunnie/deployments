@@ -6,7 +6,7 @@ azs:
     - name: dc
       clusters:
       - cl:
-          resource_pool: BOSH-IPv4
+          resource_pool: BOSH
 
 vm_types:
 - name: small
@@ -44,9 +44,14 @@ networks:
     cloud_properties:
       name: VM Network
 - name: guest
-  type: dynamic
+  type: manual
   subnets:
-  - az: z1
+  - range: 10.2.0.0/24
+    gateway: 10.2.0.1
+    reserved:
+    - 10.2.0.1-10.2.0.240
+    - 10.2.0.251-10.2.0.255
+    azs: [ z1 ]
     cloud_properties:
       name: Guest
 
