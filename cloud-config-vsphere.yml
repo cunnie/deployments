@@ -5,10 +5,11 @@ azs:
       - cl:
           resource_pool: BOSH
       name: dc
-  name: z1
+  cpi: vsphere
+  name: vsphere
 compilation:
-  az: z1
-  network: default
+  az: vsphere
+  network: guest
   reuse_compilation_vms: true
   vm_type: compilation
   workers: 5
@@ -16,28 +17,10 @@ disk_types:
 - disk_size: 1024
   name: default
 networks:
-- name: default
-  subnets:
-  - azs:
-    - z1
-    cloud_properties:
-      name: VM Network
-    dns:
-    - 10.0.9.1
-    - 8.8.8.8
-    gateway: 10.0.9.1
-    range: 10.0.9.0/24
-    reserved:
-    - 10.0.9.1-10.0.9.151
-    - 10.0.9.160-10.0.9.170
-    - 10.0.9.180-10.0.9.255
-    static:
-    - 10.0.9.152-10.0.9.155
-  type: manual
 - name: guest
   subnets:
   - azs:
-    - z1
+    - vsphere
     cloud_properties:
       name: Guest
     dns:

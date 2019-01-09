@@ -1,16 +1,20 @@
-# bosh -e gce update-cpi-config cpis.yml -l <(lpass show --note deployments.yml)
+#
+# bosh -e vsphere update-cpi-config <(bosh int cpis.yml --vars-file <(lpass show --note deployments.yml))
+#
 cpis:
-- name: google
-  type: google
+- name: vsphere
   properties:
-    json_key: ((gcp_credentials_json))
-    project: blabbertabber
-- name: aws
-  type: aws
-  properties:
-    access_key_id: ((aws_access_key_id))
-    default_key_name: aws_nono
-    default_security_groups:
-    - bosh
-    region: us-east-1
-    secret_access_key: ((aws_secret_access_key))
+    datacenters:
+    - clusters:
+      - cl:
+          resource_pool: BOSH
+      datastore_pattern: NAS-0
+      disk_path: bosh-vsphere-disks
+      name: dc
+      persistent_datastore_pattern: NAS-0
+      template_folder: bosh-vsphere-templates
+      vm_folder: bosh-vsphere-vms
+    host: vcenter-67.nono.io
+    password: ((vcenter_password))
+    user: administrator@vsphere.local
+  type: vsphere

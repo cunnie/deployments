@@ -20,7 +20,7 @@ pushd $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster
     -v external_worker_network_name=guest \
     -v worker_vm_type=concourse-workers \
     -v instances=1 \
-    -v azs=[z1] \
+    -v azs=[vsphere] \
     -v deployment_name=concourse-worker \
     -v tsa_host=ci.nono.io \
     -v worker_tags=[] \
