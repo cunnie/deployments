@@ -22,6 +22,9 @@ networks:
     - z1
     cloud_properties:
       name: VM Network
+    dns:
+    - 10.0.9.1
+    - 8.8.8.8
     gateway: 10.0.9.1
     range: 10.0.9.0/24
     reserved:
@@ -37,6 +40,9 @@ networks:
     - z1
     cloud_properties:
       name: Guest
+    dns:
+    - 10.2.0.1
+    - 8.8.8.8
     gateway: 10.2.0.1
     range: 10.2.0.0/24
     reserved:
