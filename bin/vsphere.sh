@@ -45,6 +45,10 @@ bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v external_ip=73.189.219.4 \
   -v external_fqdn="bosh-vsphere.nono.io" \
   \
+  -v default_key_name=bosh_deployment_no_ecdsa \
+  -v default_security_groups=[bosh] \
+  -v region=us-east-1 \
+  \
   -v network_name=Guest \
   -v vcenter_dc=dc \
   -v vcenter_cluster=cl \

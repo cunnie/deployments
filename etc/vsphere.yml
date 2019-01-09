@@ -1,4 +1,21 @@
-# 20GB is big enough; I don't need 32GB
+# Multi-CPI: add releases (requires manual update), jobs
 - type: replace
-  path: /disk_pools/name=disks/disk_size?
-  value: 20_000
+  path: /releases/-
+  value:
+    name: bosh-aws-cpi
+    version: "73"
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=73
+    sha1: 9d02123488919a325f1ed4f349090c4de6142373
+- type: replace
+  path: /instance_groups/name=bosh/jobs/-
+  value: &cpi_job
+    name: aws_cpi
+    release: bosh-aws-cpi
+- type: replace
+  path: /instance_groups/name=bosh/properties/aws?
+  value: &aws
+    access_key_id: ((access_key_id))
+    secret_access_key: ((secret_access_key))
+    default_key_name: ((default_key_name))
+    default_security_groups: ((default_security_groups))
+    region: ((region))
