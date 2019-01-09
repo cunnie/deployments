@@ -9,7 +9,7 @@ azs:
   name: vsphere
 compilation:
   az: vsphere
-  network: guest
+  network: vsphere-guest
   reuse_compilation_vms: true
   vm_type: compilation
   workers: 5
@@ -17,7 +17,7 @@ disk_types:
 - disk_size: 1024
   name: default
 networks:
-- name: guest
+- name: vsphere-guest
   subnets:
   - azs:
     - vsphere
