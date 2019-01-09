@@ -39,13 +39,13 @@ bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   --var-file=private_key=<(bosh int --path /bosh_deployment_key <(lpass show --note deployments.yml)) \
   \
   -v director_name=bosh-vsphere \
-  -v internal_cidr=10.0.9.0/24 \
-  -v internal_gw=10.0.9.1 \
-  -v internal_ip=10.0.9.151 \
-  -v external_ip=10.0.9.151 \
+  -v internal_cidr=10.2.0.0/24 \
+  -v internal_gw=10.2.0.1 \
+  -v internal_ip=10.2.0.250 \
+  -v external_ip=73.189.219.4 \
   -v external_fqdn="bosh-vsphere.nono.io" \
   \
-  -v network_name=nono \
+  -v network_name=Guest \
   -v vcenter_dc=dc \
   -v vcenter_cluster=cl \
   -v vcenter_rp=BOSH \
