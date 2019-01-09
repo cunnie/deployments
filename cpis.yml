@@ -1,7 +1,16 @@
 #
-# bosh -e vsphere update-cpi-config <(bosh int cpis.yml --vars-file <(lpass show --note deployments.yml))
+# bosh -e vsphere update-cpi-config <(bosh int cpis.yml --vars-file <(lpass show --note deployments.yml)) --no-redact
 #
 cpis:
+- name: aws
+  properties:
+    access_key_id: ((access_key_id))
+    default_key_name: aws_nono
+    default_security_groups:
+    - bosh
+    region: us-east-1
+    secret_access_key: ((secret_access_key))
+  type: aws
 - name: vsphere
   properties:
     datacenters:
