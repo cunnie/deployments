@@ -3,17 +3,21 @@
 # usage:
 #   bin/vsphere.sh
 #
-# Deploys a BOSH vSphere Server
+# Generate manifest for vSphere BOSH Director
 #
-# Normally I'd create a manifest and interpolate the important things, but
-# using that scheme is becoming increasingly contorted & unnatural, so I'm
-# throwing in the towel & deploying my BOSH director the "recommended" way.
-#
-# bosh -e bosh-vsphere.nono.io alias-env vsphere
+# --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
 #
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 
-bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
+cat > $DEPLOYMENTS_DIR/bosh-vsphere.yml <<EOF
+# DON'T EDIT; THIS FILE IS AUTO-GENERATED
+#
+# bosh create-env bosh-vsphere.yml -l <(lpass show --note deployments.yml) --vars-store=bosh-vsphere-creds.yml
+# bosh -e bosh-vsphere.nono.io alias-env vsphere
+#
+EOF
+
+bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/vsphere/cpi.yml \
   \
@@ -21,22 +25,19 @@ bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/local-dns.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/external-ip-not-recommended-uaa.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/bpm.yml \
-  -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/blobstore-https.yml \
   \
-  --state=$DEPLOYMENTS_DIR/bosh-vsphere-state.json \
   \
-  -l <(lpass show --note deployments.yml) \
-  \
-  -o etc/common.yml \
   -o etc/vsphere.yml \
+  -o etc/common.yml \
   -o etc/TLS.yml \
   \
+  --vars-file <(printf '{"uaa_jwt_signing_key":{"private_key":"((uaa_jwt_signing_key.private_key))","public_key":"((uaa_jwt_signing_key.public_key))"}}') \
   --vars-store=bosh-vsphere-creds.yml \
-  --var-file=commercial_ca_crt=etc/COMODORSACertificationAuthority.crt \
-  --var-file=nono_io_crt=etc/nono.io.crt \
-  --var-file=private_key=<(bosh int --path /bosh_deployment_key <(lpass show --note deployments.yml)) \
+  --var-file commercial_ca_crt=etc/COMODORSACertificationAuthority.crt \
+  --var-file nono_io_crt=etc/nono.io.crt \
   \
   -v director_name=bosh-vsphere \
   -v internal_cidr=10.2.0.0/24 \
@@ -49,6 +50,23 @@ bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v default_security_groups=[bosh] \
   -v region=us-east-1 \
   \
+  -v admin_password='((admin_password))' \
+  -v blobstore_agent_password='((blobstore_agent_password))' \
+  -v blobstore_director_password='((blobstore_director_password))' \
+  -v credhub_admin_client_secret='((credhub_admin_client_secret))' \
+  -v credhub_cli_password='((credhub_cli_password))' \
+  -v credhub_cli_user_password='((credhub_cli_user_password))' \
+  -v credhub_encryption_password='((credhub_encryption_password))' \
+  -v hm_password='((hm_password))' \
+  -v mbus_bootstrap_password='((mbus_bootstrap_password))' \
+  -v nats_password='((nats_password))' \
+  -v postgres_password='((postgres_password))' \
+  -v registry_password='((registry_password))' \
+  -v uaa_admin_client_secret='((uaa_admin_client_secret))' \
+  -v uaa_clients_director_to_credhub='((uaa_clients_director_to_credhub))' \
+  -v uaa_encryption_key_1='((uaa_encryption_key_1))' \
+  -v uaa_login_client_secret='((uaa_login_client_secret))' \
+  \
   -v network_name=Guest \
   -v vcenter_dc=dc \
   -v vcenter_cluster=cl \
@@ -58,4 +76,6 @@ bosh create-env $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v vcenter_user=administrator@vsphere.local \
   -v vcenter_templates=bosh-vsphere-templates \
   -v vcenter_vms=bosh-vsphere-vms \
-  -v vcenter_disks=bosh-vsphere-disks
+  -v vcenter_disks=bosh-vsphere-disks \
+  \
+  >> $DEPLOYMENTS_DIR/bosh-vsphere.yml
