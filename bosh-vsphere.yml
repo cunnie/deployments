@@ -635,7 +635,7 @@ instance_groups:
         bosh:
           blobstores:
           - options:
-              endpoint: https://10.2.0.250:25250
+              endpoint: https://73.189.219.4:25250
               password: ((blobstore_agent_password))
               tls:
                 cert:
@@ -669,7 +669,7 @@ instance_groups:
                     -----END CERTIFICATE-----
               user: agent
             provider: dav
-      mbus: nats://nats:((nats_password))@10.2.0.250:4222
+      mbus: nats://nats:((nats_password))@73.189.219.4:4222
     aws:
       access_key_id: ((access_key_id))
       default_key_name: bosh_deployment_no_ecdsa

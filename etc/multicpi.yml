@@ -1,0 +1,8 @@
+---
+# We must use external IPs for mbus and blobstore for non-vSphere deploys to work
+- type: replace
+  path: /instance_groups/name=bosh/properties/agent/env/bosh/blobstores/0/options/endpoint
+  value: https://((external_ip)):25250
+- type: replace
+  path: /instance_groups/name=bosh/properties/agent/mbus
+  value: nats://nats:((nats_password))@((external_ip)):4222
