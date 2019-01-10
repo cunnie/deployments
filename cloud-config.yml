@@ -7,6 +7,10 @@ azs:
       name: dc
   cpi: vsphere
   name: vsphere
+- cloud_properties:
+    availability_zone: us-east-1a
+  cpi: aws
+  name: aws
 compilation:
   az: vsphere
   network: vsphere-guest
@@ -32,6 +36,23 @@ networks:
     - 10.2.0.1-10.2.0.240
     - 10.2.0.251-10.2.0.255
   type: manual
+- name: aws-private
+  subnets:
+  - azs:
+    - aws
+    cloud_properties:
+      security_groups:
+      - default
+      subnet: subnet-1c90ef6b
+    dns:
+    - 10.0.0.2
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
+    reserved:
+    - 10.0.0.2 - 10.0.0.6
+  type: manual
+- name: aws-public
+  type: vip
 vm_types:
 - cloud_properties:
     cpu: 1
@@ -48,3 +69,9 @@ vm_types:
     disk: 65536
     ram: 8192
   name: concourse-workers
+- cloud_properties:
+    ephemeral_disk:
+      size: 4000
+      type: gp2
+    instance_type: t2.micro
+  name: t2.micro
