@@ -5,7 +5,7 @@ cpis:
 - name: aws
   properties:
     access_key_id: ((access_key_id))
-    default_key_name: aws_nono
+    default_key_name: bosh_deployment_no_ecdsa
     default_security_groups:
     - bosh
     region: us-east-1
