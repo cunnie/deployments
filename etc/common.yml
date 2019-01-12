@@ -14,21 +14,3 @@
   value: |
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD cunnie@nono.io
 
-# Director must work with CredHub and UAA using an external IP address.  Taken
-# from a slack channel, these operations are slightly different than the
-# following PR <https://github.com/cloudfoundry/bosh-deployment/pull/144/>
-- type: replace
-  path: /variables/name=credhub_tls/options/alternative_names/-
-  value: ((external_ip))
-
-- type: replace
-  path: /variables/name=credhub_tls/options/common_name
-  value: ((external_ip))
-
-- type: replace
-  path: /instance_groups/name=bosh/jobs/name=credhub/properties/credhub/authentication/uaa/url
-  value: "https://((external_ip)):8443"
-
-- type: replace
-  path: /instance_groups/name=bosh/properties/director/config_server/uaa/url
-  value: "https://((external_ip)):8443"

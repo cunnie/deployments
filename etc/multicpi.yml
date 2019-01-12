@@ -1,8 +1,91 @@
 ---
+# Multi-CPI: add releases (requires manual update), jobs
+- type: replace
+  path: /releases/-
+  value:
+    name: bosh-aws-cpi
+    version: "73"
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=73
+    sha1: 9d02123488919a325f1ed4f349090c4de6142373
+- type: replace
+  path: /instance_groups/name=bosh/jobs/-
+  value: &cpi_job
+    name: aws_cpi
+    release: bosh-aws-cpi
+- type: replace
+  path: /instance_groups/name=bosh/properties/aws?
+  value: &aws
+    access_key_id: ((access_key_id))
+    secret_access_key: ((secret_access_key))
+    default_key_name: ((default_key_name))
+    default_security_groups: ((default_security_groups))
+    region: ((region))
+
 # We must use external IPs for mbus and blobstore for non-vSphere deploys to work
+
+# First, fix the certificates that may be accessed via the external IP
+- type: replace
+  path: /variables/name=blobstore_server_tls/options/alternative_names/-
+  value: ((external_ip))
+- type: replace
+  path: /variables/name=credhub_tls/options/alternative_names/-
+  value: ((external_ip))
+- type: replace
+  path: /variables/name=director_ssl/options/alternative_names/-
+  value: ((external_ip))
+- type: replace
+  path: /variables/name=mbus_bootstrap_ssl/options/alternative_names/-
+  value: ((external_ip))
+- type: replace
+  path: /variables/name=nats_server_tls/options/alternative_names/-
+  value: ((external_ip))
+- type: replace
+  path: /variables/name=uaa_service_provider_ssl/options/alternative_names/-
+  value: ((external_ip))
+- type: replace
+  path: /variables/name=uaa_ssl/options/alternative_names/-
+  value: ((external_ip))
+
+# WARNING: We do not recommend to expose UAA and any other services over public addresses.
+# WARNING: We do not recommend to expose Director and any other services over public addresses.
 - type: replace
   path: /instance_groups/name=bosh/properties/agent/env/bosh/blobstores/0/options/endpoint
   value: https://((external_ip)):25250
 - type: replace
   path: /instance_groups/name=bosh/properties/agent/mbus
   value: nats://nats:((nats_password))@((external_ip)):4222
+
+# from external-ip-not-recommended.yml
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/default_ssh_options?/gateway_host
+  value: ((external_ip))
+
+# todo should not access non-defined vars
+- type: replace
+  path: /cloud_provider/mbus
+  value: https://mbus:((mbus_bootstrap_password))@((external_ip)):6868
+
+
+# from external-ip-not-recommended-uaa.yml
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=uaa/properties/uaa/url
+  value: "https://((external_ip)):8443"
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/user_management/uaa/url
+  value: "https://((external_ip)):8443"
+
+# from misc/externalip-not-recommended/mbus-only.yml
+- type: replace
+  path: /cloud_provider/mbus
+  value: https://mbus:((mbus_bootstrap_password))@((external_ip)):6868
+
+# Director must work with CredHub and UAA using an external IP address.  Taken
+# from a slack channel, these operations are slightly different than the
+# following PR <https://github.com/cloudfoundry/bosh-deployment/pull/144/>
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=credhub/properties/credhub/authentication/uaa/url
+  value: "https://((external_ip)):8443"
+
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/config_server/uaa/url
+  value: "https://((external_ip)):8443"
