@@ -75,3 +75,9 @@ vm_types:
       type: gp2
     instance_type: t2.micro
   name: t2.micro
+- cloud_properties:
+    ephemeral_disk:
+      size: 4000
+      type: gp2
+    instance_type: t3.micro
+  name: t3.micro

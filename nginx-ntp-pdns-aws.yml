@@ -202,7 +202,7 @@ instance_groups:
     static_ips:
     - 52.0.56.137
   stemcell: xenial
-  vm_type: t2.micro
+  vm_type: t3.micro
 name: nginx-ntp-pdns-aws
 releases:
 - name: nginx
