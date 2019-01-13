@@ -1,0 +1,229 @@
+#
+# bosh -e vsphere -d nginx-ntp-pdns-aws deploy -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact nginx-ntp-pdns-aws.yml
+#
+instance_groups:
+- azs:
+  - aws
+  instances: 1
+  jobs:
+  - name: nginx
+    properties:
+      nginx_conf: |
+        user  nobody vcap; # group vcap can read /var/vcap/data/nginx
+        worker_processes  1;
+        error_log /var/vcap/sys/log/nginx/error.log   info;
+        #pid        logs/nginx.pid; # PIDFILE is configured via monit's ctl
+        events {
+          worker_connections  1024;
+        }
+        http {
+          include /var/vcap/packages/nginx/conf/mime.types;
+          default_type  application/octet-stream;
+          sendfile        on;
+          keepalive_timeout  65;
+          server_names_hash_bucket_size 64;
+          # redirect HTTP to HTTPS
+          server {
+            server_name _; # invalid value which will never trigger on a real hostname.
+            listen 80;
+            rewrite ^ https://sslip.io$request_uri?;
+            access_log /var/vcap/sys/log/nginx/sslip.io-access.log;
+            error_log /var/vcap/sys/log/nginx/sslip.io-error.log;
+          }
+          server {
+            server_name sslip.io 52-0-56-137.sslip.io;
+            # weak DH https://weakdh.org/sysadmin.html
+            ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+            ssl_prefer_server_ciphers on;
+            # poodle https://scotthelme.co.uk/sslv3-goes-to-the-dogs-poodle-kills-off-protocol/
+            ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+            listen              443 ssl;
+            ssl_certificate     /var/vcap/jobs/nginx/etc/ssl_chained.crt.pem;
+            ssl_certificate_key /var/vcap/jobs/nginx/etc/ssl.key.pem;
+            access_log /var/vcap/sys/log/nginx/sslip.io-access.log;
+            error_log /var/vcap/sys/log/nginx/sslip.io-error.log;
+            root /var/vcap/data/nginx/document_root;
+            index index.shtml index.html index.htm;
+          }
+        }
+      pre_start: |
+        #!/bin/bash -ex
+        NGINX_DIR=/var/vcap/data/nginx
+        mkdir -p /var/vcap/packages/nginx/proxy_temp
+        cd $NGINX_DIR
+        set +e
+        curl -L http://api.github.com/repos/cunnie/sslip.io/tarball/master |
+          tar xzf -
+        mv cunnie-sslip.io-*/* .
+        chown -R vcap:vcap .
+      ssl_chained_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIGyjCCBbKgAwIBAgIRAKJsJWop/HUa+6EZmIsRSmswDQYJKoZIhvcNAQELBQAw
+        gZAxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
+        BgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMTYwNAYD
+        VQQDEy1DT01PRE8gUlNBIERvbWFpbiBWYWxpZGF0aW9uIFNlY3VyZSBTZXJ2ZXIg
+        Q0EwHhcNMTgwOTEzMDAwMDAwWhcNMjAwOTEyMjM1OTU5WjBXMSEwHwYDVQQLExhE
+        b21haW4gQ29udHJvbCBWYWxpZGF0ZWQxHTAbBgNVBAsTFFBvc2l0aXZlU1NMIFdp
+        bGRjYXJkMRMwEQYDVQQDDAoqLnNzbGlwLmlvMIIBIjANBgkqhkiG9w0BAQEFAAOC
+        AQ8AMIIBCgKCAQEAvQIIb62gT2oGm4xFBjQsVTOCv3cYVBIRieB9Da4NmRmgDv+V
+        7eBqT09jpIc26FYVzwZf/SCpOh7VXDa7fzklz0KSBfnPq2TkO1y2QkOwTAdPuex+
+        jmvM2JeF3HtbzMC649225/DfWQFwv6XNqQnKPlSl4ntEcXh/7D1RC8nXQxYaFY1i
+        KBQZamzNT3X3Q9L84by3MQ2UbbI/36q3Wz5hap87vpp9zInmJqs2FUaRd3IR1Aja
+        F8fDeT/3e6oxslj9N1JeuaQDBa1n24WKsdGkB9N+R7l4h1a91bEGod2+AZwyv0OM
+        d3faE05ApXZrCB6bypEBbpPexG34ZIZGriF9xwIDAQABo4IDVTCCA1EwHwYDVR0j
+        BBgwFoAUkK9qOpRaC9iQ6hJWc99DtDoo2ucwHQYDVR0OBBYEFLdnLOxPsBs+eks6
+        jVZAk0Zoz67IMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQW
+        MBQGCCsGAQUFBwMBBggrBgEFBQcDAjBPBgNVHSAESDBGMDoGCysGAQQBsjEBAgIH
+        MCswKQYIKwYBBQUHAgEWHWh0dHBzOi8vc2VjdXJlLmNvbW9kby5jb20vQ1BTMAgG
+        BmeBDAECATBUBgNVHR8ETTBLMEmgR6BFhkNodHRwOi8vY3JsLmNvbW9kb2NhLmNv
+        bS9DT01PRE9SU0FEb21haW5WYWxpZGF0aW9uU2VjdXJlU2VydmVyQ0EuY3JsMIGF
+        BggrBgEFBQcBAQR5MHcwTwYIKwYBBQUHMAKGQ2h0dHA6Ly9jcnQuY29tb2RvY2Eu
+        Y29tL0NPTU9ET1JTQURvbWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5jcnQw
+        JAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAfBgNVHREEGDAW
+        ggoqLnNzbGlwLmlvgghzc2xpcC5pbzCCAYAGCisGAQQB1nkCBAIEggFwBIIBbAFq
+        AHcA7ku9t3XOYLrhQmkfq+GeZqMPfl+wctiDAMR7iXqo/csAAAFl0L5T4wAABAMA
+        SDBGAiEAjjmRSMjIR9cxii6413ceZIBpn/jfUjc0iWYntyrnnNoCIQD0KptYbGLJ
+        qPDu7yNEsdXEZeATdr4hIpyq8G/AwfAYdAB2AF6nc/nfVsDntTZIfdBJ4DJ6kZoM
+        hKESEoQYdZaBcUVYAAABZdC+VBIAAAQDAEcwRQIhAMDdhox/4qE+Y+XsuqE6QqL2
+        korp/Tm52snvmoxpWfxZAiA/IVvSIFcAN5IgbR5o5qwNVZy0j5ffb7LIqPDGByE1
+        cQB3AFWB1MIWkDYBSuoLm1c8U/DA5Dh4cCUIFy+jqh0HE9MMAAABZdC+VAkAAAQD
+        AEgwRgIhANCacvSzLiGqIkQ9Tuybh6UaUNVj+WuLoh3ipLd9xJadAiEAxtqceVKp
+        2HMA7aalgQiOXqBGX3fciOzqctiPH8TVw5IwDQYJKoZIhvcNAQELBQADggEBACOd
+        KL6UC15XJU94fOH6o5JHmmY9i6RtvjwRwb2cxkRU7mghIbydrq+yoLYjAGlmDZLV
+        Egln9CNEhOlwHprZq9+wrcP0Dm0UMmp7N7ZBCatTc4gZNKTtODcK+bJN21GMTgTo
+        lx+lTB+sjlK9C1yqBI8MbErZXf/l/y3A+eLEZ6geojMvxNHMTPnp4F26yiEKF+Rd
+        VAZhhb9r8frKta/2er3ADpAer+IeVwQyv5Jl7dzISk+Mkdn6HnJL24shI+tN/kVZ
+        pUGQU0XNlb/2a9Lb/SGs2PfUoONcb31cgvtlV4bXVuJSqvB1a8RKUKyOfoeN30pm
+        zgrAODHC/iZWORBc4Ec=
+        -----END CERTIFICATE-----
+        -----BEGIN CERTIFICATE-----
+        MIIGCDCCA/CgAwIBAgIQKy5u6tl1NmwUim7bo3yMBzANBgkqhkiG9w0BAQwFADCB
+        hTELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
+        A1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxKzApBgNV
+        BAMTIkNPTU9ETyBSU0EgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTQwMjEy
+        MDAwMDAwWhcNMjkwMjExMjM1OTU5WjCBkDELMAkGA1UEBhMCR0IxGzAZBgNVBAgT
+        EkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMR
+        Q09NT0RPIENBIExpbWl0ZWQxNjA0BgNVBAMTLUNPTU9ETyBSU0EgRG9tYWluIFZh
+        bGlkYXRpb24gU2VjdXJlIFNlcnZlciBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEP
+        ADCCAQoCggEBAI7CAhnhoFmk6zg1jSz9AdDTScBkxwtiBUUWOqigwAwCfx3M28Sh
+        bXcDow+G+eMGnD4LgYqbSRutA776S9uMIO3Vzl5ljj4Nr0zCsLdFXlIvNN5IJGS0
+        Qa4Al/e+Z96e0HqnU4A7fK31llVvl0cKfIWLIpeNs4TgllfQcBhglo/uLQeTnaG6
+        ytHNe+nEKpooIZFNb5JPJaXyejXdJtxGpdCsWTWM/06RQ1A/WZMebFEh7lgUq/51
+        UHg+TLAchhP6a5i84DuUHoVS3AOTJBhuyydRReZw3iVDpA3hSqXttn7IzW3uLh0n
+        c13cRTCAquOyQQuvvUSH2rnlG51/ruWFgqUCAwEAAaOCAWUwggFhMB8GA1UdIwQY
+        MBaAFLuvfgI9+qbxPISOre44mOzZMjLUMB0GA1UdDgQWBBSQr2o6lFoL2JDqElZz
+        30O0Oija5zAOBgNVHQ8BAf8EBAMCAYYwEgYDVR0TAQH/BAgwBgEB/wIBADAdBgNV
+        HSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwGwYDVR0gBBQwEjAGBgRVHSAAMAgG
+        BmeBDAECATBMBgNVHR8ERTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNv
+        bS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9uQXV0aG9yaXR5LmNybDBxBggrBgEFBQcB
+        AQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29tb2RvY2EuY29tL0NPTU9E
+        T1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21v
+        ZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAE4rdk+SHGI2ibp3wScF9BzWRJ2p
+        mj6q1WZmAT7qSeaiNbz69t2Vjpk1mA42GHWx3d1Qcnyu3HeIzg/3kCDKo2cuH1Z/
+        e+FE6kKVxF0NAVBGFfKBiVlsit2M8RKhjTpCipj4SzR7JzsItG8kO3KdY3RYPBps
+        P0/HEZrIqPW1N+8QRcZs2eBelSaz662jue5/DJpmNXMyYE7l3YphLG5SEXdoltMY
+        dVEVABt0iN3hxzgEQyjpFv3ZBdRdRydg1vs4O2xyopT4Qhrf7W8GjEXCBgCq5Ojc
+        2bXhc3js9iPc0d1sjhqPpepUfJa3w/5Vjo1JXvxku88+vZbrac2/4EjxYoIQ5QxG
+        V/Iz2tDIY+3GH5QFlkoakdH368+PUq4NCNk+qKBR6cGHdNXJ93SrLlP7u3r7l+L4
+        HyaPs9Kg4DdbKDsx5Q5XLVq4rXmsXiBmGqW5prU5wfWYQ//u+aen/e7KJD2AFsQX
+        j4rBYKEMrltDR5FL1ZoXX/nUh8HCjLfn4g8wGTeGrODcQgPmlKidrv0PJFGUzpII
+        0fxQ8ANAe4hZ7Q7drNJ3gjTcBpUC2JD5Leo31Rpg0Gcg19hCC0Wvgmje3WYkN5Ap
+        lBlGGSW4gNfL1IYoakRwJiNiqZ+Gb7+6kHDSVneFeO/qJakXzlByjAA6quPbYzSf
+        +AZxAeKCINT+b72x
+        -----END CERTIFICATE-----
+        -----BEGIN CERTIFICATE-----
+        MIIFdDCCBFygAwIBAgIQJ2buVutJ846r13Ci/ITeIjANBgkqhkiG9w0BAQwFADBv
+        MQswCQYDVQQGEwJTRTEUMBIGA1UEChMLQWRkVHJ1c3QgQUIxJjAkBgNVBAsTHUFk
+        ZFRydXN0IEV4dGVybmFsIFRUUCBOZXR3b3JrMSIwIAYDVQQDExlBZGRUcnVzdCBF
+        eHRlcm5hbCBDQSBSb290MB4XDTAwMDUzMDEwNDgzOFoXDTIwMDUzMDEwNDgzOFow
+        gYUxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
+        BgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYD
+        VQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MIICIjANBgkq
+        hkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAkehUktIKVrGsDSTdxc9EZ3SZKzejfSNw
+        AHG8U9/E+ioSj0t/EFa9n3Byt2F/yUsPF6c947AEYe7/EZfH9IY+Cvo+XPmT5jR6
+        2RRr55yzhaCCenavcZDX7P0N+pxs+t+wgvQUfvm+xKYvT3+Zf7X8Z0NyvQwA1onr
+        ayzT7Y+YHBSrfuXjbvzYqOSSJNpDa2K4Vf3qwbxstovzDo2a5JtsaZn4eEgwRdWt
+        4Q08RWD8MpZRJ7xnw8outmvqRsfHIKCxH2XeSAi6pE6p8oNGN4Tr6MyBSENnTnIq
+        m1y9TBsoilwie7SrmNnu4FGDwwlGTm0+mfqVF9p8M1dBPI1R7Qu2XK8sYxrfV8g/
+        vOldxJuvRZnio1oktLqpVj3Pb6r/SVi+8Kj/9Lit6Tf7urj0Czr56ENCHonYhMsT
+        8dm74YlguIwoVqwUHZwK53Hrzw7dPamWoUi9PPevtQ0iTMARgexWO/bTouJbt7IE
+        IlKVgJNp6I5MZfGRAy1wdALqi2cVKWlSArvX31BqVUa/oKMoYX9w0MOiqiwhqkfO
+        KJwGRXa/ghgntNWutMtQ5mv0TIZxMOmm3xaG4Nj/QN370EKIf6MzOi5cHkERgWPO
+        GHFrK+ymircxXDpqR+DDeVnWIBqv8mqYqnK8V0rSS527EPywTEHl7R09XiidnMy/
+        s1Hap0flhFMCAwEAAaOB9DCB8TAfBgNVHSMEGDAWgBStvZh6NLQm9/rEJlTvA73g
+        JMtUGjAdBgNVHQ4EFgQUu69+Aj36pvE8hI6t7jiY7NkyMtQwDgYDVR0PAQH/BAQD
+        AgGGMA8GA1UdEwEB/wQFMAMBAf8wEQYDVR0gBAowCDAGBgRVHSAAMEQGA1UdHwQ9
+        MDswOaA3oDWGM2h0dHA6Ly9jcmwudXNlcnRydXN0LmNvbS9BZGRUcnVzdEV4dGVy
+        bmFsQ0FSb290LmNybDA1BggrBgEFBQcBAQQpMCcwJQYIKwYBBQUHMAGGGWh0dHA6
+        Ly9vY3NwLnVzZXJ0cnVzdC5jb20wDQYJKoZIhvcNAQEMBQADggEBAGS/g/FfmoXQ
+        zbihKVcN6Fr30ek+8nYEbvFScLsePP9NDXRqzIGCJdPDoCpdTPW6i6FtxFQJdcfj
+        Jw5dhHk3QBN39bSsHNA7qxcS1u80GH4r6XnTq1dFDK8o+tDb5VCViLvfhVdpfZLY
+        Uspzgb8c8+a4bmYRBbMelC1/kZWSWfFMzqORcUx8Rww7Cxn2obFshj5cqsQugsv5
+        B5a6SE2Q8pTIqXOi6wZ7I53eovNNVZ96YUWYGGjHXkBrI/V5eu+MtWuLt29G9Hvx
+        PUsE2JOAWVrgQSQdso8VYFhH2+9uRv0V9dlfmrPb2LjkQLPNlzmuhbsdjrzch5vR
+        pu/xO28QOG8=
+        -----END CERTIFICATE-----
+      ssl_key: ((sslip_io_key))
+    release: nginx
+  - name: ntpd
+    properties:
+      ntp_conf: |
+        # Our upstream timekeepers; thank you Google
+        server time1.google.com iburst
+        server time2.google.com iburst
+        server time3.google.com iburst
+        server time4.google.com iburst
+        # "Batten down the hatches!"
+        # see http://support.ntp.org/bin/view/Support/AccessRestrictions
+        restrict default limited kod nomodify notrap nopeer
+        # Amazon AWS doesn't have IPv6, but I restrict it anyway
+        restrict -6 default limited kod nomodify notrap nopeer
+        restrict 127.0.0.0 mask 255.0.0.0
+        restrict -6 ::1
+      post_start: |
+        #!/bin/bash -x
+        # on Xenial we disable chrony because we're running ntpd
+        systemctl disable chrony.service
+        systemctl stop    chrony.service
+    release: ntp
+  - name: pdns
+    properties:
+      named_conf: ((pdns_named_conf))
+      pdns_conf: ((pdns_conf))
+      pipe: ((pdns_pipe))
+    release: pdns
+  name: nginx-ntp-pdns
+  networks:
+  - default:
+    - dns
+    - gateway
+    name: aws-private
+  - name: aws-public
+    static_ips:
+    - 52.0.56.137
+  stemcell: xenial
+  vm_type: t2.micro
+name: nginx-ntp-pdns-aws
+releases:
+- name: nginx
+  sha1: c5d767f43a68b89d9603bccac2a60b6a5dc29836
+  url: https://github.com/cloudfoundry-community/nginx-release/releases/download/1.13.12/nginx-release-1.13.12.tgz
+  version: 1.13.12
+- name: ntp
+  sha1: 050fa819c4c3848943b7bd1e993fd0846bb63114
+  url: https://github.com/cloudfoundry-community/ntp-release/releases/download/4.2.8p12/ntp-release-4.2.8p12.tgz
+  version: 4.2.8p12
+- name: pdns
+  sha1: a8e8739915e7899764295609db419e20f1718d88
+  url: https://github.com/cloudfoundry-community/pdns-release/releases/download/4.1.4/pdns-release-4.1.4.tgz
+  version: 4.1.4
+stemcells:
+- alias: xenial
+  os: ubuntu-xenial
+  version: latest
+update:
+  canaries: 1
+  canary_watch_time: 1000-60000
+  max_in_flight: 3
+  serial: false
+  update_watch_time: 1000-60000
