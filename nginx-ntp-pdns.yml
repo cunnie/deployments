@@ -1,9 +1,10 @@
 #
-# bosh -e vsphere -d nginx-ntp-pdns-aws deploy -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact nginx-ntp-pdns-aws.yml
+# This is a template and not meant to be directly deployed.
+# Use `bin/nginx-ntp-pdns.sh` to deploy
 #
 instance_groups:
 - azs:
-  - aws
+  - ((iaas))
   instances: 1
   jobs:
   - name: nginx
@@ -31,7 +32,7 @@ instance_groups:
             error_log /var/vcap/sys/log/nginx/sslip.io-error.log;
           }
           server {
-            server_name sslip.io 52-0-56-137.sslip.io;
+            server_name sslip.io ((sslip_io_hostname)).sslip.io;
             # weak DH https://weakdh.org/sysadmin.html
             ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
             ssl_prefer_server_ciphers on;
@@ -197,13 +198,13 @@ instance_groups:
   - default:
     - dns
     - gateway
-    name: aws-private
-  - name: aws-public
+    name: ((iaas))-private
+  - name: ((iaas))-public
     static_ips:
-    - 52.0.56.137
+    - ((external_ip))
   stemcell: xenial
-  vm_type: t3.nano
-name: nginx-ntp-pdns-aws
+  vm_type: ((vm_type))
+name: nginx-ntp-pdns-((iaas))
 releases:
 - name: nginx
   sha1: c5d767f43a68b89d9603bccac2a60b6a5dc29836
