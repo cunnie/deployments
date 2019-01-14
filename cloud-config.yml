@@ -1,3 +1,5 @@
+# bosh -e vsphere ucc cloud-config.yml
+# 3,$!bosh int -
 azs:
 - cloud_properties:
     datacenters:
@@ -11,6 +13,8 @@ azs:
     availability_zone: us-east-1a
   cpi: aws
   name: aws
+- cpi: azure
+  name: azure
 compilation:
   az: vsphere
   network: vsphere-guest
@@ -21,21 +25,6 @@ disk_types:
 - disk_size: 1024
   name: default
 networks:
-- name: vsphere-guest
-  subnets:
-  - azs:
-    - vsphere
-    cloud_properties:
-      name: Guest
-    dns:
-    - 10.2.0.1
-    - 8.8.8.8
-    gateway: 10.2.0.1
-    range: 10.2.0.0/24
-    reserved:
-    - 10.2.0.1-10.2.0.240
-    - 10.2.0.251-10.2.0.255
-  type: manual
 - name: aws-private
   subnets:
   - azs:
@@ -53,6 +42,37 @@ networks:
   type: manual
 - name: aws-public
   type: vip
+- name: azure-private
+  subnets:
+  - azs:
+    - azure
+    cloud_properties:
+      subnet_name: bosh
+      virtual_network_name: boshnet
+    dns:
+    - 168.63.129.16
+    gateway: 10.0.0.1
+    range: 10.0.0.0/24
+    reserved:
+    - 10.0.0.2-10.0.0.3
+  type: manual
+- name: azure-public
+  type: vip
+- name: vsphere-guest
+  subnets:
+  - azs:
+    - vsphere
+    cloud_properties:
+      name: Guest
+    dns:
+    - 10.2.0.1
+    - 8.8.8.8
+    gateway: 10.2.0.1
+    range: 10.2.0.0/24
+    reserved:
+    - 10.2.0.1-10.2.0.240
+    - 10.2.0.251-10.2.0.255
+  type: manual
 vm_types:
 - cloud_properties:
     cpu: 1
@@ -69,6 +89,11 @@ vm_types:
     disk: 65536
     ram: 8192
   name: concourse-workers
+- cloud_properties:
+    ephemeral_disk:
+      use_root_disk: true
+    instance_type: Standard_B1S
+  name: standard_b1s
 - cloud_properties:
     ephemeral_disk:
       size: 4000

@@ -14,6 +14,7 @@ fi
 
 set -- \
   aws 52.0.56.137 52-0-56-137 t3.nano \
+  azure 52.187.42.158 52-187-42-158 standard_b1s \
 
 while [ $# -gt 0 ]; do
   IAAS=$1
