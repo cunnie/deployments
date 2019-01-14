@@ -28,8 +28,6 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/bpm.yml \
   \
-  \
-  -o etc/vsphere.yml \
   -o etc/common.yml \
   -o etc/multicpi.yml \
   -o etc/TLS.yml \

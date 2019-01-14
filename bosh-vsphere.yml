@@ -623,6 +623,10 @@ instance_groups:
     release: credhub
   - name: aws_cpi
     release: bosh-aws-cpi
+  - name: azure_cpi
+    release: bosh-azure-cpi
+  - name: registry
+    release: bosh
   name: bosh
   networks:
   - name: default
@@ -677,6 +681,18 @@ instance_groups:
       - bosh
       region: us-east-1
       secret_access_key: ((secret_access_key))
+    azure:
+      client_id: bf7f78c1-6924-4a02-965c-b66f481a9b5f
+      client_secret: ((client_secret))
+      default_security_group: nsg-bosh
+      environment: AzureCloud
+      resource_group_name: bosh-res-group
+      ssh_public_key: |
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGXWHCZC7yl5wh2pOApfd9m0BsamNT9N7iuzC5pNs+peg1duDVPfW4DtBWPigwOBMKuyAu4+3rl38/XR2VB4j0BlGF3SOJvd8gaTPoN61adIcnHYDJjiWeuuL371qjMvLzn1DqnqyAoFLLotkei2NtZZqGYygWhqTv5DVML+7P/6GM6h/FVfefrWhwc7/NYklgr6kz8yXMgPwx5rAFKCS28RlrrKlVEbbxxV4wMpu+0lIdSxI0I9r1R/vWGyywk1H04TwhjT/RAMOpvL9V7kqb67u5UGUaDYxUgcHV+1lcl7P8FoogBMmQ7ogTYlQWHb/3xezVQiaJf9/b4bJnRLuV
+      ssh_user: vcap
+      subscription_id: a1ac8d5a-7a97-4ed5-bfd1-d7822e19cae9
+      tenant_id: 682bd378-95db-41bd-8b1e-70fb407c4b10
+      use_managed_disks: true
     blobstore:
       address: 10.2.0.250
       agent:
@@ -1343,6 +1359,22 @@ instance_groups:
       listen_address: 127.0.0.1
       password: ((postgres_password))
       user: postgres
+    registry:
+      address: 73.189.219.4
+      db:
+        adapter: postgres
+        database: bosh
+        host: 127.0.0.1
+        password: ((postgres_password))
+        user: postgres
+      host: 73.189.219.4
+      http:
+        password: ((registry_password))
+        port: 25777
+        user: registry
+      password: ((registry_password))
+      port: 25777
+      username: registry
     vcenter:
       address: vcenter-67.nono.io
       datacenters:
@@ -1400,6 +1432,10 @@ releases:
   sha1: 9d02123488919a325f1ed4f349090c4de6142373
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=73
   version: "73"
+- name: bosh-azure-cpi
+  sha1: faebe370c143554fe471c3f6aafb523ab48c43ea
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=35.5.0
+  version: 35.5.0
 resource_pools:
 - cloud_properties:
     cpu: 2
