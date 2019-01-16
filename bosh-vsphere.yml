@@ -625,6 +625,8 @@ instance_groups:
     release: bosh-aws-cpi
   - name: azure_cpi
     release: bosh-azure-cpi
+  - name: google_cpi
+    release: bosh-google-cpi
   - name: registry
     release: bosh
   name: bosh
@@ -881,7 +883,6 @@ instance_groups:
         password: ((postgres_password))
         user: postgres
       default_ssh_options:
-        gateway_host: 73.189.219.4
         gateway_user: jumpbox
       enable_dedicated_status_worker: true
       enable_nats_delivered_templates: true
@@ -1000,6 +1001,9 @@ instance_groups:
           public_key: ((uaa_jwt_signing_key.public_key))
           url: https://bosh-vsphere.nono.io:8443
       workers: 4
+    google:
+      json_key: ((gcp_credentials_json))
+      project: blabbertabber
     hm:
       director_account:
         ca_cert: |
@@ -1436,6 +1440,10 @@ releases:
   sha1: faebe370c143554fe471c3f6aafb523ab48c43ea
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=35.5.0
   version: 35.5.0
+- name: bosh-google-cpi
+  sha1: 911a48764dbb24c50aedd4e3095d1603d385e135
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=27.0.1
+  version: 27.0.1
 resource_pools:
 - cloud_properties:
     cpu: 2

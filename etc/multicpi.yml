@@ -14,6 +14,13 @@
     version: "35.5.0"
     url: "https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=35.5.0"
     sha1: "faebe370c143554fe471c3f6aafb523ab48c43ea"
+- type: replace
+  path: /releases/-
+  value:
+    name: bosh-google-cpi
+    version: "27.0.1"
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=27.0.1
+    sha1: 911a48764dbb24c50aedd4e3095d1603d385e135
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
@@ -25,6 +32,12 @@
   value:
     name: azure_cpi
     release: bosh-azure-cpi
+- type: replace
+  path: /instance_groups/name=bosh/jobs/-
+  value:
+    name: google_cpi
+    release: bosh-google-cpi
+
 - type: replace
   path: /instance_groups/name=bosh/properties/aws?
   value:
@@ -47,6 +60,11 @@
     subscription_id: a1ac8d5a-7a97-4ed5-bfd1-d7822e19cae9
     tenant_id: 682bd378-95db-41bd-8b1e-70fb407c4b10
     use_managed_disks: true
+- type: replace
+  path: /instance_groups/name=bosh/properties/google?
+  value:
+    json_key: ((gcp_credentials_json))
+    project: blabbertabber
 
 # Azure requires the registry. The operations below enable the registry
 # from an external address, and are taken from `azure/cpi.yml` and
@@ -107,11 +125,6 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/agent/mbus
   value: nats://nats:((nats_password))@((external_ip)):4222
-
-# from external-ip-not-recommended.yml
-- type: replace
-  path: /instance_groups/name=bosh/properties/director/default_ssh_options?/gateway_host
-  value: ((external_ip))
 
 # todo should not access non-defined vars
 - type: replace
