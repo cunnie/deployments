@@ -1,13 +1,13 @@
 ---
-# bosh -e gce deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)  --no-redact
+# bosh -e vsphere deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)  --no-redact
 #
-# bosh -e gce -d concourse ssh
+# bosh -e vsphere -d concourse ssh
 #
 # bin/concourse.sh will build a Concourse manifest for comparison
 
 instance_groups:
 - azs:
-  - us-central1-b
+  - google
   instances: 1
   jobs:
   - name: atc
@@ -194,14 +194,14 @@ instance_groups:
     release: os-conf
   name: concourse
   networks:
-  - name: concourse
+  - name: google-private
     default:
     - gateway
     - dns
-  - name: vip
+  - name: google-public
     static_ips:
     - 104.155.144.4
-  persistent_disk_type: db
+  persistent_disk_type: google-db
   stemcell: xenial
   vm_type: g1-small
 name: concourse

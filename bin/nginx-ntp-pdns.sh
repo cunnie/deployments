@@ -25,6 +25,9 @@ while [ $# -gt 0 ]; do
     $DEPLOYMENTS_DIR/nginx-ntp-pdns.yml \
     -l <(lpass show --note deployments.yml) \
     -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) \
+    \
+    -o etc/jumpbox-user.yml \
+    \
     --no-redact \
     \
     -v iaas=$IAAS \

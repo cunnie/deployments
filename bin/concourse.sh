@@ -12,7 +12,7 @@ DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 cat > $DEPLOYMENTS_DIR/concourse.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
-# bosh -e gce deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)  --no-redact
+# bosh -e vsphere deploy -d concourse concourse-ntp-pdns-gce.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml)  --no-redact
 #
 EOF
 
@@ -24,17 +24,19 @@ bosh int $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/concourse.yml \
   -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/privileged-https.yml \
   -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/tls.yml \
   \
+  -o ../bosh-deployment/jumpbox-user.yml \
+  \
   --var-file atc_tls.certificate=etc/nono.io.crt \
   --var      atc_tls.private_key="((nono_io_key))" \
   \
   --var web_ip=104.155.144.4 \
   --var external_url=https://ci.nono.io \
-  --var network_name=concourse \
-  --var web_vm_type=concourse \
-  --var db_vm_type=concourse \
-  --var db_persistent_disk_type=db \
-  --var worker_vm_type=concourse \
-  --var deployment_name=concourse \
+  --var network_name=google-private \
+  --var web_vm_type=n1-standard-1 \
+  --var db_vm_type=n1-standard-1 \
+  --var db_persistent_disk_type=google-db \
+  --var worker_vm_type=n1-standard-1 \
+  --var deployment_name=n1-standard-1 \
   --var postgres_password="((concourse_postgres_passwd))" \
   \
   --var github_client="{ username: d4d77ce34ecc620d5220, password: ((github_concourse_nono_auth_client_secret)) }" \
