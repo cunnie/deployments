@@ -15,6 +15,10 @@ azs:
   name: aws
 - cpi: azure
   name: azure
+- cloud_properties:
+    zone: us-central1-b
+  cpi: google
+  name: google
 compilation:
   az: vsphere
   network: vsphere-guest
@@ -24,6 +28,10 @@ compilation:
 disk_types:
 - disk_size: 1024
   name: default
+- cloud_properties:
+    type: pd-ssd
+  disk_size: 5120
+  name: google-db
 networks:
 - name: aws-private
   subnets:
@@ -57,6 +65,26 @@ networks:
     - 10.0.0.2-10.0.0.3
   type: manual
 - name: azure-public
+  type: vip
+- name: google-private
+  subnets:
+  - azs:
+    - google
+    cloud_properties:
+      network_name: cf
+      tags:
+      - cf-internal
+      - cf-bosh
+    dns:
+    - 10.128.0.2
+    - 8.8.8.8
+    gateway: 10.128.0.1
+    range: 10.128.0.0/20
+    reserved:
+    - 10.128.0.2
+    - 10.128.0.3
+  type: manual
+- name: google-public
   type: vip
 - name: vsphere-guest
   subnets:
@@ -112,3 +140,13 @@ vm_types:
       type: gp2
     instance_type: t3.nano
   name: t3.nano
+- cloud_properties:
+    machine_type: g1-small
+    root_disk_size_gb: 10
+    root_disk_type: pd-ssd
+  name: g1-small
+- cloud_properties:
+    machine_type: n1-standard-1
+    root_disk_size_gb: 10
+    root_disk_type: pd-standard
+  name: n1-standard-1

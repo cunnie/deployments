@@ -25,6 +25,11 @@ cpis:
     tenant_id: 682bd378-95db-41bd-8b1e-70fb407c4b10
     use_managed_disks: true
   type: azure
+- name: google
+  properties:
+    json_key: ((gcp_credentials_json))
+    project: blabbertabber
+  type: google
 - name: vsphere
   properties:
     datacenters:
