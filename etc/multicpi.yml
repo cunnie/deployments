@@ -1,6 +1,13 @@
 ---
 # Multi-CPI: add releases (requires manual update), jobs
 - type: replace
+  path: /releases/name=bosh-vsphere-cpi
+  value:
+    name: bosh-vsphere-cpi
+    version: "52"
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=52
+    sha1: 73f4cd14eef75e037d6ca553ee63d8b55062f0ab
+- type: replace
   path: /releases/-
   value:
     name: bosh-aws-cpi
@@ -18,9 +25,9 @@
   path: /releases/-
   value:
     name: bosh-google-cpi
-    version: "27.0.1"
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=27.0.1
-    sha1: 911a48764dbb24c50aedd4e3095d1603d385e135
+    version: "29.0.0"
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=29.0.0
+    sha1: ab8e434c6cc86eb130d30f361d210126d5a539bd
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
