@@ -399,6 +399,48 @@ instance_groups:
   persistent_disk_type: google-db
   stemcell: xenial
   vm_type: g1-small
+- azs:
+  - vsphere
+  instances: 1
+  jobs:
+  - *user_add_job
+  - consumes:
+      baggageclaim:
+        from: worker-baggageclaim
+    name: worker
+    properties:
+      baggageclaim:
+        forward_address: 127.0.0.1:7788
+      garden:
+        address: 127.0.0.1:7777
+        forward_address: 127.0.0.1:7777
+      tags: []
+      tsa:
+        host: ci.nono.io
+        host_public_key: ((tsa_host_key.public_key))
+        port: 2222
+        registration_mode: forward
+        worker_key: ((worker_key))
+    release: concourse
+  - name: baggageclaim
+    properties:
+      bind_ip: 127.0.0.1
+    provides:
+      baggageclaim:
+        as: worker-baggageclaim
+    release: concourse
+  - name: garden
+    properties:
+      garden:
+        forward_address: 127.0.0.1:7777
+        listen_address: 127.0.0.1:7777
+        listen_network: tcp
+    release: garden-runc
+  name: worker
+  networks:
+  - name: vsphere-guest
+  stemcell: xenial
+  vm_type: concourse-workers
 name: concourse-nginx-ntp-pdns
 releases:
 - name: concourse

@@ -7,3 +7,4 @@ bosh
 bosh-vsphere-ipv6-creds.yml
 # don't check in script-generated concourse.yml (it's "object" not "source")
 concourse.yml
+concourse-worker.yml
