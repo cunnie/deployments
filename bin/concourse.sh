@@ -24,8 +24,6 @@ bosh int $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/concourse.yml \
   -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/privileged-https.yml \
   -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/tls.yml \
   \
-  -o ../bosh-deployment/jumpbox-user.yml \
-  \
   --var-file atc_tls.certificate=etc/nono.io.crt \
   --var      atc_tls.private_key="((nono_io_key))" \
   \
