@@ -443,14 +443,14 @@ instance_groups:
   vm_type: concourse-workers
 name: concourse-nginx-ntp-pdns
 releases:
-- name: concourse
-  sha1: 4107747823b7056c58620c34457746dcedb98cc5
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=4.2.2
-  version: 4.2.2
+- name: "concourse"
+  version: "4.2.3"
+  url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=4.2.3"
+  sha1: "915ab6a3ea9fa8e611887e51630c7a4947dcd8c1"
 - name: garden-runc
-  sha1: 2a7c813e7e4d862e19334addf022916fb6b91eb0
-  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.16.3
-  version: 1.16.3
+  sha1: f761349dfe829fb2e17ab53eb058267209275038
+  url: https://bosh.io/d/github.com/cloudfoundry/garden-runc-release?v=1.18.2
+  version: 1.18.2
 - name: postgres
   sha1: a798999d29b9f5aa12035cff907b26674b491200
   url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=30
