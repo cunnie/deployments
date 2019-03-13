@@ -226,7 +226,6 @@ instance_groups:
   jobs:
   - *user_add_job
   - *nginx_job
-  - *ntpd_job
   - *pdns_job
   name: azure
   networks:
