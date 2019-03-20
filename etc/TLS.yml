@@ -12,6 +12,12 @@
     certificate: ((nono_io_crt))
     private_key: ((nono_io_key))
 - type: replace
+  path: /resource_pools/0/env/bosh/mbus?
+  value:
+    cert:
+      certificate: ((nono_io_crt))
+      private_key: ((nono_io_key))
+- type: replace
   path: /instance_groups/name=bosh/properties/director/ssl/key?
   value: ((nono_io_key))
 - type: replace
@@ -52,3 +58,6 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/director/config_server/uaa/ca_cert?
   value: ((commercial_ca_crt))
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/user_management/uaa/url?
+  value: https://((external_fqdn)):8443
