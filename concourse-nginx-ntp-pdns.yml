@@ -418,10 +418,10 @@ instance_groups:
   vm_type: concourse-workers
 name: concourse-nginx-ntp-pdns
 releases:
-- name: concourse
-  sha1: 558aa18093dd1f7d32f3fbb668d49f47a33ad17c
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.0.0
-  version: 5.0.0
+- name: "concourse"
+  version: "5.0.1"
+  url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.0.1"
+  sha1: "122b2775423cbed5dfc147ed771c864940a19bb3"
 - name: bpm
   sha1: 2875a69cae225fa97fe3faae1e9fbacff61e2dc5
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=1.0.3
