@@ -419,9 +419,9 @@ instance_groups:
 name: concourse-nginx-ntp-pdns
 releases:
 - name: "concourse"
-  version: "5.0.1"
-  url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.0.1"
-  sha1: "122b2775423cbed5dfc147ed771c864940a19bb3"
+  version: "5.1.0"
+  url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.1.0"
+  sha1: "e6b55fa88e1bcd0d7dfc83e73cb7dc6c053734ac"
 - name: bpm
   sha1: 2875a69cae225fa97fe3faae1e9fbacff61e2dc5
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=1.0.3
