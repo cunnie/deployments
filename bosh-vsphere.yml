@@ -123,10 +123,10 @@ cloud_provider:
       - clusters:
         - cl:
             resource_pool: BOSH
-        datastore_pattern: NAS-0
+        datastore_pattern: SSD-1
         disk_path: bosh-vsphere-disks
         name: dc
-        persistent_datastore_pattern: NAS-0
+        persistent_datastore_pattern: SSD-1
         template_folder: bosh-vsphere-templates
         vm_folder: bosh-vsphere-vms
       password: ((vcenter_password))
@@ -620,6 +620,19 @@ instance_groups:
             JDoL24HCtXa31QqFd1HH1LUJ/Z+OSgnmQU035bowPy/aoOh/7CrYBGXC9tFswvzs
             l08ZrzzqI8siEPlm62ZafrL9psOlxI80TfjOqk4rab3DdfJwmcL8
             -----END RSA PRIVATE KEY-----
+    release: credhub
+  - name: bbr-credhubdb
+    properties:
+      credhub:
+        data_storage:
+          database: credhub
+          host: 127.0.0.1
+          password: ((postgres_password))
+          port: 5432
+          require_tls: false
+          type: postgres
+          username: postgres
+      release_level_backup: true
     release: credhub
   - name: aws_cpi
     release: bosh-aws-cpi
@@ -1385,10 +1398,10 @@ instance_groups:
       - clusters:
         - cl:
             resource_pool: BOSH
-        datastore_pattern: NAS-0
+        datastore_pattern: SSD-1
         disk_path: bosh-vsphere-disks
         name: dc
-        persistent_datastore_pattern: NAS-0
+        persistent_datastore_pattern: SSD-1
         template_folder: bosh-vsphere-templates
         vm_folder: bosh-vsphere-vms
       password: ((vcenter_password))
@@ -1409,13 +1422,13 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 057d704ad4fe782654e9306377cfd5bff614ed94
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-268.7.0-ubuntu-xenial-250.25-20190326-153913-616928382-20190326153921.tgz
-  version: 268.7.0
+  sha1: 87dc52a8b855cc1730e245a0d19c008ead8e6be2
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-269.0.0-ubuntu-xenial-250.29-20190417-201619-953345519-20190417201626.tgz
+  version: 269.0.0
 - name: bpm
-  sha1: 2821d9e9e661977445987a7e4145bdaf7b90c600
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.12.3-ubuntu-xenial-250.25-20190326-152858-938536872-20190326152905.tgz
-  version: 0.12.3
+  sha1: a4ca0a35aa30aa758f6fc1c3e87ee03d345d9101
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.0.4-ubuntu-xenial-250.29-20190411-232905-572198656-20190411232912.tgz
+  version: 1.0.4
 - name: bosh-vsphere-cpi
   sha1: 73f4cd14eef75e037d6ca553ee63d8b55062f0ab
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=52
@@ -1425,13 +1438,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
   version: 18
 - name: uaa
-  sha1: c4b5cf35f9a1467a3c7cf79d7eadbce6aa4b10c2
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-64.0-ubuntu-xenial-250.25-20190326-153826-329901729-20190326153842.tgz
+  sha1: 2814e1b5d86e3b5a98f170d906fedd8938912f00
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-64.0-ubuntu-xenial-250.29-20190408-223120-078961442-20190408223210.tgz
   version: "64.0"
 - name: credhub
-  sha1: a683ce8f26cf0300418c1255757cc866cbf73cc4
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.1.4-ubuntu-xenial-250.25-20190326-153032-930522861-20190326153038.tgz
-  version: 2.1.4
+  sha1: 580f6ac1af783f0f0139025cced3d94893f6959b
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.1.5-ubuntu-xenial-250.29-20190408-223328-047215558-20190408223342.tgz
+  version: 2.1.5
 - name: bosh-aws-cpi
   sha1: 9d02123488919a325f1ed4f349090c4de6142373
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=73
@@ -1557,6 +1570,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 82232f714557e4becb4050703847da72461c5f2a
-    url: https://s3.amazonaws.com/bosh-core-stemcells/250.25/bosh-stemcell-250.25-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: 75094fa92f0cb9095e89fc78ee10d1afbc0cabc9
+    url: https://s3.amazonaws.com/bosh-core-stemcells/250.29/bosh-stemcell-250.29-vsphere-esxi-ubuntu-xenial-go_agent.tgz
 variables: []
