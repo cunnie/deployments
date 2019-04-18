@@ -36,10 +36,10 @@ cpis:
     - clusters:
       - cl:
           resource_pool: BOSH
-      datastore_pattern: NAS-0
+      datastore_pattern: SSD-1
       disk_path: bosh-vsphere-disks
       name: dc
-      persistent_datastore_pattern: NAS-0
+      persistent_datastore_pattern: SSD-1
       template_folder: bosh-vsphere-templates
       vm_folder: bosh-vsphere-vms
     host: vcenter-67.nono.io
