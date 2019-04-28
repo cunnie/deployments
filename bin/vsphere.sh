@@ -9,6 +9,8 @@
 #
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 
+pushd $DEPLOYMENTS_DIR/../bosh-deployment; git pull -r; popd
+
 cat > $DEPLOYMENTS_DIR/bosh-vsphere.yml <<EOF
 # DON'T EDIT; THIS FILE IS AUTO-GENERATED
 #
