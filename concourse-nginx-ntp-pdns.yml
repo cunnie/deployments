@@ -418,14 +418,14 @@ instance_groups:
   vm_type: concourse-workers
 name: concourse-nginx-ntp-pdns
 releases:
-- name: "concourse"
-  version: "5.1.0"
-  url: "https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.1.0"
-  sha1: "e6b55fa88e1bcd0d7dfc83e73cb7dc6c053734ac"
+- name: concourse
+  sha1: e6b55fa88e1bcd0d7dfc83e73cb7dc6c053734ac
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.1.0
+  version: 5.1.0
 - name: bpm
-  sha1: 2875a69cae225fa97fe3faae1e9fbacff61e2dc5
-  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=1.0.3
-  version: 1.0.3
+  sha1: 41df19697d6a69d2552bc2c132928157fa91abe0
+  url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=1.0.4
+  version: 1.0.4
 - name: postgres
   sha1: 3dd10b417b21cfa3257f1cc891e9e46f02fefe16
   url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=36
