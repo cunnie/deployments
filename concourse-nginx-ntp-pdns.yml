@@ -419,17 +419,17 @@ instance_groups:
 name: concourse-nginx-ntp-pdns
 releases:
 - name: concourse
-  sha1: e6b55fa88e1bcd0d7dfc83e73cb7dc6c053734ac
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.1.0
-  version: 5.1.0
+  sha1: e7c813d35e70e1a3a5334b977136ba736fae05e1
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=5.2.0
+  version: 5.2.0
 - name: bpm
   sha1: 41df19697d6a69d2552bc2c132928157fa91abe0
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=1.0.4
   version: 1.0.4
 - name: postgres
-  sha1: 3dd10b417b21cfa3257f1cc891e9e46f02fefe16
-  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=36
-  version: "36"
+  sha1: 0bffec6b98df81219a18ec8da0e19721be799eed
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=37
+  version: "37"
 - name: os-conf
   sha1: a60187f038d45e2886db9df82b72a9ab5fdcc49d
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=20.0.0
