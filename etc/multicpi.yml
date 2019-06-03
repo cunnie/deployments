@@ -1,33 +1,33 @@
 ---
 # Multi-CPI: add releases (requires manual update), jobs
-- type: replace
-  path: /releases/name=bosh-vsphere-cpi
+- path: /releases/name=bosh-vsphere-cpi
+  type: replace
   value:
     name: bosh-vsphere-cpi
-    version: "52"
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=52
-    sha1: 73f4cd14eef75e037d6ca553ee63d8b55062f0ab
-- type: replace
-  path: /releases/-
+    sha1: b3587311b7f7403818e25989d9ed5eed99d65193
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=52.1.1
+    version: 52.1.1
+- path: /releases/-
+  type: replace
   value:
     name: bosh-aws-cpi
-    version: "73"
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=73
-    sha1: 9d02123488919a325f1ed4f349090c4de6142373
-- type: replace
-  path: /releases/-
+    sha1: a6f32491067eae70f62cb03fc559654708e4f2f3
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=75
+    version: "75"
+- path: /releases/-
+  type: replace
   value:
     name: bosh-azure-cpi
-    version: "35.5.0"
-    url: "https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=35.5.0"
-    sha1: "faebe370c143554fe471c3f6aafb523ab48c43ea"
-- type: replace
-  path: /releases/-
+    sha1: 3448ca7bc5dd9573b13d26a0169f831da1178135
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=36.0.0
+    version: 36.0.0
+- path: /releases/-
+  type: replace
   value:
     name: bosh-google-cpi
-    version: "29.0.0"
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=29.0.0
-    sha1: ab8e434c6cc86eb130d30f361d210126d5a539bd
+    sha1: aba0451b5be65d8bbf3cf7f289c5432192892284
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=29.0.1
+    version: 29.0.1
 
 - type: replace
   path: /instance_groups/name=bosh/jobs/-

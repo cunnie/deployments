@@ -1430,9 +1430,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.0-ubuntu-xenial-315.34-20190531-003303-006902624-20190531003309.tgz
   version: 1.1.0
 - name: bosh-vsphere-cpi
-  sha1: 73f4cd14eef75e037d6ca553ee63d8b55062f0ab
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=52
-  version: "52"
+  sha1: b3587311b7f7403818e25989d9ed5eed99d65193
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=52.1.1
+  version: 52.1.1
 - name: os-conf
   sha1: 78d79f08ff5001cc2a24f572837c7a9c59a0e796
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
@@ -1446,17 +1446,17 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.4.0-ubuntu-xenial-315.34-20190523-223859-194559593-20190523223904.tgz
   version: 2.4.0
 - name: bosh-aws-cpi
-  sha1: 9d02123488919a325f1ed4f349090c4de6142373
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=73
-  version: "73"
+  sha1: a6f32491067eae70f62cb03fc559654708e4f2f3
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=75
+  version: "75"
 - name: bosh-azure-cpi
-  sha1: faebe370c143554fe471c3f6aafb523ab48c43ea
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=35.5.0
-  version: 35.5.0
+  sha1: 3448ca7bc5dd9573b13d26a0169f831da1178135
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=36.0.0
+  version: 36.0.0
 - name: bosh-google-cpi
-  sha1: ab8e434c6cc86eb130d30f361d210126d5a539bd
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=29.0.0
-  version: 29.0.0
+  sha1: aba0451b5be65d8bbf3cf7f289c5432192892284
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=29.0.1
+  version: 29.0.1
 resource_pools:
 - cloud_properties:
     cpu: 2
