@@ -1422,12 +1422,12 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: da63816e1701eb5409efb816838d473215c17004
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.1.1-ubuntu-xenial-315.34-20190529-170358-910341791-20190529170407.tgz
+  sha1: 990790738b33425d20bd422045ce17fa751cac46
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.1.1-ubuntu-xenial-315.36-20190604-170423-086432635-20190604170431.tgz
   version: 270.1.1
 - name: bpm
-  sha1: 24ded7bf449ecfb598e257ed32f5197c39fd0d07
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.0-ubuntu-xenial-315.34-20190531-003303-006902624-20190531003309.tgz
+  sha1: 7d24e46c737609175bade648fca9c74384841588
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.0-ubuntu-xenial-315.36-20190604-170331-353588735-20190604170338.tgz
   version: 1.1.0
 - name: bosh-vsphere-cpi
   sha1: b3587311b7f7403818e25989d9ed5eed99d65193
@@ -1442,8 +1442,8 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-64.0-ubuntu-xenial-315.34-20190523-225044-859113139-20190523225104.tgz
   version: "64.0"
 - name: credhub
-  sha1: 652fa3b46f67551990d36ed1a8a19af22d41c200
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.4.0-ubuntu-xenial-315.34-20190523-223859-194559593-20190523223904.tgz
+  sha1: 7eccee1b23c500d03e737d65b3fa01c07f216302
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.4.0-ubuntu-xenial-315.36-20190604-165940-097054688-20190604165947.tgz
   version: 2.4.0
 - name: bosh-aws-cpi
   sha1: a6f32491067eae70f62cb03fc559654708e4f2f3
@@ -1570,6 +1570,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 83e3b96b1a1e31f0ce08913045b4586bdfe42230
-    url: https://s3.amazonaws.com/bosh-core-stemcells/315.34/bosh-stemcell-315.34-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: e9a684a336166ae7f588ab74c8795865de33410c
+    url: https://s3.amazonaws.com/bosh-core-stemcells/315.36/bosh-stemcell-315.36-vsphere-esxi-ubuntu-xenial-go_agent.tgz
 variables: []
