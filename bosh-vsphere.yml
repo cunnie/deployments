@@ -1422,12 +1422,12 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 990790738b33425d20bd422045ce17fa751cac46
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.1.1-ubuntu-xenial-315.36-20190604-170423-086432635-20190604170431.tgz
+  sha1: 0d014bedc7e058246cad976cf2d6b6d3eb971a08
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.1.1-ubuntu-xenial-315.36-20190607-144612-349254819-20190607144619.tgz
   version: 270.1.1
 - name: bpm
-  sha1: 7d24e46c737609175bade648fca9c74384841588
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.0-ubuntu-xenial-315.36-20190604-170331-353588735-20190604170338.tgz
+  sha1: eb6c89221919d2776c01565e0c03a181d4fc1364
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.0-ubuntu-xenial-315.36-20190607-144308-916186091-20190607144315.tgz
   version: 1.1.0
 - name: bosh-vsphere-cpi
   sha1: b3587311b7f7403818e25989d9ed5eed99d65193
@@ -1442,8 +1442,8 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-64.0-ubuntu-xenial-315.34-20190523-225044-859113139-20190523225104.tgz
   version: "64.0"
 - name: credhub
-  sha1: 7eccee1b23c500d03e737d65b3fa01c07f216302
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.4.0-ubuntu-xenial-315.36-20190604-165940-097054688-20190604165947.tgz
+  sha1: 1e7f85d2919b27d48107dc964b278a62b8d8ddab
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.4.0-ubuntu-xenial-315.36-20190607-144232-848883329-20190607144238.tgz
   version: 2.4.0
 - name: bosh-aws-cpi
   sha1: a6f32491067eae70f62cb03fc559654708e4f2f3
