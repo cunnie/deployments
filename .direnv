@@ -1,0 +1,2 @@
+export BOSH_ENVIRONMENT=vsphere
+export BOSH_DEPLOYMENT=concourse-nginx-ntp-pdns
