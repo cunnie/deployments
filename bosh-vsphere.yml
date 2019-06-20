@@ -301,7 +301,6 @@ instance_groups:
           revocable: true
         login:
           client_secret: ((uaa_login_client_secret))
-        port: -1
         scim:
           groups:
             bosh.admin: User has admin access on any Director
@@ -421,7 +420,8 @@ instance_groups:
         url: https://bosh-vsphere.nono.io:8443
         zones:
           internal:
-            hostnames: []
+            hostnames:
+            - 10.2.0.250
       uaadb:
         address: 127.0.0.1
         databases:
@@ -433,6 +433,7 @@ instance_groups:
         - name: postgres
           password: ((postgres_password))
           tag: admin
+        tls: disabled
     release: uaa
   - name: credhub
     properties:
@@ -1422,28 +1423,28 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 0d014bedc7e058246cad976cf2d6b6d3eb971a08
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.1.1-ubuntu-xenial-315.36-20190607-144612-349254819-20190607144619.tgz
-  version: 270.1.1
+  sha1: 731d472c511f9728fef44ea477beaebc86b78d4b
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.2.0-ubuntu-xenial-315.41-20190618-185150-722125853-20190618185158.tgz
+  version: 270.2.0
 - name: bpm
-  sha1: eb6c89221919d2776c01565e0c03a181d4fc1364
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.0-ubuntu-xenial-315.36-20190607-144308-916186091-20190607144315.tgz
+  sha1: d6976df2eef2d61c17f108817e9f37fd3a1b5cc9
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.0-ubuntu-xenial-315.41-20190618-184035-675391551-20190618184043.tgz
   version: 1.1.0
 - name: bosh-vsphere-cpi
   sha1: b3587311b7f7403818e25989d9ed5eed99d65193
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=52.1.1
   version: 52.1.1
 - name: os-conf
-  sha1: 78d79f08ff5001cc2a24f572837c7a9c59a0e796
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
-  version: 18
+  sha1: 7579a96515b265c6d828924bf4f5fae115798199
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=21.0.0
+  version: 21.0.0
 - name: uaa
-  sha1: 1453727887979fbf1118f57b1a07e0d287d30b69
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-64.0-ubuntu-xenial-315.34-20190523-225044-859113139-20190523225104.tgz
-  version: "64.0"
+  sha1: 437b2c5d86f95c53cadea48b6dc66a241525a65e
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-73.3.0-ubuntu-xenial-315.41-20190618-185735-713572485-20190618185751.tgz
+  version: 73.3.0
 - name: credhub
-  sha1: 1e7f85d2919b27d48107dc964b278a62b8d8ddab
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.4.0-ubuntu-xenial-315.36-20190607-144232-848883329-20190607144238.tgz
+  sha1: 037a9561d068fa262c214382a71fdffc712ac659
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.4.0-ubuntu-xenial-315.41-20190618-184815-208533365-20190618184828.tgz
   version: 2.4.0
 - name: bosh-aws-cpi
   sha1: a6f32491067eae70f62cb03fc559654708e4f2f3
@@ -1570,6 +1571,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: e9a684a336166ae7f588ab74c8795865de33410c
-    url: https://s3.amazonaws.com/bosh-core-stemcells/315.36/bosh-stemcell-315.36-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: f2f759bd406ef736bae23884ca276e60e51cb125
+    url: https://s3.amazonaws.com/bosh-core-stemcells/315.41/bosh-stemcell-315.41-vsphere-esxi-ubuntu-xenial-go_agent.tgz
 variables: []
