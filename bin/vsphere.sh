@@ -7,6 +7,13 @@
 #
 # --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
 #
+# set up Let's Encrypt
+export NSUPDATE_SERVER="ns-he.nono.io"
+export NSUPDATE_KEY="$HOME/letsencrypt.key"
+~/.acme.sh/acme.sh --issue \
+  -d bosh-vsphere.nono.io \
+  --dns dns_nsupdate
+
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 
 pushd $DEPLOYMENTS_DIR/../bosh-deployment; git pull -r; popd
@@ -77,5 +84,6 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v vcenter_templates=bosh-vsphere-templates \
   -v vcenter_vms=bosh-vsphere-vms \
   -v vcenter_disks=bosh-vsphere-disks \
+  --var-file=nono_io_crt=$HOME/.acme.sh/bosh-vsphere.nono.io/fullchain.cer \
   \
   >> $DEPLOYMENTS_DIR/bosh-vsphere.yml
