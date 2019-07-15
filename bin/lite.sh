@@ -37,7 +37,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o etc/TLS.yml \
   \
   --vars-store=bosh-lite-creds.yml \
-  --var-file commercial_ca_crt=etc/COMODORSACertificationAuthority.crt \
+  --var-file commercial_ca_crt=etc/trustid-x3-root.pem \
   --var-file nono_io_crt=etc/nono.io.crt \
   -v internal_gw=192.168.50.1 \
   -v internal_cidr=192.168.50.0/24 \
