@@ -1,0 +1,38 @@
+- type: replace
+  path: /azs/name=z1/cpi?
+  value: vsphere
+
+- type: replace
+  path: /azs/name=z2/cpi?
+  value: vsphere
+
+- type: replace
+  path: /azs/name=z3/cpi?
+  value: vsphere
+
+# fixes "Error: Cloud config 'compilation' key cannot be defined in multiple cloud configs."
+- type: remove
+  path: /compilation
+
+# We only use one AZ
+- type: remove
+  path: /azs/name=z2
+
+- type: remove
+  path: /azs/name=z3
+
+- type: remove
+  path: /networks/name=default/subnets/az=z2
+
+- type: remove
+  path: /networks/name=default/subnets/az=z3
+
+# fixes "Error: Duplicate vm type name 'small'"
+- type: remove
+  path: /vm_types/name=small
+
+# fixes: Error: Instance group 'haproxy' with network 'default' declares static ip '10.0.250.10', which belongs to no subnet
+- type: replace
+  path: /networks/name=default/subnets/az=z1/static?
+  value: [10.0.250.10]
+

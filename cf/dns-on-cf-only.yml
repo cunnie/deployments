@@ -1,0 +1,9 @@
+- type: replace
+  path: /addons/name=bosh-dns/include/deployments?
+  value:
+  - cf
+
+- type: replace
+  path: /addons/name=bosh-dns-windows/include/deployments?
+  value:
+  - cf

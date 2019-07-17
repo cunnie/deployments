@@ -103,9 +103,9 @@ networks:
   type: manual
 vm_types:
 - cloud_properties:
-    cpu: 1
-    disk: 1024
-    ram: 512
+    cpu: 2
+    disk: 10240
+    ram: 8192
   name: small
 - cloud_properties:
     cpu: 4
