@@ -40,7 +40,7 @@ bosh \
   -e vsphere \
   -d cf \
   deploy \
-  --no-redaact \
+  --no-redact \
   $DEPLOYMENTS_DIR/../cf-deployment/cf-deployment.yml \
   -l <(lpass show --note cf.yml) \
   -v system_domain=cf.nono.io \
