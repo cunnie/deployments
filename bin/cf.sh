@@ -40,7 +40,9 @@ bosh \
   -e vsphere \
   -d cf \
   deploy \
+  --no-redaact \
   $DEPLOYMENTS_DIR/../cf-deployment/cf-deployment.yml \
+  -l <(lpass show --note cf.yml) \
   -v system_domain=cf.nono.io \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/scale-to-one-az.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-haproxy.yml \
