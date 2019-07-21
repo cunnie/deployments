@@ -109,7 +109,7 @@ vm_types:
   name: small
 - cloud_properties:
     cpu: 4
-    disk: 8192
+    disk: 16_384
     ram: 4096
   name: compilation
 - cloud_properties:
