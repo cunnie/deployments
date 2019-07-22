@@ -8,11 +8,11 @@
 # --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
 #
 # set up Let's Encrypt
-# export NSUPDATE_SERVER="ns-he.nono.io"
-# export NSUPDATE_KEY="$HOME/letsencrypt.key"
-# ~/.acme.sh/acme.sh --issue \
-#   -d *.cf.nono.io \
-#   --dns dns_nsupdate
+export NSUPDATE_SERVER="ns-he.nono.io"
+export NSUPDATE_KEY="$HOME/letsencrypt.key"
+~/.acme.sh/acme.sh --issue \
+  -d *.cf.nono.io \
+  --dns dns_nsupdate
 
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 export BOSH_ENVIRONMENT=vsphere
@@ -47,5 +47,8 @@ bosh \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/scale-to-one-az.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-haproxy.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-stemcell.yml \
+  -o $DEPLOYMENTS_DIR/cf/letsencrypt.yml \
   -v haproxy_private_ip=10.0.250.10 \
+  --var-file=star_cf_nono_io_crt=$HOME/.acme.sh/\*.cf.nono.io/fullchain.cer \
+  --var-file=star_cf_nono_io_key=$HOME/.acme.sh/\*.cf.nono.io/\*.cf.nono.io.key \
 
