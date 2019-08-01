@@ -1,4 +1,4 @@
-# fly -t nono sp -p BOSH -c ~/workspace/deployments/ci/pipeline.yml -v github_deployments_key="$(lpass show --note github_deployments_key)" -v deployments_yml="$(lpass show --note deployments.yml)"
+# fly -t nono sp -p BOSH -c ~/workspace/deployments_BOSH/ci/pipeline.yml -v github_deployments_key="$(lpass show --note github_deployments_key)" -v deployments_yml="$(lpass show --note deployments.yml)"
 # fly -t nono expose-pipeline -p BOSH
 # fly -t nono unpause-pipeline -p BOSH
 
