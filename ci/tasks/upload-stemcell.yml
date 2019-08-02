@@ -1,0 +1,16 @@
+image_resource:
+  source:
+    repository: cunnie/fedora-golang-bosh
+  type: docker-image
+inputs:
+- name: stemcell
+params:
+  BOSH_CLIENT:
+  BOSH_CLIENT_SECRET:
+  BOSH_ENVIRONMENT:
+platform: linux
+run:
+  args:
+  - upload-stemcell
+  - stemcell/stemcell.tgz
+  path: /usr/local/bin/bosh
