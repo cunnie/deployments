@@ -1,0 +1,82 @@
+# fly -t nono sp -p stemcell -c ~/workspace/deployments/ci/pipeline_stemcell.yml -l <(lpass show --note deployments.yml)
+# fly -t nono expose-pipeline -p stemcell
+# fly -t nono unpause-pipeline -p stemcell
+
+# :,$!bosh int -
+groups:
+- jobs:
+  - upload-aws
+  - upload-azure
+  - upload-google
+  - upload-vsphere
+  name: stemcell
+jobs:
+- name: upload-aws
+  plan:
+  - get: stemcell
+    resource: aws-stemcell
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+- name: upload-azure
+  plan:
+  - get: stemcell
+    resource: azure-stemcell
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+- name: upload-google
+  plan:
+  - get: stemcell
+    resource: google-stemcell
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+- name: upload-vsphere
+  plan:
+  - get: stemcell
+    resource: vsphere-stemcell
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+resources:
+- name: cunnie-deployments
+  source:
+    uri: https://github.com/cunnie/deployments.git
+  type: git
+- name: aws-stemcell
+  source:
+    name: bosh-aws-xen-hvm-ubuntu-xenial-go_agent
+  type: bosh-io-stemcell
+- name: azure-stemcell
+  source:
+    name: bosh-azure-hyperv-ubuntu-xenial-go_agent
+  type: bosh-io-stemcell
+- name: google-stemcell
+  source:
+    name: bosh-google-kvm-ubuntu-xenial-go_agent
+  type: bosh-io-stemcell
+- name: vsphere-stemcell
+  source:
+    name: bosh-vsphere-esxi-ubuntu-xenial-go_agent
+  type: bosh-io-stemcell
