@@ -1,0 +1,46 @@
+# haproxy has an IPv6 address
+- type: replace
+  path: /instance_groups/name=haproxy/networks/name=PAS-IPv6?
+  value:
+    name: PAS-IPv6
+    static_ips:
+    - 2601:0646:0100:69f5:0000:0000:0000:0010
+
+# fixes "Error: Instance group 'haproxy' must specify which network is default for dns, gateway, since it has more than one network configured"
+- type: replace
+  path: /instance_groups/name=haproxy/networks/name=default/default?
+  value:
+    - dns
+    - gateway
+
+# configure haproxy to bind to the IPv6 in6addr_any address "::"
+- type: replace
+  path: /instance_groups/name=haproxy/jobs/name=haproxy/properties/ha_proxy/binding_ip?
+  value: "::"
+
+# IPv4 must have the default route in order to reach the BOSH Director.
+# So how to assign IPv6 default route? Use os-conf release to set
+# sysctl's to enable IPv6 router advertisements on net interfaces
+- type: replace
+  path: /releases/name=os-conf?
+  value:
+    name: "os-conf"
+    version: "21.0.0"
+    url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=21.0.0"
+    sha1: "7579a96515b265c6d828924bf4f5fae115798199"
+
+# enable router advertisements on both (IPv4 & IPv6) interfaces
+# to set the IPv6 default route
+- type: replace
+  path: /instance_groups/name=haproxy/jobs/name=sysctl?
+  value:
+    name: sysctl
+    release: os-conf
+    properties:
+      sysctl:
+      # override the unfortunate stemcell defaults in `/etc/sysctl.d/60-bosh-sysctl.conf`
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv6.conf.default.disable_ipv6=0
+      # accept router advertisements; they'll get us our needed default route
+      - net.ipv6.conf.eth0.accept_ra=1
+      - net.ipv6.conf.eth1.accept_ra=1

@@ -1,3 +1,4 @@
+# the next 3 are requirements for multi-CPI BOSH Directors like mine
 - type: replace
   path: /azs/name=z1/cpi?
   value: vsphere
@@ -14,7 +15,7 @@
 - type: remove
   path: /compilation
 
-# We only use one AZ
+# We only use one AZ; delete z2 & z3 and their subnets
 - type: remove
   path: /azs/name=z2
 
@@ -31,8 +32,25 @@
 - type: remove
   path: /vm_types/name=small
 
-# fixes: Error: Instance group 'haproxy' with network 'default' declares static ip '10.0.250.10', which belongs to no subnet
+# fixes "Error: Instance group 'haproxy' with network 'default' declares static ip '10.0.250.10', which belongs to no subnet"
 - type: replace
   path: /networks/name=default/subnets/az=z1/static?
   value: [10.0.250.10]
 
+# IPv6 network for HA Proxy
+- type: replace
+  path: /networks/name=PAS-IPv6?
+  value:
+    name: PAS-IPv6
+    subnets:
+    - az: z1
+      cloud_properties:
+        name: pas
+      dns:
+      - 2601:0646:0100:69f5:020d:b9ff:fe48:9249
+      gateway: 2601:0646:0100:69f5:020d:b9ff:fe48:9249
+      range: 2601:0646:0100:69f5:0000:0000:0000:0000/64
+      reserved:
+      - 2601:0646:0100:69f5:020d:b9ff:fe48:9249
+      static:
+      - 2601:0646:0100:69f5:0000:0000:0000:0010

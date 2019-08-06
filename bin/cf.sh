@@ -48,6 +48,7 @@ bosh \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-haproxy.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-stemcell.yml \
   -o $DEPLOYMENTS_DIR/cf/letsencrypt.yml \
+  -o $DEPLOYMENTS_DIR/cf/haproxy-on-ipv6.yml \
   -v haproxy_private_ip=10.0.250.10 \
   --var-file=star_cf_nono_io_crt=$HOME/.acme.sh/\*.cf.nono.io/fullchain.cer \
   --var-file=star_cf_nono_io_key=$HOME/.acme.sh/\*.cf.nono.io/\*.cf.nono.io.key \
