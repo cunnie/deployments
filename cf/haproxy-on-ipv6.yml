@@ -18,6 +18,18 @@
   path: /instance_groups/name=haproxy/jobs/name=haproxy/properties/ha_proxy/binding_ip?
   value: "::"
 
+# configure haproxy to bind to both IPv4 & IPv6 interfaces
+- type: replace
+  path: /instance_groups/name=haproxy/jobs/name=haproxy/properties/ha_proxy/v4v6?
+  value: true
+
+# FIXME: delete this after our PR is merged
+- type: replace
+  path: /releases/name=haproxy
+  value:
+    name: haproxy
+    version: latest
+
 # IPv4 must have the default route in order to reach the BOSH Director.
 # So how to assign IPv6 default route? Use os-conf release to set
 # sysctl's to enable IPv6 router advertisements on net interfaces
