@@ -90,6 +90,7 @@ cloud_provider:
         persistent_datastore_pattern: NAS-0
         template_folder: bosh-vsphere-templates
         vm_folder: bosh-vsphere-vms
+      enable_human_readable_name: true
       password: ((vcenter_password))
       user: administrator@vsphere.local
   template:
@@ -1258,6 +1259,7 @@ instance_groups:
         persistent_datastore_pattern: NAS-0
         template_folder: bosh-vsphere-templates
         vm_folder: bosh-vsphere-vms
+      enable_human_readable_name: true
       password: ((vcenter_password))
       user: administrator@vsphere.local
   resource_pool: vms

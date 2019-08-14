@@ -40,6 +40,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o etc/common.yml \
   -o etc/multicpi.yml \
   -o etc/TLS.yml \
+  -o etc/human-readable-names.yml \
   \
   --vars-file <(printf '{"uaa_jwt_signing_key":{"private_key":"((uaa_jwt_signing_key.private_key))","public_key":"((uaa_jwt_signing_key.public_key))"}}') \
   --vars-store=bosh-vsphere-creds.yml \
