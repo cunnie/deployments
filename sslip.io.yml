@@ -1,5 +1,5 @@
 #
-# bosh -e vsphere -d concourse-nginx-ntp-pdns deploy concourse-nginx-ntp-pdns.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
+# bosh -e vsphere -d sslip.io deploy sslip.io.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
 #
 # I'd like to squash, but `instance_groups.networks` prevents it
 anchors:
@@ -317,7 +317,7 @@ instance_groups:
   - name: vsphere-guest
   stemcell: xenial
   vm_type: concourse-workers
-name: concourse-nginx-ntp-pdns
+name: sslip.io
 releases:
 - name: concourse
   sha1: ae507becad699ac21ab3d4e3d6e0130ac7922e78
