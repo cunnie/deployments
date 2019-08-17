@@ -32,10 +32,11 @@
     version: latest
 
 # IPv4 must have the default route in order to reach the BOSH Director.  So how
-# to assign IPv6 default route? Use swiss army knife release to set the IPv6
-# default route. Don't be tempted to use the networking release (IPv4 bias) or
-# os-conf to set the sysctl's to enable router advertisement—is uses the
-# `sysctl --system` which wipes out the IPv6 address
+# to assign IPv6 default route? Use swiss army knife release enable router
+# advertisements so that the VM discovers the IPv6 default routes. Don't be
+# tempted to use the networking release (IPv4 bias) or os-conf to set the
+# sysctl's to enable router advertisement—is uses the `sysctl --system` which
+# wipes out the IPv6 address
 
 - type: replace
   path: /releases/name=swiss-army-knife?
@@ -68,15 +69,17 @@
             # get the default route by enabling
             # Neighbor Discover/Router Advertisements
             # override the unfortunate stemcell defaults in `/etc/sysctl.d/60-bosh-sysctl.conf`
-            sysctl net.ipv6.conf.all.disable_ipv6=1
-            sysctl net.ipv6.conf.default.disable_ipv6=1
+            sysctl net.ipv6.conf.all.disable_ipv6=0
+            sysctl net.ipv6.conf.default.disable_ipv6=0
             # accept router advertisements for both interfaces (IPv4 & IPv6)
             sysctl net.ipv6.conf.eth0.accept_ra=1
             sysctl net.ipv6.conf.eth1.accept_ra=1
+
             ;;
           stop)
             date +"%Y/%m/%d %H:%M:%S: STDOUT ctl stop knife"
             date +"%Y/%m/%d %H:%M:%S: STDERR ctl stop knife" 2>&1
             rm -f $PIDFILE
+
             ;;
         esac
