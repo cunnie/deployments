@@ -24,35 +24,59 @@
   value: true
 
 # FIXME: delete this after our PR is merged
+# https://github.com/cloudfoundry-incubator/haproxy-boshrelease/pull/151
 - type: replace
   path: /releases/name=haproxy
   value:
     name: haproxy
     version: latest
 
-# IPv4 must have the default route in order to reach the BOSH Director.
-# So how to assign IPv6 default route? Use os-conf release to set
-# sysctl's to enable IPv6 router advertisements on net interfaces
-- type: replace
-  path: /releases/name=os-conf?
-  value:
-    name: "os-conf"
-    version: "21.0.0"
-    url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=21.0.0"
-    sha1: "7579a96515b265c6d828924bf4f5fae115798199"
+# IPv4 must have the default route in order to reach the BOSH Director.  So how
+# to assign IPv6 default route? Use swiss army knife release to set the IPv6
+# default route. Don't be tempted to use the networking release (IPv4 bias) or
+# os-conf to set the sysctl's to enable router advertisement—is uses the
+# `sysctl --system` which wipes out the IPv6 address
 
-# enable router advertisements on both (IPv4 & IPv6) interfaces
-# to set the IPv6 default route
 - type: replace
-  path: /instance_groups/name=haproxy/jobs/name=sysctl?
+  path: /releases/name=swiss-army-knife?
   value:
-    name: sysctl
-    release: os-conf
+    name: swiss-army-knife
+    sha1: e0ac6bdd4ae1a0674e4e0d3b5c9c3b7f8921ff62
+    url: https://github.com/cloudfoundry-community/swiss-army-knife-release/releases/download/1.0.0/swiss-army-knife-release-1.0.0.tgz
+    version: 1.0.0
+
+- type: replace
+  path: /instance_groups/name=haproxy/jobs/name=knife?
+  value:
+    name: knife
+    release: swiss-army-knife
     properties:
-      sysctl:
-      # override the unfortunate stemcell defaults in `/etc/sysctl.d/60-bosh-sysctl.conf`
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv6.conf.default.disable_ipv6=0
-      # accept router advertisements; they'll get us our needed default route
-      - net.ipv6.conf.eth0.accept_ra=1
-      - net.ipv6.conf.eth1.accept_ra=1
+      ctl: |
+        #!/bin/bash -ex
+        LOG_DIR=/var/vcap/sys/log/knife
+        RUN_DIR=/var/vcap/sys/run/knife
+        mkdir -p $RUN_DIR $LOG_DIR
+        chown -R vcap:vcap $RUN_DIR $LOG_DIR
+        exec >> $LOG_DIR/knife.stdout.log \
+          2>> $LOG_DIR/knife.stderr.log
+        PIDFILE=${RUN_DIR}/pid
+        case $1 in
+          start)
+            echo 1 > $PIDFILE
+            date +"%Y/%m/%d %H:%M:%S: STDOUT ctl start knife"
+            date +"%Y/%m/%d %H:%M:%S: STDERR ctl start knife" 2>&1
+            # get the default route by enabling
+            # Neighbor Discover/Router Advertisements
+            # override the unfortunate stemcell defaults in `/etc/sysctl.d/60-bosh-sysctl.conf`
+            sysctl net.ipv6.conf.all.disable_ipv6=1
+            sysctl net.ipv6.conf.default.disable_ipv6=1
+            # accept router advertisements for both interfaces (IPv4 & IPv6)
+            sysctl net.ipv6.conf.eth0.accept_ra=1
+            sysctl net.ipv6.conf.eth1.accept_ra=1
+            ;;
+          stop)
+            date +"%Y/%m/%d %H:%M:%S: STDOUT ctl stop knife"
+            date +"%Y/%m/%d %H:%M:%S: STDERR ctl stop knife" 2>&1
+            rm -f $PIDFILE
+            ;;
+        esac
