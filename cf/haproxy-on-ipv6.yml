@@ -53,7 +53,7 @@
     release: swiss-army-knife
     properties:
       ctl: |
-        #!/bin/bash -ex
+        #!/bin/bash -x
         LOG_DIR=/var/vcap/sys/log/knife
         RUN_DIR=/var/vcap/sys/run/knife
         mkdir -p $RUN_DIR $LOG_DIR
