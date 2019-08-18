@@ -1,11 +1,9 @@
 #!/bin/bash
 #
 # usage:
-#   bin/vsphere.sh
+#   bin/cf.sh
 #
-# Generate manifest for vSphere BOSH Director
-#
-# --var-errs: don't use; it flags the variables I'll interpolate the _next_ stage
+# Deploys Cloud Foundry
 #
 # set up Let's Encrypt
 export NSUPDATE_SERVER="ns-he.nono.io"
@@ -19,7 +17,8 @@ export BOSH_ENVIRONMENT=vsphere
 
 pushd $DEPLOYMENTS_DIR/../cf-deployment; git pull -r; popd
 
-# We don't use the primary config; instead we set a bunch of variables
+# We don't use the primary cloud config (we already have one); instead,
+#   we set up a secondary config
 bosh update-config \
   --non-interactive \
   --type cloud \
@@ -29,6 +28,9 @@ bosh update-config \
     -l $DEPLOYMENTS_DIR/cf/cloud-config-vars.yml \
     $DEPLOYMENTS_DIR/../cf-deployment/iaas-support/vsphere/cloud-config.yml)
 
+# We set up a runtime config that colocates BOSH DNS, but we customize
+# it so it only includes it on the `cf` deployment, for BOSH DNS interferes
+# with our other deployments which have custom DNS servers
 bosh update-config \
   --non-interactive \
   --type runtime \
