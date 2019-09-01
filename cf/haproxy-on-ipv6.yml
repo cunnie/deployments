@@ -23,16 +23,6 @@
   path: /instance_groups/name=haproxy/jobs/name=haproxy/properties/ha_proxy/v4v6?
   value: true
 
-# FIXME: delete this after our PR is merged
-# https://github.com/cloudfoundry-incubator/haproxy-boshrelease/pull/151
-- type: replace
-  path: /releases/name=haproxy
-  value:
-    name: haproxy
-    version: 9.7.0
-    url: https://github.com/cloudfoundry-incubator/haproxy-boshrelease/releases/download/v9.7.0/haproxy-9.7.0.tgz
-    sha1: 8afcfb2d22b244477de5dcba40e9c11d58b376ad
-
 # IPv4 must have the default route in order to reach the BOSH Director.  So how
 # to assign IPv6 default route? Use swiss army knife release enable router
 # advertisements so that the VM discovers the IPv6 default routes. Don't be
