@@ -95,6 +95,7 @@ blobstore_ca:
     qLnt0kqLo2lZd5B7Mm0oBC0qDWr1gMfTMJLc1v5YiPW12CpOhULTPGktw8/q6Zjh
     FR6/i8al5Unmk/RqcX9XJxo9IJniNlgOtfi6qaDZW0TnuSi21EwTxw==
     -----END RSA PRIVATE KEY-----
+blobstore_secret: v5c03cuktus9k0vtyw39
 blobstore_server_tls:
   ca: |
     -----BEGIN CERTIFICATE-----
