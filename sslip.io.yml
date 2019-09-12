@@ -254,8 +254,6 @@ instance_groups:
       github_auth:
         client_id: d4d77ce34ecc620d5220
         client_secret: ((github_concourse_nono_auth_client_secret))
-      lets_encrypt:
-        enabled: true
       log_level: debug
       main_team:
         auth:
@@ -271,6 +269,113 @@ instance_groups:
       publicly_viewable: true
       tls:
         bind_port: 443
+        cert:
+          private_key: ((ci_nono_io_key))
+          certificate: |
+            -----BEGIN CERTIFICATE-----
+            MIIGZzCCBU+gAwIBAgIRAP6Vn7oHyNk5pjQOplQ7VoEwDQYJKoZIhvcNAQELBQAw
+            gY8xCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
+            BgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1NlY3RpZ28gTGltaXRlZDE3MDUGA1UE
+            AxMuU2VjdGlnbyBSU0EgRG9tYWluIFZhbGlkYXRpb24gU2VjdXJlIFNlcnZlciBD
+            QTAeFw0xOTA5MTIwMDAwMDBaFw0yMTA5MTEyMzU5NTlaME4xITAfBgNVBAsTGERv
+            bWFpbiBDb250cm9sIFZhbGlkYXRlZDEUMBIGA1UECxMLUG9zaXRpdmVTU0wxEzAR
+            BgNVBAMTCmNpLm5vbm8uaW8wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+            AQCvkkVF7A+9ipOfvv+yY0BYULGTXJ+ypSmJ1BC8J3NAZhyWUFxLOitJr6J/sjQ7
+            Hf4nlLebDQbSZasfrk8Eb3OzJP67RJe2sifhXIKYOzusUuRtunykYlpYD7JPon+h
+            X7gm/uz+OB0QjUqqrxb3/7T6qAFo2lUZw+cDc78HOhWr3O5lAgx/GaPYN72oAsUS
+            G03AjYjQm3qSo/DAsS0ds8X0BwMN3TUx0/0F2itXN2OHy0Il9lY5Eljx+0Dereh3
+            T0jwl8RAZAY/g5/fpodnOiyU7gYwAeeyqWy1JERg1VaERWPp4lbFLqDslMYHfjh0
+            xlhW8hFX+B2T0zSojKdGKBBxAgMBAAGjggL8MIIC+DAfBgNVHSMEGDAWgBSNjF7E
+            VK2K4Xfpm/mbBeG4AY1h4TAdBgNVHQ4EFgQUrNyPJkzTC0SPWbJFhlp8fH5bksww
+            DgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUH
+            AwEGCCsGAQUFBwMCMEkGA1UdIARCMEAwNAYLKwYBBAGyMQECAgcwJTAjBggrBgEF
+            BQcCARYXaHR0cHM6Ly9zZWN0aWdvLmNvbS9DUFMwCAYGZ4EMAQIBMIGEBggrBgEF
+            BQcBAQR4MHYwTwYIKwYBBQUHMAKGQ2h0dHA6Ly9jcnQuc2VjdGlnby5jb20vU2Vj
+            dGlnb1JTQURvbWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5jcnQwIwYIKwYB
+            BQUHMAGGF2h0dHA6Ly9vY3NwLnNlY3RpZ28uY29tMCUGA1UdEQQeMByCCmNpLm5v
+            bm8uaW+CDnd3dy5jaS5ub25vLmlvMIIBfgYKKwYBBAHWeQIEAgSCAW4EggFqAWgA
+            dgD2XJQv0XcwIhRUGAgwlFaO400TGTO/3wwvIAvMTvFk4wAAAW0lk9m7AAAEAwBH
+            MEUCIQC1UxYpooe4aS+pqgsln40mzQ4E6QLIqRSWtVKL52dyMgIgdCzEIlI8vKwQ
+            5/xYfkw8DIMROrP+enj7NO9kklm/jVQAdwBElGUusO7Or8RAB9io/ijA2uaCvtjL
+            MbU/0zOWtbaBqAAAAW0lk9nSAAAEAwBIMEYCIQD2EAJbbobqOUGb7VFfv+A6GsJl
+            7tfMreIXVoUXoMZJMAIhAKAvS3b8WlinSZRMiaOMsyN2DGepDhjpB3O++4Oe3oZh
+            AHUAVYHUwhaQNgFK6gubVzxT8MDkOHhwJQgXL6OqHQcT0wwAAAFtJZPZqgAABAMA
+            RjBEAiAS1qglXFuxaQizPrdx9PQoJAZNEoEQLEKARJFRFK+A3QIgDQ3d5MghvCaW
+            OMkA/QbQ9SjkqM6hpNs3BlmDdzBfzCEwDQYJKoZIhvcNAQELBQADggEBAJmLAXqX
+            b3qvZnl9la+bt6mKYwzE146DoSduclH7TEwLa0ZCdi1hy8ak1JhFNg/S58+w+gCx
+            yf4yGGSs1BAq/QXzkAaUZEBLXbukMB7qj1gPYU7SvQ/a1hti8B5j2gfQN1bUlRrz
+            bWi/14Jhc0G7zgKAyoAiT/4DW76lXIhGE54ae0Wl0HdQQAXbmA/6w43uCFdkXzy1
+            XsbfZwF9icaQ13ZJKFvxBYc0Ew8FOh2iPECUDiijWf71L6wEQQ6zqkieiuvy8xgN
+            ZkLZk9iqVt7CmM/DgpJBT0ha7YbltEp1ZU2Jou6Y6quSfsDsWZFVC/dnaYbsJ7Dg
+            XGLlPwPPV5vI/AY=
+            -----END CERTIFICATE-----
+            -----BEGIN CERTIFICATE-----
+            MIIGEzCCA/ugAwIBAgIQfVtRJrR2uhHbdBYLvFMNpzANBgkqhkiG9w0BAQwFADCB
+            iDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCk5ldyBKZXJzZXkxFDASBgNVBAcTC0pl
+            cnNleSBDaXR5MR4wHAYDVQQKExVUaGUgVVNFUlRSVVNUIE5ldHdvcmsxLjAsBgNV
+            BAMTJVVTRVJUcnVzdCBSU0EgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTgx
+            MTAyMDAwMDAwWhcNMzAxMjMxMjM1OTU5WjCBjzELMAkGA1UEBhMCR0IxGzAZBgNV
+            BAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYGA1UE
+            ChMPU2VjdGlnbyBMaW1pdGVkMTcwNQYDVQQDEy5TZWN0aWdvIFJTQSBEb21haW4g
+            VmFsaWRhdGlvbiBTZWN1cmUgU2VydmVyIENBMIIBIjANBgkqhkiG9w0BAQEFAAOC
+            AQ8AMIIBCgKCAQEA1nMz1tc8INAA0hdFuNY+B6I/x0HuMjDJsGz99J/LEpgPLT+N
+            TQEMgg8Xf2Iu6bhIefsWg06t1zIlk7cHv7lQP6lMw0Aq6Tn/2YHKHxYyQdqAJrkj
+            eocgHuP/IJo8lURvh3UGkEC0MpMWCRAIIz7S3YcPb11RFGoKacVPAXJpz9OTTG0E
+            oKMbgn6xmrntxZ7FN3ifmgg0+1YuWMQJDgZkW7w33PGfKGioVrCSo1yfu4iYCBsk
+            Haswha6vsC6eep3BwEIc4gLw6uBK0u+QDrTBQBbwb4VCSmT3pDCg/r8uoydajotY
+            uK3DGReEY+1vVv2Dy2A0xHS+5p3b4eTlygxfFQIDAQABo4IBbjCCAWowHwYDVR0j
+            BBgwFoAUU3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFI2MXsRUrYrhd+mb
+            +ZsF4bgBjWHhMA4GA1UdDwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0G
+            A1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjAbBgNVHSAEFDASMAYGBFUdIAAw
+            CAYGZ4EMAQIBMFAGA1UdHwRJMEcwRaBDoEGGP2h0dHA6Ly9jcmwudXNlcnRydXN0
+            LmNvbS9VU0VSVHJ1c3RSU0FDZXJ0aWZpY2F0aW9uQXV0aG9yaXR5LmNybDB2Bggr
+            BgEFBQcBAQRqMGgwPwYIKwYBBQUHMAKGM2h0dHA6Ly9jcnQudXNlcnRydXN0LmNv
+            bS9VU0VSVHJ1c3RSU0FBZGRUcnVzdENBLmNydDAlBggrBgEFBQcwAYYZaHR0cDov
+            L29jc3AudXNlcnRydXN0LmNvbTANBgkqhkiG9w0BAQwFAAOCAgEAMr9hvQ5Iw0/H
+            ukdN+Jx4GQHcEx2Ab/zDcLRSmjEzmldS+zGea6TvVKqJjUAXaPgREHzSyrHxVYbH
+            7rM2kYb2OVG/Rr8PoLq0935JxCo2F57kaDl6r5ROVm+yezu/Coa9zcV3HAO4OLGi
+            H19+24rcRki2aArPsrW04jTkZ6k4Zgle0rj8nSg6F0AnwnJOKf0hPHzPE/uWLMUx
+            RP0T7dWbqWlod3zu4f+k+TY4CFM5ooQ0nBnzvg6s1SQ36yOoeNDT5++SR2RiOSLv
+            xvcRviKFxmZEJCaOEDKNyJOuB56DPi/Z+fVGjmO+wea03KbNIaiGCpXZLoUmGv38
+            sbZXQm2V0TP2ORQGgkE49Y9Y3IBbpNV9lXj9p5v//cWoaasm56ekBYdbqbe4oyAL
+            l6lFhd2zi+WJN44pDfwGF/Y4QA5C5BIG+3vzxhFoYt/jmPQT2BVPi7Fp2RBgvGQq
+            6jG35LWjOhSbJuMLe/0CjraZwTiXWTb2qHSihrZe68Zk6s+go/lunrotEbaGmAhY
+            LcmsJWTyXnW0OMGuf1pGg+pRyrbxmRE1a6Vqe8YAsOf4vmSyrcjC8azjUeqkk+B5
+            yOGBQMkKW+ESPMFgKuOXwIlCypTPRpgSabuY0MLTDXJLR27lk8QyKGOHQ+SwMj4K
+            00u/I5sUKUErmgQfky3xxzlIPK1aEn8=
+            -----END CERTIFICATE-----
+            -----BEGIN CERTIFICATE-----
+            MIIFdzCCBF+gAwIBAgIQE+oocFv07O0MNmMJgGFDNjANBgkqhkiG9w0BAQwFADBv
+            MQswCQYDVQQGEwJTRTEUMBIGA1UEChMLQWRkVHJ1c3QgQUIxJjAkBgNVBAsTHUFk
+            ZFRydXN0IEV4dGVybmFsIFRUUCBOZXR3b3JrMSIwIAYDVQQDExlBZGRUcnVzdCBF
+            eHRlcm5hbCBDQSBSb290MB4XDTAwMDUzMDEwNDgzOFoXDTIwMDUzMDEwNDgzOFow
+            gYgxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpOZXcgSmVyc2V5MRQwEgYDVQQHEwtK
+            ZXJzZXkgQ2l0eTEeMBwGA1UEChMVVGhlIFVTRVJUUlVTVCBOZXR3b3JrMS4wLAYD
+            VQQDEyVVU0VSVHJ1c3QgUlNBIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MIICIjAN
+            BgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAgBJlFzYOw9sIs9CsVw127c0n00yt
+            UINh4qogTQktZAnczomfzD2p7PbPwdzx07HWezcoEStH2jnGvDoZtF+mvX2do2NC
+            tnbyqTsrkfjib9DsFiCQCT7i6HTJGLSR1GJk23+jBvGIGGqQIjy8/hPwhxR79uQf
+            jtTkUcYRZ0YIUcuGFFQ/vDP+fmyc/xadGL1RjjWmp2bIcmfbIWax1Jt4A8BQOujM
+            8Ny8nkz+rwWWNR9XWrf/zvk9tyy29lTdyOcSOk2uTIq3XJq0tyA9yn8iNK5+O2hm
+            AUTnAU5GU5szYPeUvlM3kHND8zLDU+/bqv50TmnHa4xgk97Exwzf4TKuzJM7UXiV
+            Z4vuPVb+DNBpDxsP8yUmazNt925H+nND5X4OpWaxKXwyhGNVicQNwZNUMBkTrNN9
+            N6frXTpsNVzbQdcS2qlJC9/YgIoJk2KOtWbPJYjNhLixP6Q5D9kCnusSTJV882sF
+            qV4Wg8y4Z+LoE53MW4LTTLPtW//e5XOsIzstAL81VXQJSdhJWBp/kjbmUZIO8yZ9
+            HE0XvMnsQybQv0FfQKlERPSZ51eHnlAfV1SoPv10Yy+xUGUJ5lhCLkMaTLTwJUdZ
+            +gQek9QmRkpQgbLevni3/GcV4clXhB4PY9bpYrrWX1Uu6lzGKAgEJTm4Diup8kyX
+            HAc/DVL17e8vgg8CAwEAAaOB9DCB8TAfBgNVHSMEGDAWgBStvZh6NLQm9/rEJlTv
+            A73gJMtUGjAdBgNVHQ4EFgQUU3m/WqorSs9UgOHYm8Cd8rIDZsswDgYDVR0PAQH/
+            BAQDAgGGMA8GA1UdEwEB/wQFMAMBAf8wEQYDVR0gBAowCDAGBgRVHSAAMEQGA1Ud
+            HwQ9MDswOaA3oDWGM2h0dHA6Ly9jcmwudXNlcnRydXN0LmNvbS9BZGRUcnVzdEV4
+            dGVybmFsQ0FSb290LmNybDA1BggrBgEFBQcBAQQpMCcwJQYIKwYBBQUHMAGGGWh0
+            dHA6Ly9vY3NwLnVzZXJ0cnVzdC5jb20wDQYJKoZIhvcNAQEMBQADggEBAJNl9jeD
+            lQ9ew4IcH9Z35zyKwKoJ8OkLJvHgwmp1ocd5yblSYMgpEg7wrQPWCcR23+WmgZWn
+            RtqCV6mVksW2jwMibDN3wXsyF24HzloUQToFJBv2FAY7qCUkDrvMKnXduXBBP3zQ
+            YzYhBx9G/2CkkeFnvN4ffhkUyWNnkepnB2u0j4vAbkN9w6GAbLIevFOFfdyQoaS8
+            Le9Gclc1Bb+7RrtubTeZtv8jkpHGbkD4jylW6l/VXxRTrPBPYer3IsynVgviuDQf
+            Jtl7GQVoP7o81DgGotPmjw7jtHFtQELFhLRAlSv0ZaBIefYdgWOWnU914Ph85I6p
+            0fKtirOMxyHNwu8=
+            -----END CERTIFICATE-----
       token_signing_key: ((token_signing_key))
       worker_gateway:
         authorized_keys: |
