@@ -7,35 +7,35 @@ cloud_provider:
   cert:
     certificate: |
       -----BEGIN CERTIFICATE-----
-      MIIFXzCCBEegAwIBAgISA16Dm+MzQIZZzZ5PROUUSdoqMA0GCSqGSIb3DQEBCwUA
+      MIIFYTCCBEmgAwIBAgISAxK73CnTVKSc7hkMPq6SO8cQMA0GCSqGSIb3DQEBCwUA
       MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
-      ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTA3MTQyMDQyNDdaFw0x
-      OTEwMTIyMDQyNDdaMB8xHTAbBgNVBAMTFGJvc2gtdnNwaGVyZS5ub25vLmlvMIIB
+      ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTA5MTEyMTQ2MjlaFw0x
+      OTEyMTAyMTQ2MjlaMB8xHTAbBgNVBAMTFGJvc2gtdnNwaGVyZS5ub25vLmlvMIIB
       IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzdF/LvjbxpFBUbtKIf5g7FH5
       gtdb3fqs+u4MvkqHgNpT50m0AsItwUkTp9Hdw+6vLox9VjO0BFrq9lmEEwJY3KYY
       NPrzpZVgBY6LPCALDSqqtrK7bp+IND06W0PLHA8BP+KdZis446NM1ZUaoVte3tTa
       c1iegNN5MU4vmAeJvmTF6WIA5v7Vc5vivH5HATXaiFCNhOScILI2Tz2o9ESew9ex
       lYzsYMFHET3VDyFDBAR/ag8DuaR9pxPIvWX8erp+baGEuNa1fck39GUnOBCBNB5/
       aIZ3RUcKs5u2VyFF1rM7t4z5O00t0XvGHMC+c/tLqHxP/ZCxqRFqJNyCG5AhAQID
-      AQABo4ICaDCCAmQwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
+      AQABo4ICajCCAmYwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
       BggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBReYtkWA/2NZduem+Wa
       ZwJoYMRtKTAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF
       BQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j
       cnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j
       cnlwdC5vcmcvMB8GA1UdEQQYMBaCFGJvc2gtdnNwaGVyZS5ub25vLmlvMEwGA1Ud
       IARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0
-      dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv
-      AHYAb1N2rDHwMRnYmQCkURX/dxUcEdkCwQApBo2yCJo32RMAAAFr8nAwhwAABAMA
-      RzBFAiAxg4NZc2zd8HOrcf0A4zijIcL0tbrrunKAshYBJ+DY4gIhAPYkDUvIqqbb
-      hK8Ut895EQda+LwkgQnWfn6FcHoyU0bdAHUAKTxRllTIOWW6qlD8WAfUt2+/WHop
-      ctykwwz05UVH9HgAAAFr8nAwggAABAMARjBEAiBX7YmogD/I7rQ/MKGKHSwoog87
-      GhiaxyzUGc57nwXZfwIgTmYQ265mJ3QnT0KOo1GxqVv1aqKj7ig514BU2j/lztsw
-      DQYJKoZIhvcNAQELBQADggEBAF1XknOxBU3kO2dWLZbvOsbzwlDmy/XhbtCgROj6
-      OSJBICP/WIi2CanlSv6cu2c5YufrMmwitcTD53a8vQ+7zBUF/piSnNYEemZI6TZH
-      8G4GNPWU0uFwSb2A5L37htpcnwXEH5yOe5ceNsBDq2cOZ923NGbFjQWSw7T1UKjZ
-      OhwE8EpDB0C6kajiDjckR6fKVHt9gYiC/b6T9vy1ZdQKvJSRkB9hndwMfX8PSo6F
-      /zImj97NGYqIsyaD2H7xZjXB7MDYCnwGE8r0SJQR+X+UdsetJh2hl3NP+Tnq/sGj
-      QllRTxZHMmf1EB5hhY3a4exeYr+E+BRQYruuAZLv/6Zmahc=
+      dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBBQYKKwYBBAHWeQIEAgSB9gSB8wDx
+      AHcA4mlLribo6UAJ6IYbtjuD1D7n/nSI+6SPKJMBnd3x2/4AAAFtIoG2pQAABAMA
+      SDBGAiEA88Gx0bFlpvxpZygZINsP/qsHTE0b5smSzitBSopZfOMCIQDB7/b9+ue2
+      TG6JXl6xyD0l6reongOurRzFlun1IwlIKAB2AGPy283oO8wszwtyhCdXazOkjWF3
+      j711pjixx2hUS9iNAAABbSKBtssAAAQDAEcwRQIgUZ0OnzArhvqvskVK+ZO6MdL7
+      EDnoCbeFYYdRfi0gSaACIQDeOUajvV5UNq0Epykm12zCjXAr3fd5VuR+MRT7lt3G
+      FDANBgkqhkiG9w0BAQsFAAOCAQEAK2GzwT2mkH31cEVb03uzunRDVr606gN+ZL9Y
+      SD+PjCaXQFXnqiX8+smBe4ieLjrpq5HGxuZLBLlvGT8mLKkwITmb271NzbI64i0r
+      K8sSTKUpILRMDRiVUPT6VXTI8Ib9q5KGRLQKgvyVjj7j3lSe0ofGQDnw7xLM1t7W
+      m61dljL9/Tp6AwgO3CV/30L3U8l4GSTpZ6GYfaFBI0Ao7+tUasMe3qawC1Ugim+j
+      RzOPQTi6oMKeNBqLzTNAztDzcDgY/8iLk/R4p6Nv0+DpvwWDiv0YwZVvvF+WGN+3
+      RBpjHMWPqIgBJZHfTO93q0hrBahX5oqBtEKPE/S2bFU9FTeHBw==
       -----END CERTIFICATE-----
 
       -----BEGIN CERTIFICATE-----
@@ -96,7 +96,7 @@ cloud_provider:
     name: vsphere_cpi
     release: bosh-vsphere-cpi
 disk_pools:
-- disk_size: 65536
+- disk_size: 98304
   name: disks
 instance_groups:
 - instances: 1
@@ -278,35 +278,35 @@ instance_groups:
             password: ((credhub_cli_user_password))
         sslCertificate: |
           -----BEGIN CERTIFICATE-----
-          MIIFXzCCBEegAwIBAgISA16Dm+MzQIZZzZ5PROUUSdoqMA0GCSqGSIb3DQEBCwUA
+          MIIFYTCCBEmgAwIBAgISAxK73CnTVKSc7hkMPq6SO8cQMA0GCSqGSIb3DQEBCwUA
           MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
-          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTA3MTQyMDQyNDdaFw0x
-          OTEwMTIyMDQyNDdaMB8xHTAbBgNVBAMTFGJvc2gtdnNwaGVyZS5ub25vLmlvMIIB
+          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTA5MTEyMTQ2MjlaFw0x
+          OTEyMTAyMTQ2MjlaMB8xHTAbBgNVBAMTFGJvc2gtdnNwaGVyZS5ub25vLmlvMIIB
           IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzdF/LvjbxpFBUbtKIf5g7FH5
           gtdb3fqs+u4MvkqHgNpT50m0AsItwUkTp9Hdw+6vLox9VjO0BFrq9lmEEwJY3KYY
           NPrzpZVgBY6LPCALDSqqtrK7bp+IND06W0PLHA8BP+KdZis446NM1ZUaoVte3tTa
           c1iegNN5MU4vmAeJvmTF6WIA5v7Vc5vivH5HATXaiFCNhOScILI2Tz2o9ESew9ex
           lYzsYMFHET3VDyFDBAR/ag8DuaR9pxPIvWX8erp+baGEuNa1fck39GUnOBCBNB5/
           aIZ3RUcKs5u2VyFF1rM7t4z5O00t0XvGHMC+c/tLqHxP/ZCxqRFqJNyCG5AhAQID
-          AQABo4ICaDCCAmQwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
+          AQABo4ICajCCAmYwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
           BggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBReYtkWA/2NZduem+Wa
           ZwJoYMRtKTAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF
           BQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j
           cnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j
           cnlwdC5vcmcvMB8GA1UdEQQYMBaCFGJvc2gtdnNwaGVyZS5ub25vLmlvMEwGA1Ud
           IARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0
-          dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv
-          AHYAb1N2rDHwMRnYmQCkURX/dxUcEdkCwQApBo2yCJo32RMAAAFr8nAwhwAABAMA
-          RzBFAiAxg4NZc2zd8HOrcf0A4zijIcL0tbrrunKAshYBJ+DY4gIhAPYkDUvIqqbb
-          hK8Ut895EQda+LwkgQnWfn6FcHoyU0bdAHUAKTxRllTIOWW6qlD8WAfUt2+/WHop
-          ctykwwz05UVH9HgAAAFr8nAwggAABAMARjBEAiBX7YmogD/I7rQ/MKGKHSwoog87
-          GhiaxyzUGc57nwXZfwIgTmYQ265mJ3QnT0KOo1GxqVv1aqKj7ig514BU2j/lztsw
-          DQYJKoZIhvcNAQELBQADggEBAF1XknOxBU3kO2dWLZbvOsbzwlDmy/XhbtCgROj6
-          OSJBICP/WIi2CanlSv6cu2c5YufrMmwitcTD53a8vQ+7zBUF/piSnNYEemZI6TZH
-          8G4GNPWU0uFwSb2A5L37htpcnwXEH5yOe5ceNsBDq2cOZ923NGbFjQWSw7T1UKjZ
-          OhwE8EpDB0C6kajiDjckR6fKVHt9gYiC/b6T9vy1ZdQKvJSRkB9hndwMfX8PSo6F
-          /zImj97NGYqIsyaD2H7xZjXB7MDYCnwGE8r0SJQR+X+UdsetJh2hl3NP+Tnq/sGj
-          QllRTxZHMmf1EB5hhY3a4exeYr+E+BRQYruuAZLv/6Zmahc=
+          dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBBQYKKwYBBAHWeQIEAgSB9gSB8wDx
+          AHcA4mlLribo6UAJ6IYbtjuD1D7n/nSI+6SPKJMBnd3x2/4AAAFtIoG2pQAABAMA
+          SDBGAiEA88Gx0bFlpvxpZygZINsP/qsHTE0b5smSzitBSopZfOMCIQDB7/b9+ue2
+          TG6JXl6xyD0l6reongOurRzFlun1IwlIKAB2AGPy283oO8wszwtyhCdXazOkjWF3
+          j711pjixx2hUS9iNAAABbSKBtssAAAQDAEcwRQIgUZ0OnzArhvqvskVK+ZO6MdL7
+          EDnoCbeFYYdRfi0gSaACIQDeOUajvV5UNq0Epykm12zCjXAr3fd5VuR+MRT7lt3G
+          FDANBgkqhkiG9w0BAQsFAAOCAQEAK2GzwT2mkH31cEVb03uzunRDVr606gN+ZL9Y
+          SD+PjCaXQFXnqiX8+smBe4ieLjrpq5HGxuZLBLlvGT8mLKkwITmb271NzbI64i0r
+          K8sSTKUpILRMDRiVUPT6VXTI8Ib9q5KGRLQKgvyVjj7j3lSe0ofGQDnw7xLM1t7W
+          m61dljL9/Tp6AwgO3CV/30L3U8l4GSTpZ6GYfaFBI0Ao7+tUasMe3qawC1Ugim+j
+          RzOPQTi6oMKeNBqLzTNAztDzcDgY/8iLk/R4p6Nv0+DpvwWDiv0YwZVvvF+WGN+3
+          RBpjHMWPqIgBJZHfTO93q0hrBahX5oqBtEKPE/S2bFU9FTeHBw==
           -----END CERTIFICATE-----
 
           -----BEGIN CERTIFICATE-----
@@ -804,35 +804,35 @@ instance_groups:
       ssl:
         cert: |
           -----BEGIN CERTIFICATE-----
-          MIIFXzCCBEegAwIBAgISA16Dm+MzQIZZzZ5PROUUSdoqMA0GCSqGSIb3DQEBCwUA
+          MIIFYTCCBEmgAwIBAgISAxK73CnTVKSc7hkMPq6SO8cQMA0GCSqGSIb3DQEBCwUA
           MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
-          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTA3MTQyMDQyNDdaFw0x
-          OTEwMTIyMDQyNDdaMB8xHTAbBgNVBAMTFGJvc2gtdnNwaGVyZS5ub25vLmlvMIIB
+          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTA5MTEyMTQ2MjlaFw0x
+          OTEyMTAyMTQ2MjlaMB8xHTAbBgNVBAMTFGJvc2gtdnNwaGVyZS5ub25vLmlvMIIB
           IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzdF/LvjbxpFBUbtKIf5g7FH5
           gtdb3fqs+u4MvkqHgNpT50m0AsItwUkTp9Hdw+6vLox9VjO0BFrq9lmEEwJY3KYY
           NPrzpZVgBY6LPCALDSqqtrK7bp+IND06W0PLHA8BP+KdZis446NM1ZUaoVte3tTa
           c1iegNN5MU4vmAeJvmTF6WIA5v7Vc5vivH5HATXaiFCNhOScILI2Tz2o9ESew9ex
           lYzsYMFHET3VDyFDBAR/ag8DuaR9pxPIvWX8erp+baGEuNa1fck39GUnOBCBNB5/
           aIZ3RUcKs5u2VyFF1rM7t4z5O00t0XvGHMC+c/tLqHxP/ZCxqRFqJNyCG5AhAQID
-          AQABo4ICaDCCAmQwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
+          AQABo4ICajCCAmYwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
           BggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBReYtkWA/2NZduem+Wa
           ZwJoYMRtKTAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF
           BQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j
           cnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j
           cnlwdC5vcmcvMB8GA1UdEQQYMBaCFGJvc2gtdnNwaGVyZS5ub25vLmlvMEwGA1Ud
           IARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0
-          dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv
-          AHYAb1N2rDHwMRnYmQCkURX/dxUcEdkCwQApBo2yCJo32RMAAAFr8nAwhwAABAMA
-          RzBFAiAxg4NZc2zd8HOrcf0A4zijIcL0tbrrunKAshYBJ+DY4gIhAPYkDUvIqqbb
-          hK8Ut895EQda+LwkgQnWfn6FcHoyU0bdAHUAKTxRllTIOWW6qlD8WAfUt2+/WHop
-          ctykwwz05UVH9HgAAAFr8nAwggAABAMARjBEAiBX7YmogD/I7rQ/MKGKHSwoog87
-          GhiaxyzUGc57nwXZfwIgTmYQ265mJ3QnT0KOo1GxqVv1aqKj7ig514BU2j/lztsw
-          DQYJKoZIhvcNAQELBQADggEBAF1XknOxBU3kO2dWLZbvOsbzwlDmy/XhbtCgROj6
-          OSJBICP/WIi2CanlSv6cu2c5YufrMmwitcTD53a8vQ+7zBUF/piSnNYEemZI6TZH
-          8G4GNPWU0uFwSb2A5L37htpcnwXEH5yOe5ceNsBDq2cOZ923NGbFjQWSw7T1UKjZ
-          OhwE8EpDB0C6kajiDjckR6fKVHt9gYiC/b6T9vy1ZdQKvJSRkB9hndwMfX8PSo6F
-          /zImj97NGYqIsyaD2H7xZjXB7MDYCnwGE8r0SJQR+X+UdsetJh2hl3NP+Tnq/sGj
-          QllRTxZHMmf1EB5hhY3a4exeYr+E+BRQYruuAZLv/6Zmahc=
+          dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBBQYKKwYBBAHWeQIEAgSB9gSB8wDx
+          AHcA4mlLribo6UAJ6IYbtjuD1D7n/nSI+6SPKJMBnd3x2/4AAAFtIoG2pQAABAMA
+          SDBGAiEA88Gx0bFlpvxpZygZINsP/qsHTE0b5smSzitBSopZfOMCIQDB7/b9+ue2
+          TG6JXl6xyD0l6reongOurRzFlun1IwlIKAB2AGPy283oO8wszwtyhCdXazOkjWF3
+          j711pjixx2hUS9iNAAABbSKBtssAAAQDAEcwRQIgUZ0OnzArhvqvskVK+ZO6MdL7
+          EDnoCbeFYYdRfi0gSaACIQDeOUajvV5UNq0Epykm12zCjXAr3fd5VuR+MRT7lt3G
+          FDANBgkqhkiG9w0BAQsFAAOCAQEAK2GzwT2mkH31cEVb03uzunRDVr606gN+ZL9Y
+          SD+PjCaXQFXnqiX8+smBe4ieLjrpq5HGxuZLBLlvGT8mLKkwITmb271NzbI64i0r
+          K8sSTKUpILRMDRiVUPT6VXTI8Ib9q5KGRLQKgvyVjj7j3lSe0ofGQDnw7xLM1t7W
+          m61dljL9/Tp6AwgO3CV/30L3U8l4GSTpZ6GYfaFBI0Ao7+tUasMe3qawC1Ugim+j
+          RzOPQTi6oMKeNBqLzTNAztDzcDgY/8iLk/R4p6Nv0+DpvwWDiv0YwZVvvF+WGN+3
+          RBpjHMWPqIgBJZHfTO93q0hrBahX5oqBtEKPE/S2bFU9FTeHBw==
           -----END CERTIFICATE-----
 
           -----BEGIN CERTIFICATE-----
@@ -1278,12 +1278,12 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 60e312a975525aac8905f69dbd9bf43413aadcfd
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.5.0-ubuntu-xenial-456.16-20190831-005723-584246861-20190831005731.tgz
+  sha1: cb1ccc831804b9d5f43b31bf3f7217d32d0ae74b
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.5.0-ubuntu-xenial-456.22-20190910-001316-954185576-20190910001326.tgz
   version: 270.5.0
 - name: bpm
-  sha1: c5d65519a525d43c581135eb5739dc6a31fed8d6
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.3-ubuntu-xenial-456.16-20190831-004207-318450132-20190831004214.tgz
+  sha1: a12d16843555695df9a71bc24d3ada28b6d1e5b2
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.3-ubuntu-xenial-456.22-20190909-235838-397269807-20190909235844.tgz
   version: 1.1.3
 - name: bosh-vsphere-cpi
   sha1: dc04b664641e95c045e93d84a0444ea8f7d0cae0
@@ -1294,13 +1294,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=21.0.0
   version: 21.0.0
 - name: uaa
-  sha1: 12f140c2c2f44aea4626007be58d8773fd77480f
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-73.7.0-ubuntu-xenial-456.16-20190831-005853-631142863-20190831005905.tgz
+  sha1: 84402338ad458cd127df4c8c60302d4c25544391
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-73.7.0-ubuntu-xenial-456.22-20190910-001326-077967619-20190910001350.tgz
   version: 73.7.0
 - name: credhub
-  sha1: c7212792bf55855b11e870350653a0aeaf8bb6b9
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.5.2-ubuntu-xenial-456.16-20190831-005449-915533655-20190831005501.tgz
-  version: 2.5.2
+  sha1: 643d8837382d54c080e4009f81de8888d92f33e5
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.5.5-ubuntu-xenial-456.22-20190910-145326-812277217-20190910145332.tgz
+  version: 2.5.5
 - name: bosh-aws-cpi
   sha1: a0abf8f9bdeef2ea8b807fe78a6d20dfd0e34f78
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=77
@@ -1324,35 +1324,35 @@ resource_pools:
         cert:
           certificate: |
             -----BEGIN CERTIFICATE-----
-            MIIFXzCCBEegAwIBAgISA16Dm+MzQIZZzZ5PROUUSdoqMA0GCSqGSIb3DQEBCwUA
+            MIIFYTCCBEmgAwIBAgISAxK73CnTVKSc7hkMPq6SO8cQMA0GCSqGSIb3DQEBCwUA
             MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
-            ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTA3MTQyMDQyNDdaFw0x
-            OTEwMTIyMDQyNDdaMB8xHTAbBgNVBAMTFGJvc2gtdnNwaGVyZS5ub25vLmlvMIIB
+            ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTA5MTEyMTQ2MjlaFw0x
+            OTEyMTAyMTQ2MjlaMB8xHTAbBgNVBAMTFGJvc2gtdnNwaGVyZS5ub25vLmlvMIIB
             IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzdF/LvjbxpFBUbtKIf5g7FH5
             gtdb3fqs+u4MvkqHgNpT50m0AsItwUkTp9Hdw+6vLox9VjO0BFrq9lmEEwJY3KYY
             NPrzpZVgBY6LPCALDSqqtrK7bp+IND06W0PLHA8BP+KdZis446NM1ZUaoVte3tTa
             c1iegNN5MU4vmAeJvmTF6WIA5v7Vc5vivH5HATXaiFCNhOScILI2Tz2o9ESew9ex
             lYzsYMFHET3VDyFDBAR/ag8DuaR9pxPIvWX8erp+baGEuNa1fck39GUnOBCBNB5/
             aIZ3RUcKs5u2VyFF1rM7t4z5O00t0XvGHMC+c/tLqHxP/ZCxqRFqJNyCG5AhAQID
-            AQABo4ICaDCCAmQwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
+            AQABo4ICajCCAmYwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMB
             BggrBgEFBQcDAjAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBReYtkWA/2NZduem+Wa
             ZwJoYMRtKTAfBgNVHSMEGDAWgBSoSmpjBH3duubRObemRWXv86jsoTBvBggrBgEF
             BQcBAQRjMGEwLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwLmludC14My5sZXRzZW5j
             cnlwdC5vcmcwLwYIKwYBBQUHMAKGI2h0dHA6Ly9jZXJ0LmludC14My5sZXRzZW5j
             cnlwdC5vcmcvMB8GA1UdEQQYMBaCFGJvc2gtdnNwaGVyZS5ub25vLmlvMEwGA1Ud
             IARFMEMwCAYGZ4EMAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0
-            dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDv
-            AHYAb1N2rDHwMRnYmQCkURX/dxUcEdkCwQApBo2yCJo32RMAAAFr8nAwhwAABAMA
-            RzBFAiAxg4NZc2zd8HOrcf0A4zijIcL0tbrrunKAshYBJ+DY4gIhAPYkDUvIqqbb
-            hK8Ut895EQda+LwkgQnWfn6FcHoyU0bdAHUAKTxRllTIOWW6qlD8WAfUt2+/WHop
-            ctykwwz05UVH9HgAAAFr8nAwggAABAMARjBEAiBX7YmogD/I7rQ/MKGKHSwoog87
-            GhiaxyzUGc57nwXZfwIgTmYQ265mJ3QnT0KOo1GxqVv1aqKj7ig514BU2j/lztsw
-            DQYJKoZIhvcNAQELBQADggEBAF1XknOxBU3kO2dWLZbvOsbzwlDmy/XhbtCgROj6
-            OSJBICP/WIi2CanlSv6cu2c5YufrMmwitcTD53a8vQ+7zBUF/piSnNYEemZI6TZH
-            8G4GNPWU0uFwSb2A5L37htpcnwXEH5yOe5ceNsBDq2cOZ923NGbFjQWSw7T1UKjZ
-            OhwE8EpDB0C6kajiDjckR6fKVHt9gYiC/b6T9vy1ZdQKvJSRkB9hndwMfX8PSo6F
-            /zImj97NGYqIsyaD2H7xZjXB7MDYCnwGE8r0SJQR+X+UdsetJh2hl3NP+Tnq/sGj
-            QllRTxZHMmf1EB5hhY3a4exeYr+E+BRQYruuAZLv/6Zmahc=
+            dHA6Ly9jcHMubGV0c2VuY3J5cHQub3JnMIIBBQYKKwYBBAHWeQIEAgSB9gSB8wDx
+            AHcA4mlLribo6UAJ6IYbtjuD1D7n/nSI+6SPKJMBnd3x2/4AAAFtIoG2pQAABAMA
+            SDBGAiEA88Gx0bFlpvxpZygZINsP/qsHTE0b5smSzitBSopZfOMCIQDB7/b9+ue2
+            TG6JXl6xyD0l6reongOurRzFlun1IwlIKAB2AGPy283oO8wszwtyhCdXazOkjWF3
+            j711pjixx2hUS9iNAAABbSKBtssAAAQDAEcwRQIgUZ0OnzArhvqvskVK+ZO6MdL7
+            EDnoCbeFYYdRfi0gSaACIQDeOUajvV5UNq0Epykm12zCjXAr3fd5VuR+MRT7lt3G
+            FDANBgkqhkiG9w0BAQsFAAOCAQEAK2GzwT2mkH31cEVb03uzunRDVr606gN+ZL9Y
+            SD+PjCaXQFXnqiX8+smBe4ieLjrpq5HGxuZLBLlvGT8mLKkwITmb271NzbI64i0r
+            K8sSTKUpILRMDRiVUPT6VXTI8Ib9q5KGRLQKgvyVjj7j3lSe0ofGQDnw7xLM1t7W
+            m61dljL9/Tp6AwgO3CV/30L3U8l4GSTpZ6GYfaFBI0Ao7+tUasMe3qawC1Ugim+j
+            RzOPQTi6oMKeNBqLzTNAztDzcDgY/8iLk/R4p6Nv0+DpvwWDiv0YwZVvvF+WGN+3
+            RBpjHMWPqIgBJZHfTO93q0hrBahX5oqBtEKPE/S2bFU9FTeHBw==
             -----END CERTIFICATE-----
 
             -----BEGIN CERTIFICATE-----
@@ -1387,6 +1387,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: d4fa90b3ece933b0e756106bd9fc9ab4c97a7c85
-    url: https://s3.amazonaws.com/bosh-core-stemcells/456.16/bosh-stemcell-456.16-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: d18c43dfbb9b385ef749959d2d12b7947b617d92
+    url: https://s3.amazonaws.com/bosh-core-stemcells/456.22/bosh-stemcell-456.22-vsphere-esxi-ubuntu-xenial-go_agent.tgz
 variables: []
