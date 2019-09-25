@@ -42,7 +42,8 @@ cpis:
       persistent_datastore_pattern: NAS-0
       template_folder: bosh-vsphere-templates
       vm_folder: bosh-vsphere-vms
-    host: vcenter-67.nono.io
+    # host: vcenter-67.nono.io # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
+    host: 10.0.9.67 # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
     password: ((vcenter_password))
     user: administrator@vsphere.local
   type: vsphere
