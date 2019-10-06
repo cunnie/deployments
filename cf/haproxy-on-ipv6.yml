@@ -17,18 +17,22 @@
 - type: replace
   path: /instance_groups/name=haproxy/jobs/name=haproxy/properties/ha_proxy/binding_ip?
   value: "::"
-
 # configure haproxy to bind to both IPv4 & IPv6 interfaces
 - type: replace
   path: /instance_groups/name=haproxy/jobs/name=haproxy/properties/ha_proxy/v4v6?
   value: true
 
-# IPv4 must have the default route in order to reach the BOSH Director.  So how
-# to assign IPv6 default route? Use swiss army knife release enable router
-# advertisements so that the VM discovers the IPv6 default routes. Don't be
-# tempted to use the networking release (IPv4 bias) or os-conf to set the
-# sysctl's to enable router advertisement—is uses the `sysctl --system` which
-# wipes out the IPv6 address
+# IPv4 must have the default route in order to reach the BOSH Director, which
+# is on a different subnet. So how to assign the IPv6 default route? Use the
+# BOSH swiss army knife release to enable IPv6 router advertisements so that
+# the VM discovers the IPv6 default routes.
+
+# Don't be tempted to use the BOSH networking release to set the IPv6 default
+# route (its scripts pattern-match for IPv4 addresses, and don't work with IPv6
+# addresses) and certainly not the BOSH os-conf release to set the kernel
+# parameter to enable IPv6 neighbor discovery protocol to set the IPv6 route
+# (it runs `sysctl --system`, which disables IPv6 completely as a byproduct of
+# running `/etc/sysctl.d/60-bosh-sysctl.conf`)
 
 - type: replace
   path: /releases/name=swiss-army-knife?
@@ -63,7 +67,7 @@
             # override the unfortunate stemcell defaults in `/etc/sysctl.d/60-bosh-sysctl.conf`
             sysctl net.ipv6.conf.all.disable_ipv6=0
             sysctl net.ipv6.conf.default.disable_ipv6=0
-            # accept router advertisements for both interfaces (IPv4 & IPv6)
+            # accept router advertisements for both interfaces (eth0/IPv4 & eth1/IPv6)
             sysctl net.ipv6.conf.eth0.accept_ra=1
             sysctl net.ipv6.conf.eth1.accept_ra=1
 
