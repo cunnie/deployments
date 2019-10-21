@@ -403,7 +403,7 @@ instance_groups:
     - 104.155.144.4
   persistent_disk_type: google-db
   stemcell: xenial
-  vm_type: g1-small
+  vm_type: concourse
 - azs:
   - vsphere
   instances: 1
