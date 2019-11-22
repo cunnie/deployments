@@ -1,0 +1,57 @@
+# fly -t nono set-pipeline --pipeline deploy-cf --config ci/pipeline_CF.yml --lf=<(lpass show --note deployments.yml)
+
+# fly -t nono expose-pipeline --pipeline deploy-cf
+# fly -t nono unpause-pipeline --pipeline deploy-cf
+
+groups:
+- name: lets-encrypt
+  jobs:
+  - get-certs
+
+resource_types:
+- name: gcs-resource
+  type: docker-image
+  source:
+    repository: frodenas/gcs-resource
+
+resources:
+- name: lets-encrypt-artifacts
+  type: gcs-resource
+  source:
+    bucket: lets-encrypt-cf-nono-io
+    json_key: ((gcp_credentials_json))
+    versioned_file: lets-encrypt-artifacts.tgz
+
+- name: lets-encrypt-ci
+  type: git
+  source:
+    uri: https://github.com/cunnie/lets-encrypt-concourse-job
+    branch: master
+
+jobs:
+- name: get-certs
+  plan:
+  - get: lets-encrypt-artifacts
+  - get: lets-encrypt-ci
+  - task: get-certs
+    file: lets-encrypt-ci/tasks/get-certs.yml
+    params:
+      # FIXME: delete `STAGE: 1` once you're satisfied parameters are correct.
+      # It makes acme.sh use the staging server, which has higher rate limits
+      # Nothing is as heartbreaking as exceeding Let's Encrypt's rate limits.
+      # Believe me, I know.
+      STAGE: 1
+      DOMAINS_WANTING_CERTS: "*.cf.nono.io"
+      DNS_CHALLENGE_TYPE: dns_nsupdate
+      NSUPDATE_SERVER: ns-he.nono.io
+      NSUPDATE_KEY_CONTENTS: ((nsupdate_key_contents))
+  - put: lets-encrypt-artifacts
+    params:
+      file: updated-lets-encrypt-artifacts/*.tgz
+- name: deploy-cf
+  plan:
+  - get:
+    params:
+      BOSH_ENVIRONMENT: vsphere
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin))
