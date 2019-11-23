@@ -28,9 +28,16 @@ resources:
     uri: https://github.com/cunnie/lets-encrypt-concourse-job
     branch: master
 
+- name: cf-deployment
+  type: git
+  source:
+    uri: https://github.com/cloudfoundry/cf-deployment
+    branch: master
+
 jobs:
 - name: get-certs
   plan:
+  - get: cf-deployment
   - get: lets-encrypt-artifacts
   - get: lets-encrypt-ci
   - task: get-certs
@@ -48,9 +55,11 @@ jobs:
   - put: lets-encrypt-artifacts
     params:
       file: updated-lets-encrypt-artifacts/*.tgz
-- name: deploy-cf
-  plan:
-  - get:
+  - name: deploy-cf
+    platform: linux
+    image_resource:
+      type: docker-image
+      source:  cunnie/fedora-golang-bosh
     params:
       BOSH_ENVIRONMENT: vsphere
       BOSH_CLIENT: admin
