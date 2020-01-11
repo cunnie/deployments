@@ -23,7 +23,7 @@ bosh create-env ~/workspace/bosh-deployment/bosh.yml \
   -o ~/workspace/bosh-deployment/local-dns.yml \
   -v director_name=ipv6 \
   -v internal_cidr=2601:0646:0100:69f1:0000:0000:0000:0000/64 \
-  -v internal_gw=2601:0646:0100:69f1:020d:b9ff:fe48:9249 \
+  -v internal_gw=2601:646:100:69f1:225:90ff:fef5:182b \
   -v internal_ip=2601:0646:0100:69f1:0000:0000:0000:0006 \
   -v network_name=IPv6 \
   -v vcenter_dc=dc \
