@@ -1305,9 +1305,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=21.0.0
   version: 21.0.0
 - name: uaa
-  sha1: 0ed53cb0fdc913ad3e95fc2471cacdc956ac45e5
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.13.0-ubuntu-xenial-621.55-20200206-000814-508525625-20200206000824.tgz
-  version: 74.13.0
+  sha1: 7d33ce7253c3467c32012261a6cd3fd499c75319
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.14.0-ubuntu-xenial-621.55-20200214-162047-255470132-20200214162049.tgz
+  version: 74.14.0
 - name: credhub
   sha1: 1ae0587d7d8d2ceb434f544d852575c5cbaae8ce
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.5.11-ubuntu-xenial-621.55-20200206-000925-265031391-20200206000929.tgz
