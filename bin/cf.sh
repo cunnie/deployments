@@ -18,7 +18,7 @@ export BOSH_ENVIRONMENT=vsphere
 pushd $DEPLOYMENTS_DIR/../cf-deployment; git pull -r; popd
 
 # Don't fill up Director's disk: delete old releases
-bosh clean-up --all
+#bosh clean-up --all
 
 # We don't use the primary cloud config (we already have one); instead,
 #   we set up a secondary config
