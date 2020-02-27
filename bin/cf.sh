@@ -52,6 +52,7 @@ bosh \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/scale-to-one-az.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-haproxy.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-stemcell.yml \
+  -o $DEPLOYMENTS_DIR/../cf-deployment/operations/test/add-persistent-isolation-segment-diego-cell.yml \
   -o $DEPLOYMENTS_DIR/cf/letsencrypt.yml \
   -o $DEPLOYMENTS_DIR/cf/haproxy-on-ipv6.yml \
   -v haproxy_private_ip=10.0.250.10 \
