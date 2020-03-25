@@ -1289,13 +1289,13 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 74a87a8092336c756166cdf30967b6a501f73921
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.12.0-ubuntu-xenial-621.59-20200303-223845-135009468-20200303223847.tgz
+  sha1: d6b573c6f5f7ac4bce069ee9e9732140829dcd4c
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.12.0-ubuntu-xenial-621.61-20200324-184816-751551017-20200324184819.tgz
   version: 270.12.0
 - name: bpm
-  sha1: a4b1646ff34faeddab4cb1b069dbfa3ece12c448
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.7-ubuntu-xenial-621.59-20200303-223453-597336125-20200303223457.tgz
-  version: 1.1.7
+  sha1: 87757e2f077512aae657a9ef48846b8485260699
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.8-ubuntu-xenial-621.61-20200324-183531-716271827-20200324183533.tgz
+  version: 1.1.8
 - name: bosh-vsphere-cpi
   sha1: dc04b664641e95c045e93d84a0444ea8f7d0cae0
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=53.0.1
@@ -1305,12 +1305,12 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=21.0.0
   version: 21.0.0
 - name: uaa
-  sha1: 3770cc8873834724f951ae7b631d03af0a40f6e5
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.15.0-ubuntu-xenial-621.59-20200303-223413-614209715-20200303223416.tgz
+  sha1: 89d07861d762085065475f918112fec61a6410de
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.15.0-ubuntu-xenial-621.61-20200324-184036-333498174-20200324184039.tgz
   version: 74.15.0
 - name: credhub
-  sha1: 785cc9ace1f589f04852339759239f9e454cf486
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.5.11-ubuntu-xenial-621.59-20200303-222955-741768821-20200303222957.tgz
+  sha1: 13d0840c5f8d3279f6c45695823ad6b1c21a5a99
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.5.11-ubuntu-xenial-621.61-20200324-183326-696622107-20200324183328.tgz
   version: 2.5.11
 - name: bosh-aws-cpi
   sha1: a0abf8f9bdeef2ea8b807fe78a6d20dfd0e34f78
@@ -1398,6 +1398,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: e960011ed750cfbb34948f427b02b432ffae43f2
-    url: https://bosh-core-stemcells.s3-accelerate.amazonaws.com/621.59/bosh-stemcell-621.59-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: 271b0baa3ead56aafc811b037e0f8b61e1efecf8
+    url: https://bosh-core-stemcells.s3-accelerate.amazonaws.com/621.61/bosh-stemcell-621.61-vsphere-esxi-ubuntu-xenial-go_agent.tgz
 variables: []
