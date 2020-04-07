@@ -1289,12 +1289,12 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: d6b573c6f5f7ac4bce069ee9e9732140829dcd4c
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.12.0-ubuntu-xenial-621.61-20200324-184816-751551017-20200324184819.tgz
+  sha1: 2fe9f7c4ca199e91e325463d7dfff38b6e401068
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.12.0-ubuntu-xenial-621.64-20200406-195707-603360464-20200406195709.tgz
   version: 270.12.0
 - name: bpm
-  sha1: 87757e2f077512aae657a9ef48846b8485260699
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.8-ubuntu-xenial-621.61-20200324-183531-716271827-20200324183533.tgz
+  sha1: 604f3505dfde8281551d3273c8d346b4900da4c6
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.8-ubuntu-xenial-621.64-20200406-195250-465946795-20200406195251.tgz
   version: 1.1.8
 - name: bosh-vsphere-cpi
   sha1: dc04b664641e95c045e93d84a0444ea8f7d0cae0
@@ -1305,12 +1305,12 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.0.0
   version: 22.0.0
 - name: uaa
-  sha1: 6a25f4826a0bf3307aa47c3494dffd89508d9ca5
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.16.0-ubuntu-xenial-621.61-20200327-223405-640440807-20200327223408.tgz
+  sha1: 48d514182810ce1ab0d0043ea16c4310a0063744
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.16.0-ubuntu-xenial-621.64-20200406-195412-417479231-20200406195416.tgz
   version: 74.16.0
 - name: credhub
-  sha1: 13d0840c5f8d3279f6c45695823ad6b1c21a5a99
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.5.11-ubuntu-xenial-621.61-20200324-183326-696622107-20200324183328.tgz
+  sha1: a91d3cccdbbc0d8bcd5bb800d11f20eb9fe6dc50
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.5.11-ubuntu-xenial-621.64-20200406-194805-163349684-20200406194806.tgz
   version: 2.5.11
 - name: bosh-aws-cpi
   sha1: a0abf8f9bdeef2ea8b807fe78a6d20dfd0e34f78
@@ -1398,6 +1398,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 271b0baa3ead56aafc811b037e0f8b61e1efecf8
-    url: https://bosh-core-stemcells.s3-accelerate.amazonaws.com/621.61/bosh-stemcell-621.61-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: 3612d4b0d388df6c40239b522af6d7b2b7c5dbd1
+    url: https://bosh-core-stemcells.s3-accelerate.amazonaws.com/621.64/bosh-stemcell-621.64-vsphere-esxi-ubuntu-xenial-go_agent.tgz
 variables: []
