@@ -1289,9 +1289,9 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 2fe9f7c4ca199e91e325463d7dfff38b6e401068
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-270.12.0-ubuntu-xenial-621.64-20200406-195707-603360464-20200406195709.tgz
-  version: 270.12.0
+  sha1: b611cff5f6c7794399f72278a9c845653590783f
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-271.0.0-ubuntu-xenial-621.64-20200410-221745-99232062-20200410221747.tgz
+  version: 271.0.0
 - name: bpm
   sha1: 604f3505dfde8281551d3273c8d346b4900da4c6
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.8-ubuntu-xenial-621.64-20200406-195250-465946795-20200406195251.tgz
@@ -1305,9 +1305,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.0.0
   version: 22.0.0
 - name: uaa
-  sha1: 48d514182810ce1ab0d0043ea16c4310a0063744
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.16.0-ubuntu-xenial-621.64-20200406-195412-417479231-20200406195416.tgz
-  version: 74.16.0
+  sha1: db20837edb51d02b9e4c6c0c36fae011bbd6b9e0
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.17.0-ubuntu-xenial-621.64-20200410-221335-029346211-20200410221338.tgz
+  version: 74.17.0
 - name: credhub
   sha1: a91d3cccdbbc0d8bcd5bb800d11f20eb9fe6dc50
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.5.11-ubuntu-xenial-621.64-20200406-194805-163349684-20200406194806.tgz
