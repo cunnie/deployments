@@ -10,6 +10,7 @@ export NSUPDATE_SERVER="ns-he.nono.io"
 export NSUPDATE_KEY="$HOME/letsencrypt.key"
 ~/.acme.sh/acme.sh --issue \
   -d *.cf.nono.io \
+  -d diarizer.com \
   --dns dns_nsupdate
 
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
