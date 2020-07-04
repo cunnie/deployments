@@ -61,3 +61,6 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/director/user_management/uaa/url?
   value: https://((external_fqdn)):8443
+- type: replace
+  path: /instance_groups/name=bosh/properties/hm/director_account/ca_cert?
+  value: ((commercial_ca_crt))
