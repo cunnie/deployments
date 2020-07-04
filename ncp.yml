@@ -1,0 +1,44 @@
+# manifest for BOSH performance testing
+name: ncp
+
+releases: []
+
+stemcells:
+- alias: old
+  os: ubuntu-xenial
+  version: 621.74
+- alias: new
+  os: ubuntu-xenial
+  version: 621.76
+
+update:
+  canaries: 0
+  max_in_flight: 10
+  canary_watch_time: 30000-600000
+  update_watch_time: 5000-600000
+
+instance_groups:
+- name: old
+  jobs:
+  - name: openvswitch
+    release: nsx-cf-cni
+  instances: 1
+  vm_type: small
+  stemcell: old
+  azs: [z1]
+  networks:
+  - name: default
+- name: new
+  jobs:
+  - name: openvswitch
+    release: nsx-cf-cni
+  instances: 1
+  vm_type: small
+  stemcell: new
+  azs: [z1]
+  networks:
+  - name: default
+
+releases:
+- name: nsx-cf-cni
+  version: 3.0.2.16453843
