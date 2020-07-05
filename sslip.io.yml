@@ -1,7 +1,7 @@
 #
 # bosh -e vsphere -d sslip.io deploy sslip.io.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
 #
-# I'd like to squash, but `instance_groups.networks` prevents it
+# I'd like to squash the instance groups, but `instance_groups.networks` prevents it
 anchors:
   user_add_job: &user_add_job
     name: user_add
@@ -60,7 +60,7 @@ anchors:
         set +e
         curl -L http://api.github.com/repos/cunnie/sslip.io/tarball/master |
           tar xzf -
-        mv cunnie-sslip.io-*/* .
+        mv cunnie-sslip.io-*/k8s/document_root .
         chown -R vcap:vcap .
       ssl_chained_cert: |
         -----BEGIN CERTIFICATE-----
