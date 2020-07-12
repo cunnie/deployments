@@ -915,7 +915,7 @@ instance_groups:
         client_secret: ((hm_password))
         password: ((hm_password))
         user: hm
-      resurrector_enabled: true
+      resurrector_enabled: false
     nats:
       address: 10.2.0.250
       password: ((nats_password))
