@@ -26,7 +26,7 @@ instance_groups:
     release: nsx-cf-cni
   instances: 1
   vm_type: small
-  stemcell: 621.75
+  stemcell: 621.76
   azs: [z1]
   networks:
   - name: default
