@@ -1,13 +1,15 @@
-# manifest for BOSH performance testing
+# manifest for NCP version testing
+#
+# `bosh -d ncp deploy ncp.yml`
 name: ncp
 
 releases: []
 
 stemcells:
-- alias: old
+- alias: 621.75
   os: ubuntu-xenial
-  version: 621.74
-- alias: new
+  version: 621.75
+- alias: 621.76
   os: ubuntu-xenial
   version: 621.76
 
@@ -18,27 +20,18 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-- name: old
+- name: ncp
   jobs:
   - name: openvswitch
     release: nsx-cf-cni
   instances: 1
   vm_type: small
-  stemcell: old
-  azs: [z1]
-  networks:
-  - name: default
-- name: new
-  jobs:
-  - name: openvswitch
-    release: nsx-cf-cni
-  instances: 1
-  vm_type: small
-  stemcell: new
+  stemcell: 621.75
   azs: [z1]
   networks:
   - name: default
 
 releases:
 - name: nsx-cf-cni
-  version: 3.0.2.16453843
+  version: 3.0.1.16118386
+# version: 3.0.2.16453843
