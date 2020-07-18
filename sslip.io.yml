@@ -319,9 +319,9 @@ instance_groups:
 name: sslip.io
 releases:
 - name: concourse
-  sha1: 6a75118c6d295476f1619a7befa0d4ff0dc58602
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=6.3.0
-  version: 6.3.0
+  sha1: 98fa62d0ef61c9886b824f132189c838f278e7e6
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=6.4.0
+  version: 6.4.0
 - name: bpm
   sha1: c956394fce7e74f741e4ae8c256b480904ad5942
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.8
@@ -335,9 +335,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=20.0.0
   version: 20.0.0
 - name: "nginx"
-  version: "1.19.0"
-  url: "https://bosh.io/d/github.com/cloudfoundry-community/nginx-release?v=1.19.0"
-  sha1: "afd029140755ba4a9314299c84d4a5f133adca36"
+  version: "1.19.1"
+  url: "https://bosh.io/d/github.com/cloudfoundry-community/nginx-release?v=1.19.1"
+  sha1: "1731de7995b785f314e87f54f2e29d3668f0b27f"
 - name: ntp
   sha1: 591eb51e3257aa07b6ef9c0bb6128df53835fa20
   url: https://bosh.io/d/github.com/cloudfoundry-community/ntp-release?v=4.2.8p13
