@@ -343,9 +343,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry-community/ntp-release?v=4.2.8p13
   version: 4.2.8p13
 - name: pdns
-  sha1: a0b2d96ebb1f6d5c3cbc07082a32df183f341b0d
-  url: https://github.com/cloudfoundry-community/pdns-release/releases/download/4.1.8/pdns-release-4.1.8.tgz
-  version: 4.1.8
+  sha1: 8f8ffb60682541186670f07df397113dbcbba6ab
+  url: https://github.com/cloudfoundry-community/pdns-release/releases/download/4.2.2/pdns-release-4.2.2.tgz
+  version: 4.2.2
 - name: sysctl
   version: latest
 stemcells:
