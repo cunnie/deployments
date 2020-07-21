@@ -12,6 +12,9 @@ stemcells:
 - alias: 621.76
   os: ubuntu-xenial
   version: 621.76
+- alias: 621.77
+  os: ubuntu-xenial
+  version: 621.77
 
 update:
   canaries: 0
@@ -26,7 +29,7 @@ instance_groups:
     release: nsx-cf-cni
   instances: 1
   vm_type: small
-  stemcell: 621.76
+  stemcell: 621.77
   azs: [z1]
   networks:
   - name: default
