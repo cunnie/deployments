@@ -1303,13 +1303,13 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-74.23.0-ubuntu-xenial-621.77-20200717-174109-523727558-20200717174113.tgz
   version: 74.23.0
 - name: credhub
-  sha1: 3e913837aff61085e0919554fe444f8f8971d030
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.7.1-ubuntu-xenial-621.77-20200717-233236-284815403-20200717233237.tgz
-  version: 2.7.1
+  sha1: c05b50aab27d50b9a680e077b451c4ae2b9be38a
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.8.0-ubuntu-xenial-621.77-20200722-203242-626824394-20200722203243.tgz
+  version: 2.8.0
 - name: bosh-aws-cpi
-  sha1: 1a4826469e715f5595de38a15df7b7f511fbfe85
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=82
-  version: "82"
+  sha1: cabcdf15846adabe2000fe892314a3a2f72c9177
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=83
+  version: 83
 - name: bosh-azure-cpi
   sha1: f658b25b6404a5b5676ab6379b99170f300a5124
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=37.2.0
