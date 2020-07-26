@@ -10,8 +10,11 @@ export NSUPDATE_SERVER="ns-he.nono.io"
 export NSUPDATE_KEY="$HOME/letsencrypt.key"
 ~/.acme.sh/acme.sh --issue \
   -d *.cf.nono.io \
+  -d foundry.fun \
+  -d *.foundry.fun \
   -d diarizer.com \
-  --dns dns_nsupdate
+  --dns dns_nsupdate \
+
 
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 export BOSH_ENVIRONMENT=vsphere
@@ -50,6 +53,7 @@ bosh \
   $DEPLOYMENTS_DIR/../cf-deployment/cf-deployment.yml \
   -l <(lpass show --note cf.yml) \
   -v system_domain=cf.nono.io \
+  -v app_domain=foundry.fun \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/scale-to-one-az.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-haproxy.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-stemcell.yml \
@@ -59,6 +63,7 @@ bosh \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/test/add-persistent-isolation-segment-diego-cell.yml \
   -o $DEPLOYMENTS_DIR/cf/letsencrypt.yml \
   -o $DEPLOYMENTS_DIR/cf/haproxy-on-ipv6.yml \
+  -o $DEPLOYMENTS_DIR/cf/override-app-domain.yml \
   -v haproxy_private_ip=10.0.250.10 \
   --var-file=star_cf_nono_io_crt=$HOME/.acme.sh/\*.cf.nono.io/fullchain.cer \
   --var-file=star_cf_nono_io_key=$HOME/.acme.sh/\*.cf.nono.io/\*.cf.nono.io.key \
