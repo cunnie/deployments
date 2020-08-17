@@ -21,3 +21,6 @@ eU2pNki/P+AdAxCBw8aJj6p6VoTFSUydW9dWhH5zIY1fJ1sohhRRpd8pIuz7fW0c
 uid/svb5psJqZc+A8mz+yIj0pNyp/w5PTFW/1At5c66Zkj/d17qoc8JHkVDktLEi
 vRtUeevVOkYhOi//MB+AnUkflXN6UnWmpKOwGsw5I8NsjZSq
 -----END CERTIFICATE-----"
+cf api api.tas.nono.io --skip-ssl-validation
+cf auth admin c-LnK3AvSlT9kFDwdo7jP1wR9xY5zLBN
+cf t -o system -s scheduler
