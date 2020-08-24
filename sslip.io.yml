@@ -319,21 +319,21 @@ instance_groups:
 name: sslip.io
 releases:
 - name: concourse
-  sha1: a8f4072712dd6eec11c1f081362535c34166671d
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=6.4.1
-  version: 6.4.1
+  sha1: deb7cbeaf087fdb9a4a039597c08d655d513f5f6
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=6.5.0
+  version: 6.5.0
 - name: bpm
   sha1: c956394fce7e74f741e4ae8c256b480904ad5942
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.8
   version: 1.1.8
 - name: postgres
-  sha1: 4488d08ff54117a9d904f6e2f27c82c1cf4c910e
-  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=41
-  version: "41"
+  sha1: 0a9e4ad424f2ad9611dd1d3f387cc12ed7b71ee4
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=42
+  version: "42"
 - name: os-conf
-  sha1: a60187f038d45e2886db9df82b72a9ab5fdcc49d
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=20.0.0
-  version: 20.0.0
+  version: "22.1.0"
+  url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.0"
+  sha1: "7ef05f6f3ebc03f59ad8131851dbd1abd1ab3663"
 - name: "nginx"
   version: "1.19.1"
   url: "https://bosh.io/d/github.com/cloudfoundry-community/nginx-release?v=1.19.1"
