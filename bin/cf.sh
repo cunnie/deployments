@@ -50,6 +50,7 @@ bosh \
   -d cf \
   deploy \
   --no-redact \
+  --fix \
   $DEPLOYMENTS_DIR/../cf-deployment/cf-deployment.yml \
   -l <(lpass show --note cf.yml) \
   -v system_domain=cf.nono.io \
