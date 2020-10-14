@@ -43,5 +43,5 @@ instance_groups:
 
 releases:
 - name: nsx-cf-cni
-  version: 3.0.2.16863080
-# version: 3.0.2.16888888
+# version: 3.0.2.16863080
+  version: 3.0.2.16888888
