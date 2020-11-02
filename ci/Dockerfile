@@ -13,5 +13,5 @@ RUN dnf update -y; \
   dnf install -y mysql-devel openssl-devel zlib-devel; \
   gem install yajl-ruby
 
-RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v6.1.1/bosh-cli-6.1.1-linux-amd64 -o /usr/local/bin/bosh; \
+RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.1/bosh-cli-6.4.1-linux-amd64 -o /usr/local/bin/bosh; \
   chmod +x /usr/local/bin/bosh
