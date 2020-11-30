@@ -202,7 +202,8 @@ instance_groups:
   - *user_add_job
   - *nginx_job
   - *ntpd_job
-  - *pdns_job
+  - name: sslip.io-dns-server
+    release: sslip.io
   name: aws
   networks:
   - default:
@@ -340,6 +341,10 @@ releases:
   sha1: 8f8ffb60682541186670f07df397113dbcbba6ab
   url: https://github.com/cloudfoundry-community/pdns-release/releases/download/4.2.2/pdns-release-4.2.2.tgz
   version: 4.2.2
+- name: sslip.io
+  sha1: 0f23bff9d1136d3d5e3b033d013759fe3aa85613
+  url: https://github.com/cunnie/sslip.io/releases/download/1.1.1/sslip.io-release-1.1.1.tgz
+  version: 1.1.1
 - name: sysctl
   version: latest
 stemcells:
