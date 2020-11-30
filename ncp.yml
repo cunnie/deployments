@@ -15,6 +15,9 @@ stemcells:
 - alias: 621.87
   os: ubuntu-xenial
   version: 621.87
+- alias: 621.92
+  os: ubuntu-xenial
+  version: 621.92
 
 update:
   canaries: 0
@@ -23,13 +26,13 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-- name: 621.87
+- name: 621.92
   jobs:
   - name: openvswitch
     release: nsx-cf-cni
   instances: 1
   vm_type: small
-  stemcell: 621.87
+  stemcell: 621.92
   azs: [z1]
   networks:
   - name: default
