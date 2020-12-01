@@ -1,5 +1,5 @@
 #
-# bosh -e vsphere -d sslip.io deploy sslip.io.yml -l <(lpass show --note deployments.yml) -l <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/conf/sslip.io%2Bnono.io.yml) --no-redact
+# bosh -e vsphere -d sslip.io deploy sslip.io.yml -l <(lpass show --note deployments.yml) --no-redact
 #
 # I'd like to squash the instance groups, but `instance_groups.networks` prevents it
 anchors:
@@ -187,13 +187,6 @@ anchors:
         systemctl disable chrony.service
         systemctl stop    chrony.service
     release: ntp
-  pdns_job: &pdns_job
-    name: pdns
-    properties:
-      named_conf: ((pdns_named_conf))
-      pdns_conf: ((pdns_conf))
-      pipe: ((pdns_pipe))
-    release: pdns
 instance_groups:
 - azs:
   - aws
@@ -221,7 +214,8 @@ instance_groups:
   jobs:
   - *user_add_job
   - *nginx_job
-  - *pdns_job
+  - name: sslip.io-dns-server
+    release: sslip.io
   name: azure
   networks:
   - default:
@@ -239,7 +233,8 @@ instance_groups:
   jobs:
   - *user_add_job
   - *ntpd_job
-  - *pdns_job
+  - name: sslip.io-dns-server
+    release: sslip.io
   - name: bpm
     release: bpm
   - name: web
