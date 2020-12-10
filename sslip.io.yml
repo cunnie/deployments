@@ -309,17 +309,17 @@ instance_groups:
 name: sslip.io
 releases:
 - name: concourse
-  sha1: a72b88a132fc71773b8cef47edc61f3a6edb9bb5
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=6.7.1
-  version: 6.7.1
+  sha1: 6a5a21a38bd7f8c544f1721033e17f34ecb9c063
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=6.7.2
+  version: 6.7.2
 - name: bpm
   sha1: dcf0582d838a73de29da273552ae79ac3098ee8b
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.9
   version: 1.1.9
 - name: postgres
-  sha1: 0a9e4ad424f2ad9611dd1d3f387cc12ed7b71ee4
-  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=42
-  version: "42"
+  sha1: e44bbe8f8a7cdde1cda67b202e399a239d104db6
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=43
+  version: "43"
 - name: os-conf
   version: "22.1.0"
   url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.0"
