@@ -18,8 +18,11 @@ instance_groups:
 - name: dummy-ubuntu
   jobs: []
   instances: 1
-  vm_type: default
+#  vm_type: default
+  vm_type: small
   stemcell: ubuntu
-  azs: [z1]
+#  azs: [z1]
+  azs: [vsphere]
   networks:
-  - name: default
+#  - name: default
+  - name: vsphere-guest
