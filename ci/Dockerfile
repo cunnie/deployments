@@ -37,4 +37,7 @@ RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.1/bo
 RUN curl -o /etc/yum.repos.d/cloudfoundry-cli.repo -L https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo; \
   dnf install -y cf7-cli
 
+RUN GOBIN=/usr/local/bin go get github.com/onsi/ginkgo/ginkgo; \
+  go get github.com/onsi/gomega/...
+
 CMD [ "/usr/bin/zsh" ]
