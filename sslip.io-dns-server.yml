@@ -13,9 +13,7 @@ instance_groups:
 name: sslip.io-dns-server
 releases:
 - name: sslip.io
-  sha1: c24a2b1fef37c252fda54509ef5fd82f2367c04a
-  url: https://github.com/cunnie/sslip.io/releases/download/1.0.1/sslip.io-release-1.0.1.tgz
-  version: 1.0.1
+  version: latest
 stemcells:
 - alias: xenial
   os: ubuntu-xenial
