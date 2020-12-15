@@ -9,6 +9,9 @@ stemcells:
 - alias: 621.94
   os: ubuntu-xenial
   version: 621.94
+- alias: 0.6
+  os: ubuntu-bionic
+  version: 0.6
 
 update:
   canaries: 0
@@ -17,6 +20,16 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
+- name: 0.6
+  jobs:
+  - name: openvswitch
+    release: nsx-cf-cni
+  instances: 1
+  vm_type: small
+  stemcell: 0.6
+  azs: [z1]
+  networks:
+  - name: default
 - name: 621.94
   jobs:
   - name: openvswitch
