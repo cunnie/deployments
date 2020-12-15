@@ -5,12 +5,64 @@
 # :,$!bosh int -
 groups:
 - jobs:
+  - upload-bionic-aws
+  - upload-bionic-azure
+  - upload-bionic-google
+  - upload-bionic-vsphere
   - upload-xenial-aws
   - upload-xenial-azure
   - upload-xenial-google
   - upload-xenial-vsphere
-  name: stemcell
+  name: stemcells
 jobs:
+- name: upload-bionic-aws
+  plan:
+  - get: stemcell
+    resource: stemcell-bionic-aws
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+- name: upload-bionic-azure
+  plan:
+  - get: stemcell
+    resource: stemcell-bionic-azure
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+- name: upload-bionic-google
+  plan:
+  - get: stemcell
+    resource: stemcell-bionic-google
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+- name: upload-bionic-vsphere
+  plan:
+  - get: stemcell
+    resource: stemcell-bionic-vsphere
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
 - name: upload-xenial-aws
   old_name: upload-aws
   plan:
@@ -68,6 +120,22 @@ resources:
   source:
     uri: https://github.com/cunnie/deployments.git
   type: git
+- name: stemcell-bionic-aws
+  source:
+    name: bosh-aws-xen-hvm-ubuntu-bionic-go_agent
+  type: bosh-io-stemcell
+- name: stemcell-bionic-azure
+  source:
+    name: bosh-azure-hyperv-ubuntu-bionic-go_agent
+  type: bosh-io-stemcell
+- name: stemcell-bionic-google
+  source:
+    name: bosh-google-kvm-ubuntu-bionic-go_agent
+  type: bosh-io-stemcell
+- name: stemcell-bionic-vsphere
+  source:
+    name: bosh-vsphere-esxi-ubuntu-bionic-go_agent
+  type: bosh-io-stemcell
 - name: stemcell-xenial-aws
   source:
     name: bosh-aws-xen-hvm-ubuntu-xenial-go_agent
