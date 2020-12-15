@@ -183,7 +183,7 @@ anchors:
         restrict -6 ::1
       post_start: |
         #!/bin/bash -x
-        # on Xenial we disable chrony because we're running ntpd
+        # on bionic we disable chrony because we're running ntpd
         systemctl disable chrony.service
         systemctl stop    chrony.service
     release: ntp
@@ -206,7 +206,7 @@ instance_groups:
   - name: aws-public
     static_ips:
     - 52.0.56.137
-  stemcell: xenial
+  stemcell: bionic
   vm_type: t3a.nano
 - azs:
   - azure
@@ -225,7 +225,7 @@ instance_groups:
   - name: azure-public
     static_ips:
     - 52.187.42.158
-  stemcell: xenial
+  stemcell: bionic
   vm_type: standard_b1s
 - azs:
   - google
@@ -286,7 +286,7 @@ instance_groups:
     static_ips:
     - 104.155.144.4
   persistent_disk_type: google-db
-  stemcell: xenial
+  stemcell: bionic
   vm_type: concourse
 - azs:
   - vsphere
@@ -304,7 +304,7 @@ instance_groups:
   name: worker
   networks:
   - name: vsphere-guest
-  stemcell: xenial
+  stemcell: bionic
   vm_type: concourse-workers
 name: sslip.io
 releases:
@@ -343,8 +343,8 @@ releases:
 - name: sysctl
   version: latest
 stemcells:
-- alias: xenial
-  os: ubuntu-xenial
+- alias: bionic
+  os: ubuntu-bionic
   version: latest
 update:
   canaries: 1
