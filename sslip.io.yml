@@ -337,9 +337,9 @@ releases:
   url: https://github.com/cloudfoundry-community/pdns-release/releases/download/4.2.2/pdns-release-4.2.2.tgz
   version: 4.2.2
 - name: sslip.io
-  sha1: fe1e858d9cceedafddbb3451691d1981d5926407
-  url: https://github.com/cunnie/sslip.io/releases/download/1.2.0/sslip.io-release-1.2.0.tgz
-  version: 1.2.0
+  sha1: 795761cebaaf9b75e01298f82b1cab98142aa3cb
+  url: https://github.com/cunnie/sslip.io/releases/download/1.2.1/sslip.io-release-1.2.1.tgz
+  version: 1.2.1
 - name: sysctl
   version: latest
 stemcells:
