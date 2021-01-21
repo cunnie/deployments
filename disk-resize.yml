@@ -1,0 +1,56 @@
+anchors:
+  user_add_job: &user_add_job
+    name: user_add
+    properties:
+      users:
+      - name: cunnie
+        public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD
+          cunnie@nono.io
+    release: os-conf
+instance_groups:
+- azs:
+  - google
+  instances: 1
+  jobs:
+  - *user_add_job
+  name: google
+  networks:
+  - name: google-private
+    default:
+    - gateway
+    - dns
+  - name: google-public
+    static_ips:
+    - 34.66.234.38
+  persistent_disk_type: default # default, large, larger
+  properties: {}
+  stemcell: default
+  vm_type: small
+- azs:
+  - vsphere
+  instances: 1
+  jobs:
+  - *user_add_job
+  name: vsphere
+  networks:
+  - name: vsphere-guest
+  persistent_disk_type: default # default, large, larger
+  properties: {}
+  stemcell: default
+  vm_type: small
+name: disk-resize
+releases:
+- name: os-conf
+  version: "22.1.0"
+  url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.0"
+  sha1: "7ef05f6f3ebc03f59ad8131851dbd1abd1ab3663"
+
+stemcells:
+- alias: default
+  os: ubuntu-xenial
+  version: latest
+update:
+  canaries: 1
+  canary_watch_time: 1000-30000
+  max_in_flight: 2
+  update_watch_time: 1000-30000
