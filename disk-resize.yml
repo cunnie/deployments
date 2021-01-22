@@ -22,7 +22,7 @@ instance_groups:
   - name: google-public
     static_ips:
     - 34.66.234.38
-  persistent_disk_type: default # default, large, larger
+  persistent_disk_type: 1G # 2G, 3G, 4G, 5G, 6G
   properties: {}
   stemcell: default
   vm_type: small
@@ -34,7 +34,7 @@ instance_groups:
   name: vsphere
   networks:
   - name: vsphere-guest
-  persistent_disk_type: default # default, large, larger
+  persistent_disk_type: 1G # 2G, 3G, 4G, 5G, 6G
   properties: {}
   stemcell: default
   vm_type: small

@@ -28,10 +28,18 @@ compilation:
 disk_types:
 - disk_size: 1024
   name: default
-- disk_size: 1536
-  name: large
+- disk_size: 1024
+  name: 1G
 - disk_size: 2048
-  name: larger
+  name: 2G
+- disk_size: 3072
+  name: 3G
+- disk_size: 4096
+  name: 4G
+- disk_size: 5120
+  name: 5G
+- disk_size: 6144
+  name: 6G
 - cloud_properties:
     type: pd-ssd
   disk_size: 5120
