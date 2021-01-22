@@ -6,9 +6,9 @@ name: ncp
 releases: []
 
 stemcells:
-- alias: 621.94
+- alias: 621.97
   os: ubuntu-xenial
-  version: 621.94
+  version: 621.97
 - alias: 0.6
   os: ubuntu-bionic
   version: 0.6
@@ -30,13 +30,13 @@ instance_groups:
   azs: [z1]
   networks:
   - name: default
-- name: 621.94
+- name: 621.97
   jobs:
   - name: openvswitch
     release: nsx-cf-cni
   instances: 1
   vm_type: small
-  stemcell: 621.94
+  stemcell: 621.97
   azs: [z1]
   networks:
   - name: default
