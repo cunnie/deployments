@@ -1,0 +1,25 @@
+name: datastore-placement
+
+releases: []
+
+stemcells:
+- alias: ubuntu
+  os: ubuntu-xenial
+  version: latest
+
+update:
+  canaries: 0
+  max_in_flight: 10
+  canary_watch_time: 30000-600000
+  update_watch_time: 5000-600000
+
+instance_groups:
+- name: group_of_instances
+  jobs: []
+  instances: 8
+  vm_type: small
+  stemcell: ubuntu
+  persistent_disk_type: 10g_random
+  azs: [vsphere]
+  networks:
+  - name: vsphere-guest
