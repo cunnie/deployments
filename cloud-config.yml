@@ -41,7 +41,7 @@ disk_types:
 - disk_size: 6144
   name: 6G
 - name: 10g_random
-  disk_size: 10_240
+  disk_size: 1_024
   cloud_properties:
     datastores:
     - NAS-1
