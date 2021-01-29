@@ -40,14 +40,6 @@ disk_types:
   name: 5G
 - disk_size: 6144
   name: 6G
-- name: 10g_random
-  disk_size: 1_024
-  cloud_properties:
-    datastores:
-    - NAS-1
-    - NAS-2
-    - NAS-3
-    - NAS-4
 - cloud_properties:
     type: pd-ssd
   disk_size: 5120
