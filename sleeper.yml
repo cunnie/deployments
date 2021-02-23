@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sleeper
+  name: sleeper
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sleeper
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sleeper
+    spec:
+      containers:
+      - image: cunnie/fedora-ruby-bind-utils
+        name: sleeper
+        command: [ "sleep" ]
+        args: [ "86400" ]
+        resources: {}
+status: {}
