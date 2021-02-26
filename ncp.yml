@@ -6,12 +6,9 @@ name: ncp
 releases: []
 
 stemcells:
-- alias: 621.101
+- alias: 621.107
   os: ubuntu-xenial
-  version: 621.101
-- alias: 0.6
-  os: ubuntu-bionic
-  version: 0.6
+  version: 621.107
 
 update:
   canaries: 0
@@ -20,23 +17,15 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-# - name: 0.6
-#   jobs:
-#   - name: openvswitch
-#     release: nsx-cf-cni
-#   instances: 1
-#   vm_type: small
-#   stemcell: 0.6
-#   azs: [z1]
-#   networks:
-#   - name: default
-- name: 621.101
+- name: 621.107
   jobs:
   - name: openvswitch
     release: nsx-cf-cni
+  - name: nsx-node-agent
+    release: nsx-cf-cni
   instances: 1
   vm_type: small
-  stemcell: 621.101
+  stemcell: 621.107
   azs: [z1]
   networks:
   - name: default
@@ -45,4 +34,5 @@ releases:
 - name: nsx-cf-cni
   version: 3.1.0.17170700
 # version: 3.0.2.17079862 # 3.0.2.2
+# version: 3.0.2.16863080 # 3.0.2.? broke
 # version: 2.5.1.15287458 # 2.5.1
