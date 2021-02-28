@@ -1,3 +1,4 @@
+# Thanks https://medium.com/@mattias.holmlund/setting-up-ipv6-on-amazon-with-terraform-e14b3bfef577
 terraform {
   required_providers {
     aws = {
@@ -12,11 +13,60 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_instance" "terraform-example" {
+resource "aws_vpc" "k8s" {
+  cidr_block                       = "10.240.0.0/16"
+  assign_generated_ipv6_cidr_block = true
+  tags = {
+    Name = "k8s"
+  }
+}
+
+resource "aws_subnet" "k8s" {
+  vpc_id                  = aws_vpc.k8s.id
+  cidr_block              = cidrsubnet(aws_vpc.k8s.cidr_block, 8, 1) # 8: "/16" → "/24" 1: "10.240.0.0" → "10.240.1.0"
+  map_public_ip_on_launch = true                                     # delete this when we learn to attach an elastic IP
+  ipv6_cidr_block         = cidrsubnet(aws_vpc.k8s.ipv6_cidr_block, 8, 0)
+  tags = {
+    Name = "k8s"
+  }
+}
+
+resource "aws_security_group" "allow_everything" {
+  name        = "allow_everything"
+  description = "we are bold, we are brave, we are naked (as far as firewalls are concerned)"
+  vpc_id      = aws_vpc.k8s.id
+  ingress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "allow_everything"
+  }
+}
+
+resource "aws_key_pair" "k8s" {
+  key_name   = "k8s"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDksYxt4WhOyDZA/5jtY68Jp1NXDwj5yTiXvu5e0htyt1Z+oyp2exiNiiHcZ49e/DIb/+pLopxZJXndM+osYex7MuJ5Z2NLc9Dymj+zGKbfDatflcyNcqULA+Dtl4wrfEFWhZC0WoHY7f94MtszW0kU4jSuiP0IkQGw47XrsPe8irwQJK1O8mj5ygm6dsMcSRUV0fItltXGLQ95ANxg2YLOL9Kpbul2c6s08qcWJ35QBHTZyBP8Hryb2CkUdbW6sJCv5GuQ9DG0D2q5kYpSsznd3tnvl7AC3nUI4ENFaYF9LlYp28ohRG2LHl6A/r3u8ghYqSH5Qz4PV4CxX/Z0EEoSXflFWgYedb/5nYsEkly0DOpmOULqkobJg8ki3gBOzL5LEO8uI6uGzJz5XSbRzSDSTDPpUxcm5I5OA9kVTSq1jE7wxn4IA6kd1UvXRc2w/yxMa43W0L22lWHJjFIIbrYe6ymy6IxMmKLJpdh38aRXv7PzCM+rUmnm4Fpcko9xF68= brian.cunnie@gmail.com"
+}
+
+resource "aws_instance" "k8s" {
   ami                    = "ami-07b7fa952a4ad5fd2"
+  key_name               = aws_key_pair.k8s.key_name
   instance_type          = "t4g.micro"
-  vpc_security_group_ids = ["sg-2bc1904f"]
-  subnet_id              = "subnet-1c90ef6b"
+  vpc_security_group_ids = [aws_security_group.allow_everything.id]
+  subnet_id              = aws_subnet.k8s.id
 
   tags = {
     Name = "Fedora 33 aarch64"
