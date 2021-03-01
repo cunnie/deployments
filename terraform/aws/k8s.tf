@@ -95,15 +95,24 @@ resource "aws_key_pair" "k8s" {
 # remember, the user is "fedora" not "ec2-user"
 #
 # ssh -i ~/.ssh/aws fedora@w.x.y.z
-# curl https://raw.githubusercontent.com/cunnie/bin/master/install_fedora.sh | bash -x
+# curl https://raw.githubusercontent.com/cunnie/bin/master/install_k8s_worker.sh | bash -x
 resource "aws_instance" "k8s" {
   ami                    = "ami-07b7fa952a4ad5fd2"
   key_name               = aws_key_pair.k8s.key_name
   instance_type          = "t4g.micro"
   vpc_security_group_ids = [aws_security_group.allow_everything.id]
   subnet_id              = aws_subnet.k8s.id
+  ipv6_address_count     = 1
 
   tags = {
-    Name = "Fedora 33 aarch64"
+    Name = "k8s Fedora 33 aarch64"
   }
+}
+
+output "k8s_public_IPv4" {
+  value = aws_instance.k8s.public_ip
+}
+
+output "k8s_public_IPv6" {
+  value = [aws_instance.k8s.ipv6_addresses]
 }
