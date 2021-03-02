@@ -20,6 +20,11 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+variable "aws_eip" {
+  type        = string
+  description = "The Elastic IP of the k8s worker"
+}
+
 resource "aws_vpc" "k8s" {
   cidr_block                       = "10.240.0.0/16"
   assign_generated_ipv6_cidr_block = true
@@ -29,10 +34,10 @@ resource "aws_vpc" "k8s" {
 }
 
 resource "aws_subnet" "k8s" {
-  vpc_id                  = aws_vpc.k8s.id
-  cidr_block              = cidrsubnet(aws_vpc.k8s.cidr_block, 8, 1) # 8: "/16" → "/24" 1: "10.240.0.0" → "10.240.1.0"
-  map_public_ip_on_launch = true                                     # delete this when we learn to attach an elastic IP
-  ipv6_cidr_block         = cidrsubnet(aws_vpc.k8s.ipv6_cidr_block, 8, 0)
+  vpc_id            = aws_vpc.k8s.id
+  cidr_block        = cidrsubnet(aws_vpc.k8s.cidr_block, 8, 1) # 8: "/16" → "/24" 1: "10.240.0.0" → "10.240.1.0"
+  ipv6_cidr_block   = cidrsubnet(aws_vpc.k8s.ipv6_cidr_block, 8, 0)
+  availability_zone = "us-east-1f" # t4g's are only available in us-east-1a, us-east-1b, us-east-1c, us-east-1d, us-east-1f.
   tags = {
     Name = "k8s"
   }
@@ -100,17 +105,28 @@ resource "aws_instance" "k8s" {
   ami                    = "ami-07b7fa952a4ad5fd2"
   key_name               = aws_key_pair.k8s.key_name
   instance_type          = "t4g.micro"
+  availability_zone      = "us-east-1f" # t4g's are only available in us-east-1a, us-east-1b, us-east-1c, us-east-1d, us-east-1f.
   vpc_security_group_ids = [aws_security_group.allow_everything.id]
   subnet_id              = aws_subnet.k8s.id
-  ipv6_address_count     = 1
+  private_ip             = cidrhost(cidrsubnet(aws_vpc.k8s.cidr_block, 8, 1), 23)        # 23 = worker-3
+  ipv6_addresses         = [cidrhost(cidrsubnet(aws_vpc.k8s.ipv6_cidr_block, 8, 0), 23)] # 23 = worker-3
 
   tags = {
     Name = "k8s Fedora 33 aarch64"
   }
 }
 
-output "k8s_public_IPv4" {
-  value = aws_instance.k8s.public_ip
+data "aws_eip" "k8s" {
+  public_ip = var.aws_eip
+}
+
+resource "aws_eip_association" "k8s" {
+  instance_id   = aws_instance.k8s.id
+  allocation_id = data.aws_eip.k8s.id
+}
+
+output "k8s_elastic_IPv4" {
+  value = var.aws_eip
 }
 
 output "k8s_public_IPv6" {
