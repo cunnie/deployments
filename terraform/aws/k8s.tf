@@ -102,9 +102,12 @@ resource "aws_key_pair" "k8s" {
 # ssh -i ~/.ssh/aws fedora@w.x.y.z
 # curl https://raw.githubusercontent.com/cunnie/bin/master/install_k8s_worker.sh | bash -x
 resource "aws_instance" "k8s" {
-  ami                    = "ami-07b7fa952a4ad5fd2"
-  key_name               = aws_key_pair.k8s.key_name
-  instance_type          = "t4g.micro"
+  ami           = "ami-07b7fa952a4ad5fd2"
+  key_name      = aws_key_pair.k8s.key_name
+  instance_type = "t4g.micro"
+  root_block_device {
+    volume_size = 26 # the default 6 GB is too small; "/" is 86% full
+  }
   availability_zone      = "us-east-1f" # t4g's are only available in us-east-1a, us-east-1b, us-east-1c, us-east-1d, us-east-1f.
   vpc_security_group_ids = [aws_security_group.allow_everything.id]
   subnet_id              = aws_subnet.k8s.id
