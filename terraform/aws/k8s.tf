@@ -114,7 +114,7 @@ resource "aws_instance" "k8s" {
   private_ip             = cidrhost(cidrsubnet(aws_vpc.k8s.cidr_block, 8, 1), 23)        # 23 = worker-3
   ipv6_addresses         = [cidrhost(cidrsubnet(aws_vpc.k8s.ipv6_cidr_block, 8, 0), 23)] # 23 = worker-3
   # check /var/log/cloud-init-output.log for output; curl http://169.254.169.254/latest/user-data for value
-  user_data              = "#!/bin/bash -x\necho worker-3 > /etc/hostname; hostname worker-3; curl -L https://raw.githubusercontent.com/cunnie/bin/master/install_k8s_worker.sh | bash -x"
+  user_data = "#!/bin/bash -x\necho worker-3 >/etc/hostname; hostname worker-3; curl -L https://raw.githubusercontent.com/cunnie/bin/master/install_k8s_worker.sh | bash -x"
   tags = {
     Name = "k8s Fedora 33 aarch64"
   }
