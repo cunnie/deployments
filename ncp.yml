@@ -6,9 +6,9 @@ name: ncp
 releases: []
 
 stemcells:
-- alias: 621.107
+- alias: 621.109
   os: ubuntu-xenial
-  version: 621.107
+  version: 621.109
 
 update:
   canaries: 0
@@ -17,7 +17,7 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-- name: 621.107
+- name: 621.109
   jobs:
   - name: openvswitch
     release: nsx-cf-cni
@@ -25,7 +25,7 @@ instance_groups:
     release: nsx-cf-cni
   instances: 1
   vm_type: small
-  stemcell: 621.107
+  stemcell: 621.109
   azs: [z1]
   networks:
   - name: default
