@@ -5,3 +5,6 @@
 - type: replace
   path: /instance_groups/name=windows2019-cell/instances
   value: 2
+- type: replace
+  path: /instance_groups/name=diego-cell/vm_type
+  value: small-highmem # 4 cpu / 10G disk / 16G ram
