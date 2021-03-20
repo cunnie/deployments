@@ -130,6 +130,11 @@ vm_types:
     ram: 8192
   name: concourse-workers
 - cloud_properties:
+    cpu: 2
+    disk: 11264
+    ram: 16384
+  name: small-highmem-low-cpu
+- cloud_properties:
     ephemeral_disk:
       use_root_disk: true
     instance_type: Standard_B1S
