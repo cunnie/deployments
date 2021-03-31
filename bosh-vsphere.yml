@@ -89,7 +89,7 @@ cloud_provider:
     name: vsphere_cpi
     release: bosh-vsphere-cpi
 disk_pools:
-- disk_size: 98304
+- disk_size: 153600
   name: disks
 instance_groups:
 - instances: 1
@@ -1289,9 +1289,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=55
   version: "55"
 - name: os-conf
-  sha1: 7ef05f6f3ebc03f59ad8131851dbd1abd1ab3663
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.0
-  version: 22.1.0
+  sha1: 4f653168954749992a541d228dd4f936f2eff2d6
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.1
+  version: 22.1.1
 - name: uaa
   sha1: 5fcda885d2a3a3d195763a5ab779d025826e6e61
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.0.0-ubuntu-xenial-621.117-20210325-174116-443515798-20210325174119.tgz
