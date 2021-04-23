@@ -309,9 +309,9 @@ instance_groups:
 name: sslip.io
 releases:
 - name: concourse
-  sha1: f3eff35f35438517069c4637108259fc86e14ede
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=7.1.0
-  version: 7.1.0
+  sha1: c70afef50fffa777e893ba63cf6608e6174ea083
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=7.2.0
+  version: 7.2.0
 - name: bpm
   sha1: dcf0582d838a73de29da273552ae79ac3098ee8b
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.9
