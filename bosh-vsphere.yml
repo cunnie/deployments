@@ -1285,9 +1285,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.9-ubuntu-xenial-621.123-20210419-165413-917644163-20210419165415.tgz
   version: 1.1.9
 - name: bosh-vsphere-cpi
-  sha1: e0f8828385fe697f232e8c128cd37e361dc6acf3
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=55
-  version: "55"
+  sha1: 12e88256a715948fa5ea264ba92d3304f0bd80d8
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=56
+  version: 56
 - name: os-conf
   sha1: 4f653168954749992a541d228dd4f936f2eff2d6
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.1
@@ -1301,13 +1301,13 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.9.0-ubuntu-xenial-621.123-20210419-165213-365747748-20210419165214.tgz
   version: 2.9.0
 - name: bosh-aws-cpi
-  sha1: ab16bba3ae74b1a59f67d1579de22bc26ae95c53
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=85
-  version: 85
+  sha1: f1116dc3f8e473f635e080f67a47d083809bebeb
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=86
+  version: 86
 - name: bosh-azure-cpi
-  sha1: 4d09def901e732238b35c502ea351216dcabb86a
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=37.3.0
-  version: 37.3.0
+  sha1: 912de25cba40e2e25de487f73c204db3f0ff507a
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=37.3.1
+  version: 37.3.1
 - name: bosh-google-cpi
   sha1: 723cbba1e027bf9b628fe413ba16d90415057edc
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=40.0.4
@@ -1384,6 +1384,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 992d68287023a7276996b756fb3f57ce030491a1
-    url: https://bosh-core-stemcells.s3-accelerate.amazonaws.com/621.123/bosh-stemcell-621.123-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+    sha1: 49022ac5fd492e1a411b10305dc106b9d7ccb5fa
+    url: https://bosh-core-stemcells.s3-accelerate.amazonaws.com/0.24/bosh-stemcell-0.24-vsphere-esxi-ubuntu-bionic-go_agent.tgz
 variables: []
