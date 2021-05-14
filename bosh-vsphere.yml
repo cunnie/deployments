@@ -1285,9 +1285,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.9-ubuntu-xenial-621.123-20210419-165413-917644163-20210419165415.tgz
   version: 1.1.9
 - name: bosh-vsphere-cpi
-  sha1: 12e88256a715948fa5ea264ba92d3304f0bd80d8
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=56
-  version: 56
+  sha1: e1ecff19aef2cf99e1512dc8b2c49965d5b94132
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=58
+  version: 58
 - name: os-conf
   sha1: 4f653168954749992a541d228dd4f936f2eff2d6
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.1
