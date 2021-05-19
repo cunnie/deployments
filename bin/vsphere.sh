@@ -29,7 +29,6 @@ EOF
 bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/vsphere/cpi.yml \
-  -o $DEPLOYMENTS_DIR/../bosh-deployment/vsphere/use-bionic.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/vsphere/resource-pool.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
