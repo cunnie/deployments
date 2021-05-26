@@ -1281,9 +1281,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-271.8.0-ubuntu-bionic-1.1-20210517-195545-923589637-20210517195550.tgz
   version: 271.8.0
 - name: bpm
-  sha1: 8006a16d82be60353299a2e5adab787a6099bfad
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.9-ubuntu-bionic-1.1-20210517-193628-47168894-20210517193629.tgz
-  version: 1.1.9
+  sha1: 2376585a2bb5741c9ffc8714d67f0d19123b01cb
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.11-ubuntu-bionic-1.1-20210519-223425-798625888-20210519223427.tgz
+  version: 1.1.11
 - name: bosh-vsphere-cpi
   sha1: e1ecff19aef2cf99e1512dc8b2c49965d5b94132
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=58
@@ -1305,9 +1305,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=86
   version: 86
 - name: bosh-azure-cpi
-  sha1: 912de25cba40e2e25de487f73c204db3f0ff507a
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=37.3.1
-  version: 37.3.1
+  sha1: ce148b7172772be636703773f57d4f17e7676cd1
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=37.5.0
+  version: 37.5.0
 - name: bosh-google-cpi
   sha1: 723cbba1e027bf9b628fe413ba16d90415057edc
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=40.0.4
