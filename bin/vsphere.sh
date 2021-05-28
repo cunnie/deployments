@@ -43,6 +43,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o etc/human-readable-names.yml \
   -o etc/big-persistent-disk.yml \
   -o etc/disable-resurrector.yml \
+  -o etc/big-ram.yml \
   \
   --vars-file <(printf '{"uaa_jwt_signing_key":{"private_key":"((uaa_jwt_signing_key.private_key))","public_key":"((uaa_jwt_signing_key.public_key))"}}') \
   --vars-store=bosh-vsphere-creds.yml \
