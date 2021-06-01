@@ -5,6 +5,12 @@
 #
 # Thanks
 # https://medium.com/@mattias.holmlund/setting-up-ipv6-on-amazon-with-terraform-e14b3bfef577
+#
+# NOTES:
+# - when changing the instance, don't do a `terraform destroy` because that changes the IPv6
+#   address; instead, add a space in the `user_data` property of the `aws_instance` and
+#   do a `terraform apply`
+# - check `/var/log/cloud-init-output.log` when troubleshooting faulty post-creation configuration
 
 terraform {
   required_providers {
