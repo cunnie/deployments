@@ -102,7 +102,7 @@ resource "aws_key_pair" "k8s" {
 # ssh -i ~/.ssh/aws fedora@w.x.y.z
 # curl https://raw.githubusercontent.com/cunnie/bin/master/install_k8s_worker.sh | bash -x
 resource "aws_instance" "k8s" {
-  ami           = "ami-07b7fa952a4ad5fd2"
+  ami           = "ami-0947214b956697846" # "Fedora-Cloud-Base-34-1.2.aarch64-hvm-us-east-1-gp2-0"
   key_name      = aws_key_pair.k8s.key_name
   instance_type = "t4g.micro"
   root_block_device {
