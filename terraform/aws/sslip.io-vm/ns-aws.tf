@@ -51,7 +51,7 @@ resource "aws_instance" "sslip_io" {
   availability_zone      = "us-east-1f" # t4g's are only available in us-east-1a, us-east-1b, us-east-1c, us-east-1d, us-east-1f.
   vpc_security_group_ids = [module.infra.aws_security_group_allow_everything_id]
   subnet_id              = module.infra.aws_subnet_sslip_io_id
-  private_ip             = cidrhost(cidrsubnet(module.infra.aws_vpc_sslip_io_cidr_block, 8, 1), 10)        # 23 = worker-3
+  private_ip             = cidrhost(cidrsubnet(module.infra.aws_vpc_sslip_io_cidr_block, 8, 0), 10)        # 23 = worker-3
   ipv6_addresses         = [cidrhost(cidrsubnet(module.infra.aws_vpc_sslip_io_ipv6_cidr_block, 8, 0), 10)] # 23 = worker-3
   # check /var/log/cloud-init-output.log for output; curl http://169.254.169.254/latest/user-data for value
   user_data = "#!/bin/bash -x\necho ns-aws > /etc/hostname; hostname ns-aws; curl -L https://raw.githubusercontent.com/cunnie/bin/master/install_ns-aws.sh | bash -x"
