@@ -332,10 +332,6 @@ releases:
   sha1: 591eb51e3257aa07b6ef9c0bb6128df53835fa20
   url: https://bosh.io/d/github.com/cloudfoundry-community/ntp-release?v=4.2.8p13
   version: 4.2.8p13
-- name: pdns
-  sha1: 8f8ffb60682541186670f07df397113dbcbba6ab
-  url: https://github.com/cloudfoundry-community/pdns-release/releases/download/4.2.2/pdns-release-4.2.2.tgz
-  version: 4.2.2
 - name: sslip.io
   sha1: e69896f67dc4d1282a9d00a9c0c84c5fa17f9b00
   url: https://github.com/cunnie/sslip.io/releases/download/2.1.2/sslip.io-release-2.1.2.tgz
