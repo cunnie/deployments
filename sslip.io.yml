@@ -189,6 +189,26 @@ anchors:
     release: ntp
 instance_groups:
 - azs:
+  - aws
+  instances: 1
+  jobs:
+  - *user_add_job
+  - *nginx_job
+  - *ntpd_job
+  - name: sslip.io-dns-server
+    release: sslip.io
+  name: aws
+  networks:
+  - default:
+    - dns
+    - gateway
+    name: aws-private
+  - name: aws-public
+    static_ips:
+    - 52.0.56.137
+  stemcell: bionic
+  vm_type: t3a.nano
+- azs:
   - azure
   instances: 1
   jobs:
