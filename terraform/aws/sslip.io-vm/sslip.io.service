@@ -2,6 +2,8 @@
 Description=sslip.io DNS server
 Documentation=https://sslip.io/
 
+After=systemd-networkd.service
+
 [Service]
 ExecStart=/usr/bin/sslip.io-dns-server
 Restart=on-failure
