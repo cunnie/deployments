@@ -9,13 +9,13 @@ variable "gke_password" {
 }
 
 variable "gke_num_nodes" {
-  default     = 2
+  default     = 1
   description = "number of gke nodes"
 }
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
-  name     = "${var.project_id}-gke"
+  name     = "${var.friendly_project_id}-gke"
   location = var.region
   
   # We can't create a cluster with no node pool defined, but we want to only use
@@ -42,12 +42,12 @@ resource "google_container_node_pool" "primary_nodes" {
     ]
 
     labels = {
-      env = var.project_id
+      env = var.friendly_project_id
     }
 
     # preemptible  = true
     machine_type = "n1-standard-1"
-    tags         = ["gke-node", "${var.project_id}-gke"]
+    tags         = ["gke-node", "${var.friendly_project_id}-gke"]
     metadata = {
       disable-legacy-endpoints = "true"
     }

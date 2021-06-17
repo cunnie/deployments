@@ -2,6 +2,10 @@ variable "project_id" {
   description = "project id"
 }
 
+variable "friendly_project_id" {
+  description = "friendly project id, \"nono\" not \"blabbertabber\""
+}
+
 variable "region" {
   description = "region"
 }
@@ -13,14 +17,14 @@ provider "google" {
 
 # VPC
 resource "google_compute_network" "vpc" {
-  name                    = "${var.project_id}-vpc"
+  name                    = "${var.friendly_project_id}-vpc"
   auto_create_subnetworks = "false"
 }
 
 # Subnet
 resource "google_compute_subnetwork" "subnet" {
-  name          = "${var.project_id}-subnet"
+  name          = "${var.friendly_project_id}-subnet"
   region        = var.region
   network       = google_compute_network.vpc.name
-  ip_cidr_range = "10.10.0.0/24"
+  ip_cidr_range = "10.242.0.0/24"
 }
