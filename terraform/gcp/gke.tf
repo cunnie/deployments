@@ -17,7 +17,7 @@ variable "gke_num_nodes" {
 resource "google_container_cluster" "primary" {
   name     = "${var.friendly_project_id}-gke"
   location = var.region
-  
+
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
@@ -46,7 +46,7 @@ resource "google_container_node_pool" "primary_nodes" {
     }
 
     # preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = "e2-medium"
     tags         = ["gke-node", "${var.friendly_project_id}-gke"]
     metadata = {
       disable-legacy-endpoints = "true"
@@ -56,8 +56,8 @@ resource "google_container_node_pool" "primary_nodes" {
 
 
 # # Kubernetes provider
-# # The Terraform Kubernetes Provider configuration below is used as a learning reference only. 
-# # It references the variables and resources provisioned in this file. 
+# # The Terraform Kubernetes Provider configuration below is used as a learning reference only.
+# # It references the variables and resources provisioned in this file.
 # # We recommend you put this in another file -- so you can have a more modular configuration.
 # # https://learn.hashicorp.com/terraform/kubernetes/provision-gke-cluster#optional-configure-terraform-kubernetes-provider
 # # To learn how to schedule deployments and services using the provider, go here: https://learn.hashicorp.com/tutorials/terraform/kubernetes-provider.
