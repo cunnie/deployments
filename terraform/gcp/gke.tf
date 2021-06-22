@@ -26,6 +26,7 @@ resource "google_container_cluster" "primary" {
 
   network    = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name
+  networking_mode = "VPC_NATIVE"
   ip_allocation_policy {
     cluster_secondary_range_name = "pod-range"
     services_secondary_range_name = "services-range"
