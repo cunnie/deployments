@@ -15,7 +15,7 @@ variable "gke_num_nodes" {
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
-  name     = "${var.friendly_project_id}-gke"
+  name     = "${var.friendly_project_id}"
   location = "${var.region}-f"
 
   # We can't create a cluster with no node pool defined, but we want to only use
@@ -26,6 +26,10 @@ resource "google_container_cluster" "primary" {
 
   network    = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name
+  ip_allocation_policy {
+    cluster_secondary_range_name = "pod-range"
+    services_secondary_range_name = "services-range"
+  }
 }
 
 # Separately Managed Node Pool
