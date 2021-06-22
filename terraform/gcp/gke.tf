@@ -15,7 +15,7 @@ variable "gke_num_nodes" {
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
-  name     = "${var.friendly_project_id}"
+  name     = "${var.friendly_project_id}-gke"
   location = "${var.region}-f"
 
   # We can't create a cluster with no node pool defined, but we want to only use
@@ -77,4 +77,3 @@ resource "google_container_node_pool" "primary_nodes" {
 #   client_key             = google_container_cluster.primary.master_auth.0.client_key
 #   cluster_ca_certificate = google_container_cluster.primary.master_auth.0.cluster_ca_certificate
 # }
-
