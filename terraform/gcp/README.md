@@ -30,3 +30,38 @@ Check the installed version
 POD_NAME=$(kubectl get pods -l app.kubernetes.io/name=ingress-nginx -o jsonpath='{.items[0].metadata.name}')
 kubectl exec -it $POD_NAME -- /nginx-ingress-controller --version
 ```
+
+### TLS
+
+Docs from <https://cert-manager.io/docs/tutorials/acme/ingress/>
+
+Let's install the sample services to test the controller:
+```
+kubectl apply -f https://netlify.cert-manager.io/docs/tutorials/acme/example/deployment.yaml
+kubectl apply -f https://netlify.cert-manager.io/docs/tutorials/acme/example/service.yaml
+```
+
+Let's download and edit the Ingress:
+```
+curl -o ingress-kuard.yml -L https://netlify.cert-manager.io/docs/tutorials/acme/example/ingress.yaml
+sed -i '' "s/example.example.com/gke.nono.io/g" ingress-kuard.yml
+```
+
+Let's use curl to check (note the cert is still self-signed at this point):
+```
+curl -kivL -H 'Host: gke.nono.io' 'http://34.70.157.237'
+```
+
+#### Install cert-manager
+
+We choose to install with regular manifests (not `helm`):
+```
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.4.0/cert-manager.yaml
+```
+
+(I did not seem to run into the GKE `permission denied` error that they warn
+about). Let's check that the 3 pods are up & running:
+
+```
+kubectl get pods --namespace cert-manager
+```
