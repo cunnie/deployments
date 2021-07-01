@@ -122,8 +122,7 @@ kubectl describe issuer letsencrypt-staging
 kubectl describe issuer letsencrypt-prod
 ```
 
-#### 7. [Step 7 - Deploy a TLS Ingress
-Resource](https://cert-manager.io/docs/tutorials/acme/ingress/#step-7-deploy-a-tls-ingress-resource)
+#### 7. [Step 7 - Deploy a TLS Ingress Resource](https://cert-manager.io/docs/tutorials/acme/ingress/#step-7-deploy-a-tls-ingress-resource)
 
 Let's deploy the ingress resource using annotations to obtain the certificate:
 ```bash
