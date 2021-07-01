@@ -31,7 +31,7 @@ RUN  echo "" | SHELL=/usr/bin/zsh zsh -c "$(curl -fsSL https://raw.github.com/oh
 RUN mkdir ~/.config; \
   git clone https://github.com/luan/nvim ~/.config/nvim
 
-RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.1/bosh-cli-6.4.1-linux-amd64 -o /usr/local/bin/bosh; \
+RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.4/bosh-cli-6.4.4-linux-amd64 -o /usr/local/bin/bosh; \
   chmod +x /usr/local/bin/bosh
 
 RUN curl -o /etc/yum.repos.d/cloudfoundry-cli.repo -L https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo; \
