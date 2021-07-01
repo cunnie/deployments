@@ -16,9 +16,7 @@ terraform apply
 gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name) --zone $(terraform output -raw zone)
 ```
 
-### Creating the NGINX Ingress Controller
-
-Official docs: <https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke>.
+### [Creating the NGINX Ingress Controller on GKE](https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke)
 
 Setting up the load balancer is as simple as `kubectl apply`. I have customized:
 
@@ -31,29 +29,7 @@ POD_NAME=$(kubectl get pods -l app.kubernetes.io/name=ingress-nginx -o jsonpath=
 kubectl exec -it $POD_NAME -- /nginx-ingress-controller --version
 ```
 
-### TLS
-
-Docs from <https://cert-manager.io/docs/tutorials/acme/ingress/>
-
-Let's install the sample services to test the controller:
-```bash
-kubectl apply -f https://netlify.cert-manager.io/docs/tutorials/acme/example/deployment.yaml
-kubectl apply -f https://netlify.cert-manager.io/docs/tutorials/acme/example/service.yaml
-```
-
-Let's download and edit the Ingress (I've already configured `gke.nono.io` to
-point to the GCP/GKE load balancer at 34.70.157.237):
-```bash
-curl -o ingress-kuard.yml -L https://netlify.cert-manager.io/docs/tutorials/acme/example/ingress.yaml
-sed -i '' "s/example.example.com/gke.nono.io/g" ingress-kuard.yml
-```
-
-Let's use curl to check (note the cert is still self-signed at this point):
-```bash
-curl -kivL -H 'Host: gke.nono.io' 'http://34.70.157.237'
-```
-
-#### Install cert-manager
+### [TLS (cert-manager)](https://cert-manager.io/docs/installation/kubernetes/)
 
 We choose to install with regular manifests (not `helm`):
 ```bash
@@ -106,6 +82,26 @@ And now let's apply those resources:
 kubectl apply -f test-resources.yaml
 kubectl describe certificate -n cert-manager-test
 kubectl delete -f test-resources.yaml
+```
+
+#### 4. [Deploy an Example Service](https://cert-manager.io/docs/tutorials/acme/ingress/#step-4-deploy-an-example-service)
+
+Let's install the sample services to test the controller:
+```bash
+kubectl apply -f https://netlify.cert-manager.io/docs/tutorials/acme/example/deployment.yaml
+kubectl apply -f https://netlify.cert-manager.io/docs/tutorials/acme/example/service.yaml
+```
+
+Let's download and edit the Ingress (I've already configured `gke.nono.io` to
+point to the GCP/GKE load balancer at 34.70.157.237):
+```bash
+curl -o ingress-kuard.yml -L https://netlify.cert-manager.io/docs/tutorials/acme/example/ingress.yaml
+sed -i '' "s/example.example.com/gke.nono.io/g" ingress-kuard.yml
+```
+
+Let's use curl to check (note the cert is still self-signed at this point):
+```bash
+curl -kivL -H 'Host: gke.nono.io' 'http://34.70.157.237'
 ```
 
 #### 6. [Configure Let’s Encrypt Issuer](https://cert-manager.io/docs/tutorials/acme/ingress/#step-6-configure-let-s-encrypt-issuer)
