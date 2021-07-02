@@ -1393,9 +1393,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.12-ubuntu-bionic-1.13-20210629-101817-880216616-20210629101819.tgz
   version: 1.1.12
 - name: bosh-vsphere-cpi
-  sha1: 07c329f88d7381fc133ff0c756bb6e2ca6781c6a
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=60
-  version: 60
+  sha1: 515272925d1ecaf815914ad6052fcc62f16ee5d4
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=61
+  version: 61
 - name: os-conf
   sha1: 4f653168954749992a541d228dd4f936f2eff2d6
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.1
