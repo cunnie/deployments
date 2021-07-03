@@ -6,7 +6,7 @@ metadata:
     app: sleeper
   name: sleeper
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: sleeper
@@ -18,7 +18,7 @@ spec:
         app: sleeper
     spec:
       containers:
-      - image: cunnie/fedora-ruby-bind-utils
+      - image: cunnie/fedora-golang-bosh
         name: sleeper
         command: [ "sleep" ]
         args: [ "86400" ]
