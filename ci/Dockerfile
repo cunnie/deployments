@@ -1,6 +1,6 @@
 # cunnie/fedora-golang-bosh
 
-FROM fedora:32
+FROM fedora:34
 
 MAINTAINER Brian Cunnie <brian.cunnie@gmail.com>
 
