@@ -38,27 +38,6 @@ metadata:
   namespace: ingress-nginx
 data:
 ---
-# Source: nginx-ingress-controller --help
-# --udp-services-configmap string           Name of the ConfigMap containing the definition of the UDP services to expose.
-#                                           The key in the map indicates the external port to be used. The value is a
-#                                           reference to a Service in the form "namespace/name:port", where "port" can
-#                                           either be a port name or number.
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  labels:
-    helm.sh/chart: ingress-nginx-3.33.0
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/version: 0.47.0
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/component: controller
-  name: ingress-nginx-controller-udp
-  namespace: ingress-nginx
-data:
-  53: default/sslip-io-dns-service:53
-  123: default/ntp-service:123
----
 # Source: ingress-nginx/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -391,7 +370,6 @@ spec:
             - --validating-webhook=:8443
             - --validating-webhook-certificate=/usr/local/certificates/cert
             - --validating-webhook-key=/usr/local/certificates/key
-            - --udp-services-configmap=$(POD_NAMESPACE)/ingress-nginx-controller-udp
           securityContext:
             capabilities:
               drop:
