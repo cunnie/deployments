@@ -21,6 +21,6 @@ spec:
       - image: cunnie/fedora-golang-bosh
         name: sleeper
         command: [ "sleep" ]
-        args: [ "86400" ]
+        args: [ "infinity" ]
         resources: {}
 status: {}
