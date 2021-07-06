@@ -25,8 +25,9 @@ kubectl apply -f nginx-ingress-controller.yml
 ```
 Check the installed version
 ```bash
-POD_NAME=$(kubectl get pods -l app.kubernetes.io/name=ingress-nginx -o jsonpath='{.items[0].metadata.name}')
-kubectl exec -it $POD_NAME -- /nginx-ingress-controller --version
+POD_NAMESPACE=ingress-nginx
+POD_NAME=$(kubectl get pods -n $POD_NAMESPACE -l app.kubernetes.io/name=ingress-nginx --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')
+kubectl exec -it $POD_NAME -n ingress-nginx -- /nginx-ingress-controller --version # --help is useful, too
 ```
 
 ### [TLS (cert-manager)](https://cert-manager.io/docs/installation/kubernetes/)
@@ -97,6 +98,7 @@ point to the GCP/GKE load balancer at 104.155.144.4):
 ```bash
 curl -o ingress-kuard.yml -L https://netlify.cert-manager.io/docs/tutorials/acme/example/ingress.yaml
 sed -i '' "s/example.example.com/gke.nono.io/g" ingress-kuard.yml
+kubectl apply -f ingress-kuard.yml
 ```
 
 Let's use curl to check (note the cert is still self-signed at this point):
