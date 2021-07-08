@@ -149,3 +149,19 @@ kubectl describe secret quickstart-example-tls
 ```
 
 And now browse: <https://gke.nono.io/>
+
+### Install sslip.io
+
+```bash
+kubectl apply -f <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/k8s/sslip.io.yml)
+```
+
+### Install Concourse CI
+
+These instructions are patterned after
+<https://github.com/concourse/concourse-chart>.
+
+```bash
+helm repo add concourse https://concourse-charts.storage.googleapis.com/
+helm install ci-nono-io concourse/concourse
+```
