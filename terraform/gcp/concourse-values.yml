@@ -2139,19 +2139,22 @@ web:
   ingress:
     ## Enable Ingress.
     ##
-    enabled: false
+    enabled: true
 
     ## Annotations to be added to the web ingress.
     ## Example:
     ##   kubernetes.io/ingress.class: nginx
     ##   kubernetes.io/tls-acme: 'true'
     ##
-    annotations: {}
+    annotations:
+      cert-manager.io/issuer: letsencrypt-prod
+      kubernetes.io/ingress.class: nginx
 
     ## Hostnames.
     ## Either `hosts` or `rulesOverride` must be provided if Ingress is enabled.
     ## `hosts` sets up the Ingress with default rules per provided hostname.
     hosts:
+    - ci.nono.io
 
     ## Ingress rules override
     ## Either `hosts` or `rulesOverride` must be provided if Ingress is enabled.
@@ -2166,6 +2169,9 @@ web:
     ##       - concourse.domain.com
     ##
     tls:
+    - hosts:
+      - ci.nono.io
+      secretName: ci.nono.io
 
 ## Configuration values for Concourse Worker components.
 ## For more information regarding the characteristics of
