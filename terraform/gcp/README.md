@@ -164,6 +164,7 @@ These instructions are patterned after
 ```bash
 helm repo add concourse https://concourse-charts.storage.googleapis.com/
 helm install ci-nono-io concourse/concourse \
-  -f concourse-values.yml
+  -f concourse-values.yml \
+  --set secrets.githubClientSecret=$(lpass show --note deployments.yml | yq e .github_concourse_nono_auth_client_secret -)
 
 ```

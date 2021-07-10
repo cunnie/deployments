@@ -224,7 +224,7 @@ concourse:
     ##
     ## Example: http://ci.concourse-ci.org
     ##
-    externalUrl:
+    externalUrl: https://ci.nono.io
 
     encryption:
       ## Enable encryption of pipeline configuration. Encryption keys can be set via secrets
@@ -244,7 +244,7 @@ concourse:
       ##
       ## Ref: https://concourse-ci.org/local-auth.html
       ##
-      enabled: true
+      enabled: false
 
     ## IP address on which to listen for the pprof debugger endpoints.
     ##
@@ -951,7 +951,7 @@ concourse:
 
       ## Length of time for which tokens are valid. Afterwards, users will have to log back in.
       ## The value must be specified as Go duration values (e.g.: 30m or 24h).
-      duration: 24h
+      duration: 240h
 
       ## The connector to use for password authentication for `fly login -u ... -p ...`.
       ## Either "local" or "ldap". Defaults to "local".
@@ -1042,7 +1042,7 @@ concourse:
 
           ## Comma-separated allow list of GitHub orgs.
           ##
-          org:
+          org: blabbertabber
 
           ## Comma-separated allow list of GitHub teams.
           ##
@@ -1140,7 +1140,7 @@ concourse:
       ## Authentication (GitHub)
       ##
       github:
-        enabled: false
+        enabled: true
 
         ## Hostname of GitHub Enterprise deployment (No scheme, No trailing slash)
         ##
@@ -1433,7 +1433,7 @@ concourse:
 
       ## Minimum level of logs to see. Possible values: debug, info, error.
       ##
-      logLevel: info
+      logLevel: debug
 
       ## IP address on which to listen for SSH.
       ##
@@ -2595,7 +2595,7 @@ secrets:
   ## List of `username:password` or `username:bcrypted_password` combinations for all your local concourse users.
   ## For details of expected format, see https://concourse-ci.org/local-auth.html
   ##
-  localUsers: "test:test"
+  localUsers:
 
   ## The TLS certificate and private key for the web component to be able to terminate
   ## TLS connections.
@@ -2793,7 +2793,7 @@ secrets:
 
   ## Secrets for GitHub OAuth.
   ##
-  githubClientId:
+  githubClientId: d4d77ce34ecc620d5220
   githubClientSecret:
   githubCaCert:
 
