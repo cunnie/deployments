@@ -162,6 +162,7 @@ These instructions are patterned after
 <https://github.com/concourse/concourse-chart>.
 
 ```bash
+kubectl apply -f concourse.yml
 helm repo add concourse https://concourse-charts.storage.googleapis.com/
 helm install ci-nono-io concourse/concourse \
   -f concourse-values.yml \

@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ci-nono-io-web-worker-gateway-lb
+  namespace: default
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  loadBalancerIP: 104.155.144.4
+  ports:
+  - name: concourse-worker
+    port: 2222
+    protocol: TCP
+    targetPort: tsa
+  selector:
+    app: ci-nono-io-web

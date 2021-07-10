@@ -6,7 +6,7 @@ bosh
 # don't accidentally check in creds for BOSH IPv6 vSphere
 bosh-vsphere-ipv6-creds.yml
 # don't check in script-generated concourse.yml (it's "object" not "source")
-concourse.yml
+/concourse.yml
 concourse-worker.yml
 # don't check in releases, but keep the directory handy
 releases/
