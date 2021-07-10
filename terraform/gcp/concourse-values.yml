@@ -2182,7 +2182,7 @@ worker:
   ## Enable or disable the worker component.
   ## This can allow users to create web only releases by setting this to false
   ##
-  enabled: true
+  enabled: false
 
   ## Selects kind of Deployment. Valid Options are: StatefulSet | Deployment
   ## Using Deployment leads to ephemeral workers. Meaning workers do not
