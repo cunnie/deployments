@@ -163,5 +163,7 @@ These instructions are patterned after
 
 ```bash
 helm repo add concourse https://concourse-charts.storage.googleapis.com/
-helm install ci-nono-io concourse/concourse
+helm install ci-nono-io concourse/concourse \
+  -f concourse-values.yml
+
 ```
