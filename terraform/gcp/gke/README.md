@@ -2,8 +2,8 @@
 
 The Terraform templates were taken from the repo,
 <https://github.com/hashicorp/learn-terraform-provision-gke-cluster>, a
-companion repo to the [Provision a GKE Cluster learn
-guide](https://learn.hashicorp.com/terraform/kubernetes/provision-gke-cluster),
+companion repo to the [Provision a GKE Cluster (Google
+Cloud)](https://learn.hashicorp.com/terraform/kubernetes/provision-gke-cluster),
 containing Terraform configuration files to provision an GKE cluster on GCP.
 
 This repo also creates a VPC and subnet for the GKE cluster. This is not
