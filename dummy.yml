@@ -5,8 +5,8 @@ releases: []
 
 stemcells:
 - alias: ubuntu
-  os: ubuntu-xenial
-  version: 621.23
+  os: ubuntu-bionic
+  version: 1.14
 
 update:
   canaries: 0
@@ -19,7 +19,7 @@ instance_groups:
   jobs: []
   instances: 1
 #  vm_type: default
-  vm_type: small
+  vm_type: micro
   stemcell: ubuntu
 #  azs: [z1]
   azs: [vsphere]
