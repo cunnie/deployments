@@ -1,0 +1,59 @@
+# bosh -nd pvscsi deploy pvscsi.yml --no-redact
+# bosh -d pvscsi run-errand pvscsi   --json | jq -r '.Tables[].Rows[].stdout' > pvscsi.json
+# bosh -d pvscsi run-errand lsilogic --json | jq -r '.Tables[].Rows[].stdout' > lsilogic.json
+# bosh -d pvscsi deld
+#
+# Purpose: compare Paravirtual SCSI controller to LSI Logic Parallel SCSI controller
+---
+name: pvscsi
+
+instance_groups:
+- name: pvscsi
+  azs: [vsphere]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -seconds 3600 -iops-duration 60 -json
+  vm_type: pvscsi
+  persistent_disk_type: nvme
+  stemcell: pvscsi
+  networks:
+  - name: vsphere-guest
+- name: lsilogic
+  azs: [vsphere]
+  lifecycle: errand
+  instances: 1
+  jobs:
+  - name: gobonniego
+    release: gobonniego
+    properties:
+      dir: /var/vcap/store/gobonniego
+      args: -seconds 3600 -iops-duration 60 -json
+  vm_type: pvscsi
+  persistent_disk_type: nvme
+  stemcell: lsilogic
+  networks:
+  - name: vsphere-guest
+
+releases:
+- name: gobonniego
+  version: latest
+
+stemcells:
+- alias: lsilogic
+  os: ubuntu-bionic
+  version: latest
+# bionic 1.14 has been customized to use Paravirtual SCSI driver
+- alias: pvscsi
+  os: ubuntu-bionic
+  version: 1.14
+
+update:
+  canaries: 2
+  max_in_flight: 1
+  canary_watch_time: 5000-60000
+  update_watch_time: 5000-60000
