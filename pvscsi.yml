@@ -9,8 +9,8 @@ releases:
 
 stemcells:
 - alias: ubuntu
-  os: ubuntu-bionic
-  version: 1.14 # special stemcell with VMware Paravirtual SCSI controller
+  os: ubuntu-xenial
+  version: 621.141 # special stemcell with VMware Paravirtual SCSI controller
 
 update:
   canaries: 0
@@ -30,12 +30,13 @@ instance_groups:
         if ! grep "$VMW_PVSCSI_ARGS" /proc/cmdline; then
           echo "/proc/cmdline does not have \"$VMW_PVSCSI_ARGS\""
           # Let's avoid endlessly rebooting if there's a mistake
-          if ! grep "$VMW_PVSCSI_ARGS" /etc/default/grub; then
+          if ! grep "$VMW_PVSCSI_ARGS" /boot/grub/grub.cfg; then
             echo "adding to '$VMW_PVSCSI_ARGS' to the kernel command line"
-            sed -i "s/\"$/ $VMW_PVSCSI_ARGS &/" /etc/default/grub
-            grub-mkconfig > /boot/grub/grub.cfg
+            # make room for our Paravirtual settings not to exceed 256 bytes
+            sed -i "s/earlyprintk=ttyS0//" /boot/grub/grub.cfg
+            sed -i "s/^ *kernel.*/& $VMW_PVSCSI_ARGS/" /boot/grub/grub.cfg
             echo "rebooting"
-            sleep 1 && shutdown -r
+            shutdown -r
           fi
         fi
 
