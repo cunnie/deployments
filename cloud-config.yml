@@ -140,6 +140,14 @@ vm_types:
     ram: 16384
   name: small-highmem-low-cpu
 - cloud_properties:
+    cpu: 4
+    disk: 10240
+    ram: 4096
+    vmx_options:
+      disk.enableUUID: "1"
+      cpuid.coresPerSocket: "2"
+  name: twoCoresPerSocket
+- cloud_properties:
     ephemeral_disk:
       use_root_disk: true
     instance_type: Standard_B1S

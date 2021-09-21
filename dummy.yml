@@ -6,7 +6,7 @@ releases: []
 stemcells:
 - alias: ubuntu
   os: ubuntu-bionic
-  version: 1.14
+  version: latest
 
 update:
   canaries: 0
