@@ -47,7 +47,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   --vars-file <(printf '{"uaa_jwt_signing_key":{"private_key":"((uaa_jwt_signing_key.private_key))","public_key":"((uaa_jwt_signing_key.public_key))"}}') \
   --vars-store=bosh-vsphere-creds.yml \
-  --var-file commercial_ca_crt=etc/trustid-x3-root.pem \
+  --var-file commercial_ca_crt=etc/isrg-root-x1.pem \
   \
   -v director_name=bosh-vsphere \
   -v internal_cidr=10.2.0.0/24 \
