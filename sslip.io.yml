@@ -244,9 +244,9 @@ releases:
   url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.0"
   sha1: "7ef05f6f3ebc03f59ad8131851dbd1abd1ab3663"
 - name: "nginx"
-  version: "1.19.10"
-  url: "https://bosh.io/d/github.com/cloudfoundry-community/nginx-release?v=1.19.10"
-  sha1: "7850fda50d355316c49d16a4e1c4d30227204733"
+  version: "1.21.3"
+  url: "https://bosh.io/d/github.com/cloudfoundry-community/nginx-release?v=1.21.3"
+  sha1: "f7ae6bd2268da775b146498d9937ba1e9e22f78d"
 - name: ntp
   sha1: 591eb51e3257aa07b6ef9c0bb6128df53835fa20
   url: https://bosh.io/d/github.com/cloudfoundry-community/ntp-release?v=4.2.8p13
