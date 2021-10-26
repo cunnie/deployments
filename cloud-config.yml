@@ -146,6 +146,10 @@ vm_types:
     vmx_options:
       disk.enableUUID: "1"
       cpuid.coresPerSocket: "2"
+      ctkEnabled: "TRUE"
+      scsi0:0.ctkEnabled: "TRUE"
+      scsi0:1.ctkEnabled: "TRUE"
+      scsi0:2.ctkEnabled: "TRUE"
   name: twoCoresPerSocket
 - cloud_properties:
     ephemeral_disk:

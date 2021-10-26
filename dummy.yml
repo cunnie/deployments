@@ -19,7 +19,8 @@ instance_groups:
   jobs: []
   instances: 1
 #  vm_type: default
-  vm_type: micro
+#  vm_type: micro
+  vm_type: twoCoresPerSocket
   stemcell: ubuntu
 #  azs: [z1]
   azs: [vsphere]
