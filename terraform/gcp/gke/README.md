@@ -179,7 +179,7 @@ Get the latest release version number from
 <https://hub.docker.com/r/concourse/concourse/tags/?page=1&ordering=last_updated>.
 
 ```bash
-NEW_RELEASE='"7.5.0"'
+NEW_RELEASE='"7.6.0"'
 sed -i '' "s/^imageTag: .*/imageTag: $NEW_RELEASE/" concourse-values.yml
 ```
 ```bash
@@ -193,4 +193,49 @@ helm upgrade ci-nono-io concourse/concourse \
   --wait
 helm show chart concourse/concourse # to check that it's upgrading
 # helm pull concourse/concourse # I don't know if I need this; delete this line if I don't
+```
+
+### Backing Up Concourse CI
+
+(Partially tested):
+
+```bash
+ # get the postgres user's password; the concourse user's is "concourse"
+kubectl get secret ci-nono-io-postgresql -o json \
+  | jq -r '.data."postgresql-postgres-password"' \
+  | base64 -d
+kubectl exec -it ci-nono-io-postgresql-0 -- bash
+pg_dump -Fc -U concourse concourse > /tmp/concourse.dump # password is "concourse"
+exit
+  # after a recreate w/ pristine DB
+kubectl cp ci-nono-io-postgresql-0:/tmp/concourse.dump concourse.dump
+kubectl exec -it ci-nono-io-postgresql-0 -- bash
+psql -U postgres concourse
+  \dn; # only one schema, "public"
+  drop schema public cascade;
+  create schema public;
+  grant usage on schema public to public;
+  grant create on schema public to public;
+  exit;
+psql -U postgres concourse < /tmp/concourse.dump
+```
+
+### Installing Vault
+
+(Not tested)
+
+From
+<https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide?in=vault/kubernetes>
+
+```bash
+kubectl create namespace vault
+helm repo add hashicorp https://helm.releases.hashicorp.com
+helm search repo hashicorp/vault
+helm install vault hashicorp/vault \
+  --namespace vault \
+  -f vault-values.yml \
+  --dry-run
+helm install vault hashicorp/vault \
+  --namespace vault \
+  -f vault-values.yml
 ```
