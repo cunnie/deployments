@@ -26,7 +26,7 @@ global:
 
 injector:
   # True if you want to enable vault agent injection.
-  enabled: true
+  enabled: false
 
   replicas: 1
 
@@ -241,11 +241,11 @@ server:
 
   # Configure the logging verbosity for the Vault server.
   # Supported log levels include: trace, debug, info, warn, error
-  logLevel: ""
+  logLevel: "debug"
 
   # Configure the logging format for the Vault server.
   # Supported log formats include: standard, json
-  logFormat: ""
+  logFormat: "standard"
 
   resources: {}
   # resources:
@@ -261,10 +261,12 @@ server:
   # If deployment is on OpenShift, the following block is ignored.
   # In order to expose the service, use the route section below
   ingress:
-    enabled: false
-    labels: {}
-      # traffic: external
-    annotations: {}
+    enabled: true
+    labels:
+      traffic: external
+    annotations:
+      cert-manager.io/issuer: "letsencrypt-prod"
+      kubernetes.io/ingress.class: "nginx"
       # |
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
@@ -284,7 +286,7 @@ server:
     # configure the ingress to point to the Vault active service.
     activeService: true
     hosts:
-      - host: chart-example.local
+      - host: vault.nono.io
         paths: []
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
@@ -294,10 +296,13 @@ server:
     #       name: ssl-redirect
     #       port:
     #         number: use-annotation
-    tls: []
+    tls:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+    - hosts:
+      - vault.nono.io
+      secretName: vault.nono.io
 
   # OpenShift only - create a route to expose the service
   # The created route will be of type passthrough
@@ -710,7 +715,7 @@ ui:
   # serviceType can be used to control the type of service created. For
   # example, setting this to "LoadBalancer" will create an external load
   # balancer (for supported K8S installations) to access the UI.
-  enabled: false
+  enabled: true
   publishNotReadyAddresses: true
   # The service should only contain selectors for active Vault pod
   activeVaultPodOnly: false
@@ -729,7 +734,7 @@ ui:
   #   - 10.0.0.0/16
   #   - 1.78.23.3/32
 
-  # loadBalancerIP:
+  loadBalancerIP: 104.155.144.4
 
   # Extra annotations to attach to the ui service
   # This can either be YAML or a YAML-formatted multi-line templated string map

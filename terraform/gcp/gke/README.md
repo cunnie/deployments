@@ -36,6 +36,10 @@ We choose to install with regular manifests (not `helm`):
 ```bash
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.4.0/cert-manager.yaml
 ```
+To update:
+```bash
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.0/cert-manager.yaml
+```
 
 (I did not seem to run into the GKE `permission denied` error that they warn
 about). Let's check that the 3 pods are up & running:
@@ -183,6 +187,8 @@ NEW_RELEASE='"7.6.0"'
 sed -i '' "s/^imageTag: .*/imageTag: $NEW_RELEASE/" concourse-values.yml
 ```
 ```bash
+helm repo update
+helm search repo concourse/concourse --versions
 helm upgrade ci-nono-io concourse/concourse \
   -f concourse-values.yml \
   --set secrets.githubClientSecret=$(lpass show --note deployments.yml | yq e .github_concourse_nono_auth_client_secret -) \
@@ -227,15 +233,32 @@ psql -U postgres concourse < /tmp/concourse.dump
 From
 <https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide?in=vault/kubernetes>
 
+Create the namespace & deploy the TLS issuers to that namespace:
 ```bash
 kubectl create namespace vault
+kubectl apply -f <(
+  curl -o- https://cert-manager.io/docs/tutorials/acme/example/staging-issuer.yaml |
+  sed 's/user@example.com/brian.cunnie@gmail.com/') -n vault
+kubectl apply -f <(
+  curl -o- https://cert-manager.io/docs/tutorials/acme/example/production-issuer.yaml |
+  sed 's/user@example.com/brian.cunnie@gmail.com/') -n vault
+```
+
+```bash
 helm repo add hashicorp https://helm.releases.hashicorp.com
-helm search repo hashicorp/vault
+helm search repo hashicorp/vault --versions
+ # the following `--dry-run` will show the k8s deployments, services, etc.
 helm install vault hashicorp/vault \
   --namespace vault \
   -f vault-values.yml \
   --dry-run
 helm install vault hashicorp/vault \
+  --namespace vault \
+  -f vault-values.yml
+helm status vault -n vault
+helm get manifest vault -n vault
+ # To propagate changes after modifying vault-values.yml
+helm upgrade vault hashicorp/vault \
   --namespace vault \
   -f vault-values.yml
 ```
