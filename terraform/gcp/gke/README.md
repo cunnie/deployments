@@ -262,3 +262,23 @@ helm upgrade vault hashicorp/vault \
   --namespace vault \
   -f vault-values.yml
 ```
+
+```bash
+curl \
+  --request POST \
+  --data '{"secret_shares": 1, "secret_threshold": 1}' \
+  https://vault.nono.io/v1/sys/init | jq
+```
+
+Record `keys` and `root_token`.
+
+```bash
+export VAULT_TOKEN=s.QmByxxxxxxxxxxxxxxxxxxxx
+export VAULT_ADDR=https://vault.nono.io
+curl \
+    --request POST \
+    --data '{"key": "5a302397xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}' \
+    $VAULT_ADDR/v1/sys/unseal | jq
+ # check initialization status
+curl $VAULT_ADDR/v1/sys/init
+```
