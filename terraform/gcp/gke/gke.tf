@@ -31,6 +31,9 @@ resource "google_container_cluster" "primary" {
     cluster_secondary_range_name = "pod-range"
     services_secondary_range_name = "services-range"
   }
+  release_channel {
+    channel = "RAPID"
+  }
 }
 
 # Separately Managed Node Pool
