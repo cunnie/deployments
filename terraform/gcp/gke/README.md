@@ -13,7 +13,7 @@ required but highly recommended to keep your GKE cluster isolated.
 
 ```bash
 terraform apply
-gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name) --zone $(terraform output -raw zone)
+gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name) --region $(terraform output --raw region)
 ```
 
 ### [Creating the NGINX Ingress Controller on GKE](https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke)
@@ -34,11 +34,13 @@ kubectl exec -it $POD_NAME -n ingress-nginx -- /nginx-ingress-controller --versi
 
 We choose to install with regular manifests (not `helm`):
 ```bash
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.4.0/cert-manager.yaml
-```
-To update:
-```bash
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.0/cert-manager.yaml
+helm repo add jetstack https://charts.jetstack.io
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --set installCRDs=true \
+  --wait
 ```
 
 (I did not seem to run into the GKE `permission denied` error that they warn
@@ -176,7 +178,7 @@ helm install ci-nono-io concourse/concourse \
   --set secrets.workerKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
   --set secrets.workerKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0SIrGT+qIE7w8i67B/YDCfHINEU0LUP67SesaPaesq26rb/HHckPvBfRj+gCxKMvmTipUIVaQLBZlsPEMb+1V8xJBs2s4+9MU6QG6i7CEYTWyYlhVSDxU4HtwxGGnW9c5lASBB1jPkx2gWv0kgQYXQfrcbXSJ4fUtgdo0ZtePnXV7Qd30YUoR2fcuqEdAGg0S317V54vgeD2tfL04Qwhyu2Hbz4ZwTyhNe1YNcKET6v8ttRjVOIfMe+FF+JHqGJUiu5jygJ2p+29sm50JHEuxK+HjYpajmW8BRmXK7fIvDX24RDIs9ACZ+s+asEU8yEKkmdnFB5kUAukQWRuqUWYd worker@ci.nono.io" \
   --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .session_signing_key.private_key -)" \
-
+  --wait
 ```
 
 ### Updating Concourse CI
