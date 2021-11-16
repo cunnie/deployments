@@ -250,13 +250,15 @@ helm install vault hashicorp/vault \
   --dry-run
 helm install vault hashicorp/vault \
   --namespace vault \
-  -f vault-values.yml
+  -f vault-values.yml \
+  --wait
 helm status vault -n vault
 helm get manifest vault -n vault
  # To propagate changes after modifying vault-values.yml
 helm upgrade vault hashicorp/vault \
   --namespace vault \
-  -f vault-values.yml
+  -f vault-values.yml \
+  --wait
 ```
 
 ```bash
