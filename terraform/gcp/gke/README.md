@@ -325,3 +325,13 @@ vault read auth/approle/role/concourse/role-id
 vault write -f auth/approle/role/concourse/secret-id
   # secret_id             85ed8dec-757d-f6c2-xxxx-xxxxxxxxxxxx
 ```
+
+Let's write our secret (thanks <https://stackoverflow.com/a/52288554/2510873>
+and <https://github.com/concourse/concourse-chart/issues/104>):
+
+```bash
+export CONCOURSE_VAULT_AUTH_PARAM="role_id:5f3420cd-3c66-2eff-8bcc-0e8e258a7d18,secret_id:f7ec2ac8-ad07-026a-3e1c-4c9781423155"
+kubectl get  secret ci-nono-io-web -o json |
+  jq --arg b64 "$(printf $CONCOURSE_VAULT_AUTH_PARAM | base64)" '.data["vault-client-auth-param"]=$b64' |
+  kubectl apply -f -
+```

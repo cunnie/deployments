@@ -3,6 +3,11 @@ concourse:
     externalUrl: https://ci.nono.io
     localAuth:
       enabled: false
+    vault:
+      enabled: true
+      url: https://vault.nono.io
+      authBackend: "approle"
+      useAuthParam: true
     auth:
       duration: 240h
       mainTeam:
