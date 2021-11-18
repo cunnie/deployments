@@ -17,4 +17,3 @@ server:
       secretName: vault.nono.io
 ui:
   enabled: true
-  loadBalancerIP: 104.155.144.4
