@@ -280,3 +280,48 @@ curl \
  # check initialization status
 curl $VAULT_ADDR/v1/sys/init
 ```
+
+FYI, to seal a vault:
+
+```bash
+curl \
+    --header "X-Vault-Token: $VAULT_TOKEN" \
+    --request PUT \
+    $VAULT_ADDR/v1/sys/seal
+```
+
+Create a key-value `concourse/` path in Vault for Concourse to access its
+secrets:
+
+```bash
+vault secrets enable -version=1 -path=concourse kv
+```
+
+Create `concourse-policy.hcl` so that our Concourse server has access to that
+path. Let's upload that policy to Vault:
+
+```bash
+vault policy write concourse concourse-policy.hcl
+```
+
+Let's enable the `approle` backend on Vault:
+
+```bash
+vault auth enable approle
+```
+
+Let's create the Concourse `approle`:
+
+```bash
+vault write auth/approle/role/concourse policies=concourse period=1h
+```
+
+We need the `approle`'s `role_id` and `secret_id` to set in our Concourse
+server:
+
+```bash
+vault read auth/approle/role/concourse/role-id
+  # role_id    045e3a37-6cc4-4f6b-xxxx-xxxxxxxxxxxx
+vault write -f auth/approle/role/concourse/secret-id
+  # secret_id             85ed8dec-757d-f6c2-xxxx-xxxxxxxxxxxx
+```
