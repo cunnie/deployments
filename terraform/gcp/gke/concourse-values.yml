@@ -5,7 +5,7 @@ concourse:
       enabled: false
     vault:
       enabled: true
-      url: https://vault.nono.io
+      url: https://vault.nono.io:443
       authBackend: "approle"
       useAuthParam: true
     auth:
