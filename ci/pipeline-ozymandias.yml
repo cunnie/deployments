@@ -1,0 +1,17 @@
+# Simple pipeline to demonstrate proper secret interpolation
+# from secret-store (e.g. Vault, CredHub)
+jobs:
+- name: ozymandias-job
+  plan:
+  - task: ozymandias-task
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: fedora
+      run:
+        path: echo
+        args:
+        - "Ozymandias says:"
+        - ((ozymandias-secret))

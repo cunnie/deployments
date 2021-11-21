@@ -6,7 +6,7 @@ concourse:
     vault:
       enabled: true
       url: https://vault.nono.io:443
-      authBackend: "approle"
+      authBackend: approle
       useAuthParam: true
     auth:
       duration: 240h
@@ -32,11 +32,14 @@ worker:
   # because I bring my own worker separately, which is on vSphere not GKE.
   enabled: false
 secrets:
+  # If the value is "change-me", that means it's overridden from the command line,
+  # e.g. "helm upgrade ci-nono-io concourse/concourse ... --set secrets.hostKey='xxx' ... "
   localUsers:
-  hostKey: change-me
-  hostKeyPub: change-me
-  sessionSigningKey: change-me
-  workerKey: change-me
-  workerKeyPub: change-me
   githubClientId: d4d77ce34ecc620d5220
   githubClientSecret: change-me
+  hostKey: change-me
+  hostKeyPub: change-me
+  workerKey: change-me
+  workerKeyPub: change-me
+  sessionSigningKey: change-me
+  vaultAuthParam: change-me

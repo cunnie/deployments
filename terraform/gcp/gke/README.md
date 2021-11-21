@@ -326,12 +326,19 @@ vault write -f auth/approle/role/concourse/secret-id
   # secret_id             85ed8dec-757d-f6c2-xxxx-xxxxxxxxxxxx
 ```
 
-Let's write our secret (thanks <https://stackoverflow.com/a/52288554/2510873>
-and <https://github.com/concourse/concourse-chart/issues/104>):
+Update our Concourse server with the new secret:
 
 ```bash
-export CONCOURSE_VAULT_AUTH_PARAM="role_id:5f3420cd-3c66-2eff-8bcc-0e8e258a7d18,secret_id:f7ec2ac8-ad07-026a-3e1c-4c9781423155"
-kubectl get  secret ci-nono-io-web -o json |
-  jq --arg b64 "$(printf $CONCOURSE_VAULT_AUTH_PARAM | base64)" '.data["vault-client-auth-param"]=$b64' |
-  kubectl apply -f -
+helm repo update
+helm search repo concourse/concourse --versions # idle curiousity to see the latest version
+helm upgrade ci-nono-io concourse/concourse \
+  -f concourse-values.yml \
+  --set secrets.githubClientSecret=$(lpass show --note deployments.yml | yq e .github_concourse_nono_auth_client_secret -) \
+  --set secrets.hostKey="$(lpass show --note deployments.yml | yq e .tsa_host_key.private_key -)" \
+  --set secrets.hostKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDrchtcCq6WFbl2xlWaKQP1UIUDUPPjKrndtrPXFArPs4+zOn5RcGf4zpO2GUD8fZl+8tikG7b+YQTfyOB08zeuA+WqpBVmiaXyK7OJhzuEWwqa60p5Ni1SyNRtcgntY8DLkKnWqzhDaVT/FcXIbnDfyMCDxp7Gs023jha3IGKeIIhRsOkJDcsfByxF63GP70WEs49JNToDCC3CIo8JEGXunjF1matILpJhupsa3obMOk2OCGNI9nleiRfSjE51f9hzYAa1wKqCoBbgOtVQ3mz59yxTFobVZFBP6fZX2GWXaLWHPPiAUtMhiL87pHsa43K0iiV6Yk59yoZ67mOdachp web@ci.nono.io" \
+  --set secrets.workerKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
+  --set secrets.workerKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0SIrGT+qIE7w8i67B/YDCfHINEU0LUP67SesaPaesq26rb/HHckPvBfRj+gCxKMvmTipUIVaQLBZlsPEMb+1V8xJBs2s4+9MU6QG6i7CEYTWyYlhVSDxU4HtwxGGnW9c5lASBB1jPkx2gWv0kgQYXQfrcbXSJ4fUtgdo0ZtePnXV7Qd30YUoR2fcuqEdAGg0S317V54vgeD2tfL04Qwhyu2Hbz4ZwTyhNe1YNcKET6v8ttRjVOIfMe+FF+JHqGJUiu5jygJ2p+29sm50JHEuxK+HjYpajmW8BRmXK7fIvDX24RDIs9ACZ+s+asEU8yEKkmdnFB5kUAukQWRuqUWYd worker@ci.nono.io" \
+  --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
+  --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
+  --wait
 ```
