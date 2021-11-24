@@ -24,7 +24,7 @@ compilation:
   network: vsphere-guest
   reuse_compilation_vms: true
   vm_type: compilation
-  workers: 15
+  workers: 30
 disk_types:
 - disk_size: 1024
   name: default
