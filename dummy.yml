@@ -4,8 +4,14 @@ name: dummy
 releases: []
 
 stemcells:
-- alias: ubuntu
+- alias: bionic
   os: ubuntu-bionic
+  version: latest
+- alias: xenial
+  os: ubuntu-xenial
+  version: latest
+- alias: jammy
+  os: ubuntu-jammy
   version: latest
 
 update:
@@ -15,13 +21,37 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-- name: dummy-ubuntu
+- name: xenial
   jobs: []
   instances: 1
 #  vm_type: default
 #  vm_type: micro
-  vm_type: twoCoresPerSocket
-  stemcell: ubuntu
+  vm_type: small
+  stemcell: xenial
+#  azs: [z1]
+  azs: [vsphere]
+  networks:
+#  - name: default
+  - name: vsphere-guest
+- name: bionic
+  jobs: []
+  instances: 1
+#  vm_type: default
+#  vm_type: micro
+  vm_type: small
+  stemcell: bionic
+#  azs: [z1]
+  azs: [vsphere]
+  networks:
+#  - name: default
+  - name: vsphere-guest
+- name: jammy
+  jobs: []
+  instances: 1
+#  vm_type: default
+#  vm_type: micro
+  vm_type: small
+  stemcell: jammy
 #  azs: [z1]
   azs: [vsphere]
   networks:
