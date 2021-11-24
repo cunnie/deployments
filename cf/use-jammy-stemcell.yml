@@ -1,0 +1,12 @@
+- path: /stemcells/alias=default
+  type: replace
+  value:
+    alias: default
+    os: ubuntu-jammy
+    version: latest
+- path: /releases/name=cflinuxfs3
+  type: replace
+  value:
+    name: cflinuxfs3
+    version: latest
+# See cf/use-latest-routing-and-garden.yml for more releases

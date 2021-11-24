@@ -43,6 +43,7 @@ bosh update-config \
   --type runtime \
   --name dns \
   -o $DEPLOYMENTS_DIR/cf/dns-on-cf-only.yml \
+  -o $DEPLOYMENTS_DIR/cf/dns-on-jammy.yml \
   $DEPLOYMENTS_DIR/../bosh-deployment/runtime-configs/dns.yml
 
 bosh \
@@ -57,11 +58,13 @@ bosh \
   -v app_domain=foundry.fun \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/scale-to-one-az.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-haproxy.yml \
-  -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-stemcell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/windows2019-cell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-windows2019-stemcell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-online-windows2019fs.yml \
+  -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-postgres.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/test/add-persistent-isolation-segment-diego-cell.yml \
+  -o $DEPLOYMENTS_DIR/cf/use-jammy-stemcell.yml \
+  -o $DEPLOYMENTS_DIR/cf/use-latest-routing-and-garden-and-pxc.yml \
   -o $DEPLOYMENTS_DIR/cf/letsencrypt.yml \
   -o $DEPLOYMENTS_DIR/cf/haproxy-on-ipv6.yml \
   -o $DEPLOYMENTS_DIR/cf/override-app-domain.yml \
@@ -70,3 +73,5 @@ bosh \
   --var-file=star_cf_nono_io_crt=$HOME/.acme.sh/\*.cf.nono.io/fullchain.cer \
   --var-file=star_cf_nono_io_key=$HOME/.acme.sh/\*.cf.nono.io/\*.cf.nono.io.key \
 
+  # -o $DEPLOYMENTS_DIR/cf/use-jammy-stemcell.yml \
+  # -o $DEPLOYMENTS_DIR/../cf-deployment/operations/experimental/use-bionic-stemcell.yml \
