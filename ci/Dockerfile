@@ -47,6 +47,7 @@ RUN GOBIN=/usr/local/bin go get github.com/onsi/ginkgo/ginkgo; \
 
 RUN dnf install -y dnf-plugins-core; \
   dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo; \
-  dnf -y install vault
+  dnf -y install vault; \
+  setcap -r /usr/bin/vault
 
 CMD [ "/usr/bin/zsh" ]
