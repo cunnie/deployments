@@ -1,6 +1,11 @@
 # cunnie/fedora-golang-bosh
 
-FROM fedora:34
+# To build
+
+# docker build -t cunnie/fedora-golang-bosh .
+# docker push cunnie/fedora-golang-bosh
+
+FROM fedora
 
 MAINTAINER Brian Cunnie <brian.cunnie@gmail.com>
 
@@ -39,5 +44,9 @@ RUN curl -o /etc/yum.repos.d/cloudfoundry-cli.repo -L https://packages.cloudfoun
 
 RUN GOBIN=/usr/local/bin go get github.com/onsi/ginkgo/ginkgo; \
   go get github.com/onsi/gomega/...
+
+RUN dnf install -y dnf-plugins-core; \
+  dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo; \
+  dnf -y install vault
 
 CMD [ "/usr/bin/zsh" ]
