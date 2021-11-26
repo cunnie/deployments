@@ -1,6 +1,7 @@
 injector:
   enabled: false
 server:
+  logLevel: trace
   ingress:
     enabled: true
     labels:

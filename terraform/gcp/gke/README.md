@@ -342,3 +342,14 @@ helm upgrade ci-nono-io concourse/concourse \
   --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
   --wait
 ```
+
+Change the default storage class to fix "had volume node affinity conflict"
+error when scheduling pods:
+
+```bash
+kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+kubectl patch storageclass standard-rwo -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+ # deploy, then create _another_ storage class & make it the default
+kubectl get storageclasses.storage.k8s.io standard-rwo -o yaml | sed 's=standard-rwo=&-2=' | kubectl apply -f -
+kubectl patch storageclass standard-rwo -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+```
