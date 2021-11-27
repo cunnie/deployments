@@ -40,6 +40,7 @@ jobs:
       params:
         CONTEXT: sslip.io/k8s/
         DOCKERFILE: sslip.io/k8s/Dockerfile-nginx
+        IMAGE_PLATFORM: linux/arm64
       run:
         path: build
   - put: sslip.io-nginx
