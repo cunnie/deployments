@@ -8,7 +8,7 @@ resources:
   source:
     uri: https://github.com/cunnie/sslip.io.git
     paths:
-    - bosh-release/src/sslip.io-dns-server/
+    - k8s
 
 # The repo with our nginx/HTML Dockerfile
 - name: sslip.io-html
