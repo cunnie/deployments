@@ -1,0 +1,47 @@
+# fly -t nono sp -p dockerfiles -c pipeline-dockerfiles.yml
+
+resources:
+# The repo with our Dockerfile
+- name: sslip.io
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/cunnie/sslip.io.git
+    paths:
+    - k8s/document_root
+
+# Where we will push the image
+- name: sslip.io-nginx
+  type: registry-image
+  icon: docker
+  source:
+    repository: cunnie/sslip.io-nginx
+    username: cunnie
+    password: ((docker_token))
+    tag: latest
+
+jobs:
+- name: build-and-push
+  plan:
+  - get: sslip.io
+    trigger: true
+  - task: build-task-image
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: vito/oci-build-task
+      inputs:
+      - name: sslip.io
+      outputs:
+      - name: image
+      params:
+        CONTEXT: sslip.io/k8s/
+        DOCKERFILE: sslip.io/k8s/Dockerfile-nginx
+      run:
+        path: build
+  - put: sslip.io-nginx
+    params:
+      image: image/image.tar
