@@ -225,9 +225,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry-community/ntp-release?v=4.2.8p13
   version: 4.2.8p13
 - name: sslip.io
-  sha1: 942114276c39932e3f79571def32b19e38f535be
-  url: https://github.com/cunnie/sslip.io/releases/download/2.2.2/sslip.io-release-2.2.2.tgz
-  version: 2.2.2
+  sha1: 0e179b2ef9211df3f52bdb6c4864313f30e759a5
+  url: https://github.com/cunnie/sslip.io/releases/download/2.2.3/sslip.io-release-2.2.3.tgz
+  version: 2.2.3
 - name: sysctl
   version: latest
 stemcells:
