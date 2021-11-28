@@ -43,7 +43,6 @@ jobs:
 - name: build-and-push-sslip.io-dns-server
   plan:
   - get: sslip.io-src
-    trigger: true
   - task: build-task-image
     privileged: true
     config:
