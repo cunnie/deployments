@@ -35,7 +35,7 @@ secrets:
   # If the value is "change-me", that means it's overridden from the command line,
   # e.g. "helm upgrade ci-nono-io concourse/concourse ... --set secrets.hostKey='xxx' ... "
   localUsers:
-  githubClientId: d4d77ce34ecc620d5220
+  githubClientId: fc24016a9c3267843698
   githubClientSecret: change-me
   hostKey: change-me
   hostKeyPub: change-me
