@@ -12,5 +12,6 @@ platform: linux
 run:
   args:
   - upload-stemcell
+  - --fix
   - stemcell/stemcell.tgz
   path: /usr/local/bin/bosh
