@@ -18,6 +18,7 @@ RUN dnf update -y; \
   dnf install -y neovim python python3-neovim fd-find npm ripgrep; \
   dnf install -y ruby rubygems ruby-devel redhat-rpm-config; \
   dnf install -y mysql-devel openssl-devel zlib-devel; \
+  dnf install -y etcd; \
   gem install yajl-ruby
 
 RUN mkdir ~/workspace; \
