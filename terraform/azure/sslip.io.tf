@@ -33,18 +33,11 @@ resource "azurerm_virtual_network" "sslip_io" {
 }
 
 # Create subnet
-resource "azurerm_subnet" "sslip_io_IPv4" {
+resource "azurerm_subnet" "sslip_io" {
   name                 = "ipv4.sslip.io"
   resource_group_name  = azurerm_resource_group.sslip_io.name
   virtual_network_name = azurerm_virtual_network.sslip_io.name
-  address_prefixes     = ["10.11.0.0/24"]
-}
-
-resource "azurerm_subnet" "sslip_io_IPv6" {
-  name                 = "ipv6.sslip.io"
-  resource_group_name  = azurerm_resource_group.sslip_io.name
-  virtual_network_name = azurerm_virtual_network.sslip_io.name
-  address_prefixes     = ["fc00:11::/64"]
+  address_prefixes     = ["10.11.0.0/24", "fc00:11::/64"]
 }
 
 # Create public IPs
@@ -92,7 +85,7 @@ resource "azurerm_network_interface" "sslip_io" {
 
   ip_configuration {
     name                          = "ipv4.sslip.io"
-    subnet_id                     = azurerm_subnet.sslip_io_IPv4.id
+    subnet_id                     = azurerm_subnet.sslip_io.id
     private_ip_address_version    = "IPv4"
     private_ip_address_allocation = "Dynamic"
     primary                       = true
@@ -100,7 +93,7 @@ resource "azurerm_network_interface" "sslip_io" {
   }
   ip_configuration {
     name                          = "ipv6.sslip.io"
-    subnet_id                     = azurerm_subnet.sslip_io_IPv6.id
+    subnet_id                     = azurerm_subnet.sslip_io.id
     private_ip_address_version    = "IPv6"
     private_ip_address_allocation = "Dynamic"
     primary                       = false
