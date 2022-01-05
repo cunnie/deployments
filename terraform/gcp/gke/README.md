@@ -353,3 +353,13 @@ kubectl patch storageclass standard-rwo -p '{"metadata": {"annotations":{"storag
 kubectl get storageclasses.storage.k8s.io standard-rwo -o yaml | sed 's=standard-rwo=&-2=' | kubectl apply -f -
 kubectl patch storageclass standard-rwo -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 ```
+
+#### Backing Up Vault
+
+```shell
+kubectl exec -it vault-0 -n vault -- cat /tmp/storageconfig.hcl # look for storage.path, i.e. "/vault/data"
+ # We need to do this in two steps because Vault's tar is BusyBox's, not GNU's
+kubectl exec -it -n vault vault-0 -- tar czf /tmp/vault_bkup.tgz /vault/data
+ # I encode it in base64 to avoid "tar: Damaged tar archive"
+kubectl exec -it -n vault vault-0 -- base64 /tmp/vault_bkup.tgz | base64 -d - > ~/Downloads/vault_bkup.tgz
+```
