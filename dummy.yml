@@ -1,4 +1,4 @@
-# manifest for BOSH performance testing
+# bosh -d dummy deploy dummy.yml
 name: dummy
 
 releases: []
@@ -7,6 +7,9 @@ stemcells:
 - alias: bionic
   os: ubuntu-bionic
   version: latest
+- alias: xenial-456
+  os: ubuntu-xenial
+  version: 456.227
 - alias: xenial
   os: ubuntu-xenial
   version: latest
@@ -21,6 +24,18 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
+- name: xenial-456
+  jobs: []
+  instances: 1
+#  vm_type: default
+#  vm_type: micro
+  vm_type: small
+  stemcell: xenial-456
+#  azs: [z1]
+  azs: [vsphere]
+  networks:
+#  - name: default
+  - name: vsphere-guest
 - name: xenial
   jobs: []
   instances: 1
@@ -50,7 +65,7 @@ instance_groups:
   instances: 1
 #  vm_type: default
 #  vm_type: micro
-  vm_type: small
+  vm_type: compilation
   stemcell: jammy
 #  azs: [z1]
   azs: [vsphere]
