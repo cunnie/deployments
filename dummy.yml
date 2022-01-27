@@ -9,7 +9,7 @@ stemcells:
   version: latest
 - alias: xenial-456
   os: ubuntu-xenial
-  version: 456.227
+  version: latest
 - alias: xenial
   os: ubuntu-xenial
   version: latest
