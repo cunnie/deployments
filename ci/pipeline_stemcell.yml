@@ -3,17 +3,6 @@
 # fly -t nono unpause-pipeline -p stemcell
 
 # :,$!bosh int -
-groups:
-- jobs:
-  - upload-bionic-aws
-  - upload-bionic-azure
-  - upload-bionic-google
-  - upload-bionic-vsphere
-  - upload-xenial-aws
-  - upload-xenial-azure
-  - upload-xenial-google
-  - upload-xenial-vsphere
-  name: stemcells
 jobs:
 - name: upload-bionic-aws
   plan:
@@ -55,6 +44,56 @@ jobs:
   plan:
   - get: stemcell
     resource: stemcell-bionic-vsphere
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+# Can't upload heavy Jammy to AWS
+# `Error: CPI error 'Bosh::Clouds::CloudError' with message 'Timed out reading instance metadata, please make sure CPI is running on EC2 instance' in 'create_stemcell' CPI method (CPI request ID: 'cpi-140640')`
+# - name: upload-jammy-aws
+#   plan:
+#   - get: stemcell
+#     resource: stemcell-jammy-aws
+#     trigger: true
+#   - get: cunnie-deployments
+#   - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+#     params:
+#       BOSH_CLIENT: admin
+#       BOSH_CLIENT_SECRET: ((admin_password))
+#       BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+#     task: upload-stemcell
+- name: upload-jammy-azure
+  plan:
+  - get: stemcell
+    resource: stemcell-jammy-azure
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+- name: upload-jammy-google
+  plan:
+  - get: stemcell
+    resource: stemcell-jammy-google
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
+- name: upload-jammy-vsphere
+  plan:
+  - get: stemcell
+    resource: stemcell-jammy-vsphere
     trigger: true
   - get: cunnie-deployments
   - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
@@ -135,6 +174,22 @@ resources:
 - name: stemcell-bionic-vsphere
   source:
     name: bosh-vsphere-esxi-ubuntu-bionic-go_agent
+  type: bosh-io-stemcell
+# - name: stemcell-jammy-aws
+#   source:
+#     name: bosh-aws-xen-hvm-ubuntu-jammy-go_agent
+#   type: bosh-io-stemcell
+- name: stemcell-jammy-azure
+  source:
+    name: bosh-azure-hyperv-ubuntu-jammy-go_agent
+  type: bosh-io-stemcell
+- name: stemcell-jammy-google
+  source:
+    name: bosh-google-kvm-ubuntu-jammy-go_agent
+  type: bosh-io-stemcell
+- name: stemcell-jammy-vsphere
+  source:
+    name: bosh-vsphere-esxi-ubuntu-jammy-go_agent
   type: bosh-io-stemcell
 - name: stemcell-xenial-aws
   source:
