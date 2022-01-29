@@ -1419,13 +1419,13 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 8e01aa7f699e9a8fbf4d40096aa04252c9b18f74
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-271.19.0-ubuntu-bionic-1.54-20220114-212220-398469414-20220114212222.tgz
+  sha1: 000d74193cd9cbf7149cedbfdb676eac8c08d814
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-271.19.0-ubuntu-bionic-1.59-20220127-124614-384174697-20220127124616.tgz
   version: 271.19.0
 - name: bpm
-  sha1: 0c16cae2001fb630fedfd39bc27e89da58cc8124
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.15-ubuntu-bionic-1.54-20220111-161629-894963682-20220111161631.tgz
-  version: 1.1.15
+  sha1: 96ccc1d82d968677e0b8b26f71a0a79b5dc546e2
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.16-ubuntu-bionic-1.59-20220127-124326-59454749-20220127124328.tgz
+  version: 1.1.16
 - name: bosh-vsphere-cpi
   sha1: 3ac3de9b6e1ef5242e6abbae5d8a71a434b06b32
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=72
@@ -1435,13 +1435,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
   version: 22.1.2
 - name: uaa
-  sha1: c36758de77c2737a3cc847ad2a92050ece600e55
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.14.0-ubuntu-bionic-1.54-20220113-180844-955213189-20220113180848.tgz
+  sha1: ad23c847bf71f963253c2a9825634b61d2771c62
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.14.0-ubuntu-bionic-1.59-20220127-124115-991377587-20220127124119.tgz
   version: 75.14.0
 - name: credhub
-  sha1: 323d31ab5bd841e43703909d9f494a3c08a31ce9
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.11.0-ubuntu-bionic-1.54-20220111-161352-484375082-20220111161354.tgz
-  version: 2.11.0
+  sha1: 0e0fbb37846eeb35b7b4bdabb299f57195a08905
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.11.2-ubuntu-bionic-1.59-20220127-124232-482029501-20220127124234.tgz
+  version: 2.11.2
 - name: bosh-aws-cpi
   sha1: fac7be74af71323f81ab99684fde0e142a32e745
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=92
@@ -1562,6 +1562,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 5bc63e35418982462ddab2786e4bab2d03029112
-    url: https://storage.googleapis.com/bosh-core-stemcells/1.54/bosh-stemcell-1.54-vsphere-esxi-ubuntu-bionic-go_agent.tgz
+    sha1: 92770c7f86adee2d97ea818ce8bc0dc4b739a1bd
+    url: https://storage.googleapis.com/bosh-core-stemcells/1.59/bosh-stemcell-1.59-vsphere-esxi-ubuntu-bionic-go_agent.tgz
 variables: []
