@@ -73,33 +73,6 @@
     json_key: ((gcp_credentials_json))
     project: blabbertabber
 
-# Azure requires the registry. The operations below enable the registry
-# from an external address, and are taken from `azure/cpi.yml` and
-# `external-ip-with-registry-not-recommended.yml`
-- type: replace
-  path: /instance_groups/name=bosh/jobs/-
-  value:
-    name: registry
-    release: bosh
-- type: replace
-  path: /instance_groups/name=bosh/properties/registry?
-  value:
-    address: ((external_ip))
-    host: ((external_ip))
-    db: # todo remove
-      host: 127.0.0.1
-      user: postgres
-      password: ((postgres_password))
-      database: bosh
-      adapter: postgres
-    http:
-      user: registry
-      password: ((registry_password))
-      port: 25777
-    username: registry
-    password: ((registry_password))
-    port: 25777
-
 # We must use external IPs for mbus and blobstore for non-vSphere deploys to work
 # First, fix the certificates that may be accessed via the external IP
 - type: replace
