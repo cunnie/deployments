@@ -65,13 +65,13 @@ resource "azurerm_network_security_group" "sslip_io" {
   resource_group_name = azurerm_resource_group.sslip_io.name
 
   security_rule {
-    name                       = "SSH"
+    name                       = "allow everything"
     priority                   = 1001
     direction                  = "Inbound"
     access                     = "Allow"
-    protocol                   = "Tcp"
+    protocol                   = "*"
     source_port_range          = "*"
-    destination_port_range     = "22"
+    destination_port_range     = "*"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
