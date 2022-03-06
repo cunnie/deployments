@@ -26,8 +26,8 @@ variable "network_interface_id" {
 }
 
 variable "admin_password" {
-type = string
-description = "password of the admin user for provisioning"
+  type        = string
+  description = "password of the admin user for provisioning"
 }
 
 variable "azurerm_storage_account_primary_blob_endpoint" {
@@ -35,16 +35,27 @@ variable "azurerm_storage_account_primary_blob_endpoint" {
   description = "Storage Account Blob Endpoint"
 }
 
+data "template_cloudinit_config" "sslip_io" {
+  gzip          = true
+  base64_encode = true
+  part {
+    filename     = "cloud-init"
+    content_type = "text/x-shellscript"
+    content      = file("install_ns-azure.sh")
+  }
+}
+
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "sslip_io" {
-  name                  = "ns-azure.sslip.io"
-  location              = "southeastasia"
-  resource_group_name   = var.resource_group_name
-  network_interface_ids = [var.network_interface_id]
-  size                  = "Standard_B1s"
-  admin_username        = "adminuser"
-  admin_password        = var.admin_password
+  name                            = "ns-azure.sslip.io"
+  location                        = "southeastasia"
+  resource_group_name             = var.resource_group_name
+  network_interface_ids           = [var.network_interface_id]
+  size                            = "Standard_B1s"
+  admin_username                  = "adminuser"
+  admin_password                  = var.admin_password
   disable_password_authentication = false
+  custom_data                     = data.template_cloudinit_config.sslip_io.rendered
 
   os_disk {
     name                 = "sslip.io"
@@ -59,19 +70,15 @@ resource "azurerm_linux_virtual_machine" "sslip_io" {
     version   = "latest"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "ls -la /tmp/",
-    ]
-
-    connection {
-      host     = self.public_ip_address
-      user     = self.admin_username
-      password = self.admin_password
-    }
-  }
-
   boot_diagnostics {
     storage_account_uri = var.azurerm_storage_account_primary_blob_endpoint
   }
+}
+
+output "public_ip" {
+  value = azurerm_linux_virtual_machine.sslip_io.public_ip_address
+}
+
+output "admin_password" {
+  value = var.admin_password
 }

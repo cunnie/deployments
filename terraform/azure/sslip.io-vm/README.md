@@ -1,5 +1,4 @@
 ```
-terraform output -raw tls_private_key > /tmp/junk.pem
-chmod 600 /tmp/junk.pem
-ssh -i /tmp/junk.pem cunnie@2603:1040:2:3::a0
+terraform apply -var="admin_password=Aa1_$(dd if=/dev/random bs=1 count=6 | base64)"
+terraform destroy -var="admin_password=doesnt_matter"
 ```
