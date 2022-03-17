@@ -134,7 +134,7 @@ instance_groups:
     release: bpm
   - name: nats
     release: bosh
-  - name: postgres-10
+  - name: postgres
     release: bosh
   - name: blobstore
     release: bosh
@@ -1401,9 +1401,9 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: e5de3414956e97cd4cd19ed80369b057c6968d29
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-272.0.0-ubuntu-bionic-1.61-20220228-175001-491185238-20220228175002.tgz
-  version: 272.0.0
+  sha1: 410d4bfab9f1978fe856c1bbd8b6a4abfb53f750
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-272.1.0-ubuntu-bionic-1.61-20220308-144607-763767907-20220308144608.tgz
+  version: 272.1.0
 - name: bpm
   sha1: c80d092a44bc1425d3de1f1fb0de82cbc0cc9f10
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.16-ubuntu-bionic-1.61-20220215-132405-853958356-20220215132409.tgz
@@ -1421,9 +1421,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.15.0-ubuntu-bionic-1.61-20220215-132329-375986396-20220215132333.tgz
   version: 75.15.0
 - name: credhub
-  sha1: 98bc39464fe6cc658f1569118071f3c712b88346
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.11.2-ubuntu-bionic-1.61-20220215-132257-760301375-20220215132259.tgz
-  version: 2.11.2
+  sha1: bdf818bf30b330af09b5b94244fe14f1df0e6293
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.0-ubuntu-bionic-1.61-20220303-231341-096485257-20220303231342.tgz
+  version: 2.12.0
 - name: bosh-aws-cpi
   sha1: fac7be74af71323f81ab99684fde0e142a32e745
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=92
