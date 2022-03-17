@@ -194,6 +194,7 @@ helm upgrade ci-nono-io concourse/concourse \
   --set secrets.workerKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
   --set secrets.workerKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0SIrGT+qIE7w8i67B/YDCfHINEU0LUP67SesaPaesq26rb/HHckPvBfRj+gCxKMvmTipUIVaQLBZlsPEMb+1V8xJBs2s4+9MU6QG6i7CEYTWyYlhVSDxU4HtwxGGnW9c5lASBB1jPkx2gWv0kgQYXQfrcbXSJ4fUtgdo0ZtePnXV7Qd30YUoR2fcuqEdAGg0S317V54vgeD2tfL04Qwhyu2Hbz4ZwTyhNe1YNcKET6v8ttRjVOIfMe+FF+JHqGJUiu5jygJ2p+29sm50JHEuxK+HjYpajmW8BRmXK7fIvDX24RDIs9ACZ+s+asEU8yEKkmdnFB5kUAukQWRuqUWYd worker@ci.nono.io" \
   --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
+  --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
   --wait
 ```
 
