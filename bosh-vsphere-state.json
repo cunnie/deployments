@@ -1,11 +1,21 @@
 {
     "director_id": "aabf2e91-f664-410b-5ca4-2e0bb3c93dcf",
     "installation_id": "9dbb0ef2-ff17-4a68-5f8b-343798085a14",
-    "current_vm_cid": "vm-c4db7c68-c682-4f7c-be90-e044ebe1c770",
+    "current_vm_cid": "vm-9b5fc03e-f0fb-47c5-a061-91d95ca6a86d",
     "current_stemcell_id": "aecb8d9f-7550-448f-6e8f-3d46d3461fce",
     "current_disk_id": "a6a34ba9-f3a5-4ae4-47dd-16c3e4f5e4b5",
-    "current_release_ids": [],
-    "current_manifest_sha": "",
+    "current_release_ids": [
+        "ae3391ee-f0f9-4c32-48f5-48e8dbbcd827",
+        "39f927f1-a4a9-41ff-6a7f-3359989306c6",
+        "d160fe49-6d8c-4246-721d-95eb1984a478",
+        "ac04bae1-13c7-4a75-49d8-f656f93543e9",
+        "a4a41a60-fbd3-4272-579e-b15dd9a2f7ca",
+        "0dffadf2-b75e-4117-60aa-ccd9af58f82b",
+        "6162e6fb-11f7-4780-7ef6-50707be912f3",
+        "0d335bfd-7465-442a-4371-72c511541abb",
+        "65a0b7e5-b011-4884-5c67-649e1abcae7c"
+    ],
+    "current_manifest_sha": "50a72c9ab21022fc4e2c1da4f2c99d50ca340898c1e5b470f5df55a0808bc4e518dcbfe12cbc7c2c32f83699dea94a41eddfda3c533b86c8a799a20f37f22e84",
     "disks": [
         {
             "id": "a6a34ba9-f3a5-4ae4-47dd-16c3e4f5e4b5",
@@ -23,5 +33,51 @@
             "cid": "sc-8062d3ea-54fc-46cb-8da9-e067a9c37ed4"
         }
     ],
-    "releases": []
+    "releases": [
+        {
+            "id": "ae3391ee-f0f9-4c32-48f5-48e8dbbcd827",
+            "name": "bosh",
+            "version": "272.1.0"
+        },
+        {
+            "id": "39f927f1-a4a9-41ff-6a7f-3359989306c6",
+            "name": "bpm",
+            "version": "1.1.16"
+        },
+        {
+            "id": "d160fe49-6d8c-4246-721d-95eb1984a478",
+            "name": "bosh-vsphere-cpi",
+            "version": "72"
+        },
+        {
+            "id": "ac04bae1-13c7-4a75-49d8-f656f93543e9",
+            "name": "os-conf",
+            "version": "22.1.2"
+        },
+        {
+            "id": "a4a41a60-fbd3-4272-579e-b15dd9a2f7ca",
+            "name": "uaa",
+            "version": "75.15.0"
+        },
+        {
+            "id": "0dffadf2-b75e-4117-60aa-ccd9af58f82b",
+            "name": "credhub",
+            "version": "2.12.0"
+        },
+        {
+            "id": "6162e6fb-11f7-4780-7ef6-50707be912f3",
+            "name": "bosh-aws-cpi",
+            "version": "92"
+        },
+        {
+            "id": "0d335bfd-7465-442a-4371-72c511541abb",
+            "name": "bosh-azure-cpi",
+            "version": "37.6.0"
+        },
+        {
+            "id": "65a0b7e5-b011-4884-5c67-649e1abcae7c",
+            "name": "bosh-google-cpi",
+            "version": "41.0.0"
+        }
+    ]
 }
