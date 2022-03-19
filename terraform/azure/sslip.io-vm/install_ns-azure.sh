@@ -1,0 +1,1 @@
+/home/cunnie/bin/install_ns-azure.sh

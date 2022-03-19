@@ -24,3 +24,9 @@ tail -f /var/log/cloud-init-output.log
 ssh -A 20.212.40.63
 bin/install_ns-azure.sh
 ```
+
+### Notes
+
+`install_ns-azure.sh` is a symbolic link; the file to which it's linked should
+have the contents of
+<https://raw.githubusercontent.com/cunnie/bin/main/install_ns-azure.sh>.

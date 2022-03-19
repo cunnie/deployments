@@ -1,5 +1,8 @@
 # Create VM for sslip.io DNS server on Azure
-
+#
+# terraform apply -auto-approve -var="admin_password=Aa1_$(dd if=/dev/random bs=1 count=6 | base64)"
+# terraform apply -destroy -auto-approve -var=admin_password=Admin\!23
+#
 # From https://docs.microsoft.com/en-us/azure/developer/terraform/create-linux-virtual-machine-with-infrastructure#2-implement-the-terraform-code
 
 terraform {
