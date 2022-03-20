@@ -30,22 +30,22 @@ variable "aws_eip" {
 
 # the following variables are from the ../sslip.io-infra outputs
 variable "security_group_sslip_io_id" {
-  type = string
+  type        = string
   description = "Security Group"
 }
 
 variable "subnet_sslip_io_id" {
-  type = string
+  type        = string
   description = "Subnet"
 }
 
 variable "vpc_sslip_io_cidr_block" {
-  type = string
+  type        = string
   description = "IPv4 CIDR"
 }
 
 variable "vpc_sslip_io_ipv6_cidr_block" {
-  type = string
+  type        = string
   description = "IPv6 CIDR"
 }
 
