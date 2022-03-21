@@ -4,6 +4,7 @@
 
 ```shell
 cd sslip.io-infra/
+terraform init -upgrade
 terraform apply
 terraform output > ../sslip.io-vm/infra.auto.tfvars
 ```
