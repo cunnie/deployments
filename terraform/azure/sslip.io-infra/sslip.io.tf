@@ -18,6 +18,11 @@ provider "azurerm" {
   features {}
 }
 
+variable "azure_ipv4_id" {
+  type        = string
+  description = "ns-azure.sslip.io IPv4"
+}
+
 # Create a resource group if it doesn't exist
 resource "azurerm_resource_group" "sslip_io" {
   name     = "sslip.io"
@@ -38,24 +43,6 @@ resource "azurerm_subnet" "sslip_io" {
   resource_group_name  = azurerm_resource_group.sslip_io.name
   virtual_network_name = azurerm_virtual_network.sslip_io.name
   address_prefixes     = ["10.11.0.0/24", "fc00:11::/64"]
-}
-
-# Create public IPs
-resource "azurerm_public_ip" "sslip_io_IPv4" {
-  name                = "ipv4.sslip.io"
-  location            = "southeastasia"
-  resource_group_name = azurerm_resource_group.sslip_io.name
-  allocation_method   = "Static"
-  sku                 = "standard"
-}
-
-resource "azurerm_public_ip" "sslip_io_IPv6" {
-  name                = "ipv6.sslip.io"
-  ip_version          = "IPv6"
-  location            = "southeastasia"
-  resource_group_name = azurerm_resource_group.sslip_io.name
-  allocation_method   = "Static"
-  sku                 = "standard"
 }
 
 # Create Network Security Group and rule
@@ -89,7 +76,7 @@ resource "azurerm_network_interface" "sslip_io" {
     private_ip_address_version    = "IPv4"
     private_ip_address_allocation = "Dynamic"
     primary                       = true
-    public_ip_address_id          = azurerm_public_ip.sslip_io_IPv4.id
+    public_ip_address_id          = var.azure_ipv4_id
   }
   ip_configuration {
     name                          = "ipv6.sslip.io"
@@ -97,7 +84,6 @@ resource "azurerm_network_interface" "sslip_io" {
     private_ip_address_version    = "IPv6"
     private_ip_address_allocation = "Dynamic"
     primary                       = false
-    public_ip_address_id          = azurerm_public_ip.sslip_io_IPv6.id
   }
 }
 
