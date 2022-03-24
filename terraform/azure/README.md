@@ -45,3 +45,16 @@ to finish customizing.
 `install_ns-azure.sh` is a symbolic link; the file to which it's linked should
 have the contents of
 <https://raw.githubusercontent.com/cunnie/bin/main/install_ns-azure.sh>.
+
+#### Why Didn't I go for IPv6?
+
+I couldn't get it to work without upgrading from Basic to Standard SKU
+(`CannotSpecifyBasicSkuPublicIpForIpV6NicIpConfiguration`). Upgrading SKUs was
+a one-way process, so I could never rollback to Basic SKU if I ran into
+trouble. And I couldn't mix SKUs, either
+(`DifferentSkuLoadBalancersAndPublicIPAddressNotAllowed`).
+
+It appears that if I upgrade to Standard, it requires a Standard Load Balancer,
+which costs
+[$18/month](https://azure.microsoft.com/en-us/pricing/details/load-balancer/),
+which is more than I pay for my current instance.
