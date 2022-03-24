@@ -25,7 +25,7 @@ provider "aws" {
 
 variable "aws_eip" {
   type        = string
-  description = "The Elastic IP of the sslip_io worker"
+  description = "ns-aws.sslip.io IPv4"
 }
 
 # the following variables are from the ../sslip.io-infra outputs
