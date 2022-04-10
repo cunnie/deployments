@@ -59,7 +59,7 @@ resource "aws_key_pair" "sslip_io" {
 # ssh -i ~/.ssh/aws fedora@w.x.y.z
 # curl https://raw.githubusercontent.com/cunnie/bin/master/install_sslip_io_worker.sh | bash -x
 resource "aws_instance" "sslip_io" {
-  ami           = "ami-0947214b956697846" # "Fedora-Cloud-Base-34-1.2.aarch64-hvm-us-east-1-gp2-0"
+  ami           = "ami-0d98116e3cfbaaa2d" # "Ubuntu 21.10 - Impish (Arm)"
   key_name      = aws_key_pair.sslip_io.key_name
   instance_type = "t4g.micro"
   root_block_device {
@@ -73,7 +73,7 @@ resource "aws_instance" "sslip_io" {
   # check /var/log/cloud-init-output.log for output; curl http://169.254.169.254/latest/user-data for value
   user_data = "#!/bin/bash -x\necho ns-aws > /etc/hostname; hostname ns-aws; curl -L https://raw.githubusercontent.com/cunnie/bin/master/install_ns-aws.sh | bash -x"
   tags = {
-    Name = "sslip_io Fedora aarch64"
+    Name = "sslip_io Ubuntu aarch64"
   }
 }
 
