@@ -196,6 +196,7 @@ helm upgrade ci-nono-io concourse/concourse \
   --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
   --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
   --wait
+kubectl rollout restart deployment/ci-nono-io-web
 ```
 
 ### Backing Up Concourse CI
@@ -256,11 +257,13 @@ helm install vault hashicorp/vault \
 helm status vault -n vault
 helm get manifest vault -n vault
  # To propagate changes after modifying vault-values.yml
+kubectl delete pod vault-0 -n vault
 helm upgrade vault hashicorp/vault \
   --namespace vault \
   -f vault-values.yml \
   --wait
 ```
+Then browse to <https://vault.nono.io> and unlock the vault.
 
 ```bash
 curl \
