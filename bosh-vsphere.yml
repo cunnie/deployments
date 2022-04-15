@@ -1409,9 +1409,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.16-ubuntu-bionic-1.76-20220331-092117-444849847-20220331092119.tgz
   version: 1.1.16
 - name: bosh-vsphere-cpi
-  sha1: 3ac3de9b6e1ef5242e6abbae5d8a71a434b06b32
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=72
-  version: 72
+  sha1: e62604d5af353cac110fb455a8679abef53950d2
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=73
+  version: 73
 - name: os-conf
   sha1: 386293038ae3d00813eaa475b4acf63f8da226ef
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
@@ -1421,21 +1421,21 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.18.0-ubuntu-bionic-1.76-20220331-185123-123205046-20220331185127.tgz
   version: 75.18.0
 - name: credhub
-  sha1: b7aa2b330627428438d1c4ef878ee7b6c44c7bef
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.3-ubuntu-bionic-1.76-20220405-163721-003521201-20220405163722.tgz
-  version: 2.12.3
+  sha1: 10f6269f49d80b3c0e636f17e999bd1132488087
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.4-ubuntu-bionic-1.76-20220409-065217-799662082-20220409065219.tgz
+  version: 2.12.4
 - name: bosh-aws-cpi
-  sha1: fac7be74af71323f81ab99684fde0e142a32e745
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=92
-  version: 92
+  sha1: 1b4d0f542faa1b8e6fd5aaae375073ecf7833291
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=93
+  version: 93
 - name: bosh-azure-cpi
-  sha1: d0546e6a516ee1cff077b44f3db12386a8a2f439
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=37.6.0
-  version: 37.6.0
+  sha1: dce9cbc36b19ede2270ad37d73ad5ad434e86f9f
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=39.0.0
+  version: 39.0.0
 - name: bosh-google-cpi
-  sha1: 4198ead2e5681c8f2f7fb9ad54fcd6af3a424fc1
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=41.0.0
-  version: 41.0.0
+  sha1: 7182bf05687b040e710e96cefa48801481cf722f
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=42.0.0
+  version: 42.0.0
 resource_pools:
 - cloud_properties:
     cpu: 2
