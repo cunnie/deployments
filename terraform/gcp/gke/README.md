@@ -181,6 +181,20 @@ helm install ci-nono-io concourse/concourse \
   --wait
 ```
 
+### Install etcd
+
+Create the k8s secret, `etcd-peer-tls`, with the etcd cluster's CA cert and TLS cert & key
+```bash
+kubectl create secret generic etcd-peer-tls \
+  --from-file=ca.pem=<(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/main/etcd/ca.pem) \
+  --from-file=etcd.pem=<(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/main/etcd/etcd.pem) \
+  --from-file=etcd-key.pem=<(lpass show --note etcd-key.pem)
+```
+
+```
+kubectl apply -f k-v.io.yml
+```
+
 ### Updating Concourse CI
 
 ```bash
