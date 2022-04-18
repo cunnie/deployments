@@ -71,14 +71,14 @@ spec:
           value: "true"
         - name: ETCD_PEER_TRUSTED_CA_FILE
           value: "/etcd-peer-tls/ca.pem"
-#        livenessProbe:
-#          exec:
-#            command:
-#            - nc
-#            - -z
-#            - localhost
-#            - 2380
-#          periodSeconds: 300
+        livenessProbe:
+          exec:
+            command:
+            - nc
+            - -z
+            - localhost
+            - "2380"
+          periodSeconds: 300
         volumeMounts:
         - name: etcd-peer-tls
           mountPath: /etcd-peer-tls
@@ -91,3 +91,31 @@ spec:
       - name: etcd-data
         persistentVolumeClaim:
           claimName: etcd-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k-v-io-etcd-cluster # must be DNS-compliant
+spec:
+  ports:
+  - name: etcd-client
+    port: 2379
+  - name: etcd-peer
+    port: 2380
+  selector:
+    app: k-v.io-etcd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k-v-io-etcd
+  namespace: default
+spec:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  loadBalancerIP: 104.155.144.4
+  ports:
+  - name: etcd-peer
+    port: 2380
+  selector:
+    app: k-v.io-etcd
