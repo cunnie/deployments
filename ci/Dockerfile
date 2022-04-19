@@ -7,18 +7,48 @@
 
 FROM fedora
 
-MAINTAINER Brian Cunnie <brian.cunnie@gmail.com>
+LABEL org.opencontainers.image.authors="Brian Cunnie <brian.cunnie@gmail.com>"
 
 # need ruby to run dns-check.rb & bind-utils for dig & nslookup
 RUN dnf update -y; \
   dnf groupinstall -y "Development Tools"; \
-  dnf install -y bind-utils iputils iproute net-tools wget; \
-  dnf install -y strace btrfs-progs zsh; \
-  dnf install -y neovim python python3-neovim fd-find npm ripgrep; \
-  dnf install -y ruby rubygems ruby-devel redhat-rpm-config; \
-  dnf install -y mysql-devel openssl-devel zlib-devel; \
-  dnf install -y etcd; \
-  gem install yajl-ruby
+  dnf install -y \
+    bind-utils \
+    binutils \
+    bnet-tools \
+    btrfs-progs \
+    direnv \
+    etcd \
+    fd-find \
+    git \
+    htop \
+    iproute \
+    iputils \
+    jq \
+    mysql-devel \
+    neovim \
+    net-tools \
+    nmap-ncat \
+    npm \
+    openssl-devel \
+    python \
+    redhat-rpm-config \
+    ripgrep \
+    ruby \
+    ruby-devel \
+    rubygems \
+    socat \
+    strace \
+    tcpdump \
+    tmux \
+    wget \
+    zlib-devel \
+    zsh \
+    zsh-lovers \
+    zsh-syntax-highlighting \
+  ; \
+  gem install yajl-ruby; \
+  ln -s /usr/bin/fdfind /usr/bin/fd
 
 RUN mkdir ~/workspace; \
   cd ~/workspace; \
@@ -31,17 +61,14 @@ EOF
 
 RUN  echo "" | SHELL=/usr/bin/zsh zsh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; \
     sed -i 's/robbyrussell/agnoster/' ~/.zshrc; \
-    echo 'export EDITOR=nvim' >> ~/.zshrc
+    echo 'export EDITOR=nvim' >> ~/.zshrc; \
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc
 
-RUN mkdir ~/.config; \
-  git clone https://github.com/luan/nvim ~/.config/nvim
-
-RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.10/bosh-cli-6.4.10-linux-amd64 -o /usr/local/bin/bosh; \
+RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.17/bosh-cli-6.4.17-linux-amd64 -o /usr/local/bin/bosh; \
   chmod +x /usr/local/bin/bosh
 
 RUN curl -o /etc/yum.repos.d/cloudfoundry-cli.repo -L https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo; \
   dnf install -y cf7-cli
-
 
 RUN dnf install -y dnf-plugins-core; \
   dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo; \
@@ -52,7 +79,7 @@ RUN dnf install -y dnf-plugins-core; \
 ARG TARGETARCH
 # I need the latest go (1.17), and Fedora 35 is pinned to 1.16
 # I'll need to manually update this, which is a pain
-RUN curl -L https://go.dev/dl/go1.17.6.linux-$TARGETARCH.tar.gz | tar xzf - -C /usr/local
+RUN curl -L https://go.dev/dl/go1.18.1.linux-$TARGETARCH.tar.gz | tar xzf - -C /usr/local
 
 ENV PATH="$PATH:/usr/local/go/bin"
 
