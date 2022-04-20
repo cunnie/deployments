@@ -19,6 +19,15 @@ resources:
     paths:
     - k8s/document_root
 
+# The repo with our fedora-golang-bosh Dockerfile
+- name: deployments
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/cunnie/deployments.git
+    paths:
+    - ci
+
 # Where we will push the nginx Docker image with HTML assets
 - name: sslip.io-nginx
   type: registry-image
@@ -35,6 +44,16 @@ resources:
   icon: docker
   source:
     repository: cunnie/sslip.io-dns-server
+    username: cunnie
+    password: ((docker_token))
+    tag: latest
+
+# Where we will push the fedora-golang-bosh Docker image
+- name: fedora-golang-bosh
+  type: registry-image
+  icon: docker
+  source:
+    repository: cunnie/fedora-golang-bosh
     username: cunnie
     password: ((docker_token))
     tag: latest
@@ -85,5 +104,28 @@ jobs:
       run:
         path: build
   - put: sslip.io-nginx
+    params:
+      image: image/image.tar
+- name: build-and-push-fedora-golang-bosh
+  plan:
+  - get: deployments
+    trigger: true
+  - task: build-task-image
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: vito/oci-build-task
+      inputs:
+      - name: deployments
+      outputs:
+      - name: image
+      params:
+        CONTEXT: deployments/ci
+      run:
+        path: build
+  - put: fedora-golang-bosh
     params:
       image: image/image.tar

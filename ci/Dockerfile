@@ -15,7 +15,6 @@ RUN dnf update -y; \
   dnf install -y \
     bind-utils \
     binutils \
-    bnet-tools \
     btrfs-progs \
     direnv \
     etcd \
@@ -47,8 +46,7 @@ RUN dnf update -y; \
     zsh-lovers \
     zsh-syntax-highlighting \
   ; \
-  gem install yajl-ruby; \
-  ln -s /usr/bin/fdfind /usr/bin/fd
+  /usr/bin/gem install yajl-ruby
 
 RUN mkdir ~/workspace; \
   cd ~/workspace; \
@@ -59,7 +57,7 @@ RUN mkdir ~/workspace; \
   echo 'alias z='fasd_cd -d'     # cd, same functionality as j in autojump' >> ~/.zshrc \
 EOF
 
-RUN  echo "" | SHELL=/usr/bin/zsh zsh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; \
+RUN  echo "" | SHELL=/usr/bin/zsh /usr/bin/zsh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; \
     sed -i 's/robbyrussell/agnoster/' ~/.zshrc; \
     echo 'export EDITOR=nvim' >> ~/.zshrc; \
     echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc
@@ -83,8 +81,6 @@ RUN curl -L https://go.dev/dl/go1.18.1.linux-$TARGETARCH.tar.gz | tar xzf - -C /
 
 ENV PATH="$PATH:/usr/local/go/bin"
 
-RUN GOBIN=/usr/local/go/bin /usr/local/go/bin/go install github.com/onsi/ginkgo/v2/ginkgo@latest; \
-  /usr/local/go/bin/go get github.com/onsi/ginkgo/v2; \
-  /usr/local/go/bin/go get github.com/onsi/gomega/...
+RUN GOBIN=/usr/local/go/bin /usr/local/go/bin/go install github.com/onsi/ginkgo/v2/ginkgo@latest
 
 CMD [ "/usr/bin/zsh" ]
