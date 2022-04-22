@@ -17,7 +17,7 @@ resources:
   source:
     uri: https://github.com/cunnie/sslip.io.git
     paths:
-    - k8s/document_root
+    - k8s/document_root_sslip.io
 
 # The repo with our fedora-golang-bosh Dockerfile
 - name: deployments
