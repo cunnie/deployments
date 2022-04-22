@@ -100,7 +100,7 @@ jobs:
       - name: image
       params:
         CONTEXT: sslip.io-html/k8s/
-        DOCKERFILE: sslip.io-html/k8s/Dockerfile-nginx
+        DOCKERFILE: sslip.io-html/k8s/Dockerfile-sslip.io-nginx
       run:
         path: build
   - put: sslip.io-nginx
