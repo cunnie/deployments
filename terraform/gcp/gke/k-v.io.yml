@@ -46,7 +46,7 @@ spec:
         - name: ETCD_LISTEN_PEER_URLS
           value: https://0.0.0.0:2380
         - name: ETCD_LISTEN_CLIENT_URLS
-          value: https://0.0.0.0:2379
+          value: http://0.0.0.0:2379
         - name: ETCD_INITIAL_ADVERTISE_PEER_URLS
           value: https://ns-gce.sslip.io:2380
         - name: ETCD_INITIAL_CLUSTER
