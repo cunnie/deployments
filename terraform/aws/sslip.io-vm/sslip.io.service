@@ -2,10 +2,10 @@
 Description=sslip.io DNS server
 Documentation=https://sslip.io/
 
-After=systemd-networkd.service
+After=etcd.service
 
 [Service]
-## Give 5 seconds to acquire IP address
+## Give 5 seconds for etcd to come up
 ExecStartPre=/usr/bin/sleep 5
 ExecStart=/usr/bin/sslip.io-dns-server
 Restart=on-failure
