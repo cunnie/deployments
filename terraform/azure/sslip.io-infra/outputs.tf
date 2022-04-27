@@ -9,3 +9,7 @@ output "network_interface_id" {
 output "azurerm_storage_account_primary_blob_endpoint" {
   value = azurerm_storage_account.sslip_io.primary_blob_endpoint
 }
+
+output "managed_disk_id" {
+  value = azurerm_managed_disk.sslip_io.id
+}

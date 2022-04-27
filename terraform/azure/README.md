@@ -9,6 +9,16 @@ terraform apply
 terraform output > ../sslip.io-vm/infra.auto.tfvars
 ```
 
+#### One-time initialization of etcd-data disk
+
+Attach disk from Azure console
+
+```
+sudo parted /dev/sdc mklabel gpt
+sudo parted /dev/sdc mkpart primary 2048s 100%
+sudo mkfs -t ext4 /dev/sdc1 # remember; it's mounted in /var/lib/etcd
+```
+
 #### Create VM ns-azure
 
 ```shell

@@ -28,6 +28,11 @@ variable "network_interface_id" {
   description = "id of the network interface"
 }
 
+variable "managed_disk_id" {
+  type        = string
+  description = "id of the managed disk (persistent disk for etcd data)"
+}
+
 variable "admin_password" {
   type        = string
   description = "password of the admin user for provisioning"
@@ -76,6 +81,13 @@ resource "azurerm_linux_virtual_machine" "sslip_io" {
   boot_diagnostics {
     storage_account_uri = var.azurerm_storage_account_primary_blob_endpoint
   }
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "sslip_io" {
+  managed_disk_id    = var.managed_disk_id
+  virtual_machine_id = azurerm_linux_virtual_machine.sslip_io.id
+  lun                = "10"
+  caching            = "ReadWrite"
 }
 
 output "public_ip" {
