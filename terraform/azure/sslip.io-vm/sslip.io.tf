@@ -38,7 +38,7 @@ variable "azurerm_storage_account_primary_blob_endpoint" {
   description = "Storage Account Blob Endpoint"
 }
 
-data "template_cloudinit_config" "sslip_io" {
+data "cloudinit_config" "sslip_io" {
   gzip          = true
   base64_encode = true
   part {
@@ -58,7 +58,7 @@ resource "azurerm_linux_virtual_machine" "sslip_io" {
   admin_username                  = "adminuser"
   admin_password                  = var.admin_password
   disable_password_authentication = false
-  custom_data                     = data.template_cloudinit_config.sslip_io.rendered
+  custom_data                     = data.cloudinit_config.sslip_io.rendered
 
   os_disk {
     name                 = "sslip.io"
