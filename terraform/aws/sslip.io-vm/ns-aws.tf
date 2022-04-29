@@ -54,12 +54,8 @@ resource "aws_key_pair" "sslip_io" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDksYxt4WhOyDZA/5jtY68Jp1NXDwj5yTiXvu5e0htyt1Z+oyp2exiNiiHcZ49e/DIb/+pLopxZJXndM+osYex7MuJ5Z2NLc9Dymj+zGKbfDatflcyNcqULA+Dtl4wrfEFWhZC0WoHY7f94MtszW0kU4jSuiP0IkQGw47XrsPe8irwQJK1O8mj5ygm6dsMcSRUV0fItltXGLQ95ANxg2YLOL9Kpbul2c6s08qcWJ35QBHTZyBP8Hryb2CkUdbW6sJCv5GuQ9DG0D2q5kYpSsznd3tnvl7AC3nUI4ENFaYF9LlYp28ohRG2LHl6A/r3u8ghYqSH5Qz4PV4CxX/Z0EEoSXflFWgYedb/5nYsEkly0DOpmOULqkobJg8ki3gBOzL5LEO8uI6uGzJz5XSbRzSDSTDPpUxcm5I5OA9kVTSq1jE7wxn4IA6kd1UvXRc2w/yxMa43W0L22lWHJjFIIbrYe6ymy6IxMmKLJpdh38aRXv7PzCM+rUmnm4Fpcko9xF68= brian.cunnie@gmail.com"
 }
 
-# remember, the user is "fedora" not "ec2-user"
-#
-# ssh -i ~/.ssh/aws fedora@w.x.y.z
-# curl https://raw.githubusercontent.com/cunnie/bin/master/install_sslip_io_worker.sh | bash -x
 resource "aws_instance" "sslip_io" {
-  ami           = "ami-0d98116e3cfbaaa2d" # "Ubuntu 21.10 - Impish (Arm)"
+  ami           = "ami-065e36ba0c5d7ccc6" # "Ubuntu 22.04 - Jammy Jellyfish (arm64)"
   key_name      = aws_key_pair.sslip_io.key_name
   instance_type = "t4g.micro"
   root_block_device {
