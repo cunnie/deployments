@@ -62,7 +62,6 @@ bosh \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/windows2019-cell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-windows2019-stemcell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-online-windows2019fs.yml \
-  -o $DEPLOYMENTS_DIR/../cf-deployment/operations/experimental/use-bionic-stemcell.yml \
   -o $DEPLOYMENTS_DIR/cf/letsencrypt.yml \
   -o $DEPLOYMENTS_DIR/cf/haproxy-on-ipv6.yml \
   -o $DEPLOYMENTS_DIR/cf/override-app-domain.yml \
@@ -71,7 +70,6 @@ bosh \
   --var-file=star_cf_nono_io_crt=$HOME/.acme.sh/\*.cf.nono.io/fullchain.cer \
   --var-file=star_cf_nono_io_key=$HOME/.acme.sh/\*.cf.nono.io/\*.cf.nono.io.key \
 
-  # -o $DEPLOYMENTS_DIR/../cf-deployment/operations/experimental/use-bionic-stemcell.yml \
   # -o $DEPLOYMENTS_DIR/../cf-deployment/operations/windows2019-cell.yml \
   # -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-windows2019-stemcell.yml \
   # -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-online-windows2019fs.yml \
