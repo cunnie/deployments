@@ -905,6 +905,103 @@ instance_groups:
       local_dns:
         enabled: true
         use_dns_addresses: true
+      metrics_server:
+        enabled: true
+        tls:
+          ca: |
+            -----BEGIN CERTIFICATE-----
+            MIIEdTCCAt2gAwIBAgIQXyKxHEBaYB3k4w/f7AyL6jANBgkqhkiG9w0BAQsFADBE
+            MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxHDAaBgNVBAMT
+            E2Jvc2gtbWV0cmljcy1zZXJ2ZXIwHhcNMjIwNTIzMjIxMDQwWhcNMjMwNTIzMjIx
+            MDQwWjBEMQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxHDAa
+            BgNVBAMTE2Jvc2gtbWV0cmljcy1zZXJ2ZXIwggGiMA0GCSqGSIb3DQEBAQUAA4IB
+            jwAwggGKAoIBgQCkqryZCDb+F7mpSM9tl5E+RZxiocGnmCeJ91gXeY2GfilWIYHJ
+            3fAzT27tndRz0NdBHVKSsX2P0ejmYKujcT1lUSEypRh0LsGQWovPhBhz7dTpbVBM
+            /c1h7OCulURLQLNZwOMn5hTpTGpY59KPcJMjr2wI+XxN766rmHGOAnJUS86V5Nbs
+            NINS0S2SUv3mJE2YWaSqh2b7gfXKRKUxMVWTQcOtIoXHxDnKjQE1drmeXmZvXb5/
+            5k9MGfBi3tW0/mWcmNDh+NEg4+/ojbA2tsHaZAqL0jf8MSq6kEEDZnIaZu8Syd76
+            ayMgL5H10R8EZ+D6pf/FS9zSsneBueT20BV+TNdmm987fsMYgyFiG8jAxHiIkLu/
+            yup5tdk5/8bDrBg6S65OiSfx7hzx5tgL7lJm4LRHLcwKNotwlaZzsTzecioi3lpq
+            cnzvrFdzCX7AQ4KtkZDsgxKLhUgHJ9/v44eUPRBS7ImetwzARlymZhLW6rKNE30Z
+            E8Yunv66UuTgTx8CAwEAAaNjMGEwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQF
+            MAMBAf8wHQYDVR0OBBYEFJqabhuPs6KRjiru4bPUmqns/59pMB8GA1UdIwQYMBaA
+            FJqabhuPs6KRjiru4bPUmqns/59pMA0GCSqGSIb3DQEBCwUAA4IBgQAthWJ8Rgg4
+            rxaUP5ForPmgPGuHA45W6x1dtKYqKeliI1PVHpJUP0wsGPBvqScuqyflNtjpyI82
+            Fpm/ZlLUBCSMYcvZE6kR64dawyT7R6x1vu2A160/Oe+zlz4AxUqsC+KG2AWcufpm
+            B60S70OesEEADMZRdnUGUvhDR9jzBgnUnbxIE48Ew+a6ZwtXuC0ELUTpkiKkv9wL
+            B3VGX95AueF0KKwqR+OOJ5L5Phrkmv+pMF+a1P7pMdssfVUf6GxCRC22NbS1Dvjl
+            bwNnPbvigjJgapa4DR3PM2Ibjg1LhfQ3/nNB8MRatfDODQRALgctM+/YtO79DHOz
+            81Hdge5BOedOalC8r12TRiV47WVZ3+3NUmi3JEvkQK5IteRA55WpjqlGwwZH5WTv
+            IROZe/85QJZ5BB1G6ABGCPCRotZPvsk0Su2xOpX1wp16ozBRlu844+Zs2/iGOjqj
+            S9So2rEe7HDpo+LnGUiopHoRHuOLuLXvJ9tVEpWutuGJ2j1joy1yJtE=
+            -----END CERTIFICATE-----
+          certificate: |
+            -----BEGIN CERTIFICATE-----
+            MIIEfDCCAuSgAwIBAgIQKb8lH1e8yeP2vdgzaRYTXDANBgkqhkiG9w0BAQsFADBE
+            MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxHDAaBgNVBAMT
+            E2Jvc2gtbWV0cmljcy1zZXJ2ZXIwHhcNMjIwNTIzMjIxMDQwWhcNMjMwNTIzMjIx
+            MDQwWjAmMQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkwggGi
+            MA0GCSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQDYE6TzPaVb5+Y12Zbs80a6OQpX
+            1fQxWsGoLkaNhcvkG7Kuqk41l+nb7qXxVjqU08fZPH4XxkZtxjlghz71spFiLQP3
+            8qXOUJ5JXYZ0yUpaxDpbuswuuz9ibftqMqHMkL3dwskqjCptde5fouRHmyisu3qB
+            N/ljOBEiz7HOtpvBNZRm/Z3NvwmlSXV3CY1DNFmSJ9DjwhsEjySblUuCnr4WSAF1
+            YtGofGo6qUxKS+9Cx3wvw6UfnNbbE4Np3uIe28C7Q2uGfJLSa8sGGFIg8r+9l+8v
+            99JXBArnQPQBVMa9KGMFHXOPzXMnUPbVHSx+JGILpV2Acpu7rYX03dUVszf/yOQ1
+            R7o8zTjpDqyBHD+boUPhBeU8xJg2m2d+JKQ4adcsl33pyeXXKROtgOVyxfachEJA
+            YzsSUkcBrwTerxB/GqeoCjeYCNmERFtpkhbLnqUdiBNOOf/ozDP+sU3h7opyzHDc
+            s9SVGjzxUvbiGD3enlFxhzK8XKKSWApStC3PNp8CAwEAAaOBhzCBhDAOBgNVHQ8B
+            Af8EBAMCBaAwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDAYDVR0TAQH/BAIwADAdBgNV
+            HQ4EFgQUE3xz0KLNozFooZx0JTSzUpF/54YwHwYDVR0jBBgwFoAUmppuG4+zopGO
+            Ku7hs9Saqez/n2kwDwYDVR0RBAgwBocECgIA+jANBgkqhkiG9w0BAQsFAAOCAYEA
+            kdhj4AdxilY/R9PQRyW8p7fhz2dgNEHrmSP9kEK07Dv44pmtwJQ9ixFc1is+i65A
+            4dgFgECUUKgp6Dvirq5uUbeFaHjltLn++A4yWsth9dGoZOEE1o8lJsfxNZ4Tojil
+            TmqDlQ1qK+4SAzHBYc3Hy6GkfvBc2mG1YQSZw/eM9qJzjdb7OeGbfcQ+nOQGBmpB
+            mS0gl3TcoAun7KOtHOwXt0T/BvIx6TVu8aJd7cVNoWqYW1Cz/lauTvrLogSZSXZ8
+            3kokV9jztLu5T7uBBoVZju+C2wblR4OF6U3k4N2aLhJ/V2WtkH1PoHd8V+ZWHfMz
+            De2c5nzn7amEX+LuzpBccMKSc+sYlC6SJ1CCLtFN+QAmtARrNel4yHpot3K3fD1Q
+            xNTYuBJVSxYUaosB2eVLqvwYTaX3gQxrV41ax7RjFBmomgrZQkxiHlCHPeYX2Kmn
+            McrFP5wBSfzVmV4flDRWw7/DDQgqqzaDQm36/NFLKuQ3AZb4nFT5FjnjgAYZhiHN
+            -----END CERTIFICATE-----
+          private_key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            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
+            -----END RSA PRIVATE KEY-----
       name: bosh-vsphere
       ssl:
         cert: |
@@ -1405,13 +1502,13 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-272.3.0-ubuntu-bionic-1.84-20220519-000807-57655415-20220519000808.tgz
   version: 272.3.0
 - name: bpm
-  sha1: baa08efd217b058422406816f30e6201064492b4
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.17-ubuntu-bionic-1.84-20220517-124922-44230527-20220517124924.tgz
-  version: 1.1.17
+  sha1: b036e3a481ce56ff81b4ba07b6904f5e2df7f48f
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.18-ubuntu-bionic-1.84-20220520-170944-78548253-20220520170946.tgz
+  version: 1.1.18
 - name: bosh-vsphere-cpi
-  sha1: e62604d5af353cac110fb455a8679abef53950d2
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=73
-  version: 73
+  sha1: 8c2725ec2dc1eaa02b17e23bfdf68cad4e7a98ab
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=74
+  version: 74
 - name: os-conf
   sha1: 386293038ae3d00813eaa475b4acf63f8da226ef
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
@@ -1433,9 +1530,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=39.0.0
   version: 39.0.0
 - name: bosh-google-cpi
-  sha1: 7182bf05687b040e710e96cefa48801481cf722f
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=42.0.0
-  version: 42.0.0
+  sha1: adf52ffc2fb832cd24c54f14709c4c0935c071a0
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=43.0.0
+  version: 43.0.0
 resource_pools:
 - cloud_properties:
     cpu: 2

@@ -36,6 +36,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/bpm.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/enable-metrics.yml \
   \
   -o etc/common.yml \
   -o etc/multicpi.yml \
