@@ -22,24 +22,24 @@
 - path: /instance_groups/name=log-api/stemcell?
   type: replace
   value: jammy
-# - path: /instance_groups/name=log-cache/stemcell?
-#   type: replace
-#   value: jammy
-# - path: /instance_groups/name=nats/stemcell?
-#   type: replace
-#   value: jammy
-# - path: /instance_groups/name=router/stemcell?
-#   type: replace
-#   value: jammy
+- path: /instance_groups/name=log-cache/stemcell?
+  type: replace
+  value: jammy
+- path: /instance_groups/name=nats/stemcell?
+  type: replace
+  value: jammy
+- path: /instance_groups/name=router/stemcell?
+  type: replace
+  value: jammy
 # - path: /instance_groups/name=scheduler/stemcell?
 #   type: replace
 #   value: jammy
 # - path: /instance_groups/name=singleton-blobstore/stemcell?
 #   type: replace
 #   value: jammy
-# - path: /instance_groups/name=tcp-router/stemcell?
-#   type: replace
-#   value: jammy
-# - path: /instance_groups/name=uaa/stemcell?
-#   type: replace
-#   value: jammy
+- path: /instance_groups/name=tcp-router/stemcell?
+  type: replace
+  value: jammy
+- path: /instance_groups/name=uaa/stemcell?
+  type: replace
+  value: jammy
