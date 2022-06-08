@@ -120,9 +120,24 @@ vm_extensions:
       clusters:
       - cl:
           drs_rules:
-          - name: separate_mysql_dbs
+          - name: keep-mysql-on-different-hosts
             type: separate_vms
-  name: separate_mysql
+  name: anti-affinity-mysql
+- cloud_properties:
+    vmx_options:
+      cpuid.coresPerSocket: "2"
+  name: two-cores-per-socket
+- cloud_properties:
+    vmx_options:
+      disk.enableUUID: "1"
+  name: disk-enable-uuid
+- cloud_properties:
+    vmx_options:
+      ctkEnabled: "TRUE"
+      scsi0:0.ctkEnabled: "TRUE"
+      scsi0:1.ctkEnabled: "TRUE"
+      scsi0:2.ctkEnabled: "TRUE"
+  name: change-block-tracking
 vm_types:
 - cloud_properties:
     cpu: 1
@@ -141,26 +156,14 @@ vm_types:
   name: compilation
 - cloud_properties:
     cpu: 4
+    disk: 10240
+    ram: 4096
+  name: medium
+- cloud_properties:
+    cpu: 4
     disk: 65536
     ram: 8192
   name: concourse-workers
-- cloud_properties:
-    cpu: 2
-    disk: 11264
-    ram: 16384
-  name: small-highmem-low-cpu
-- cloud_properties:
-    cpu: 4
-    disk: 10240
-    ram: 4096
-    vmx_options:
-      disk.enableUUID: "1"
-      cpuid.coresPerSocket: "2"
-      ctkEnabled: "TRUE"
-      scsi0:0.ctkEnabled: "TRUE"
-      scsi0:1.ctkEnabled: "TRUE"
-      scsi0:2.ctkEnabled: "TRUE"
-  name: twoCoresPerSocket
 - cloud_properties:
     ephemeral_disk:
       use_root_disk: true

@@ -27,63 +27,56 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-- name: xenial-456
-  jobs: []
+- azs:
+  - vsphere
   instances: 1
-#  vm_type: default
-#  vm_type: micro
-  vm_type: small
+  jobs: []
+  name: xenial-456
+  networks:
+  - name: vsphere-guest
   stemcell: xenial-456
-#  azs: [z1]
-  azs: [vsphere]
-  networks:
-#  - name: default
-  - name: vsphere-guest
-- name: xenial
-  jobs: []
-  instances: 1
-#  vm_type: default
-#  vm_type: micro
   vm_type: small
+- azs:
+  - vsphere
+  instances: 1
+  jobs: []
+  name: xenial
+  networks:
+  - name: vsphere-guest
   stemcell: xenial
-#  azs: [z1]
-  azs: [vsphere]
-  networks:
-#  - name: default
-  - name: vsphere-guest
-- name: bionic
-  jobs: []
-  instances: 1
-#  vm_type: default
-#  vm_type: micro
+  vm_extensions:
+  # - two-cores-per-socket
+  # - disk-enable-uuid
+  - change-block-tracking
   vm_type: small
+- azs:
+  - vsphere
+  instances: 1
+  jobs: []
+  name: bionic
+  networks:
+  - name: vsphere-guest
   stemcell: bionic
-#  azs: [z1]
-  azs: [vsphere]
-  networks:
-#  - name: default
-  - name: vsphere-guest
-- name: jammy
-  jobs: []
+  vm_extensions:
+  - anti-affinity-mysql
+  vm_type: small
+- azs:
+  - vsphere
   instances: 1
-#  vm_type: default
-#  vm_type: micro
-  vm_type: compilation
+  jobs: []
+  name: jammy
+  networks:
+  - name: vsphere-guest
   stemcell: jammy
-#  azs: [z1]
-  azs: [vsphere]
-  networks:
-#  - name: default
-  - name: vsphere-guest
-- name: windows
-  jobs: []
+  vm_extensions:
+  - anti-affinity-mysql
+  vm_type: small
+- azs:
+  - vsphere
   instances: 1
-#  vm_type: default
-#  vm_type: micro
-  vm_type: compilation
-  stemcell: windows
-#  azs: [z1]
-  azs: [vsphere]
+  jobs: []
+  name: windows
   networks:
-#  - name: default
   - name: vsphere-guest
+  stemcell: windows
+  vm_type: compilation
