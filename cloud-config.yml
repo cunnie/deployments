@@ -113,6 +113,16 @@ networks:
     - 10.2.0.1-10.2.0.200
     - 10.2.0.251-10.2.0.255
   type: manual
+vm_extensions:
+- cloud_properties:
+    datacenters:
+    - name: dc
+      clusters:
+      - cl:
+          drs_rules:
+          - name: separate_mysql_dbs
+            type: separate_vms
+  name: separate_mysql
 vm_types:
 - cloud_properties:
     cpu: 1
