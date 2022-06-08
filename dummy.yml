@@ -16,6 +16,9 @@ stemcells:
 - alias: jammy
   os: ubuntu-jammy
   version: latest
+- alias: windows
+  os: windows2019
+  version: latest
 
 update:
   canaries: 0
@@ -67,6 +70,18 @@ instance_groups:
 #  vm_type: micro
   vm_type: compilation
   stemcell: jammy
+#  azs: [z1]
+  azs: [vsphere]
+  networks:
+#  - name: default
+  - name: vsphere-guest
+- name: windows
+  jobs: []
+  instances: 1
+#  vm_type: default
+#  vm_type: micro
+  vm_type: compilation
+  stemcell: windows
 #  azs: [z1]
   azs: [vsphere]
   networks:
