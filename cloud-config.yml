@@ -122,6 +122,7 @@ vm_extensions:
           drs_rules:
           - name: keep-mysql-on-different-hosts
             type: separate_vms
+          resource_pool: BOSH
   name: anti-affinity-mysql
 - cloud_properties:
     vmx_options:
