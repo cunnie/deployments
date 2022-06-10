@@ -4,6 +4,12 @@
     alias: jammy
     os: ubuntu-jammy
     version: latest
+# - path: /instance_groups/name=api/stemcell?
+#   type: replace
+#   value: jammy
+# - path: /instance_groups/name=cc-worker/stemcell?
+#   type: replace
+#   value: jammy
 # - path: /instance_groups/name=credhub/stemcell?
 #   type: replace
 #   value: jammy
@@ -13,12 +19,18 @@
 - path: /instance_groups/name=diego-api/stemcell?
   type: replace
   value: jammy
+# - path: /instance_groups/name=diego-cell/stemcell?
+#   type: replace
+#   value: jammy
 - path: /instance_groups/name=doppler/stemcell?
   type: replace
   value: jammy
 - path: /instance_groups/name=haproxy/stemcell?
   type: replace
   value: jammy
+# - path: /instance_groups/name=isolated-diego-cell/stemcell?
+#   type: replace
+#   value: jammy
 - path: /instance_groups/name=log-api/stemcell?
   type: replace
   value: jammy
