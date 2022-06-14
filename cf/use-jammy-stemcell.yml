@@ -1,3 +1,9 @@
+- path: /releases/name=capi?
+  type: replace
+  value:
+    name: capi
+    url: file:///home/cunnie/tmp/capi.tgz
+    version: latest
 - path: /stemcells/alias=jammy?
   type: replace
   value:
@@ -46,9 +52,9 @@
 # - path: /instance_groups/name=scheduler/stemcell?
 #   type: replace
 #   value: jammy
-# - path: /instance_groups/name=singleton-blobstore/stemcell?
-#   type: replace
-#   value: jammy
+- path: /instance_groups/name=singleton-blobstore/stemcell?
+  type: replace
+  value: jammy
 - path: /instance_groups/name=tcp-router/stemcell?
   type: replace
   value: jammy
