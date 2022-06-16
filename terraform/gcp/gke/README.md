@@ -170,7 +170,7 @@ These instructions are patterned after
 ```bash
 kubectl apply -f concourse.yml # creates LoadBalancer on port 2222 for external worker
 helm repo add concourse https://concourse-charts.storage.googleapis.com/
-helm install ci-nono-io concourse/concourse \
+helm install ci concourse/concourse \
   -f concourse-values.yml \
   --set secrets.githubClientSecret=$(lpass show --note deployments.yml | yq e .github_concourse_nono_auth_client_secret -) \
   --set secrets.hostKey="$(lpass show --note deployments.yml | yq e .tsa_host_key.private_key -)" \
@@ -178,6 +178,7 @@ helm install ci-nono-io concourse/concourse \
   --set secrets.workerKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
   --set secrets.workerKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0SIrGT+qIE7w8i67B/YDCfHINEU0LUP67SesaPaesq26rb/HHckPvBfRj+gCxKMvmTipUIVaQLBZlsPEMb+1V8xJBs2s4+9MU6QG6i7CEYTWyYlhVSDxU4HtwxGGnW9c5lASBB1jPkx2gWv0kgQYXQfrcbXSJ4fUtgdo0ZtePnXV7Qd30YUoR2fcuqEdAGg0S317V54vgeD2tfL04Qwhyu2Hbz4ZwTyhNe1YNcKET6v8ttRjVOIfMe+FF+JHqGJUiu5jygJ2p+29sm50JHEuxK+HjYpajmW8BRmXK7fIvDX24RDIs9ACZ+s+asEU8yEKkmdnFB5kUAukQWRuqUWYd worker@ci.nono.io" \
   --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .session_signing_key.private_key -)" \
+  --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
   --wait
 ```
 
@@ -200,7 +201,7 @@ kubectl apply -f k-v.io.yml
 ```bash
 helm repo update
 helm search repo concourse/concourse --versions # idle curiousity to see the latest version
-helm upgrade ci-nono-io concourse/concourse \
+helm upgrade ci concourse/concourse \
   -f concourse-values.yml \
   --set secrets.githubClientSecret=$(lpass show --note deployments.yml | yq e .github_concourse_nono_auth_client_secret -) \
   --set secrets.hostKey="$(lpass show --note deployments.yml | yq e .tsa_host_key.private_key -)" \
@@ -210,7 +211,7 @@ helm upgrade ci-nono-io concourse/concourse \
   --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
   --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
   --wait
-kubectl rollout restart deployment/ci-nono-io-web
+kubectl rollout restart deployment/ci-web
 ```
 
 ### Backing Up Concourse CI
@@ -219,15 +220,15 @@ kubectl rollout restart deployment/ci-nono-io-web
 
 ```bash
  # get the postgres user's password; the concourse user's is "concourse"
-kubectl get secret ci-nono-io-postgresql -o json \
+kubectl get secret ci-postgresql -o json \
   | jq -r '.data."postgresql-postgres-password"' \
   | base64 -d
-kubectl exec -it ci-nono-io-postgresql-0 -- bash
+kubectl exec -it ci-postgresql-0 -- bash
 pg_dump -Fc -U concourse concourse > /tmp/concourse.dump # password is "concourse"
 exit
   # after a recreate w/ pristine DB
-kubectl cp ci-nono-io-postgresql-0:/tmp/concourse.dump concourse.dump
-kubectl exec -it ci-nono-io-postgresql-0 -- bash
+kubectl cp ci-postgresql-0:/tmp/concourse.dump concourse.dump
+kubectl exec -it ci-postgresql-0 -- bash
 psql -U postgres concourse
   \dn; # only one schema, "public"
   drop schema public cascade;
@@ -349,7 +350,7 @@ Update our Concourse server with the new secret:
 ```bash
 helm repo update
 helm search repo concourse/concourse --versions # idle curiousity to see the latest version
-helm upgrade ci-nono-io concourse/concourse \
+helm upgrade ci concourse/concourse \
   -f concourse-values.yml \
   --set secrets.githubClientSecret=$(lpass show --note deployments.yml | yq e .github_concourse_nono_auth_client_secret -) \
   --set secrets.hostKey="$(lpass show --note deployments.yml | yq e .tsa_host_key.private_key -)" \
