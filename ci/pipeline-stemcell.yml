@@ -1,4 +1,4 @@
-# fly -t nono sp -p stemcell -c ~/workspace/deployments/ci/pipeline_stemcell.yml -l <(lpass show --note deployments.yml)
+# fly -t nono sp -p stemcell -c ~/workspace/deployments/ci/pipeline-stemcell.yml -l <(lpass show --note deployments.yml)
 # fly -t nono expose-pipeline -p stemcell
 # fly -t nono unpause-pipeline -p stemcell
 

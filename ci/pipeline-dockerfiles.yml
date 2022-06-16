@@ -1,4 +1,6 @@
 # fly -t nono sp -p dockerfiles -c pipeline-dockerfiles.yml
+# fly -t nono ep -p dockerfiles
+# fly -t nono up -p dockerfiles
 
 resources:
 # The repo with our sslip.io executable

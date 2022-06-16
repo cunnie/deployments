@@ -1,4 +1,6 @@
-# fly -t nono sp -p ozymandias-pipeline -c pipeline-ozymandias.yml
+# fly -t nono set-pipeline     -p ozymandias-pipeline -c pipeline-ozymandias.yml
+# fly -t nono unpause-pipeline -p ozymandias-pipeline
+# fly -t nono expose-pipeline  -p ozymandias-pipeline
 #
 # Pipeline to periodically check Concourse-Vault
 # integration via secret interpolation
