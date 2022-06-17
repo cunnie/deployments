@@ -139,6 +139,14 @@ vm_extensions:
       scsi0:1.ctkEnabled: "TRUE"
       scsi0:2.ctkEnabled: "TRUE"
   name: change-block-tracking
+- cloud_properties:
+    # the following does *not* work
+    vmx_options:
+      virtualHW.version: "17"
+      acpi.smbiosVersion2.7: "FALSE"
+      vmxnet3.serialNumberV2: "FALSE"
+      precisionclock0.present: "TRUE"
+  name: precision-clock
 vm_types:
 - cloud_properties:
     cpu: 1
@@ -148,7 +156,7 @@ vm_types:
 - cloud_properties:
     cpu: 2
     disk: 10240
-    ram: 8192
+    ram: 2048
   name: small
 - cloud_properties:
     cpu: 4

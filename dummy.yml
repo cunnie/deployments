@@ -47,7 +47,8 @@ instance_groups:
   vm_extensions:
   # - two-cores-per-socket
   # - disk-enable-uuid
-  - change-block-tracking
+  # - change-block-tracking
+  - precision-clock
   vm_type: small
 - azs:
   - vsphere
