@@ -1,0 +1,12 @@
+- path: /releases/name=capi?
+  type: replace
+  value:
+    name: capi
+    url: file:///home/cunnie/tmp/capi.tgz
+    version: latest
+- path: /stemcells/alias=default?
+  type: replace
+  value:
+    alias: default
+    os: ubuntu-xenial
+    version: latest
