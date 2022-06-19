@@ -59,7 +59,8 @@ instance_groups:
   - name: vsphere-guest
   stemcell: bionic
   vm_extensions:
-  - anti-affinity-mysql
+  - two-cores-per-socket
+  # - anti-affinity-mysql # Difficult to do ESXi maintenance; won't migrate off
   vm_type: small
 - azs:
   - vsphere
@@ -70,7 +71,8 @@ instance_groups:
   - name: vsphere-guest
   stemcell: jammy
   vm_extensions:
-  - anti-affinity-mysql
+  - disk-enable-uuid
+  # - anti-affinity-mysql # Difficult to do ESXi maintenance; won't migrate off
   vm_type: small
 - azs:
   - vsphere
