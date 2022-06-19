@@ -43,7 +43,7 @@ cpis:
       template_folder: bosh-vsphere-templates
       vm_folder: bosh-vsphere-vms
     # host: vcenter-67.nono.io # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
-    host: 10.0.9.70 # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
+    host: 10.9.9.70 # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
     password: ((vcenter_password))
     user: administrator@vsphere.local
   type: vsphere
