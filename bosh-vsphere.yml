@@ -1501,8 +1501,8 @@ releases:
   url: file:///home/cunnie/tmp/bosh.tgz
   version: latest
 - name: bpm
-  sha1: 5aa83d3130a422846a6c00696f506c5ec5f472f9
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.18-ubuntu-bionic-1.88-20220610-094658-40660082-20220610094700.tgz
+  sha1: 28e73644ece0a8aaab1064381fe8196ce9042356
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-1.1.18-ubuntu-bionic-1.90-20220621-164605-788075546-20220621164607.tgz
   version: 1.1.18
 - name: bosh-vsphere-cpi
   sha1: 874a21c8074e400870b6e3dbcb08fa7b3373821b
@@ -1513,13 +1513,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
   version: 22.1.2
 - name: uaa
-  sha1: 4b4f5891c310fab7a15bab6bea8c1c429c28e777
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.20.0-ubuntu-bionic-1.88-20220610-095051-740130846-20220610095058.tgz
+  sha1: cf8b4fe1acc0159c71e346c236e69d272d9829ba
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.20.0-ubuntu-bionic-1.90-20220621-103635-965404771-20220621103639.tgz
   version: 75.20.0
 - name: credhub
-  sha1: 3bca25ad322c74f7c3039d607ecdd2b1e2589d3a
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.5-ubuntu-bionic-1.88-20220610-100843-628206253-20220610100845.tgz
-  version: 2.12.5
+  sha1: 2a0646296ac7af31158e2ca58d4272c99281f3b3
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.6-ubuntu-bionic-1.90-20220623-011214-602471271-20220623011216.tgz
+  version: 2.12.6
 - name: bosh-aws-cpi
   sha1: 1b4d0f542faa1b8e6fd5aaae375073ecf7833291
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=93
@@ -1640,6 +1640,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 921aef4a2399992f05e90fb274ec93906d1bd74f
-    url: https://storage.googleapis.com/bosh-core-stemcells/0.1.10/bosh-stemcell-0.1.10-vsphere-esxi-ubuntu-jammy-go_agent.tgz
+    sha1: 71002ba4d45832bfaf238f97ed22bd38f7ff19c4
+    url: https://storage.googleapis.com/bosh-core-stemcells/1.90/bosh-stemcell-1.90-vsphere-esxi-ubuntu-bionic-go_agent.tgz
 variables: []

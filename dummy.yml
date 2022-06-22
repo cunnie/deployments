@@ -7,9 +7,6 @@ stemcells:
 - alias: bionic
   os: ubuntu-bionic
   version: latest
-- alias: xenial-456
-  os: ubuntu-xenial
-  version: latest
 - alias: xenial
   os: ubuntu-xenial
   version: latest
@@ -27,15 +24,6 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-- azs:
-  - vsphere
-  instances: 1
-  jobs: []
-  name: xenial-456
-  networks:
-  - name: vsphere-guest
-  stemcell: xenial-456
-  vm_type: small
 - azs:
   - vsphere
   instances: 1
