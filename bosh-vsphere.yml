@@ -276,6 +276,12 @@ instance_groups:
             override: true
             scope: ""
             secret: ((hm_password))
+          nats:
+            authorities: bosh.admin
+            authorized-grant-types: client_credentials
+            override: true
+            scope: ""
+            secret: dln0x42fkor3fxfk6s2o
           uaa_admin:
             authorities: uaa.admin
             authorized-grant-types: client_credentials
@@ -689,7 +695,7 @@ instance_groups:
           - time2.google.com
           - time3.google.com
           - time4.google.com
-      mbus: nats://nats:((nats_password))@73.189.219.4:4222
+      mbus: nats://73.189.219.4:4222
     aws:
       access_key_id: ((access_key_id))
       default_key_name: bosh_deployment_no_ecdsa
@@ -1149,6 +1155,38 @@ instance_groups:
       resurrector_enabled: false
     nats:
       address: 10.2.0.250
+      director_account:
+        ca_cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIEVDCCArygAwIBAgIRAND5bIZb91NP+9fytBEP2U8wDQYJKoZIhvcNAQELBQAw
+          MzEMMAoGA1UEBhMDVVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQD
+          EwJjYTAeFw0yMTEwMDMxNzMwNDFaFw0yMjEwMDMxNzMwNDFaMDMxDDAKBgNVBAYT
+          A1VTQTEWMBQGA1UEChMNQ2xvdWQgRm91bmRyeTELMAkGA1UEAxMCY2EwggGiMA0G
+          CSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQCecs04f2a/Sx7MRvB40fkcfXsv/Wsu
+          IZMbZoycsxGgx+Hqbg3ykhMPeu4xBuPsMLgfJP1zPGT9RWEjA2Rillx4Na/N4tcI
+          T+byQffP+4bPjm2UYVhgSi9lrUhDv1XIr0f7TqDyY9i6MPQaVx+LwjZqgOJdpaPx
+          yxHUY0LWjkH4On5dQsXivjWJhF+/NfUp2O9dOci9aknOptdmqbpOaVmtg+maR1yU
+          7Uugd1uVg0ahesnjcUdn7rAqayklPJleJSCLIGOJpdRs9aAmqupVT85jper+jege
+          LCAobyqeGvAHb3ZM2FXev8nNZ63atrrHDY2hP7T3E4c39hwRG+11541gR3VJLZZC
+          zrw1gcg+cMR/pRbsPyfU5BMgBDlCbgzia1MaLKBzxU1nuWa9Ikvy1DCwriNDfbyb
+          6L5ByP0bmBSFT901TEEbMpvtq4SoLv7hgMoA0rx/xA/ydTUUvGTOM9yTNl9fy+iI
+          wslkvA8IS3LI3nTOAjiGKNw4M4zXztjMDFcCAwEAAaNjMGEwDgYDVR0PAQH/BAQD
+          AgEGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFLYnwJQusIer9XdXVQwr4VRf
+          OGaFMB8GA1UdIwQYMBaAFLYnwJQusIer9XdXVQwr4VRfOGaFMA0GCSqGSIb3DQEB
+          CwUAA4IBgQAXIykeU8CSAeEyR704Ek/brD4EtSnx4DXSrD0b+KDph/rei9uwvGFH
+          DAwQISWq83V47XgOa6QSMBGBxmQ4crgx8KA0rpe2YgVrnRBQ/LZ8eWaSaz88TCZ2
+          5Y5x7dIYqo1xRkLvjqiKq3iEouZ0A43v/TR6s3uFVGMvLZ5zTAIrlKXgPxrecWUp
+          Tj2EYqfpV24Klof61bKcf5RMpDFnr4u/t6l/eq4WZcadjawhohY09iAsXSgvz/F+
+          0zpB+yT3J30kG9e6xPhL9YAyWpew9Mrf7Ric3yOHpWASh4upoBSuZYpgmGdcSUbZ
+          h85n1kSyQFQx9wdj/4ZgOhfli4bW6jzAR++U0ucktOPhnMwuSOCZYrwPuDcIgG+S
+          rg7u47BHRVA1vWvMq09ZLhyZyC3nNaVXynLOkWjlHXgAqtR7TeX5redOynfwNYSK
+          j1HvJy0ll6Xf3gS57QzVlUewCLTem+w/GzCYt2rBahAevUU6+o7tt9Tv12RpmfPG
+          gHDWvrkdEcc=
+          -----END CERTIFICATE-----
+        client_id: nats
+        client_secret: dln0x42fkor3fxfk6s2o
+        password: dln0x42fkor3fxfk6s2o
+        user: nats
       password: ((nats_password))
       tls:
         ca: |
@@ -1514,9 +1552,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
   version: 22.1.2
 - name: uaa
-  sha1: cf8b4fe1acc0159c71e346c236e69d272d9829ba
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.20.0-ubuntu-bionic-1.90-20220621-103635-965404771-20220621103639.tgz
-  version: 75.20.0
+  sha1: 1cf3ad13af7009b2aff379c81e8fbae5b6a13773
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-75.21.0-ubuntu-bionic-1.90-20220629-154544-03434725-20220629154549.tgz
+  version: 75.21.0
 - name: credhub
   sha1: 2a0646296ac7af31158e2ca58d4272c99281f3b3
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.6-ubuntu-bionic-1.90-20220623-011214-602471271-20220623011216.tgz

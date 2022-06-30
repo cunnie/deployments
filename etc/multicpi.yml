@@ -104,7 +104,7 @@
   value: https://((external_ip)):25250
 - type: replace
   path: /instance_groups/name=bosh/properties/agent/mbus
-  value: nats://nats:((nats_password))@((external_ip)):4222
+  value: nats://((external_ip)):4222
 
 # todo should not access non-defined vars
 - type: replace
