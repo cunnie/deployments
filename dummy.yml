@@ -1,11 +1,7 @@
 # bosh -d dummy deploy dummy.yml
 name: dummy
 
-releases:
-- name: "os-conf"
-  version: "22.1.2"
-  url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2"
-  sha1: "386293038ae3d00813eaa475b4acf63f8da226ef"
+releases: []
 
 stemcells:
 - alias: bionic
@@ -26,15 +22,6 @@ update:
   max_in_flight: 10
   canary_watch_time: 30000-600000
   update_watch_time: 5000-600000
-
-user_add_job: &user_add_job
-  name: user_add
-  properties:
-    users:
-    - name: cunnie
-      public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD
-        cunnie@nono.io
-  release: os-conf
 
 instance_groups:
 - azs:
@@ -84,35 +71,3 @@ instance_groups:
   - name: vsphere-guest
   stemcell: windows
   vm_type: compilation
-- azs:
-  - azure
-  instances: 1
-  jobs:
-  - *user_add_job
-  name: azure
-  networks:
-  - default:
-    - dns
-    - gateway
-    name: azure-private
-  - name: azure-public
-    static_ips:
-    - 20.43.176.123
-  stemcell: bionic
-  vm_type: standard_b1s
-- azs:
-  - aws
-  instances: 1
-  jobs:
-  - *user_add_job
-  name: aws
-  networks:
-  - default:
-    - dns
-    - gateway
-    name: aws-private
-  - name: aws-public
-    static_ips:
-    - 34.238.230.219
-  stemcell: bionic
-  vm_type: t3a.nano
