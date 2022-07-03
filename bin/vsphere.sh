@@ -29,6 +29,7 @@ EOF
 bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/vsphere/cpi.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/source-releases/bosh.yml \
   \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/vsphere/resource-pool.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
@@ -45,6 +46,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o etc/big-persistent-disk.yml \
   -o etc/disable-resurrector.yml \
   -o etc/big-ram.yml \
+  -o etc/use-jammy.yml \
   \
   --vars-file <(printf '{"uaa_jwt_signing_key":{"private_key":"((uaa_jwt_signing_key.private_key))","public_key":"((uaa_jwt_signing_key.public_key))"}}') \
   --vars-store=bosh-vsphere-creds.yml \
@@ -71,6 +73,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v hm_password='((hm_password))' \
   -v mbus_bootstrap_password='((mbus_bootstrap_password))' \
   -v nats_password='((nats_password))' \
+  -v nats_sync_password='((nats_sync_password))' \
   -v postgres_password='((postgres_password))' \
   -v registry_password='((registry_password))' \
   -v uaa_admin_client_secret='((uaa_admin_client_secret))' \
