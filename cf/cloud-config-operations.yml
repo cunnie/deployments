@@ -32,10 +32,10 @@
 - type: remove
   path: /vm_types/name=small
 
-# fixes "Error: Instance group 'haproxy' with network 'default' declares static ip '10.0.250.10', which belongs to no subnet"
+# fixes "Error: Instance group 'haproxy' with network 'default' declares static ip '10.9.250.10', which belongs to no subnet"
 - type: replace
   path: /networks/name=default/subnets/az=z1/static?
-  value: [10.0.250.10]
+  value: [10.9.250.10]
 
 # IPv6 network for HA Proxy
 - type: replace

@@ -2,25 +2,25 @@ z1_cluster: cl
 z1_resource_pool: CF
 z1_datacenter_name: dc
 z1_network_name: cf
-z1_network_gateway: 10.0.250.1
+z1_network_gateway: 10.9.250.1
 z1_network_dns_array: [8.8.8.8]
-z1_network_range: 10.0.250.0/24
-z1_network_reserved_array: [10.0.250.2]
+z1_network_range: 10.9.250.0/24
+z1_network_reserved_array: [10.9.250.2]
 
 z2_cluster: cl
 z2_resource_pool: CF
 z2_datacenter_name: dc
 z2_network_name: cf
-z2_network_gateway: 10.0.250.1
+z2_network_gateway: 10.9.250.1
 z2_network_dns_array: [8.8.8.8]
-z2_network_range: 10.0.250.0/24
-z2_network_reserved_array: [10.0.250.2]
+z2_network_range: 10.9.250.0/24
+z2_network_reserved_array: [10.9.250.2]
 
 z3_cluster: cl
 z3_resource_pool: CF
 z3_datacenter_name: dc
 z3_network_name: cf
-z3_network_gateway: 10.0.250.1
+z3_network_gateway: 10.9.250.1
 z3_network_dns_array: [8.8.8.8]
-z3_network_range: 10.0.250.0/24
-z3_network_reserved_array: [10.0.250.2]
+z3_network_range: 10.9.250.0/24
+z3_network_reserved_array: [10.9.250.2]
