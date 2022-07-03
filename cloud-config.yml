@@ -105,13 +105,13 @@ networks:
     cloud_properties:
       name: Guest
     dns:
-    - 10.2.0.1
+    - 10.9.2.1
     - 8.8.8.8
-    gateway: 10.2.0.1
-    range: 10.2.0.0/24
+    gateway: 10.9.2.1
+    range: 10.9.2.0/24
     reserved:
-    - 10.2.0.1-10.2.0.200
-    - 10.2.0.251-10.2.0.255
+    - 10.9.2.1-10.9.2.200
+    - 10.9.2.251-10.9.2.255
   type: manual
 vm_extensions:
 - cloud_properties:

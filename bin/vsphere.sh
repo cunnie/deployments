@@ -53,9 +53,9 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   --var-file commercial_ca_crt=etc/isrg-root-x1.pem \
   \
   -v director_name=bosh-vsphere \
-  -v internal_cidr=10.2.0.0/24 \
-  -v internal_gw=10.2.0.1 \
-  -v internal_ip=10.2.0.250 \
+  -v internal_cidr=10.9.2.0/24 \
+  -v internal_gw=10.9.2.1 \
+  -v internal_ip=10.9.2.250 \
   -v external_ip=73.189.219.4 \
   -v external_fqdn="bosh-vsphere.nono.io" \
   \
