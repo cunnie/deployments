@@ -43,7 +43,6 @@ bosh update-config \
   --type runtime \
   --name dns \
   -o $DEPLOYMENTS_DIR/cf/dns-on-cf-only.yml \
-  -o $DEPLOYMENTS_DIR/cf/use-2022-stemcell-addon.yml \
   $DEPLOYMENTS_DIR/../bosh-deployment/runtime-configs/dns.yml
 
 bosh \
@@ -68,7 +67,6 @@ bosh \
   -o $DEPLOYMENTS_DIR/cf/override-app-domain.yml \
   -o $DEPLOYMENTS_DIR/cf/diego-cells.yml \
   -o $DEPLOYMENTS_DIR/cf/use-jammy-stemcell.yml \
-  -o $DEPLOYMENTS_DIR/cf/use-2022-stemcell.yml \
   -v haproxy_private_ip=10.9.250.10 \
   --var-file=star_cf_nono_io_crt=$HOME/.acme.sh/\*.cf.nono.io/fullchain.cer \
   --var-file=star_cf_nono_io_key=$HOME/.acme.sh/\*.cf.nono.io/\*.cf.nono.io.key \
