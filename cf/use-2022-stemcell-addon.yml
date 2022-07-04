@@ -1,0 +1,4 @@
+- path: /addons/name=bosh-dns-windows/include/stemcell/-
+  type: replace
+  value:
+    os: windows2022
