@@ -3,6 +3,8 @@ concourse:
     externalUrl: https://ci.nono.io
     localAuth:
       enabled: false
+    kubernetes:
+      enabled: false
     vault:
       enabled: true
       url: https://vault.nono.io:443
