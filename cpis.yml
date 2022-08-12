@@ -43,7 +43,35 @@ cpis:
       template_folder: bosh-vsphere-templates
       vm_folder: bosh-vsphere-vms
     # host: vcenter-67.nono.io # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
+    enable_human_readable_name: true
     host: 10.9.9.70 # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
     password: ((vcenter_password))
     user: administrator@vsphere.local
+    nsxt:
+      ca_cert: |
+        -----BEGIN CERTIFICATE-----
+        MIIDcDCCAligAwIBAgIJALznlWbhJgXBMA0GCSqGSIb3DQEBCwUAMGIxDjAMBgNV
+        BAMMBW5zeC10MQwwCgYDVQQLDANOU1gxFDASBgNVBAoMC1ZNd2FyZSBJbmMuMRIw
+        EAYDVQQHDAlQYWxvIEFsdG8xCzAJBgNVBAgMAkNBMQswCQYDVQQGEwJVUzAeFw0y
+        MjA4MDgyMTI5NDVaFw0yNDExMTAyMTI5NDVaMGIxDjAMBgNVBAMMBW5zeC10MQww
+        CgYDVQQLDANOU1gxFDASBgNVBAoMC1ZNd2FyZSBJbmMuMRIwEAYDVQQHDAlQYWxv
+        IEFsdG8xCzAJBgNVBAgMAkNBMQswCQYDVQQGEwJVUzCCASIwDQYJKoZIhvcNAQEB
+        BQADggEPADCCAQoCggEBAN2fmk0tAgHiLIOaPtCTDBlIsXetKxuuej3BR10Wm9tk
+        Nq+stjEvJ/XLlOpY/D6cFwPbk52TCcGuNYzh91/dLr0YQFmVgwwx1HdXaTv0E2+E
+        wwZLWL6FVtdRoitd7Yu7eIcT6SXVsQdg3Nf+T3a8hlY7bNcM/n2oqQBM40as0E3B
+        Fisk3Iv5VBXI6VJsWs7ON4qZvxo/+yrvz4MuHvLKF+gVsSpLtsV/ffnJdZtTEblH
+        zNER427/l5CEP3h5662jtq34pz444msml9htLw7QVBJXrQ4x1aiNcgoMg8DWx4df
+        9t+MTjy3pE48PtPEQQlxTrnNrTqiYVQyQJUA2A6oo6UCAwEAAaMpMCcwEwYDVR0l
+        BAwwCgYIKwYBBQUHAwEwEAYDVR0RBAkwB4IFbnN4LXQwDQYJKoZIhvcNAQELBQAD
+        ggEBAF/jg/rRLL/PMWlo9RqOOcz4A2vbOMlspBgyGOSTGPNICMvejahryiI5sD7U
+        fbFA4B+DKeo53I71K8saJOhFSHEpA64a8QnJEr5TWKxKwWa8kZhXCZsIUEVg4LtY
+        K5kfZGHby6Y/V7LHf1kBCFq2E81+x2J1PhTOzmlbqeMZlx/3k/P1nqBXsXSYK9Mw
+        HWCx9gymhZCkN9D9HCu2NdXz98TnNaMObeE++Tox+4OJJSYW4AAzKrGjsKHJuTip
+        Ga7neFM/+Do22X6NiDo+TeqFx++v7/wEv0OCSzChq+Imcs3/2KAqqY5fMRsJMtCu
+        yRJ7n5AUZ5dcI5y/udK8jyE7j1I=
+        -----END CERTIFICATE-----
+      host: nsx-t.nono.io
+      password: Admin!23Admin
+      # use_policy_api: true
+      username: admin
   type: vsphere
