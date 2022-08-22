@@ -1,21 +1,21 @@
 {
     "director_id": "aabf2e91-f664-410b-5ca4-2e0bb3c93dcf",
     "installation_id": "9dbb0ef2-ff17-4a68-5f8b-343798085a14",
-    "current_vm_cid": "vm-10c209de-4da4-4af5-9396-9da5e678ddc7",
-    "current_stemcell_id": "079efb0e-7af3-4347-4da4-37002cf90f66",
+    "current_vm_cid": "vm-1b50a576-7a89-471b-bdde-4e5c7221e541",
+    "current_stemcell_id": "7b5cdb37-96c4-4d4a-6903-4ddf4b5f87a7",
     "current_disk_id": "a6a34ba9-f3a5-4ae4-47dd-16c3e4f5e4b5",
     "current_release_ids": [
-        "00ece7a7-afcc-4fa1-5235-90a9f44bce8c",
-        "a2e40d57-0674-4fe7-533b-361dffed554d",
-        "ffa773ae-d490-4ed1-44f3-74e2db4df323",
-        "96b1760a-d899-4494-59f8-d602081d8d17",
-        "4958c516-f289-4a0a-5299-a477841416e4",
-        "b48c8a1f-f560-426c-6fa8-c01ea3f12201",
-        "63d48bd9-2d23-45f5-6314-8718df25fb26",
-        "7df6acdc-e411-4786-76ad-1bd22e298fe5",
-        "251b4f7c-7452-4e80-790d-22942a1880f7"
+        "c24734b6-321e-4863-4367-8146716e3171",
+        "8a268c2a-b3f9-461c-435b-bb694d64f4a6",
+        "892f6e1d-2639-4574-623b-b2ef79bc80dd",
+        "1721bb75-269c-4504-516c-89b9ecd3324c",
+        "3af92517-9390-4d15-7ad8-565f269b54e8",
+        "e9653f23-9162-47de-6c90-401f2905d682",
+        "420ac99f-2979-43b0-701f-1cb53ef4e4a1",
+        "531499dd-8e6b-4a1e-61a0-57796c177c72",
+        "1401fa51-fe7f-4c79-4558-b10f029c6a2d"
     ],
-    "current_manifest_sha": "51c1c1d11a99f441d4787ba92284f29e85daaed347661add505a24d5b14559d9411b19dd85b78f30f20ed9d838e9c0d07ddf44c44f897e32cabd44361aa74697",
+    "current_manifest_sha": "eb8d797fd9342bb92407cc58a2c00a5c43eab00010f6214ab48b1339006bce50728132cc64ca65a7fe1385405521d1b94dda1c468990fd681a649758c59620b6",
     "disks": [
         {
             "id": "a6a34ba9-f3a5-4ae4-47dd-16c3e4f5e4b5",
@@ -26,56 +26,56 @@
     ],
     "stemcells": [
         {
-            "id": "079efb0e-7af3-4347-4da4-37002cf90f66",
+            "id": "7b5cdb37-96c4-4d4a-6903-4ddf4b5f87a7",
             "name": "bosh-vsphere-esxi-ubuntu-jammy-go_agent",
-            "version": "1.2",
+            "version": "1.8",
             "api_version": 3,
-            "cid": "sc-8a09951c-829a-401d-af72-5ac2d5a07a4e"
+            "cid": "sc-4187289a-c4a0-4713-ae28-41c32a4e014a"
         }
     ],
     "releases": [
         {
-            "id": "00ece7a7-afcc-4fa1-5235-90a9f44bce8c",
+            "id": "c24734b6-321e-4863-4367-8146716e3171",
             "name": "bosh",
-            "version": "273.0.0"
+            "version": "273.1.0"
         },
         {
-            "id": "a2e40d57-0674-4fe7-533b-361dffed554d",
+            "id": "8a268c2a-b3f9-461c-435b-bb694d64f4a6",
             "name": "bpm",
             "version": "1.1.18"
         },
         {
-            "id": "ffa773ae-d490-4ed1-44f3-74e2db4df323",
+            "id": "892f6e1d-2639-4574-623b-b2ef79bc80dd",
             "name": "bosh-vsphere-cpi",
-            "version": "76"
+            "version": "77"
         },
         {
-            "id": "96b1760a-d899-4494-59f8-d602081d8d17",
+            "id": "1721bb75-269c-4504-516c-89b9ecd3324c",
             "name": "os-conf",
             "version": "22.1.2"
         },
         {
-            "id": "4958c516-f289-4a0a-5299-a477841416e4",
+            "id": "3af92517-9390-4d15-7ad8-565f269b54e8",
             "name": "uaa",
-            "version": "75.22.0"
+            "version": "75.23.0"
         },
         {
-            "id": "b48c8a1f-f560-426c-6fa8-c01ea3f12201",
+            "id": "e9653f23-9162-47de-6c90-401f2905d682",
             "name": "credhub",
             "version": "2.12.8"
         },
         {
-            "id": "63d48bd9-2d23-45f5-6314-8718df25fb26",
+            "id": "420ac99f-2979-43b0-701f-1cb53ef4e4a1",
             "name": "bosh-aws-cpi",
             "version": "93"
         },
         {
-            "id": "7df6acdc-e411-4786-76ad-1bd22e298fe5",
+            "id": "531499dd-8e6b-4a1e-61a0-57796c177c72",
             "name": "bosh-azure-cpi",
             "version": "39.0.0"
         },
         {
-            "id": "251b4f7c-7452-4e80-790d-22942a1880f7",
+            "id": "1401fa51-fe7f-4c79-4558-b10f029c6a2d",
             "name": "bosh-google-cpi",
             "version": "43.0.0"
         }
