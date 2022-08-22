@@ -54,18 +54,18 @@ jobs:
     task: upload-stemcell
 # Can't upload heavy Jammy to AWS
 # `Error: CPI error 'Bosh::Clouds::CloudError' with message 'Timed out reading instance metadata, please make sure CPI is running on EC2 instance' in 'create_stemcell' CPI method (CPI request ID: 'cpi-140640')`
-# - name: upload-jammy-aws
-#   plan:
-#   - get: stemcell
-#     resource: stemcell-jammy-aws
-#     trigger: true
-#   - get: cunnie-deployments
-#   - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-#     params:
-#       BOSH_CLIENT: admin
-#       BOSH_CLIENT_SECRET: ((admin_password))
-#       BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-#     task: upload-stemcell
+- name: upload-jammy-aws
+  plan:
+  - get: stemcell
+    resource: stemcell-jammy-aws
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
 - name: upload-jammy-azure
   plan:
   - get: stemcell
@@ -175,10 +175,10 @@ resources:
   source:
     name: bosh-vsphere-esxi-ubuntu-bionic-go_agent
   type: bosh-io-stemcell
-# - name: stemcell-jammy-aws
-#   source:
-#     name: bosh-aws-xen-hvm-ubuntu-jammy-go_agent
-#   type: bosh-io-stemcell
+- name: stemcell-jammy-aws
+  source:
+    name: bosh-aws-xen-hvm-ubuntu-jammy-go_agent
+  type: bosh-io-stemcell
 - name: stemcell-jammy-azure
   source:
     name: bosh-azure-hyperv-ubuntu-jammy-go_agent
