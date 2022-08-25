@@ -1,5 +1,23 @@
 # deployments
+
 BOSH Deployment Manifests, Cloud Config, -state.json files
+
+### Cloud Foundry
+
+To deploy cf:
+
+```zsh
+bin/cf.sh
+cf api api.cf.nono.io
+cf login -u admmin
+cf create-space -o system system # don't worry if it's already created
+cf t -o system -s system
+ # CF Acceptance Tests req'ts
+cf enable-feature-flag diego_docker # necessary if you're running the Docker tests (`"include_docker": true`)
+cf create-security-group credhub <(echo '[{"protocol":"tcp","destination":"10.0.0.0/8","ports":"8443,8844","description":"credhub"}]')
+cf bind-running-security-group credhub
+cf bind-staging-security-group credhub
+```
 
 ## Credentials
 
