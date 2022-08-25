@@ -10,3 +10,5 @@ bosh-vsphere-ipv6-creds.yml
 concourse-worker.yml
 # don't check in releases, but keep the directory handy
 releases/
+# have a directory for "temporary" manifests while testing
+tmp/
