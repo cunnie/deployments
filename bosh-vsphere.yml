@@ -1158,33 +1158,6 @@ instance_groups:
     nats:
       address: 10.9.2.250
       director_account:
-        ca_cert: |
-          -----BEGIN CERTIFICATE-----
-          MIIEUzCCArugAwIBAgIQZTMSI1IG9yeI9KPwBLttJTANBgkqhkiG9w0BAQsFADAz
-          MQwwCgYDVQQGEwNVU0ExFjAUBgNVBAoTDUNsb3VkIEZvdW5kcnkxCzAJBgNVBAMT
-          AmNhMB4XDTIyMDcwMzAyNTQyNVoXDTIzMDcwMzAyNTQyNVowMzEMMAoGA1UEBhMD
-          VVNBMRYwFAYDVQQKEw1DbG91ZCBGb3VuZHJ5MQswCQYDVQQDEwJjYTCCAaIwDQYJ
-          KoZIhvcNAQEBBQADggGPADCCAYoCggGBALzJKwjOjBS2Y+NfxbWg8CXcLB6EC5Cx
-          s8saK0VHhFhLZGRISCafgpAxSAnjq+JvDr5zb9OfB2bo3gWHgdBBqIZeMKtI9akG
-          KsizxQz9LdZ3qwKJiRou13gdRoA5eeqhCGfEcGYRDngY/5rVBmWOLywVvdfAkpmb
-          ukKSMpAF33ANW6l2yM/JzoZ/Z2vUJ+A8AHV24L4boewLCL63hdOqzthc8o6M0ReG
-          eZUC423I4HMpkySM49/3sPQhgzv3CEasfaHSDHrEuVkJMaRkUa8/7V+kA0x+BZQl
-          vlbYdvYH6hC58rWkFbfZFWp1z0ryShyzYmBfTlxYPCOQ4L9uh6SbnQ2IfyIkKcQO
-          fC8voxqr+wLb5v4u5L5as8sLUF6UL+4XmAZ15V/7yeFY+xyButQTT5Zd79nUHWTP
-          j3+3EMAcnzWadgsHKfM3Z/fnM0RJlwaz2768tZkf7sqZlT4bz1AoQjoPP1T+WEEj
-          mm6AAap829psPoAPjdQ/odpMD3utv0af+wIDAQABo2MwYTAOBgNVHQ8BAf8EBAMC
-          AQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUYJ3ZPh4RQjgn+4RE0orSRxPl
-          +p0wHwYDVR0jBBgwFoAUYJ3ZPh4RQjgn+4RE0orSRxPl+p0wDQYJKoZIhvcNAQEL
-          BQADggGBAKbuEaYsfBdvyWSUCXXERuJlICCtmUdGSRy5czLFPc2cksJe8pHqu6Kr
-          fkRJYucPWxhvp3NgBK7zLVIq2zSMLXoinpXTU9XgTt2NzCLwAOyYsEAdP5TUY9vW
-          +UMPxfG+4qcHGIFucxqwQCI9UAfYlP+N7j4l6chL5SeAcsyqMqRy+o+KiucATTBS
-          fv1XdCu65lxXAUqdZ/OiZNu826hcGc3LAIF8DmUcPcNggjwRC/vt22FwKvLCbsiC
-          VJepa8YKpIGVWy31KlpLsuYBgrp3K+d6smDefNHM9DiuzqtgRixhBo6lyugqFOAv
-          GI6EL9v/vpvFCgXFsEKbhOfZp7/KO7VlVMD/ONrF9GXRZFYeFkSGGbLt31m9ENY/
-          Bg3CRuMxIBptcZeBX9i4xNTmZScK5M/4tpNx01jZO4ZMZR1Qx3d8O7t+Zo3lq/jp
-          S6g4vvuMUcTLTcswiEx+mLCtNX0H2GDzONvLPD/Fom3gVS9y2bElNUNeOL7XNLX9
-          R1CtNnzupA==
-          -----END CERTIFICATE-----
         client_id: nats
         client_secret: ((nats_sync_password))
         password: ((nats_sync_password))
@@ -1542,9 +1515,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=274.0.0
   version: 274.0.0
 - name: bpm
-  sha1: 86675f90d66f7018c57f4ae0312f1b3834dd58c9
-  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.18
-  version: 1.1.18
+  sha1: 669baca975c6def518c7e736dbf189cfb438475b
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.19
+  version: 1.1.19
 - name: bosh-vsphere-cpi
   sha1: 01ddcf2be5788775068f5e451e973399ca6e974d
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=79

@@ -64,3 +64,5 @@
 - type: replace
   path: /instance_groups/name=bosh/properties/hm/director_account/ca_cert?
   value: ((commercial_ca_crt))
+- type: remove
+  path: /instance_groups/name=bosh/properties/nats/director_account/ca_cert
