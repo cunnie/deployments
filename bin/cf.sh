@@ -71,8 +71,15 @@ bosh \
   --var-file=star_cf_nono_io_crt=$HOME/.acme.sh/\*.cf.nono.io/fullchain.cer \
   --var-file=star_cf_nono_io_key=$HOME/.acme.sh/\*.cf.nono.io/\*.cf.nono.io.key \
 
-  # -o $DEPLOYMENTS_DIR/../cf-deployment/operations/windows2019-cell.yml \
-  # -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-windows2019-stemcell.yml \
-  # -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-online-windows2019fs.yml \
-  # -o $DEPLOYMENTS_DIR/cf/use-latest-routing-and-garden-and-pxc.yml \
-  # -o $DEPLOYMENTS_DIR/cf/use-jammy-stemcell.yml \
+ # post-install setup
+cf api api.cf.nono.io # or whatever your Cloud Foundry's API endpoint is
+cf auth admin $(bosh int --path=/cf_admin_password <(lpass show --note cf.yml))
+cf login -u admin
+cf create-space -o system system # don't worry if it's already created
+cf t -o system -s system
+ # The following is needed for Docker-related CF Acceptance test to pass
+cf enable-feature-flag diego_docker # necessary if you're running the Docker tests (`"include_docker": true`)
+ # The following is needed for CredHub-related CF Acceptance test to pass
+cf create-security-group credhub <(echo '[{"protocol":"tcp","destination":"10.0.0.0/8","ports":"8443,8844","description":"credhub"}]')
+cf bind-running-security-group credhub
+cf bind-staging-security-group credhub
