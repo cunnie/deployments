@@ -74,7 +74,6 @@ bosh \
  # post-install setup
 cf api api.cf.nono.io # or whatever your Cloud Foundry's API endpoint is
 cf auth admin $(bosh int --path=/cf_admin_password <(lpass show --note cf.yml))
-cf login -u admin
 cf create-space -o system system # don't worry if it's already created
 cf t -o system -s system
  # The following is needed for Docker-related CF Acceptance test to pass
