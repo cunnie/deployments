@@ -10,7 +10,7 @@ resources:
   source:
     uri: https://github.com/cunnie/sslip.io.git
     paths:
-    - k8s
+    - src
 
 # The repo with our k-v.io nginx/HTML Dockerfile
 - name: k-v.io-html
