@@ -10,6 +10,9 @@ stemcells:
 - alias: xenial
   os: ubuntu-xenial
   version: latest
+- alias: xenial-456.298
+  os: ubuntu-xenial
+  version: 456.298
 - alias: jammy
   os: ubuntu-jammy
   version: latest
@@ -37,6 +40,15 @@ instance_groups:
   # - disk-enable-uuid
   # - change-block-tracking
   - precision-clock
+  vm_type: small
+- azs:
+  - vsphere
+  instances: 1
+  jobs: []
+  name: xenial-456.298
+  networks:
+  - name: vsphere-guest
+  stemcell: xenial-456.298
   vm_type: small
 - azs:
   - vsphere
