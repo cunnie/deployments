@@ -21,3 +21,7 @@
 - type: replace
   path: /instance_groups/name=haproxy/jobs/name=haproxy/properties/ha_proxy/v4v6?
   value: true
+# Replace the 1 vCPU 4 GiB with 4 vCPU 4 GiB
+- type: replace
+  path: /instance_groups/name=haproxy/vm_type?
+  value: medium

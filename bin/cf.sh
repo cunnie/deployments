@@ -65,6 +65,7 @@ bosh \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/experimental/use-jammy.yml \
   -o $DEPLOYMENTS_DIR/cf/letsencrypt.yml \
   -o $DEPLOYMENTS_DIR/cf/haproxy-on-ipv6.yml \
+  -o $DEPLOYMENTS_DIR/cf/router.yml \
   -o $DEPLOYMENTS_DIR/cf/override-app-domain.yml \
   -o $DEPLOYMENTS_DIR/cf/diego-cells.yml \
   -v haproxy_private_ip=10.9.250.10 \
