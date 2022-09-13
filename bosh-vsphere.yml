@@ -1511,9 +1511,9 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 1e911a8f79baa3fd911f20698a6c6c3992c76355
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=274.2.0
-  version: 274.2.0
+  sha1: 1b5157768f9618bb9fd91cdc56fe9b5d5acd9da5
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=274.3.0
+  version: 274.3.0
 - name: bpm
   sha1: 669baca975c6def518c7e736dbf189cfb438475b
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.19
