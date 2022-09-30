@@ -1527,13 +1527,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
   version: 22.1.2
 - name: uaa
-  sha1: 0cfe2ec783c9ad1de861d873f9c5e6cfb920f675
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.0.0-ubuntu-jammy-1.18-20220921-141451-277777927-20220921141454.tgz
-  version: 76.0.0
+  sha1: d095d3ed9084b6a059d232403e6f6c5802dc3c13
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.1.0-ubuntu-jammy-1.18-20220929-214833-545234357-20220929214836.tgz
+  version: 76.1.0
 - name: credhub
-  sha1: e574185587ee8f7d3bbf7f81eece4f0b747ebf83
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.8-ubuntu-jammy-1.18-20220921-141240-792816485-20220921141242.tgz
-  version: 2.12.8
+  sha1: 1cc3527c3a977124bc86d647966afd0dd1a5ee71
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.9-ubuntu-jammy-1.18-20220922-232938-389762893-20220922232940.tgz
+  version: 2.12.9
 - name: bosh-aws-cpi
   sha1: 1b4d0f542faa1b8e6fd5aaae375073ecf7833291
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=93
