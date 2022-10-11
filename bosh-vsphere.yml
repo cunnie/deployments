@@ -1553,6 +1553,10 @@ resource_pools:
     ram: 8192
   env:
     bosh:
+      blobstores:
+      - options:
+          blobstore_path: /var/vcap/micro_bosh/data/cache
+        provider: local
       mbus:
         cert:
           certificate: |
@@ -1650,6 +1654,11 @@ resource_pools:
             Dfvp7OOGAN6dEOM4+qR9sdjoSYKEBpsr6GtPAQw4dy753ec5
             -----END CERTIFICATE-----
           private_key: ((nono_io_key))
+      ntp:
+      - time1.google.com
+      - time2.google.com
+      - time3.google.com
+      - time4.google.com
       password: $6$cunnie$GbaS32DMXiaAGYbD/wmNRgJqjHeXnUsXBfp3MgyYntmxIk9XOxM/K3aIKBCCnFGvyc3kCFn61VqatGUEHAr.x/
   name: vms
   network: default
