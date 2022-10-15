@@ -2,6 +2,7 @@
 
 # To build
 
+# docker buildx build --platform=linux/amd64 -t cunnie/fedora-golang-bosh . # OR
 # docker build -t cunnie/fedora-golang-bosh .
 # docker push cunnie/fedora-golang-bosh
 
@@ -20,6 +21,7 @@ RUN dnf update -y; \
     etcd \
     fd-find \
     git \
+    golang \
     htop \
     iproute \
     iputils \
@@ -62,25 +64,20 @@ RUN  echo "" | SHELL=/usr/bin/zsh /usr/bin/zsh -c "$(curl -fsSL https://raw.gith
     echo 'export EDITOR=nvim' >> ~/.zshrc; \
     echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc
 
-RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.17/bosh-cli-6.4.17-linux-amd64 -o /usr/local/bin/bosh; \
-  chmod +x /usr/local/bin/bosh
+# amd64, arm64 (so I can run on AWS graviton2, natively on M1, M2 macs)
+ARG TARGETARCH
 
-RUN curl -o /etc/yum.repos.d/cloudfoundry-cli.repo -L https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo; \
-  dnf install -y cf7-cli
+RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v7.0.1/bosh-cli-7.0.1-linux-${TARGETARCH} -o /usr/local/bin/bosh; \
+  chmod +x /usr/local/bin/bosh
 
 RUN dnf install -y dnf-plugins-core; \
   dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo; \
   dnf -y install vault; \
   setcap -r /usr/bin/vault
 
-# amd64, arm64 (so I can run on AWS graviton2); future-proofing that I'll never need
-ARG TARGETARCH
-# I need the latest go (1.17), and Fedora 35 is pinned to 1.16
-# I'll need to manually update this, which is a pain
-RUN curl -L https://go.dev/dl/go1.18.1.linux-$TARGETARCH.tar.gz | tar xzf - -C /usr/local
+RUN curl -o /etc/yum.repos.d/cloudfoundry-cli.repo -L https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo; \
+  dnf install -y cf8-cli
 
-ENV PATH="$PATH:/usr/local/go/bin"
-
-RUN GOBIN=/usr/local/go/bin /usr/local/go/bin/go install github.com/onsi/ginkgo/v2/ginkgo@latest
+RUN GOBIN=/usr/local/bin go install github.com/onsi/ginkgo/v2/ginkgo@latest
 
 CMD [ "/usr/bin/zsh" ]
