@@ -1511,17 +1511,17 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 7cfabcfb3ba96497de49bcc1b2ca8ad32e855c98
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=274.4.0
-  version: 274.4.0
+  sha1: ff48e965c261fe71dda770e1e3f1fee34affc614
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=275.0.0
+  version: 275.0.0
 - name: bpm
   sha1: 669baca975c6def518c7e736dbf189cfb438475b
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.19
   version: 1.1.19
 - name: bosh-vsphere-cpi
-  sha1: 726f694c64bcdcf186c5b09b77a05de7beb40f1b
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=80
-  version: 80
+  sha1: 280237db744620a49779eda12fd64914f3e860c9
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=81
+  version: 81
 - name: os-conf
   sha1: 386293038ae3d00813eaa475b4acf63f8da226ef
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
