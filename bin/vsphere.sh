@@ -40,6 +40,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/enable-metrics.yml \
   \
   -o etc/common.yml \
+  -o etc/jumpbox_key.yml \
   -o etc/multicpi.yml \
   -o etc/TLS.yml \
   -o etc/human-readable-names.yml \
