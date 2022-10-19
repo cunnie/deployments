@@ -1,0 +1,65 @@
+# bosh ucc cloud-config.yml
+# 3,$!bosh int -
+azs:
+- cloud_properties:
+    datacenters:
+    - clusters:
+      - cl:
+          resource_pool: BOSH-PERF
+      name: dc
+  name: vsphere
+compilation:
+  az: vsphere
+  network: vsphere-guest
+  reuse_compilation_vms: true
+  vm_type: compilation
+  workers: 15
+disk_types:
+- disk_size: 1024
+  name: default
+- disk_size: 1024
+  name: 1G
+- disk_size: 2048
+  name: 2G
+- disk_size: 3072
+  name: 3G
+- disk_size: 4096
+  name: 4G
+- disk_size: 5120
+  name: 5G
+- disk_size: 6144
+  name: 6G
+- disk_size: 65536
+  name: 64G
+networks:
+- name: vsphere-guest
+  subnets:
+  - azs:
+    - vsphere
+    cloud_properties:
+      name: Guest
+    dns:
+    - 10.9.2.1
+    - 8.8.8.8
+    gateway: 10.9.2.1
+    range: 10.9.2.0/23
+    reserved:
+    - 10.9.2.1-10.9.3.99
+    # - 10.9.3.150-10.9.3.255
+  type: manual
+vm_types:
+- cloud_properties:
+    cpu: 1
+    disk: 10240
+    ram: 1024
+  name: micro
+- cloud_properties:
+    cpu: 2
+    disk: 10240
+    ram: 2048
+  name: small
+- cloud_properties:
+    cpu: 4
+    disk: 16_384
+    ram: 4096
+  name: compilation
