@@ -52,6 +52,8 @@ disk_types:
     type: pd-ssd
   disk_size: 5120
   name: google-db
+- disk_size: 65536
+  name: director
 networks:
 - name: aws-private
   subnets:
@@ -181,6 +183,13 @@ vm_types:
     disk: 10240
     ram: 2048
   name: small
+- cloud_properties:
+    cpu: 2
+    disk: 16_384
+    ram: 4096
+    datastores:
+    - SSD-1
+  name: director
 - cloud_properties:
     cpu: 4
     disk: 16_384

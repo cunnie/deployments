@@ -3,7 +3,3 @@
 - path: /instance_groups/name=bosh/properties/vcenter/enable_human_readable_name?
   type: replace
   value: true
-# The following should work but doesn't. One can always hope
-- path: /cloud_provider/properties/vcenter/enable_human_readable_name?
-  type: replace
-  value: true

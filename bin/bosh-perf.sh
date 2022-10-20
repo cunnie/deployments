@@ -14,21 +14,37 @@ cd $DEPLOYMENTS_DIR
 
 pushd $DEPLOYMENTS_DIR/../bosh-deployment; git pull -r; popd
 
+JAMMY_CLANG_YML='
+- type: replace
+  path: /releases/name=bosh
+  value:
+    name: bosh
+    url: file:///home/cunnie/tmp/director-clang.tgz
+    version: latest
+'
+
 set -- \
-  xenial      10.9.2.11 "" \
-  bionic      10.9.2.12 "-o $DEPLOYMENTS_DIR/../bosh-deployment/vsphere/use-bionic.yml"\
-  jammy       10.9.2.13 "" \
-  jammy-clang 10.9.2.14 "" \
+  xenial      xenial 10.9.2.21 "" \
+  bionic      bionic 10.9.2.22 "" \
+  jammy       jammy  10.9.2.23 "" \
+  jammy-clang jammy  10.9.2.24 "${JAMMY_CLANG_YML}" \
+
 
 MANIFEST_DIR=bosh-perf
 mkdir -p $MANIFEST_DIR
 while [ $# -gt 1 ]; do
-  STEMCELL=$1
-  DIRECTOR_IP=$2
-  OPTIONS=$3
+  DIRECTOR_NAME=$1
+  STEMCELL=$2
+  DIRECTOR_IP=$3
+  OPTIONS_YML=$4
+
+  # cat <(echo -e "${OPTIONS_YML}")
+  # exit
+
   mkdir -p $MANIFEST_DIR/$STEMCELL
 
-  bosh interpolate -d $STEMCELL $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
+  bosh -nd $DIRECTOR_NAME deploy $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
+    --no-redact \
     \
     -o $DEPLOYMENTS_DIR/../bosh-deployment/vsphere/cpi.yml \
     -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/source-releases/bosh.yml \
@@ -37,36 +53,23 @@ while [ $# -gt 1 ]; do
     -o $DEPLOYMENTS_DIR/../bosh-deployment/jumpbox-user.yml \
     -o $DEPLOYMENTS_DIR/../bosh-deployment/local-dns.yml \
     -o $DEPLOYMENTS_DIR/../bosh-deployment/uaa.yml \
+    -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/source-releases/uaa.yml \
     -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
+    -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/source-releases/credhub.yml \
     -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/bpm.yml \
-    -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/enable-metrics.yml \
-    $OPTIONS \
+    -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/bosh-dev.yml \
     \
-    -o etc/common.yml \
+    -o <(echo -e "${OPTIONS_YML}") \
+    \
+    -o etc/jumpbox_key.yml \
     -o etc/human-readable-names.yml \
+    -o etc/bosh-perf.yml \
     \
-    -v director_name=$STEMCELL \
-    -v internal_cidr=10.9.2.0/23 \
-    -v internal_gw=10.9.2.1 \
+    -v director_name=$DIRECTOR_NAME \
     -v internal_ip=$DIRECTOR_IP \
+    -v stemcell=$STEMCELL \
     \
-    -v admin_password='((admin_password))' \
-    -v blobstore_agent_password='((blobstore_agent_password))' \
-    -v blobstore_director_password='((blobstore_director_password))' \
-    -v credhub_admin_client_secret='((credhub_admin_client_secret))' \
-    -v credhub_cli_password='((credhub_cli_password))' \
-    -v credhub_cli_user_password='((credhub_cli_user_password))' \
-    -v credhub_encryption_password='((credhub_encryption_password))' \
-    -v hm_password='((hm_password))' \
-    -v mbus_bootstrap_password='((mbus_bootstrap_password))' \
-    -v nats_password='((nats_password))' \
-    -v nats_sync_password='((nats_sync_password))' \
-    -v postgres_password='((postgres_password))' \
-    -v registry_password='((registry_password))' \
-    -v uaa_admin_client_secret='((uaa_admin_client_secret))' \
-    -v uaa_clients_director_to_credhub='((uaa_clients_director_to_credhub))' \
-    -v uaa_encryption_key_1='((uaa_encryption_key_1))' \
-    -v uaa_login_client_secret='((uaa_login_client_secret))' \
+    -l <(lpass show --note deployments.yml) \
     \
     -v network_name=Guest \
     -v vcenter_dc=dc \
@@ -78,10 +81,11 @@ while [ $# -gt 1 ]; do
     -v vcenter_templates=bosh-vsphere-templates \
     -v vcenter_vms=bosh-vsphere-vms \
     -v vcenter_disks=bosh-vsphere-disks \
-    \
-    --vars-store=$MANIFEST_DIR/$STEMCELL/creds.yml \
-    \
-    > $MANIFEST_DIR/$STEMCELL/bosh.yml
 
-  shift 3
+  bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_IP --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
+  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 e889844e15eec560512e0d1ea0cdc6ab300b8795 \
+    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.18
+  bosh -e $DIRECTOR_NAME update-cloud-config -n bosh-perf/cloud-config.yml
+
+  shift 4
 done
