@@ -41,6 +41,8 @@ jobs:
       - name: image
       params:
         CONTEXT: deployments/ci
+        IMAGE_PLATFORM: linux/arm64,linux/amd64
+        OUTPUT_OCI: true
       run:
         path: build
   - put: fedora-golang-bosh

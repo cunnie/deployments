@@ -2,7 +2,7 @@
 
 # To build
 
-# docker buildx build --platform=linux/amd64 -t cunnie/fedora-golang-bosh . # OR
+# docker buildx build --platform=linux/amd64,linux/arm64 -t cunnie/fedora-golang-bosh . # OR
 # docker build -t cunnie/fedora-golang-bosh .
 # docker push cunnie/fedora-golang-bosh
 
@@ -47,8 +47,9 @@ RUN dnf update -y; \
     zsh \
     zsh-lovers \
     zsh-syntax-highlighting \
-  ; \
-  /usr/bin/gem install yajl-ruby
+    ;
+
+RUN ln -s /usr/bin/as /usr/local/bin/as; /usr/bin/gem install yajl-ruby
 
 RUN mkdir ~/workspace; \
   cd ~/workspace; \
@@ -75,9 +76,17 @@ RUN dnf install -y dnf-plugins-core; \
   dnf -y install vault; \
   setcap -r /usr/bin/vault
 
-RUN curl -o /etc/yum.repos.d/cloudfoundry-cli.repo -L https://packages.cloudfoundry.org/fedora/cloudfoundry-cli.repo; \
-  dnf install -y cf8-cli
-
 RUN GOBIN=/usr/local/bin go install github.com/onsi/ginkgo/v2/ginkgo@latest
+
+# Must build from source because no Linux ARM 64 binaries are provided
+# Weird sed fixes this when building on a macOS arm64 host:
+#	verifying github.com/docker/distribution@v2.8.0+incompatible: checksum mismatch
+#		downloaded: h1:u9vuu6qqG7nN9a735Noed0ahoUm30iipVRlhgh72N0M=
+#		go.sum:     h1:l9EaZDICImO1ngI+uTifW+ZYvvz7fKISBAKpg+MbWbY=
+
+RUN cd; git clone https://github.com/cloudfoundry/cli.git; \
+  cd cli; git switch v8; \
+  sed -i 's/l9EaZDICImO1ngI+uTifW+ZYvvz7fKISBAKpg+MbWbY/u9vuu6qqG7nN9a735Noed0ahoUm30iipVRlhgh72N0M/g' go.sum; \
+  go mod tidy ; make build; mv out/cf /usr/local/bin/
 
 CMD [ "/usr/bin/zsh" ]
