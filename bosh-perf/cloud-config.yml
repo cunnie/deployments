@@ -52,6 +52,8 @@ vm_types:
     cpu: 1
     disk: 10240
     ram: 1024
+    datastores:
+    - NAS-0
   name: micro
 - cloud_properties:
     cpu: 2
