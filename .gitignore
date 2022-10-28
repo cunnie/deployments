@@ -12,3 +12,5 @@ concourse-worker.yml
 releases/
 # have a directory for "temporary" manifests while testing
 tmp/
+# I don't want all the historical output cluttering this repo
+bosh-perf/*.txt
