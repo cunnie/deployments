@@ -83,8 +83,8 @@ while [ $# -gt 1 ]; do
     -v vcenter_disks=bosh-vsphere-disks \
 
   bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_IP --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
-  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 e889844e15eec560512e0d1ea0cdc6ab300b8795 \
-    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.18
+  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 c27cbd9ddba5df3163adb3066bfbdccdc7ef4941 \
+    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.30
   bosh -e $DIRECTOR_NAME update-cloud-config -n bosh-perf/cloud-config.yml
 
   shift 4
