@@ -1,0 +1,46 @@
+# bosh -d dummy-azure deploy dummy-azure.yml
+name: dummy-azure
+
+releases:
+- name: "os-conf"
+  version: "22.1.2"
+  url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2"
+  sha1: "386293038ae3d00813eaa475b4acf63f8da226ef"
+
+user_add_job: &user_add_job
+  name: user_add
+  properties:
+    users:
+    - name: cunnie
+      public_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD
+        cunnie@nono.io
+  release: os-conf
+
+stemcells:
+- alias: xenial
+  os: ubuntu-xenial
+  version: latest # 621.263
+
+update:
+  canaries: 0
+  max_in_flight: 10
+  canary_watch_time: 30000-600000
+  update_watch_time: 5000-600000
+
+instance_groups:
+- azs:
+  - azure
+  instances: 1
+  jobs:
+  - *user_add_job
+  name: xenial
+  networks:
+  - default:
+    - dns
+    - gateway
+    name: azure-private
+  - name: azure-public
+    static_ips:
+    - 20.205.146.110
+  stemcell: xenial
+  vm_type: standard_b1s
