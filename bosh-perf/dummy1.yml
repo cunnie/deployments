@@ -7,6 +7,9 @@ stemcells:
 - alias: jammy
   os: ubuntu-jammy
   version: latest
+- alias: xenial
+  os: ubuntu-xenial
+  version: latest
 
 update:
   canaries: 0
@@ -19,7 +22,7 @@ instance_groups:
   - vsphere
   instances: 10
   jobs: []
-  name: jammy
+  name: stemcells
   networks:
   - name: vsphere-guest
   stemcell: jammy
