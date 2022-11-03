@@ -1509,17 +1509,17 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 505e0e5fb34820b02c7713bad90a04f8be4c7afa
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=276.0.0
-  version: 276.0.0
+  sha1: 16bcae5e3af66fc37348cc0132ffb12d19e3da09
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=276.1.0
+  version: 276.1.0
 - name: bpm
   sha1: 669baca975c6def518c7e736dbf189cfb438475b
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.19
   version: 1.1.19
 - name: bosh-vsphere-cpi
-  sha1: c45341b94ab497f17b59a98fcd3ef423c5de6425
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=85
-  version: 85
+  sha1: c50c10799c5aeed03a9df41c1158b3c353b2af72
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=86
+  version: 86
 - name: os-conf
   sha1: 386293038ae3d00813eaa475b4acf63f8da226ef
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
@@ -1533,9 +1533,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.12-ubuntu-jammy-1.44-20221102-004129-25004169-20221102004130.tgz
   version: 2.12.12
 - name: bosh-aws-cpi
-  sha1: a7261a49b60a944aa52662c597dc618a68800df4
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=94
-  version: 94
+  sha1: befd5c4302eb57b28c54c3a2959f7908d0b057f4
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=95
+  version: 95
 - name: bosh-azure-cpi
   sha1: 725fcfd44a5954239630b21a8a8162782acefda7
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=40.0.0
