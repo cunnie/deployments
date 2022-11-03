@@ -1537,9 +1537,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=95
   version: 95
 - name: bosh-azure-cpi
-  sha1: 725fcfd44a5954239630b21a8a8162782acefda7
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=40.0.0
-  version: 40.0.0
+  sha1: a9f59534324760c513180d4bd7d15598b19d1365
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=41.0.0
+  version: 41.0.0
 - name: bosh-google-cpi
   sha1: 5dc7bbb8b74affa73ebad9705d331893f63d987b
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=45.0.0
