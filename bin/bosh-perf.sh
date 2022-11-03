@@ -14,20 +14,10 @@ cd $DEPLOYMENTS_DIR
 
 pushd $DEPLOYMENTS_DIR/../bosh-deployment; git pull -r; popd
 
-JAMMY_CLANG_YML='
-- type: replace
-  path: /releases/name=bosh
-  value:
-    name: bosh
-    url: file:///home/cunnie/tmp/director-clang.tgz
-    version: latest
-'
-
 set -- \
   xenial      xenial 10.9.2.21 "" \
   bionic      bionic 10.9.2.22 "" \
   jammy       jammy  10.9.2.23 "" \
-  jammy-clang jammy  10.9.2.24 "${JAMMY_CLANG_YML}" \
 
 
 MANIFEST_DIR=bosh-perf
@@ -83,8 +73,8 @@ while [ $# -gt 1 ]; do
     -v vcenter_disks=bosh-vsphere-disks \
 
   bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_IP --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
-  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 c27cbd9ddba5df3163adb3066bfbdccdc7ef4941 \
-    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.30
+  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 c51c231cb059864a56fd70e16a916119562adf11 \
+    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.44
   bosh -e $DIRECTOR_NAME update-cloud-config -n bosh-perf/cloud-config.yml
 
   shift 4
