@@ -66,8 +66,8 @@ while [ $# -gt 1 ]; do
     -v vcenter_cluster=cl \
     -v vcenter_rp=BOSH-PERF \
     -v vcenter_ds=SSD-1 \
-    -v vcenter_ip=vcenter-70.nono.io \
-    -v vcenter_user=administrator@vsphere.local \
+    -v vcenter_ip=vcenter-80.nono.io \
+    -v vcenter_user=a@vsphere.local \
     -v vcenter_templates=bosh-vsphere-templates \
     -v vcenter_vms=bosh-vsphere-vms \
     -v vcenter_disks=bosh-vsphere-disks \

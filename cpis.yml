@@ -44,9 +44,9 @@ cpis:
       vm_folder: bosh-vsphere-vms
     # host: vcenter-67.nono.io # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
     enable_human_readable_name: true
-    host: 10.9.9.70 # https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
+    host: vcenter-80.nono.io # IPv4 only; https://github.com/cloudfoundry/bosh-vsphere-cpi-release/issues/153
     password: ((vcenter_password))
-    user: administrator@vsphere.local
+    user: a@vsphere.local
     nsxt:
       ca_cert: |
         -----BEGIN CERTIFICATE-----

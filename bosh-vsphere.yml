@@ -108,7 +108,7 @@ cloud_provider:
       path: /var/vcap/micro_bosh/data/cache
       provider: local
     vcenter:
-      address: vcenter-70.nono.io
+      address: vcenter-80.nono.io
       datacenters:
       - clusters:
         - cl:
@@ -120,7 +120,7 @@ cloud_provider:
         template_folder: bosh-vsphere-templates
         vm_folder: bosh-vsphere-vms
       password: ((vcenter_password))
-      user: administrator@vsphere.local
+      user: a@vsphere.local
   template:
     name: vsphere_cpi
     release: bosh-vsphere-cpi
@@ -1479,7 +1479,7 @@ instance_groups:
       password: ((postgres_password))
       user: postgres
     vcenter:
-      address: vcenter-70.nono.io
+      address: vcenter-80.nono.io
       datacenters:
       - clusters:
         - cl:
@@ -1492,7 +1492,7 @@ instance_groups:
         vm_folder: bosh-vsphere-vms
       enable_human_readable_name: true
       password: ((vcenter_password))
-      user: administrator@vsphere.local
+      user: a@vsphere.local
   resource_pool: vms
 name: bosh
 networks:
