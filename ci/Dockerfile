@@ -2,7 +2,7 @@
 
 # To build
 
-# docker buildx build --platform=linux/amd64,linux/arm64 -t cunnie/fedora-golang-bosh . # OR
+# docker buildx build --pull --platform=linux/amd64,linux/arm64 -t cunnie/fedora-golang-bosh . # OR
 # docker build -t cunnie/fedora-golang-bosh .
 # docker push cunnie/fedora-golang-bosh
 
@@ -49,7 +49,7 @@ RUN dnf update -y; \
     zsh-syntax-highlighting \
     ;
 
-RUN ln -s /usr/bin/as /usr/local/bin/as; /usr/bin/gem install yajl-ruby
+RUN /usr/bin/gem install yajl-ruby
 
 RUN mkdir ~/workspace; \
   cd ~/workspace; \
