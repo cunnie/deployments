@@ -1517,21 +1517,21 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.19
   version: 1.1.19
 - name: bosh-vsphere-cpi
-  sha1: c50c10799c5aeed03a9df41c1158b3c353b2af72
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=86
-  version: 86
+  sha1: 2bbe2c9cbf2b03075927017eff8375ba130b69cb
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=87
+  version: 87
 - name: os-conf
   sha1: 386293038ae3d00813eaa475b4acf63f8da226ef
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
   version: 22.1.2
 - name: uaa
-  sha1: cf2bc96b4c06a9f54d3307e6fd4e0307fa811b4b
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.3.0-ubuntu-jammy-1.44-20221102-004106-598449815-20221102004109.tgz
-  version: 76.3.0
+  sha1: 69e4f075bebd90a3358bf26b540c4d77ef18c163
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.4.0-ubuntu-jammy-1.49-20221117-200759-479933112-20221117200803.tgz
+  version: 76.4.0
 - name: credhub
-  sha1: 703b6fe56b90ea5ebaa9049d1c30ef2e9eef6303
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.12-ubuntu-jammy-1.44-20221102-004129-25004169-20221102004130.tgz
-  version: 2.12.12
+  sha1: 34df972f962b6aa30a161497c21842c15f4b21cb
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.14-ubuntu-jammy-1.49-20221117-190505-744605748-20221117190507.tgz
+  version: 2.12.14
 - name: bosh-aws-cpi
   sha1: befd5c4302eb57b28c54c3a2959f7908d0b057f4
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=95
@@ -1661,6 +1661,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: c51c231cb059864a56fd70e16a916119562adf11
-    url: https://storage.googleapis.com/bosh-core-stemcells/1.44/bosh-stemcell-1.44-vsphere-esxi-ubuntu-jammy-go_agent.tgz
+    sha1: 595da3935538877fa57bc3ca600cad5fcdffd426
+    url: https://storage.googleapis.com/bosh-core-stemcells/1.49/bosh-stemcell-1.49-vsphere-esxi-ubuntu-jammy-go_agent.tgz
 variables: []
