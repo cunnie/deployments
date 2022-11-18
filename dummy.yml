@@ -7,7 +7,7 @@ releases:
   url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2"
   sha1: "386293038ae3d00813eaa475b4acf63f8da226ef"
 
-user_add_job: &user_add_job
+add_user_cunnie: &add_user_cunnie
   name: user_add
   properties:
     users:
@@ -43,7 +43,8 @@ instance_groups:
 - azs:
   - vsphere
   instances: 1
-  jobs: []
+  jobs:
+  - *add_user_cunnie
   name: xenial
   networks:
   - name: vsphere-guest
@@ -57,7 +58,8 @@ instance_groups:
 - azs:
   - vsphere
   instances: 1
-  jobs: []
+  jobs:
+  - *add_user_cunnie
   name: xenial-456.298
   networks:
   - name: vsphere-guest
@@ -66,7 +68,8 @@ instance_groups:
 - azs:
   - vsphere
   instances: 1
-  jobs: []
+  jobs:
+  - *add_user_cunnie
   name: bionic
   networks:
   - name: vsphere-guest
@@ -78,7 +81,8 @@ instance_groups:
 - azs:
   - vsphere
   instances: 1
-  jobs: []
+  jobs:
+  - *add_user_cunnie
   name: jammy
   networks:
   - name: vsphere-guest
