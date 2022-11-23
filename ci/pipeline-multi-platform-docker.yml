@@ -1,0 +1,56 @@
+# fly -t nono sp -p multi-platform-docker -c pipeline-multi-platform-docker.yml
+# fly -t nono ep -p multi-platform-docker
+# fly -t nono up -p multi-platform-docker
+
+resource_types:
+- name: cunnie-registry-image
+  type: registry-image
+  source:
+    repository: cunnie/registry-image
+
+resources:
+# The repo with our multi-platform Dockerfile
+- name: deployments
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/cunnie/deployments.git
+    paths:
+    - multi-platform-docker
+
+# Where we will push the multi-platform Docker image
+- name: multi-platform-docker-image
+  type: cunnie-registry-image
+  icon: docker
+  source:
+    repository: cunnie/multi-platform
+    username: cunnie
+    password: ((docker_token))
+    tag: latest
+
+jobs:
+- name: build-and-push-multi-platform-docker-image
+  plan:
+  - get: deployments
+    trigger: true
+  - task: build-image-task
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: concourse/oci-build-task
+      inputs:
+      - name: deployments
+      outputs:
+      - name: image
+      params:
+        CONTEXT: deployments/multi-platform-docker
+        IMAGE_PLATFORM: linux/arm64,linux/amd64
+        OUTPUT_OCI: true
+      run:
+        path: build
+  - put: multi-platform-docker-image
+    params:
+      image: image/image
