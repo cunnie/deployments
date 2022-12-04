@@ -1525,13 +1525,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2
   version: 22.1.2
 - name: uaa
-  sha1: 69e4f075bebd90a3358bf26b540c4d77ef18c163
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.4.0-ubuntu-jammy-1.49-20221117-200759-479933112-20221117200803.tgz
+  sha1: 712bb3fe6a6f48e20cf50cfd09eaf959f5b08d73
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.4.0-ubuntu-jammy-1.64-20221202-205707-117753961-20221202205710.tgz
   version: 76.4.0
 - name: credhub
-  sha1: 6d7380e0244d524e045f39bf0ce251387b640841
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.15-ubuntu-jammy-1.49-20221123-184829-016081327-20221123184830.tgz
-  version: 2.12.15
+  sha1: d19b6623e67c8826c1b8eb7d2f0b1a6a3c892c17
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.16-ubuntu-jammy-1.64-20221202-205617-87021731-20221202205619.tgz
+  version: 2.12.16
 - name: bosh-aws-cpi
   sha1: befd5c4302eb57b28c54c3a2959f7908d0b057f4
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=95
@@ -1661,6 +1661,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 595da3935538877fa57bc3ca600cad5fcdffd426
-    url: https://storage.googleapis.com/bosh-core-stemcells/1.49/bosh-stemcell-1.49-vsphere-esxi-ubuntu-jammy-go_agent.tgz
+    sha1: dd141209b25f33d3c3e654017d0cdf10c6e37b03
+    url: https://storage.googleapis.com/bosh-core-stemcells/1.64/bosh-stemcell-1.64-vsphere-esxi-ubuntu-jammy-go_agent.tgz
 variables: []
