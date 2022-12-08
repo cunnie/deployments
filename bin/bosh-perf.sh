@@ -73,6 +73,8 @@ while [ $# -gt 1 ]; do
     -v vcenter_disks=bosh-vsphere-disks \
 
   bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_IP --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
+  export BOSH_CLIENT=admin
+  export BOSH_CLIENT_SECRET=$(lpass show --note deployments.yml | bosh int --path /admin_password -)
   bosh -e $DIRECTOR_NAME upload-stemcell --sha1 c51c231cb059864a56fd70e16a916119562adf11 \
     https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.44
   bosh -e $DIRECTOR_NAME update-cloud-config -n bosh-perf/cloud-config.yml
