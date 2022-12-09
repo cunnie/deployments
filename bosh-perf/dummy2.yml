@@ -7,9 +7,6 @@ stemcells:
 - alias: jammy
   os: ubuntu-jammy
   version: latest
-- alias: xenial
-  os: ubuntu-xenial
-  version: latest
 
 update:
   canaries: 0

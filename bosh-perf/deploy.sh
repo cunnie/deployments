@@ -5,7 +5,7 @@ set -xue
 START=$(date +%s)
 SCRIPT_DIR=${BASH_SOURCE%/*}
 
-for i in $(seq 1 100); do
+for i in $(seq 1 65); do
     ITERATION_START=$(date +%s)
     (export BOSH_DEPLOYMENT=dummy1; bosh deploy -n $SCRIPT_DIR/dummy1.yml) &
     (export BOSH_DEPLOYMENT=dummy2; bosh deploy -n $SCRIPT_DIR/dummy2.yml) &
