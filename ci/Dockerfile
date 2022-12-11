@@ -20,6 +20,7 @@ RUN dnf update -y; \
     direnv \
     etcd \
     fd-find \
+    gcc-g++ \
     git \
     golang \
     htop \
@@ -48,8 +49,6 @@ RUN dnf update -y; \
     zsh-lovers \
     zsh-syntax-highlighting \
     ;
-
-RUN /usr/bin/gem install yajl-ruby
 
 RUN mkdir ~/workspace; \
   cd ~/workspace; \

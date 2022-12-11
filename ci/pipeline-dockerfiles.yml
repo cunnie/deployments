@@ -47,4 +47,4 @@ jobs:
         path: build
   - put: fedora-golang-bosh
     params:
-      image: image/image.tar
+      image: image/image
