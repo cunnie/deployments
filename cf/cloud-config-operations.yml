@@ -45,7 +45,7 @@
     subnets:
     - az: z1
       cloud_properties:
-        name: cf
+        name: CF
       dns:
       - 2601:646:100:69f5:0000:0000:0000:0000
       gateway: 2601:646:100:69f5:20d:b9ff:fe48:9249
