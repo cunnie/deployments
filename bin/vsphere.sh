@@ -81,7 +81,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -v uaa_encryption_key_1='((uaa_encryption_key_1))' \
   -v uaa_login_client_secret='((uaa_login_client_secret))' \
   \
-  -v network_name=Guest \
+  -v network_name=guest \
   -v vcenter_dc=dc \
   -v vcenter_cluster=cl \
   -v vcenter_rp=BOSH \
