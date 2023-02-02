@@ -5,7 +5,7 @@ azs:
     datacenters:
     - clusters:
       - cl:
-          resource_pool: BOSH-PERF
+          resource_pool: perf
       name: dc
   name: vsphere
 compilation:

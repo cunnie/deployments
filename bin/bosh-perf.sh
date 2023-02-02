@@ -5,10 +5,8 @@
 #
 # creates BOSH Directors to test performance of different stemcells
 #
-
-# bosh create-env bosh-vsphere.yml -l <(lpass show --note deployments.yml) --vars-store=bosh-vsphere-creds.yml
-# bosh -e bosh-vsphere.nono.io alias-env vsphere
 #
+unset BOSH_DEPLOYMENT
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 cd $DEPLOYMENTS_DIR
 
@@ -53,7 +51,7 @@ while [ $# -gt 1 ]; do
     \
     -o etc/jumpbox_key.yml \
     -o etc/human-readable-names.yml \
-    -o etc/bosh-perf.yml \
+    -o etc/perf.yml \
     \
     -v director_name=$DIRECTOR_NAME \
     -v internal_ip=$DIRECTOR_IP \
@@ -61,10 +59,10 @@ while [ $# -gt 1 ]; do
     \
     -l <(lpass show --note deployments.yml) \
     \
-    -v network_name=Guest \
+    -v network_name=guest \
     -v vcenter_dc=dc \
     -v vcenter_cluster=cl \
-    -v vcenter_rp=BOSH-PERF \
+    -v vcenter_rp=perf \
     -v vcenter_ds=SSD-1 \
     -v vcenter_ip=vcenter-80.nono.io \
     -v vcenter_user=a@vsphere.local \
@@ -75,8 +73,8 @@ while [ $# -gt 1 ]; do
   bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_IP --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
   export BOSH_CLIENT=admin
   export BOSH_CLIENT_SECRET=$(lpass show --note deployments.yml | bosh int --path /admin_password -)
-  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 c51c231cb059864a56fd70e16a916119562adf11 \
-    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.44
+  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 2e2a94c7f4741e71249ebf65176ddcecafa1b160 \
+  https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.80
   bosh -e $DIRECTOR_NAME update-cloud-config -n bosh-perf/cloud-config.yml
 
   shift 4
