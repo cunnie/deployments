@@ -1,0 +1,8 @@
+# changes needed for BOSH performance testing
+---
+- path: /releases/name=bosh-vsphere-cpi
+  type: replace
+  value:
+    name: bosh-vsphere-cpi
+    url: file:///tmp/vsphere.tgz
+    version: latest

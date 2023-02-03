@@ -1,0 +1,29 @@
+- type: replace
+  path: /instance_groups/name=bosh/properties/vcenter/nsxt?
+  value:
+    host: nsx.nono.io
+    use_policy_api: true
+    username: a
+    password: ((nsx_password))
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIDgjCCAmqgAwIBAgIJANBRcJxc2pmIMA0GCSqGSIb3DQEBCwUAMGgxFDASBgNV
+      BAMMC25zeC5ub25vLmlvMQwwCgYDVQQLDANOU1gxFDASBgNVBAoMC1ZNd2FyZSBJ
+      bmMuMRIwEAYDVQQHDAlQYWxvIEFsdG8xCzAJBgNVBAgMAkNBMQswCQYDVQQGEwJV
+      UzAeFw0yMzAxMjgwMjAzMTFaFw0yNTA1MDIwMjAzMTFaMGgxFDASBgNVBAMMC25z
+      eC5ub25vLmlvMQwwCgYDVQQLDANOU1gxFDASBgNVBAoMC1ZNd2FyZSBJbmMuMRIw
+      EAYDVQQHDAlQYWxvIEFsdG8xCzAJBgNVBAgMAkNBMQswCQYDVQQGEwJVUzCCASIw
+      DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKCnbB08f2Q6+TmPhdXnL667nNgB
+      veEYXs1jY4+F1JGbQTHpjHf7KS5HTLxc02QP6JTsX9h95czR3/jcbcIGwToygF0j
+      H88jeANBm1uD/8gL3XzMEnGO+fjF1ivHn0+i/66AlLL7Tl/KR+2Pq4Ftc4UdCTxN
+      6fz7a5DrpP377VPrjO5REIut5eqLWQMq+1GMPzXnGAQa9PIYmERva+clyLl8+aWR
+      5HBvzoWdJVFXFILm+KcLxFKaY2NQg83KT/st6bSa/Xb1K5h/Val2MgFXQ5ShzAvG
+      CbM+6X3Q64pWqg0p9PTaMr/nztZHeZDwYwiIPCbZvWUfydR/+oweINnWjlsCAwEA
+      AaMvMC0wEwYDVR0lBAwwCgYIKwYBBQUHAwEwFgYDVR0RBA8wDYILbnN4Lm5vbm8u
+      aW8wDQYJKoZIhvcNAQELBQADggEBAJbCZthd+6FbD2I09YpeiYDbSJnuHiE06tP0
+      CbEztS5DS6YhMxYKYJfm4mjmep2hwgkQcX1+gWAx/Qjt9N6d8OfNq5gUWW679qIQ
+      PmPZ1x9aLXqKzntdOmtACVa2e2iuCRnP0HA7dYPjw9tbJLEtc+98RY/JBvd/wx/k
+      aSCfxerXVnmJ68st8GXEQ0RwbPSCp+ijVOeSGTmW8P0HAPIzn5qO9Vqu5z8Vf5uW
+      uJz7gTm0mXHWuF/T645zGImulrdAw4Yu+2oK6N25RDxvybDtyVFfbkGekjdrAt1j
+      e7d142zcml1fP5qYtMLzy/eaniDFx3cGxZTy0ebkHs1VNrJ7l1o=
+      -----END CERTIFICATE-----
