@@ -21,6 +21,6 @@ instance_groups:
   jobs: []
   name: stemcells
   networks:
-  - name: vsphere-guest
+  - name: ((network))
   stemcell: jammy
   vm_type: micro

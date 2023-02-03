@@ -37,7 +37,7 @@ networks:
   - azs:
     - vsphere
     cloud_properties:
-      name: Guest
+      name: guest
     dns:
     - 10.9.2.1
     - 8.8.8.8

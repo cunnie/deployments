@@ -7,8 +7,8 @@ SCRIPT_DIR=${BASH_SOURCE%/*}
 
 for i in $(seq 1 65); do
     ITERATION_START=$(date +%s)
-    (export BOSH_DEPLOYMENT=dummy1; bosh deploy -n $SCRIPT_DIR/dummy1.yml) &
-    (export BOSH_DEPLOYMENT=dummy2; bosh deploy -n $SCRIPT_DIR/dummy2.yml) &
+    (export BOSH_DEPLOYMENT=dummy1; bosh deploy -n $SCRIPT_DIR/dummy1.yml -v network=vsphere-guest) &
+    (export BOSH_DEPLOYMENT=dummy2; bosh deploy -n $SCRIPT_DIR/dummy2.yml -v network=vsphere-guest) &
     wait
     if [ $(( $(date +%s) - ITERATION_START )) -gt "600" ]; then
         echo "Exiting; live deployment with unresponsive VM"
