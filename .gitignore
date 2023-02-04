@@ -14,3 +14,4 @@ releases/
 tmp/
 # I don't want all the historical output cluttering this repo
 bosh-perf/*.txt
+vsphere-perf/*.txt
