@@ -65,8 +65,8 @@ while [ $# -gt 1 ]; do
   bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_IP --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
   export BOSH_CLIENT=admin
   export BOSH_CLIENT_SECRET=$(lpass show --note deployments.yml | bosh int --path /admin_password -)
-  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 2e2a94c7f4741e71249ebf65176ddcecafa1b160 \
-    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.80
+  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 839d039b206472c066e440ff356ab92a2d52381e \
+    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.83
   bosh -e $DIRECTOR_NAME update-cloud-config -n vsphere-perf/cloud-config.yml
 
   shift 4
