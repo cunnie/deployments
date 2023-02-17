@@ -4,16 +4,16 @@
   type: replace
   value:
     name: bosh-vsphere-cpi
-    sha1: d309ba04389d7dc9b69e3a3e11015261e72ab232
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=89
-    version: 89
+    sha1: 46ca27dab4298ccd3722a2291ca7422cc8a05e5b
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=90
+    version: 90
 - path: /releases/-
   type: replace
   value:
     name: bosh-aws-cpi
-    sha1: 451c4c812d5218849e7f1c790f0f1cd4ff544b1a
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=96
-    version: 96
+    sha1: b6aa84bc178e5cc99faa55a89943214c33488d5f
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=97
+    version: 97
 - path: /releases/-
   type: replace
   value:
