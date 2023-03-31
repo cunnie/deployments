@@ -1,4 +1,4 @@
-# bosh -d dummy1 deploy dummy1.yml
+# bosh -d dummy1 deploy dummy1.yml -v network=LS.0.0
 name: dummy1
 
 releases: []
