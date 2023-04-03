@@ -1513,13 +1513,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=277.3.0
   version: 277.3.0
 - name: bpm
-  sha1: e8abe19ec186962828de843f8f281cddb6141904
-  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.21
-  version: 1.1.21
+  sha1: 6ccc8c07c05f5d4301df7e052772813533688955
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.23
+  version: 1.1.23
 - name: bosh-vsphere-cpi
-  sha1: 46ca27dab4298ccd3722a2291ca7422cc8a05e5b
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=90
-  version: 90
+  sha1: 69bc2cd64ada1f238906eff4c854c20b06963a5c
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=91
+  version: 91
 - name: os-conf
   sha1: 49ccaf090ea0be79191f2bdbf1c13e6f83628d2b
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.3
