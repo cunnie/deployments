@@ -15,7 +15,6 @@ pushd $DEPLOYMENTS_DIR/../bosh-deployment; git pull -r; popd
 set -- \
   vsphere-no-nsx 10.9.2.21 "/dev/null"            "/dev/null"  \
   vsphere-nsx    10.9.2.22 "etc/vsphere-nsx.yml"  "/dev/null"  \
-  vsphere-nsx-2  10.9.2.23 "etc/vsphere-nsx.yml"  "etc/vsphere-cpi-beta.yml" \
 
 while [ $# -gt 1 ]; do
   DIRECTOR_NAME=$1
@@ -65,8 +64,8 @@ while [ $# -gt 1 ]; do
   bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_IP --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
   export BOSH_CLIENT=admin
   export BOSH_CLIENT_SECRET=$(lpass show --note deployments.yml | bosh int --path /admin_password -)
-  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 b5fae9af5372f4d26295e4e1eb3143cd28893224 \
-    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.95
+  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 c712ee46a7e6ce5ef35498a55129845aa8f32954 \
+    https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.102
   bosh -e $DIRECTOR_NAME update-cloud-config -n vsphere-perf/cloud-config.yml
 
   shift 4
