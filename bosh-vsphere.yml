@@ -1526,9 +1526,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.11.0-ubuntu-jammy-1.108-20230504-153303-69333955-20230504153306.tgz
   version: 76.11.0
 - name: credhub
-  sha1: dc6c03e0263a5ea9dc893b717e98492b7c7dc944
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.26-ubuntu-jammy-1.108-20230428-024134-916223119-20230428024136.tgz
-  version: 2.12.26
+  sha1: 0229b4dd903ac77c3f456b577b67ea33762b9583
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.27-ubuntu-jammy-1.108-20230511-144509-942900458-20230511144511.tgz
+  version: 2.12.27
 - name: bosh-aws-cpi
   sha1: c9e4090a502b8c63d37b24f62ec0a06c5d442107
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=98
