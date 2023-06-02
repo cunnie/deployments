@@ -895,6 +895,8 @@ instance_groups:
         host: 127.0.0.1
         password: ((postgres_password))
         user: postgres
+      debug:
+        keep_unreachable_vms: true
       default_ssh_options:
         gateway_user: jumpbox
       enable_dedicated_status_worker: true
@@ -1514,9 +1516,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.2
   version: 1.2.2
 - name: bosh-vsphere-cpi
-  sha1: 166e902d0d50d883b7e3ecc4e8c2f4ff93e84651
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=92
-  version: 92
+  sha1: b74af193d32df9a67ef949ac661fae37042b8219
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=93
+  version: 93
 - name: os-conf
   sha1: 49ccaf090ea0be79191f2bdbf1c13e6f83628d2b
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.3
