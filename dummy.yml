@@ -3,9 +3,7 @@ name: dummy
 
 releases:
 - name: "os-conf"
-  version: "22.1.2"
-  url: "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.2"
-  sha1: "386293038ae3d00813eaa475b4acf63f8da226ef"
+  version: latest
 
 add_user_cunnie: &add_user_cunnie
   name: user_add
@@ -70,6 +68,10 @@ instance_groups:
   instances: 1
   jobs:
   - *add_user_cunnie
+  - name: auditd
+    properties:
+      pre_start_delay: 2
+    release: os-conf
   name: jammy
   networks:
   - name: vsphere-guest
