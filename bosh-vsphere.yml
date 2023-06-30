@@ -1516,33 +1516,33 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.3
   version: 1.2.3
 - name: bosh-vsphere-cpi
-  sha1: b74af193d32df9a67ef949ac661fae37042b8219
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=93
-  version: 93
+  sha1: 45a5a70cf917dcac5ee0ed3d19cdec25a65c8b77
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=94
+  version: 94
 - name: os-conf
   sha1: 49ccaf090ea0be79191f2bdbf1c13e6f83628d2b
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.1.3
   version: 22.1.3
 - name: uaa
-  sha1: a4217ddf6d9cfdbe1a2101b55c162d57e87554b4
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.15.0-ubuntu-jammy-1.147-20230626-195803-597331608-20230626195807.tgz
+  sha1: 28423a56c684cc169e621936d4ce134e5b2cfd72
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.15.0-ubuntu-jammy-1.148-20230629-193447-929237713-20230629193451.tgz
   version: 76.15.0
 - name: credhub
-  sha1: a342e3b6deba588823326aa48b92dd3eb0cbc958
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.34-ubuntu-jammy-1.147-20230626-195057-675135485-20230626195059.tgz
+  sha1: 47cd0cd614e45abfdbb8c007cbc8bc558ab307e5
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.34-ubuntu-jammy-1.148-20230629-193114-56150424-20230629193116.tgz
   version: 2.12.34
 - name: bosh-aws-cpi
-  sha1: c9e4090a502b8c63d37b24f62ec0a06c5d442107
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=98
-  version: 98
+  sha1: ffc4a06d6728d88eb108418f886f46428c2a1bf2
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=99
+  version: 99
 - name: bosh-azure-cpi
-  sha1: f490a3daa195984a9134dca54ee79d136f261f58
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=44.0.0
-  version: 44.0.0
+  sha1: 61cc252ce342b457b2b87cbbcf8981efae6ff2da
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=46.0.0
+  version: 46.0.0
 - name: bosh-google-cpi
-  sha1: a6fc8a9b9c1ec728b1ca899d2c7045e8087914f9
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=47.0.0
-  version: 47.0.0
+  sha1: 9756a5127f8c75dedae7ff451dce23d2bd25648a
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=48.0.0
+  version: 48.0.0
 resource_pools:
 - cloud_properties:
     cpu: 2
@@ -1660,6 +1660,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: ab3d59039ded6cfffbaf6925d5171ffd97e8cca8
-    url: https://storage.googleapis.com/bosh-core-stemcells/1.147/bosh-stemcell-1.147-vsphere-esxi-ubuntu-jammy-go_agent.tgz
+    sha1: fc623c9f22119503ad3304789945c5d76aeb585a
+    url: https://storage.googleapis.com/bosh-core-stemcells/1.148/bosh-stemcell-1.148-vsphere-esxi-ubuntu-jammy-go_agent.tgz
 variables: []

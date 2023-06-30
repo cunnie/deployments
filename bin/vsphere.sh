@@ -43,7 +43,6 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o etc/jumpbox_key.yml \
   -o etc/multicpi.yml \
   -o etc/TLS.yml \
-  -o etc/human-readable-names.yml \
   -o etc/keep-unreachable-vms.yml \
   -o etc/big-persistent-disk.yml \
   -o etc/disable-resurrector.yml \
