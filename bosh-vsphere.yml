@@ -146,6 +146,8 @@ instance_groups:
       - name: jumpbox
         public_key: |
           ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD cunnie@nono.io
+          # Long Nguyen
+          ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDNtWinK2NuJvUKkithOU1rTEaTB/KsDxh8ZSqYkBnT7qOc4yEN/3y+CipM8X05R0xq9gK11BhFHgybIvQ56UFN8rq2hhsjzicL7zLI5ZiDdYKf3WTjjlY1B81k0s7c7C+cE8tmYIswuoo4dAIQDR/SIvJgVcijguF5SSnOQpfP05xokbHh6VEENBqol4L3x4qeceW0mbhud6llt7jzRvBQbgnT+AqoTQiLgFT0heBvoewY42L6KlNoxBaYVJQvwZXpdrDnZHZIYZJMxsftsoyOhomlgoeSEDXscvNoixDp8mZeGceRB52+3r8nUvtUhEqWiShJaWh/w+l7J6mPRCP5XhVD6FKKYIQPUcjxFzTzyhzknV4w0aeqoPXGbRRQfavOembjd0CrLIdGmJ1S1eH3nT89wVMErucYAnv+NGAMe+WmKHr/oaGID7TjZHPf4D3VOdOGcDYTtB9tQBQGV3PTIIW3qTh9/JWLdkqvwueSageA3Ziy+UByE1YD8dQyZALHWjLOZYGnoLAf3BVBegulbscLBhWz172XVBwJw181XcFNQ+JG4X4LgZxt0DtOzj1Yc0GXk0Aw9+unU4skiWYvW3vMdYzU6SwcsfSihrRLrtMYNhpFP+mB1hExy4dAknzvyfPbDdorNaN+/4XR4GzqePcpgUqO6O6mWHGva4AUQ== nguyenlo@vmware.com
     release: os-conf
   - name: uaa
     properties:
@@ -1505,13 +1507,13 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: bbc3973d86b1b401bbced93e0fc45d4f8618c928
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=277.4.0
-  version: 277.4.0
+  sha1: 473af3bbe101ae7bbc00656081a2fc1262081277
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=277.4.1
+  version: 277.4.1
 - name: bpm
-  sha1: ad12bb4e1d2c0b94ef679670a99adaff920850d0
-  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.3
-  version: 1.2.3
+  sha1: 52c90ab6a217a77bf03b1383606557c0f56d5d8c
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.4
+  version: 1.2.4
 - name: bosh-vsphere-cpi
   sha1: 45a5a70cf917dcac5ee0ed3d19cdec25a65c8b77
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=94
@@ -1525,9 +1527,9 @@ releases:
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.16.0-ubuntu-jammy-1.148-20230630-202107-234219925-20230630202114.tgz
   version: 76.16.0
 - name: credhub
-  sha1: 82a8c985d5951768e11408e00f8b05fb1ca8aeb0
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.35-ubuntu-jammy-1.148-20230706-235500-186788335-20230706235501.tgz
-  version: 2.12.35
+  sha1: b8f03aaabf9bc5af6ecfe2e325b3c3b48d5cea96
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.36-ubuntu-jammy-1.148-20230714-003157-354451864-20230714003159.tgz
+  version: 2.12.36
 - name: bosh-aws-cpi
   sha1: ffc4a06d6728d88eb108418f886f46428c2a1bf2
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=99
