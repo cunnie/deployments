@@ -40,6 +40,8 @@ disk_types:
   name: 5G
 - disk_size: 6144
   name: 6G
+- disk_size: 32768
+  name: 32G
 - cloud_properties:
     type: pd-ssd
   disk_size: 5120
@@ -151,6 +153,34 @@ vm_extensions:
       vmxnet3.serialNumberV2: "FALSE"
       precisionclock0.present: "TRUE"
   name: precision-clock
+- cloud_properties:
+    vgpus:
+    - grid_t4-16q
+  name: vgpu
+- cloud_properties:
+    vgpus:
+    - grid_t4-1q
+  name: small-vgpu
+- cloud_properties:
+    vgpus:
+    - grid_t4-1q
+    - grid_t4-1q
+    - grid_t4-1q
+    - grid_t4-1q
+    - grid_t4-1q
+    - grid_t4-1q
+    - grid_t4-1q
+    - grid_t4-1q
+  name: octo-vgpu
+- cloud_properties:
+    vgpus:
+    - non-existent
+  name: non-existent-vgpu
+- cloud_properties:
+    pci_passthroughs:
+    - device_id: 0x1EB8
+      vendor_id: 0x10DE
+  name: gpu
 vm_types:
 - cloud_properties:
     cpu: 1
@@ -184,6 +214,21 @@ vm_types:
     disk: 65536
     ram: 8192
   name: concourse-workers
+- cloud_properties:
+    cpu: 8
+    disk: 32768
+    ram: 16384
+  name: large
+- cloud_properties:
+    cpu: 8
+    disk: 32768
+    ram: 32768
+  name: xlarge-1
+- cloud_properties:
+    cpu: 8
+    disk: 32768
+    ram: 32768
+  name: xlarge-2
 - cloud_properties:
     ephemeral_disk:
       use_root_disk: true
