@@ -25,9 +25,9 @@
   type: replace
   value:
     name: bosh-google-cpi
-    sha1: d000fb3944836a36333bb1f6cd5f88b60a6fc85f
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=49.0.3
-    version: 49.0.3
+    sha1: f66fe3edef9517a071ab4257ca4a827b9477c91a
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=49.0.5
+    version: 49.0.5
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
   value:
