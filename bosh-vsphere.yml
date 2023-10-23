@@ -1507,29 +1507,29 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 693c2e0315dce69733c41084b63f0c2d8c0ea48c
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.0.5
-  version: 280.0.5
+  sha1: 9ef26f227f2502a8f80b3a8367c99d1d8864e5eb
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.0.6
+  version: 280.0.6
 - name: bpm
   sha1: c9a78a6aa9f53dcc63d2b2fa9273520871c9f1b3
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.9
   version: 1.2.9
 - name: bosh-vsphere-cpi
-  sha1: 0a20c879c7fa2441eaae18234b63698fdd06e8b6
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.0
-  version: 97.0.0
+  sha1: 83cf132d8512bff48c5825370887cbdea8eca198
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.1
+  version: 97.0.1
 - name: os-conf
   sha1: 5df557f14f073d7ab6a685680a232c1b74c393c5
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.2.0
   version: 22.2.0
 - name: uaa
-  sha1: 298426d34307472a903d7e3ff24b0c98a8b9e814
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.22.0-ubuntu-jammy-1.260-20231011-183559-872994428-20231011183604.tgz
-  version: 76.22.0
+  sha1: 90e790f6a4703d637f6c08c2baa9561e62fc22f1
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-76.23.0-ubuntu-jammy-1.260-20231019-193307-663652392-20231019193311.tgz
+  version: 76.23.0
 - name: credhub
-  sha1: 35ac97ce13083e60ea59ce5bd41f2108d28ad4d0
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.48-ubuntu-jammy-1.260-20231012-190107-327332463-20231012190108.tgz
-  version: 2.12.48
+  sha1: 730afb54dc5b001591a8f3330c0cebefcc20b3a3
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.49-ubuntu-jammy-1.260-20231019-224301-999455341-20231019224304.tgz
+  version: 2.12.49
 - name: bosh-aws-cpi
   sha1: 29ab1006067b3148953562b4306cac1962a755f7
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=100
