@@ -58,7 +58,7 @@ bosh \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/scale-to-one-az.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-haproxy.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-postgres.yml \
-  -o $DEPLOYMENTS_DIR/../cf-deployment/operations/test/add-persistent-isolation-segment-diego-cell.yml \
+  -o $DEPLOYMENTS_DIR/../cf-deployment/operations/add-persistent-isolation-segment-diego-cell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/windows2019-cell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-windows2019-stemcell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-online-windows2019fs.yml \
