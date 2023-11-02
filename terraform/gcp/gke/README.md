@@ -9,10 +9,12 @@ containing Terraform configuration files to provision an GKE cluster on GCP.
 This repo also creates a VPC and subnet for the GKE cluster. This is not
 required but highly recommended to keep your GKE cluster isolated.
 
-### Quick Start
+### Ongoing Maintenance
 
 ```bash
-terraform apply
+gcloud auth application-default login # fixes "oauth2: cannot fetch token: 400 Bad Request"
+terraform apply -refresh-only # get any k8s upgrades done from console
+terraform init -upgrade # Get the latest GCP Terraform provider
 gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name) --region $(terraform output --raw region)
 ```
 
