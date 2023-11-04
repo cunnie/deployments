@@ -6,6 +6,8 @@
 # creates BOSH Directors to test performance of different stemcells
 #
 #
+set -eux -o pipefail
+
 unset BOSH_DEPLOYMENT
 DEPLOYMENTS_DIR="$( cd "${BASH_SOURCE[0]%/*}" && pwd )/.."
 cd $DEPLOYMENTS_DIR
@@ -13,22 +15,18 @@ cd $DEPLOYMENTS_DIR
 pushd $DEPLOYMENTS_DIR/../bosh-deployment; git pull -r; popd
 
 set -- \
-  xenial      xenial 10.9.2.21 "" \
-  bionic      bionic 10.9.2.22 "" \
-  jammy       jammy  10.9.2.23 "" \
+  bosh-test.nono.io 10.9.2.21 jammy "" \
 
 
 MANIFEST_DIR=bosh-perf
 mkdir -p $MANIFEST_DIR
 while [ $# -gt 1 ]; do
-  DIRECTOR_NAME=$1
-  STEMCELL=$2
-  DIRECTOR_IP=$3
+  DIRECTOR_FQDN=$1
+  DIRECTOR_IP=$2
+  STEMCELL=$3
   OPTIONS_YML=$4
 
-  # cat <(echo -e "${OPTIONS_YML}")
-  # exit
-
+  DIRECTOR_NAME=${DIRECTOR_FQDN%%.*} # basename $DIRECTOR_FQDN
   mkdir -p $MANIFEST_DIR/$STEMCELL
 
   bosh -nd $DIRECTOR_NAME deploy $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
@@ -52,8 +50,10 @@ while [ $# -gt 1 ]; do
     -o etc/jumpbox_key.yml \
     -o etc/human-readable-names.yml \
     -o etc/perf.yml \
+    -o etc/fqdn.yml \
     \
     -v director_name=$DIRECTOR_NAME \
+    -v director_fqdn=$DIRECTOR_FQDN \
     -v internal_ip=$DIRECTOR_IP \
     -v stemcell=$STEMCELL \
     \
@@ -63,18 +63,18 @@ while [ $# -gt 1 ]; do
     -v vcenter_dc=dc \
     -v vcenter_cluster=cl \
     -v vcenter_rp=perf \
-    -v vcenter_ds=SSD-1 \
+    -v vcenter_ds=NAS-0 \
     -v vcenter_ip=vcenter-80.nono.io \
     -v vcenter_user=a@vsphere.local \
     -v vcenter_templates=bosh-vsphere-templates \
     -v vcenter_vms=bosh-vsphere-vms \
     -v vcenter_disks=bosh-vsphere-disks \
 
-  bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_IP --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
+  bosh alias-env $DIRECTOR_NAME -e $DIRECTOR_FQDN --ca-cert <(credhub get -n /bosh-vsphere/$DIRECTOR_NAME/director_ssl --key=ca)
   export BOSH_CLIENT=admin
   export BOSH_CLIENT_SECRET=$(lpass show --note deployments.yml | bosh int --path /admin_password -)
-  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 2e2a94c7f4741e71249ebf65176ddcecafa1b160 \
-  https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.80
+  bosh -e $DIRECTOR_NAME upload-stemcell --sha1 032ed52ecbe9b638b3d23d4dab65f6f988aa17f9 \
+  https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-jammy-go_agent?v=1.260
   bosh -e $DIRECTOR_NAME update-cloud-config -n bosh-perf/cloud-config.yml
 
   shift 4
