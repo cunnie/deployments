@@ -38,6 +38,9 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/credhub.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/bpm.yml \
   -o $DEPLOYMENTS_DIR/../bosh-deployment/experimental/enable-metrics.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/certificate-duration/bosh.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/certificate-duration/credhub.yml \
+  -o $DEPLOYMENTS_DIR/../bosh-deployment/misc/certificate-duration/uaa.yml \
   \
   -o etc/common.yml \
   -o etc/jumpbox_key.yml \
@@ -52,6 +55,7 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   --vars-store=bosh-vsphere-creds.yml \
   --var-file commercial_ca_crt=etc/isrg-root-x1.pem \
   \
+  -v certificate_duration=3650 \
   -v director_name=bosh-vsphere \
   -v internal_cidr=10.9.2.0/23 \
   -v internal_gw=10.9.2.1 \
