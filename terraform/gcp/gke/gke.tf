@@ -9,7 +9,7 @@ variable "gke_password" {
 }
 
 variable "gke_num_nodes" {
-  default     = 3
+  default     = 4
   description = "number of gke nodes"
 }
 
@@ -23,6 +23,7 @@ resource "google_container_cluster" "primary" {
   # node pool and immediately delete it.
   remove_default_node_pool = true
   initial_node_count       = 1
+  deletion_protection = false
 
   network         = google_compute_network.vpc.name
   subnetwork      = google_compute_subnetwork.subnet.name
