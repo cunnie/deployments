@@ -20,6 +20,31 @@ gcloud container clusters get-credentials $(terraform output -raw kubernetes_clu
 
 ### [Creating the NGINX Ingress Controller on GKE](https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke)
 
+```bash
+ # show values
+helm show values ingress-nginx --repo https://kubernetes.github.io/ingress-nginx
+ # install
+helm upgrade --install ingress-nginx ingress-nginx \
+  --repo https://kubernetes.github.io/ingress-nginx \
+  --namespace ingress-nginx --create-namespace \
+  -f nginx-values.yml \
+  --wait
+```
+
+Find the newly-assigned load balancer IP (this saves us $30/mo versus a
+"Premium Tier" load balancer). In this example, it's 35.209.139.217:
+
+```bash
+kubectl --namespace ingress-nginx get services -o wide -w ingress-nginx-controller
+```
+
+### Update the DNS
+
+- ci.nono.io
+- gke.nono.io
+- vault.nono.io
+
+<!--
 Setting up the load balancer is as simple as `kubectl apply`. I have customized:
 
 ```bash
@@ -31,10 +56,11 @@ POD_NAMESPACE=ingress-nginx
 POD_NAME=$(kubectl get pods -n $POD_NAMESPACE -l app.kubernetes.io/name=ingress-nginx --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')
 kubectl exec -it $POD_NAME -n ingress-nginx -- /nginx-ingress-controller --version # --help is useful, too
 ```
+-->
 
 ### [TLS (cert-manager)](https://cert-manager.io/docs/installation/kubernetes/)
 
-We choose to install with regular manifests (not `helm`):
+We choose to install with `helm`:
 ```bash
 helm repo add jetstack https://charts.jetstack.io
 helm install \
@@ -52,6 +78,7 @@ about). Let's check that the 3 pods are up & running:
 kubectl get pods --namespace cert-manager
 ```
 
+<!--
 Now let's create an issuer to test the webhook:
 ```bash
 cat <<EOF > test-resources.yaml
@@ -93,6 +120,7 @@ kubectl describe certificate -n cert-manager-test
 kubectl delete -f test-resources.yaml
 ```
 
+
 #### 4. [Deploy an Example Service](https://cert-manager.io/docs/tutorials/acme/ingress/#step-4-deploy-an-example-service)
 
 Let's install the sample services to test the controller:
@@ -114,18 +142,30 @@ Let's use curl to check (note the cert is still self-signed at this point):
 curl -kivL -H 'Host: gke.nono.io' 'http://104.155.144.4'
 ```
 
+-->
+
 #### 6. [Configure Let’s Encrypt Issuer](https://cert-manager.io/docs/tutorials/acme/ingress/#step-6-configure-let-s-encrypt-issuer)
 
+_[Inspired from <https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/>]_
+
 Let's deploy the staging & production issuers:
+
 ```bash
-kubectl apply -f <(
-  curl -o- https://cert-manager.io/docs/tutorials/acme/example/staging-issuer.yaml |
-  sed 's/user@example.com/brian.cunnie@gmail.com/')
-kubectl apply -f <(
-  curl -o- https://cert-manager.io/docs/tutorials/acme/example/production-issuer.yaml |
-  sed 's/user@example.com/brian.cunnie@gmail.com/')
-kubectl describe issuer letsencrypt-staging
-kubectl describe issuer letsencrypt-prod
+kubectl apply -f lets-encrypt.yml
+kubectl describe clusterissuers.cert-manager.io letsencrypt-staging
+kubectl describe clusterissuers.cert-manager.io letsencrypt-production
+```
+
+Chicken-and-egg hack to jumpstart issuing:
+
+```
+kubectl apply -f secret.yml
+```
+
+Let's use the production issuer:
+
+```
+kubectl annotate ingress web-ingress cert-manager.io/issuer=letsencrypt-production --overwrite
 ```
 
 #### 7. [Step 7 - Deploy a TLS Ingress Resource](https://cert-manager.io/docs/tutorials/acme/ingress/#step-7-deploy-a-tls-ingress-resource)
