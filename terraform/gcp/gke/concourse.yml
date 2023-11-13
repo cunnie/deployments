@@ -15,4 +15,4 @@ spec:
     protocol: TCP
     targetPort: tsa
   selector:
-    app: ci-nono-io-web
+    app: ci-web
