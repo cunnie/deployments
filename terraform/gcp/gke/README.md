@@ -20,6 +20,8 @@ gcloud container clusters get-credentials $(terraform output -raw kubernetes_clu
 
 ### [Creating the NGINX Ingress Controller on GKE](https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke)
 
+_[We could've gone with the [gce](https://cloud.google.com/kubernetes-engine/docs/concepts/ingress) ingress controller, but it seemed to force us to use the more expensive "premium" load balancer tier, and we didn't want to spend extra $30/month]_
+
 ```bash
  # show values
 helm show values ingress-nginx --repo https://kubernetes.github.io/ingress-nginx
@@ -32,9 +34,10 @@ helm upgrade --install ingress-nginx ingress-nginx \
 ```
 
 Find the newly-assigned load balancer IP (this saves us $30/mo versus a
-"Premium Tier" load balancer). In this example, it's 35.209.139.217:
+"Premium Tier" load balancer). In this example, it's 35.209.72.245:
 
 ```bash
+ # find the external IP
 kubectl --namespace ingress-nginx get services -o wide -w ingress-nginx-controller
 ```
 
@@ -44,25 +47,43 @@ kubectl --namespace ingress-nginx get services -o wide -w ingress-nginx-controll
 - gke.nono.io
 - vault.nono.io
 
-<!--
-Setting up the load balancer is as simple as `kubectl apply`. I have customized:
-
-```bash
-kubectl apply -f nginx-ingress-controller.yml
-```
-Check the installed version
-```bash
-POD_NAMESPACE=ingress-nginx
-POD_NAME=$(kubectl get pods -n $POD_NAMESPACE -l app.kubernetes.io/name=ingress-nginx --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')
-kubectl exec -it $POD_NAME -n ingress-nginx -- /nginx-ingress-controller --version # --help is useful, too
-```
--->
-
 ### [TLS (cert-manager)](https://cert-manager.io/docs/installation/kubernetes/)
 
+#### 4. [Deploy an Example Service](https://cert-manager.io/docs/tutorials/acme/nginx-ingress/#step-4---deploy-an-example-service)
+
+Let's install the sample services to test the controller:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/acme/example/deployment.yaml
+# expected output: deployment.extensions "kuard" created
+
+kubectl apply -f https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/acme/example/service.yaml
+# expected output: service "kuard" created
+```
+
+Let's download and edit the Ingress (I've already configured `gke.nono.io` to
+point to the external IP at 35.209.72.245):
+
+```bash
+curl -o ingress-kuard.yml https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/acme/example/ingress.yaml
+sed -i "s/example.example.com/gke.nono.io/g" ingress-kuard.yml
+kubectl apply -f ingress-kuard.yml
+# expected output: ingress.networking.k8s.io/kuard created
+```
+
+Let's use curl to check (note the cert is still self-signed at this point):
+
+```bash
+curl -kivL -H 'Host: gke.nono.io' 'http://35.209.72.245'
+```
+
+#### 5. [Deploy cert-manager](https://cert-manager.io/docs/tutorials/acme/nginx-ingress/#step-5---deploy-cert-manager)
+
 We choose to install with `helm`:
+
 ```bash
 helm repo add jetstack https://charts.jetstack.io
+helm repo update
 helm install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
@@ -71,138 +92,72 @@ helm install \
   --wait
 ```
 
-(I did not seem to run into the GKE `permission denied` error that they warn
-about). Let's check that the 3 pods are up & running:
+Let's check that the 3 pods are up & running:
 
 ```bash
 kubectl get pods --namespace cert-manager
 ```
 
-<!--
-Now let's create an issuer to test the webhook:
-```bash
-cat <<EOF > test-resources.yaml
-```
-```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: cert-manager-test
----
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: test-selfsigned
-  namespace: cert-manager-test
-spec:
-  selfSigned: {}
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: selfsigned-cert
-  namespace: cert-manager-test
-spec:
-  dnsNames:
-    - example.com
-  secretName: selfsigned-cert-tls
-  issuerRef:
-    name: test-selfsigned
-```
-```
-EOF
-```
-
-And now let's apply those resources:
-```bash
-kubectl apply -f test-resources.yaml
-kubectl describe certificate -n cert-manager-test
-kubectl delete -f test-resources.yaml
-```
-
-
-#### 4. [Deploy an Example Service](https://cert-manager.io/docs/tutorials/acme/ingress/#step-4-deploy-an-example-service)
-
-Let's install the sample services to test the controller:
-```bash
-kubectl apply -f https://netlify.cert-manager.io/docs/tutorials/acme/example/deployment.yaml
-kubectl apply -f https://netlify.cert-manager.io/docs/tutorials/acme/example/service.yaml
-```
-
-Let's download and edit the Ingress (I've already configured `gke.nono.io` to
-point to the GCP/GKE load balancer at 104.155.144.4):
-```bash
-curl -o ingress-kuard.yml -L https://netlify.cert-manager.io/docs/tutorials/acme/example/ingress.yaml
-sed -i '' "s/example.example.com/gke.nono.io/g" ingress-kuard.yml
-kubectl apply -f ingress-kuard.yml
-```
-
-Let's use curl to check (note the cert is still self-signed at this point):
-```bash
-curl -kivL -H 'Host: gke.nono.io' 'http://104.155.144.4'
-```
-
--->
-
 #### 6. [Configure Let’s Encrypt Issuer](https://cert-manager.io/docs/tutorials/acme/ingress/#step-6-configure-let-s-encrypt-issuer)
 
-_[Inspired from <https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/>]_
-
-Let's deploy the staging & production issuers:
+Let's deploy the staging & production ClusterIssuers:
 
 ```bash
-kubectl apply -f lets-encrypt.yml
-kubectl describe clusterissuers.cert-manager.io letsencrypt-staging
-kubectl describe clusterissuers.cert-manager.io letsencrypt-production
+curl --fail -OL https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/acme/example/staging-issuer.yaml
+sed -i 's/user@example.com/brian.cunnie@gmail.com/;s/Issuer/ClusterIssuer/' staging-issuer.yaml
+kubectl apply -f staging-issuer.yaml
+# expected output: issuer.cert-manager.io "letsencrypt-staging" created
 ```
 
-Chicken-and-egg hack to jumpstart issuing:
-
-```
-kubectl apply -f secret.yml
-```
-
-Let's use the production issuer:
-
-```
-kubectl annotate ingress web-ingress cert-manager.io/issuer=letsencrypt-production --overwrite
+```bash
+curl --fail -OL https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/acme/example/production-issuer.yaml
+sed -i 's/user@example.com/brian.cunnie@gmail.com/;s/Issuer/ClusterIssuer/' production-issuer.yaml
+kubectl apply -f production-issuer.yaml
+# expected output: issuer.cert-manager.io "letsencrypt-production" created
 ```
 
-#### 7. [Step 7 - Deploy a TLS Ingress Resource](https://cert-manager.io/docs/tutorials/acme/ingress/#step-7-deploy-a-tls-ingress-resource)
+Check that the issuers have registered:
+
+```bash
+for issuer in staging prod; do
+  kubectl describe clusterissuer letsencrypt-${issuer} | \
+    grep "The ACME account was registered with the ACME server"
+done
+```
+
+#### 7. [Deploy a TLS Ingress Resource](https://cert-manager.io/docs/tutorials/acme/nginx-ingress/#step-7---deploy-a-tls-ingress-resource)
 
 Let's deploy the ingress resource using annotations to obtain the certificate:
+
 ```bash
-kubectl apply -f <(
-  curl -o- https://cert-manager.io/docs/tutorials/acme/example/ingress-tls.yaml |
-  sed 's/example.example.com/gke.nono.io/')
-kubectl get certificate # takes ~30s to become ready ("READY" == "True")
-kubectl describe certificate quickstart-example-tls
-kubectl describe secret quickstart-example-tls
+curl --fail -OL https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/acme/example/ingress-tls.yaml
+sed -i 's/example.example.com/gke.nono.io/' ingress-tls.yaml
+sed -i 's~cert-manager.io/issuer~cert-manager.io/cluster-issuer~' ingress-tls.yaml
+kubectl apply -f ingress-tls.yaml
 ```
 
-Browse to <https://gke.nono.io> and notice that although the cert is still
-invalid it's no longer self-signed; instead, it's issued by the Let's Encrypt
-staging CA.
+Let's check the certificate again; verify the issuer is "Let's Encrypt":
+
+```bash
+curl -kivL https://gke.nono.io
+```
 
 Let's do the production certificate:
 
 ```bash
-kubectl apply -f <(
-  curl -o- https://cert-manager.io/docs/tutorials/acme/example/ingress-tls-final.yaml |
-  sed 's/example.example.com/gke.nono.io/')
-kubectl delete secret quickstart-example-tls # triggers the process to get a new certificate
+sed -i 's/letsencrypt-staging/letsencrypt-prod/' ingress-tls.yaml
+kubectl apply -f ingress-tls.yaml
+```
+
+If desired, you can check the certificates:
+
+```bash
 kubectl get certificate # takes ~30s to become ready ("READY" == "True")
 kubectl describe certificate quickstart-example-tls
 kubectl describe secret quickstart-example-tls
 ```
 
 And now browse: <https://gke.nono.io/>
-
-### Install sslip.io
-
-```bash
-kubectl apply -f <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/master/k8s/sslip.io.yml)
-```
 
 ### Install Concourse CI
 
@@ -224,18 +179,34 @@ helm install ci concourse/concourse \
   --wait
 ```
 
-### Install etcd
+We need to find the load balancer's IP address. In this example it's 35.209.139.217:
 
-Create the k8s secret, `etcd-peer-tls`, with the etcd cluster's CA cert and TLS cert & key
 ```bash
-kubectl create secret generic etcd-peer-tls \
-  --from-file=ca.pem=<(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/main/etcd/ca.pem) \
-  --from-file=etcd.pem=<(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/main/etcd/etcd.pem) \
-  --from-file=etcd-key.pem=<(lpass show --note etcd-key.pem)
+kubectl get services -A
 ```
 
+Now we need to update the property `instance_groups/name=worker/jobs/name=worker/properties/hosts` to the new IP address, e.g. `35.209.139.217:2222` in the [worker manifest](https://github.com/cunnie/deployments/blob/main/sslip.io.yml) and redeploy. Check that the worker has registered after deployment completes:
+
+```bash
+fly -t nono workers
 ```
-kubectl apply -f k-v.io.yml
+
+Let's recreate our pipelines:
+
+```bash
+ # stemcells
+fly -t nono sp -p stemcell -c <(curl -L https://raw.githubusercontent.com/cunnie/deployments/main/ci/pipeline-stemcell.yml) -l <(lpass show --note deployments.yml)
+fly -t nono expose-pipeline -p stemcell
+fly -t nono unpause-pipeline -p stemcell
+ # badges
+fly -t nono sp -p badges -c <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/main/ci/pipeline-badges.yml)
+fly -t nono expose-pipeline -p badges
+fly -t nono unpause-pipeline -p badges
+ # sslip.io
+fly -t nono sp -p sslip.io -c <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/main/ci/pipeline-sslip.io.yml)
+fly -t nono expose-pipeline -p sslip.io
+fly -t nono unpause-pipeline -p sslip.io
+
 ```
 
 ### Updating Concourse CI
