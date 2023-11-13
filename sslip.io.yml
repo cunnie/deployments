@@ -22,7 +22,7 @@ instance_groups:
       drain_timeout: 10m
       worker_gateway:
         host_public_key: ((tsa_host_key.public_key))
-        hosts: ci.nono.io:2222
+        hosts: 35.209.139.217:2222
         worker_key: ((worker_key))
     release: concourse
   name: worker
@@ -33,17 +33,17 @@ instance_groups:
 name: sslip.io
 releases:
 - name: concourse
-  sha1: 0b7c6b8ab6a0da832d91a5e30d2cc56ce80de06e
-  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=7.10.0
-  version: 7.10.0
+  sha1: f5a83f741cd07b1fa42df8324af18c9d30d629b0
+  url: https://bosh.io/d/github.com/concourse/concourse-bosh-release?v=7.11.0
+  version: 7.11.0
 - name: bpm
-  sha1: 52c90ab6a217a77bf03b1383606557c0f56d5d8c
-  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.4
-  version: 1.2.4
+  sha1: c9a78a6aa9f53dcc63d2b2fa9273520871c9f1b3
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.9
+  version: 1.2.9
 - name: postgres
-  sha1: 582b1de9522077102dfa44ff7164cd8f499dbfc8
-  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=44
-  version: "44"
+  sha1: 94b7f6c79d0d3d867358c3ebdf8bb47cf62db7eb
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=47
+  version: "47"
 - name: os-conf
   version: latest
 stemcells:
