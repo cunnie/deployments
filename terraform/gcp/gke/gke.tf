@@ -9,7 +9,7 @@ variable "gke_password" {
 }
 
 variable "gke_num_nodes" {
-  default     = 4
+  default     = 3
   description = "number of gke nodes"
 }
 
@@ -43,6 +43,7 @@ resource "google_container_node_pool" "primary_nodes" {
   location   = var.zone
   cluster    = google_container_cluster.primary.name
   node_count = var.gke_num_nodes
+  version    = "1.28.2-gke.1157000"
 
   node_config {
     oauth_scopes = [
