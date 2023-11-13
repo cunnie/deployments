@@ -1,0 +1,7 @@
+controller:
+  service:
+    annotations:
+      cloud.google.com/network-tier: "Standard" # want to save ~$20 / month
+      cloud.google.com/l4-rbs: "enabled" # https://cloud.google.com/kubernetes-engine/docs/concepts/service-load-balancer#load_balancer_types
+    # loadBalancerIP: 104.155.144.4 # Can't choose standard tier + IP: "Network tier mismatch for resource User specific address IP (xxx), desired: Standard, received: PREMIUM"
+    externalTrafficPolicy: Local # https://cloud.google.com/kubernetes-engine/docs/concepts/service-load-balancer#effect_of_externaltrafficpolicy
