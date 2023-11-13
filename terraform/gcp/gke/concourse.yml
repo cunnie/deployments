@@ -4,10 +4,11 @@ kind: Service
 metadata:
   name: ci-nono-io-web-worker-gateway-lb
   namespace: default
+  annotations:
+    cloud.google.com/network-tier: "Standard"
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
-  loadBalancerIP: 104.155.144.4
   ports:
   - name: concourse-worker
     port: 2222

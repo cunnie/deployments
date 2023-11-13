@@ -20,9 +20,9 @@ concourse:
 web:
   ingress:
     enabled: true
+    ingressClassName: nginx
     annotations:
-      cert-manager.io/issuer: letsencrypt-prod
-      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     hosts:
     - ci.nono.io
     tls:
