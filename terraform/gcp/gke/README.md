@@ -258,23 +258,11 @@ psql -U postgres concourse < /tmp/concourse.dump
 
 ### Installing Vault
 
-(Not tested)
-
 From
-<https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide?in=vault/kubernetes>
+<https://learn.hashicorp.com/tutorials/vault/kubernetes-raft-deployment-guide?in=vault/kubernetes>:
 
-Create the namespace & deploy the TLS issuers to that namespace:
 ```bash
 kubectl create namespace vault
-kubectl apply -f <(
-  curl -o- https://cert-manager.io/docs/tutorials/acme/example/staging-issuer.yaml |
-  sed 's/user@example.com/brian.cunnie@gmail.com/') -n vault
-kubectl apply -f <(
-  curl -o- https://cert-manager.io/docs/tutorials/acme/example/production-issuer.yaml |
-  sed 's/user@example.com/brian.cunnie@gmail.com/') -n vault
-```
-
-```bash
 helm repo add hashicorp https://helm.releases.hashicorp.com
 helm search repo hashicorp/vault --versions
  # the following `--dry-run` will show the k8s deployments, services, etc.
@@ -295,6 +283,7 @@ helm upgrade vault hashicorp/vault \
   -f vault-values.yml \
   --wait
 ```
+
 Then browse to <https://vault.nono.io> and unlock the vault.
 
 ```bash
@@ -357,9 +346,9 @@ server:
 
 ```bash
 vault read auth/approle/role/concourse/role-id
-  # role_id    045e3a37-6cc4-4f6b-xxxx-xxxxxxxxxxxx
+  # role_id   045e3a37-6cc4-4f6b-xxxx-xxxxxxxxxxxx
 vault write -f auth/approle/role/concourse/secret-id
-  # secret_id             85ed8dec-757d-f6c2-xxxx-xxxxxxxxxxxx
+  # secret_id 85ed8dec-757d-f6c2-xxxx-xxxxxxxxxxxx
 ```
 
 Write our new secret to our `deployments.yml`; it should look something like the following:
