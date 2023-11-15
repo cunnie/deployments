@@ -380,6 +380,7 @@ Create a secret for our Concourse pipeline that tests Vault:
 
 ```bash
 vault kv put -mount=concourse main/ozymandias-secret value="Look on my Works, ye Mighty, and despair\!"
+vault kv put -mount=concourse main/docker_token value="deb9e84e-f36e-xxxx-xxxx-xxxxxxxxxxxx"
 ```
 
 Change the default storage class to fix "had volume node affinity conflict"
