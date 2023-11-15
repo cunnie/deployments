@@ -24,6 +24,9 @@ stemcells:
 - alias: jammy
   os: ubuntu-jammy
   version: latest
+- alias: jammy-199
+  os: ubuntu-jammy
+  version: 1.199
 - alias: windows
   os: windows2019
   version: latest
@@ -76,6 +79,23 @@ instance_groups:
   networks:
   - name: vsphere-guest
   stemcell: jammy
+  vm_extensions:
+  - disk-enable-uuid
+  # - anti-affinity-mysql # Difficult to do ESXi maintenance; won't migrate off
+  vm_type: small
+- azs:
+  - vsphere
+  instances: 1
+  jobs:
+  - *add_user_cunnie
+  - name: auditd
+    properties:
+      pre_start_delay: 2
+    release: os-conf
+  name: jammy-199
+  networks:
+  - name: vsphere-guest
+  stemcell: jammy-199
   vm_extensions:
   - disk-enable-uuid
   # - anti-affinity-mysql # Difficult to do ESXi maintenance; won't migrate off
