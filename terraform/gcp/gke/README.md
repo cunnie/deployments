@@ -198,6 +198,10 @@ Let's recreate our pipelines:
 fly -t nono sp -p stemcell -c <(curl -L https://raw.githubusercontent.com/cunnie/deployments/main/ci/pipeline-stemcell.yml) -l <(lpass show --note deployments.yml)
 fly -t nono expose-pipeline -p stemcell
 fly -t nono unpause-pipeline -p stemcell
+ # vault test
+fly -t nono sp -p ozymandias -c <(curl -L https://raw.githubusercontent.com/cunnie/deployments/main/ci/pipeline-ozymandias.yml) -l <(lpass show --note deployments.yml)
+fly -t nono expose-pipeline -p ozymandias
+fly -t nono unpause-pipeline -p ozymandias
  # badges
 fly -t nono sp -p badges -c <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/main/ci/pipeline-badges.yml)
 fly -t nono expose-pipeline -p badges
@@ -303,7 +307,7 @@ curl \
 Record `keys` and `root_token`.
 
 ```bash
-export VAULT_TOKEN=s.QmByxxxxxxxxxxxxxxxxxxxx
+export VAULT_TOKEN=hvs.FieEoSIxxxxxxxxxxxx
 export VAULT_ADDR=https://vault.nono.io
 curl \
     --request POST \
@@ -358,6 +362,12 @@ vault write -f auth/approle/role/concourse/secret-id
   # secret_id             85ed8dec-757d-f6c2-xxxx-xxxxxxxxxxxx
 ```
 
+Write our new secret to our `deployments.yml`; it should look something like the following:
+
+```yaml
+vault_client_auth_param: role_id:045e3a37-6cc4-4f6b-4312-36eed80f7adc\,secret_id:59b8015d-8d4a-fcce-f689-0cfa6a29f48c
+```
+
 Update our Concourse server with the new secret:
 
 ```bash
@@ -373,6 +383,14 @@ helm upgrade ci concourse/concourse \
   --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
   --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
   --wait
+ # I'm not sure that I needed the following
+kubectl rollout restart deployment/ci-web
+```
+
+Create a secret for our Concourse pipeline that tests Vault:
+
+```bash
+vault kv put -mount=concourse main/ozymandias-secret value="Look on my Works, ye Mighty, and despair\!"
 ```
 
 Change the default storage class to fix "had volume node affinity conflict"
