@@ -210,50 +210,10 @@ fly -t nono unpause-pipeline -p badges
 fly -t nono sp -p sslip.io -c <(curl -L https://raw.githubusercontent.com/cunnie/sslip.io/main/ci/pipeline-sslip.io.yml)
 fly -t nono expose-pipeline -p sslip.io
 fly -t nono unpause-pipeline -p sslip.io
-
-```
-
-### Updating Concourse CI
-
-```bash
-helm repo update
-helm search repo concourse/concourse --versions # idle curiousity to see the latest version
-helm upgrade ci concourse/concourse \
-  -f concourse-values.yml \
-  --set secrets.githubClientSecret=$(lpass show --note deployments.yml | yq e .github_concourse_nono_auth_client_secret -) \
-  --set secrets.hostKey="$(lpass show --note deployments.yml | yq e .tsa_host_key.private_key -)" \
-  --set secrets.hostKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDrchtcCq6WFbl2xlWaKQP1UIUDUPPjKrndtrPXFArPs4+zOn5RcGf4zpO2GUD8fZl+8tikG7b+YQTfyOB08zeuA+WqpBVmiaXyK7OJhzuEWwqa60p5Ni1SyNRtcgntY8DLkKnWqzhDaVT/FcXIbnDfyMCDxp7Gs023jha3IGKeIIhRsOkJDcsfByxF63GP70WEs49JNToDCC3CIo8JEGXunjF1matILpJhupsa3obMOk2OCGNI9nleiRfSjE51f9hzYAa1wKqCoBbgOtVQ3mz59yxTFobVZFBP6fZX2GWXaLWHPPiAUtMhiL87pHsa43K0iiV6Yk59yoZ67mOdachp web@ci.nono.io" \
-  --set secrets.workerKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
-  --set secrets.workerKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0SIrGT+qIE7w8i67B/YDCfHINEU0LUP67SesaPaesq26rb/HHckPvBfRj+gCxKMvmTipUIVaQLBZlsPEMb+1V8xJBs2s4+9MU6QG6i7CEYTWyYlhVSDxU4HtwxGGnW9c5lASBB1jPkx2gWv0kgQYXQfrcbXSJ4fUtgdo0ZtePnXV7Qd30YUoR2fcuqEdAGg0S317V54vgeD2tfL04Qwhyu2Hbz4ZwTyhNe1YNcKET6v8ttRjVOIfMe+FF+JHqGJUiu5jygJ2p+29sm50JHEuxK+HjYpajmW8BRmXK7fIvDX24RDIs9ACZ+s+asEU8yEKkmdnFB5kUAukQWRuqUWYd worker@ci.nono.io" \
-  --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
-  --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
-  --wait
-kubectl rollout restart deployment/ci-web
-```
-
-### Backing Up Concourse CI
-
-(Partially tested):
-
-```bash
- # get the postgres user's password; the concourse user's is "concourse"
-kubectl get secret ci-postgresql -o json \
-  | jq -r '.data."postgresql-postgres-password"' \
-  | base64 -d
-kubectl exec -it ci-postgresql-0 -- bash
-pg_dump -Fc -U concourse concourse > /tmp/concourse.dump # password is "concourse"
-exit
-  # after a recreate w/ pristine DB
-kubectl cp ci-postgresql-0:/tmp/concourse.dump concourse.dump
-kubectl exec -it ci-postgresql-0 -- bash
-psql -U postgres concourse
-  \dn; # only one schema, "public"
-  drop schema public cascade;
-  create schema public;
-  grant usage on schema public to public;
-  grant create on schema public to public;
-  exit;
-psql -U postgres concourse < /tmp/concourse.dump
+ # u2date
+fly -t nono sp -p u2date -c <(curl -L https://raw.githubusercontent.com/cunnie/u2date/main/ci/pipeline.yml)
+fly -t nono expose-pipeline -p u2date
+fly -t nono unpause-pipeline -p u2date
 ```
 
 ### Installing Vault
@@ -392,6 +352,48 @@ kubectl patch storageclass standard-rwo -p '{"metadata": {"annotations":{"storag
  # deploy, then create _another_ storage class & make it the default
 kubectl get storageclasses.storage.k8s.io standard-rwo -o yaml | sed 's=standard-rwo=&-2=' | kubectl apply -f -
 kubectl patch storageclass standard-rwo -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+```
+### Updating Concourse CI
+
+```bash
+helm repo update
+helm search repo concourse/concourse --versions # idle curiousity to see the latest version
+helm upgrade ci concourse/concourse \
+  -f concourse-values.yml \
+  --set secrets.githubClientSecret=$(lpass show --note deployments.yml | yq e .github_concourse_nono_auth_client_secret -) \
+  --set secrets.hostKey="$(lpass show --note deployments.yml | yq e .tsa_host_key.private_key -)" \
+  --set secrets.hostKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDrchtcCq6WFbl2xlWaKQP1UIUDUPPjKrndtrPXFArPs4+zOn5RcGf4zpO2GUD8fZl+8tikG7b+YQTfyOB08zeuA+WqpBVmiaXyK7OJhzuEWwqa60p5Ni1SyNRtcgntY8DLkKnWqzhDaVT/FcXIbnDfyMCDxp7Gs023jha3IGKeIIhRsOkJDcsfByxF63GP70WEs49JNToDCC3CIo8JEGXunjF1matILpJhupsa3obMOk2OCGNI9nleiRfSjE51f9hzYAa1wKqCoBbgOtVQ3mz59yxTFobVZFBP6fZX2GWXaLWHPPiAUtMhiL87pHsa43K0iiV6Yk59yoZ67mOdachp web@ci.nono.io" \
+  --set secrets.workerKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
+  --set secrets.workerKeyPub="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0SIrGT+qIE7w8i67B/YDCfHINEU0LUP67SesaPaesq26rb/HHckPvBfRj+gCxKMvmTipUIVaQLBZlsPEMb+1V8xJBs2s4+9MU6QG6i7CEYTWyYlhVSDxU4HtwxGGnW9c5lASBB1jPkx2gWv0kgQYXQfrcbXSJ4fUtgdo0ZtePnXV7Qd30YUoR2fcuqEdAGg0S317V54vgeD2tfL04Qwhyu2Hbz4ZwTyhNe1YNcKET6v8ttRjVOIfMe+FF+JHqGJUiu5jygJ2p+29sm50JHEuxK+HjYpajmW8BRmXK7fIvDX24RDIs9ACZ+s+asEU8yEKkmdnFB5kUAukQWRuqUWYd worker@ci.nono.io" \
+  --set secrets.sessionSigningKey="$(lpass show --note deployments.yml | yq e .worker_key.private_key -)" \
+  --set secrets.vaultAuthParam="$(lpass show --note deployments.yml | yq e .vault_client_auth_param -)" \
+  --wait
+kubectl rollout restart deployment/ci-web
+```
+
+### Backing Up Concourse CI
+
+(Partially tested):
+
+```bash
+ # get the postgres user's password; the concourse user's is "concourse"
+kubectl get secret ci-postgresql -o json \
+  | jq -r '.data."postgresql-postgres-password"' \
+  | base64 -d
+kubectl exec -it ci-postgresql-0 -- bash
+pg_dump -Fc -U concourse concourse > /tmp/concourse.dump # password is "concourse"
+exit
+  # after a recreate w/ pristine DB
+kubectl cp ci-postgresql-0:/tmp/concourse.dump concourse.dump
+kubectl exec -it ci-postgresql-0 -- bash
+psql -U postgres concourse
+  \dn; # only one schema, "public"
+  drop schema public cascade;
+  create schema public;
+  grant usage on schema public to public;
+  grant create on schema public to public;
+  exit;
+psql -U postgres concourse < /tmp/concourse.dump
 ```
 
 #### Backing Up Vault
