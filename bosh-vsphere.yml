@@ -1515,9 +1515,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.12
   version: 1.2.12
 - name: bosh-vsphere-cpi
-  sha1: b39625fc7d0a8095dc5bd127cd6324da1fb0ca99
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.3
-  version: 97.0.3
+  sha1: 1c05979c5d6e1255f93d2d83c842150929c79c15
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.4
+  version: 97.0.4
 - name: os-conf
   sha1: daf34e35f1ac678ba05db3496c4226064b99b3e4
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.2.1

@@ -71,7 +71,7 @@ cpis:
         yRJ7n5AUZ5dcI5y/udK8jyE7j1I=
         -----END CERTIFICATE-----
       host: nsx.nono.io
-      password: Admin!23Admin
+      password: ((nsx_password))
       # use_policy_api: true
-      username: admin
+      username: a
   type: vsphere
