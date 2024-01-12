@@ -181,6 +181,9 @@ vm_extensions:
     - device_id: 0x1EB8
       vendor_id: 0x10DE
   name: gpu
+- cloud_properties:
+    root_disk_size_gb: 15
+  name: 15G_root
 vm_types:
 - cloud_properties:
     cpu: 1

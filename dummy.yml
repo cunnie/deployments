@@ -78,6 +78,7 @@ instance_groups:
   stemcell: jammy
   vm_extensions:
   - disk-enable-uuid
+  - 15G_root
   # - anti-affinity-mysql # Difficult to do ESXi maintenance; won't migrate off
   vm_type: small
 - azs:
