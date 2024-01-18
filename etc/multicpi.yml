@@ -4,9 +4,9 @@
   type: replace
   value:
     name: bosh-vsphere-cpi
-    sha1: 1c05979c5d6e1255f93d2d83c842150929c79c15
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.4
-    version: 97.0.4
+    sha1: ddcf851983f672b1186590244d94f7dffb959ff2
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.5
+    version: 97.0.5
 - path: /releases/-
   type: replace
   value:
@@ -18,16 +18,16 @@
   type: replace
   value:
     name: bosh-azure-cpi
-    sha1: 61cc252ce342b457b2b87cbbcf8981efae6ff2da
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=46.0.0
-    version: 46.0.0
+    sha1: 2119b1d9e91c2ff15da7b785239d90fb10811a2c
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=47.0.1
+    version: 47.0.1
 - path: /releases/-
   type: replace
   value:
     name: bosh-google-cpi
-    sha1: 51df6f19f113b19556170092a216cd7c1a7ecb16
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=49.0.9
-    version: 49.0.9
+    sha1: 199a5c3beef790ed99948eaee8a56a1a63211fcc
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=49.0.10
+    version: 49.0.10
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
   value:
