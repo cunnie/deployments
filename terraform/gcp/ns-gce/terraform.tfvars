@@ -1,0 +1,6 @@
+project_id          = "blabbertabber"
+friendly_project_id = "ns-gce"
+region              = "us-central1"
+zone                = "us-central1-a"
+ipv4_address        = "104.155.144.4"
+ipv6_address        = "2600:1900:4000:4d12::"
