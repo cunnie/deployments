@@ -7,8 +7,8 @@ server:
     labels:
       traffic: external
     annotations:
-      cert-manager.io/issuer: "letsencrypt-prod"
-      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    ingressClassName: nginx
     hosts:
       - host: vault.nono.io
         paths: []
