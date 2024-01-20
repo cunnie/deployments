@@ -110,6 +110,8 @@ kind: Service
 metadata:
   name: k-v-io-etcd
   namespace: default
+  annotations:
+    cloud.google.com/network-tier: "Standard"
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
