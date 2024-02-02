@@ -82,6 +82,16 @@ instance_groups:
   # - anti-affinity-mysql # Difficult to do ESXi maintenance; won't migrate off
   vm_type: small
 - azs:
+  - google
+  instances: 0
+  jobs:
+  - *add_user_cunnie
+  name: jammy-google
+  networks:
+  - name: google-private
+  stemcell: jammy
+  vm_type: g1-small
+- azs:
   - vsphere
   instances: 1
   jobs: []

@@ -87,7 +87,7 @@ networks:
   - azs:
     - google
     cloud_properties:
-      network_name: cf
+      network_name: default
       tags:
       - cf-internal
       - cf-bosh
@@ -263,8 +263,9 @@ vm_types:
   name: t3a.nano
 - cloud_properties:
     machine_type: g1-small
-    root_disk_size_gb: 10
-    root_disk_type: pd-ssd
+    root_disk_size_gb: 25
+    root_disk_type: pd-balanced
+    ephemeral_external_ip: true
   name: g1-small
 - cloud_properties:
     ram: 2816
