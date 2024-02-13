@@ -24,6 +24,9 @@ stemcells:
 - alias: jammy
   os: ubuntu-jammy
   version: latest
+- alias: noble
+  os: ubuntu-noble
+  version: latest
 - alias: windows
   os: windows2019
   version: latest
@@ -44,11 +47,6 @@ instance_groups:
   networks:
   - name: vsphere-guest
   stemcell: xenial
-  vm_extensions:
-  # - two-cores-per-socket
-  # - disk-enable-uuid
-  # - change-block-tracking
-  - precision-clock
   vm_type: small
 - azs:
   - vsphere
@@ -59,9 +57,6 @@ instance_groups:
   networks:
   - name: vsphere-guest
   stemcell: bionic
-  vm_extensions:
-  - two-cores-per-socket
-  # - anti-affinity-mysql # Difficult to do ESXi maintenance; won't migrate off
   vm_type: small
 - azs:
   - vsphere
@@ -76,10 +71,16 @@ instance_groups:
   networks:
   - name: vsphere-guest
   stemcell: jammy
-  vm_extensions:
-  - disk-enable-uuid
-  - 15G_root
-  # - anti-affinity-mysql # Difficult to do ESXi maintenance; won't migrate off
+  vm_type: small
+- azs:
+  - vsphere
+  instances: 0
+  jobs:
+  - *add_user_cunnie
+  name: noble
+  networks:
+  - name: vsphere-guest
+  stemcell: noble
   vm_type: small
 - azs:
   - google
