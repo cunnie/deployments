@@ -77,10 +77,10 @@ RUN dnf install -y dnf-plugins-core; \
 
 # https://packages.cloudfoundry.org/stable?release=redhat64&version=8.7.8&source=github-rel
 # https://packages.cloudfoundry.org/stable?release=redhataarch64&version=8.7.8&source=github-rel
-RUN ARCH=${TARGETARCH/amd64/64}; ARCH=${TARGETARCH/arm64/aarch64} ; \
+RUN ARCH=${TARGETARCH/amd64/64}; ARCH=${ARCH/arm64/aarch64} ; \
   curl -L "https://packages.cloudfoundry.org/stable?release=redhat${ARCH}&version=8.7.8&source=github-rel" -o cli.rpm; \
   rpm -i cli.rpm
 
-RUN GOBIN=/usr/local/bin go install github.com/onsi/ginkgo/v2/ginkgo@latest
+RUN CGO_ENABLED=0 GOBIN=/usr/local/bin go install github.com/onsi/ginkgo/v2/ginkgo@latest
 
 CMD [ "/usr/bin/zsh" ]
