@@ -67,7 +67,7 @@ RUN  echo "" | SHELL=/usr/bin/zsh /usr/bin/zsh -c "$(curl -fsSL https://raw.gith
 # amd64, arm64 (so I can run on AWS graviton2, natively on M1, M2 macs)
 ARG TARGETARCH
 
-RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v7.0.1/bosh-cli-7.0.1-linux-${TARGETARCH} -o /usr/local/bin/bosh; \
+RUN curl -L https://github.com/cloudfoundry/bosh-cli/releases/download/v7.5.2/bosh-cli-7.5.2-linux-${TARGETARCH} -o /usr/local/bin/bosh; \
   chmod +x /usr/local/bin/bosh
 
 RUN dnf install -y dnf-plugins-core; \
@@ -75,17 +75,12 @@ RUN dnf install -y dnf-plugins-core; \
   dnf -y install vault; \
   setcap -r /usr/bin/vault
 
+# https://packages.cloudfoundry.org/stable?release=redhat64&version=8.7.8&source=github-rel
+# https://packages.cloudfoundry.org/stable?release=redhataarch64&version=8.7.8&source=github-rel
+RUN ARCH=${TARGETARCH/amd64/64}; ARCH=${TARGETARCH/arm64/aarch64} ; \
+  curl -L "https://packages.cloudfoundry.org/stable?release=redhat${ARCH}&version=8.7.8&source=github-rel" -o cli.rpm; \
+  rpm -i cli.rpm
+
 RUN GOBIN=/usr/local/bin go install github.com/onsi/ginkgo/v2/ginkgo@latest
-
-# Must build from source because no Linux ARM 64 binaries are provided
-# Weird sed fixes this when building on a macOS arm64 host:
-#	verifying github.com/docker/distribution@v2.8.0+incompatible: checksum mismatch
-#		downloaded: h1:u9vuu6qqG7nN9a735Noed0ahoUm30iipVRlhgh72N0M=
-#		go.sum:     h1:l9EaZDICImO1ngI+uTifW+ZYvvz7fKISBAKpg+MbWbY=
-
-RUN cd; git clone https://github.com/cloudfoundry/cli.git; \
-  cd cli; git switch v8; \
-  sed -i 's/l9EaZDICImO1ngI+uTifW+ZYvvz7fKISBAKpg+MbWbY/u9vuu6qqG7nN9a735Noed0ahoUm30iipVRlhgh72N0M/g' go.sum; \
-  go mod tidy ; make build; mv out/cf /usr/local/bin/
 
 CMD [ "/usr/bin/zsh" ]
