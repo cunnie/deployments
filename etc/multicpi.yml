@@ -4,9 +4,9 @@
   type: replace
   value:
     name: bosh-vsphere-cpi
-    sha1: eeb168a732a19330860bcfa916c9716fe467e3ae
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.7
-    version: 97.0.7
+    sha1: 13ae9959c4a9760eb6ec9aa2a9fd0ae11410ef8b
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.8
+    version: 97.0.8
 - path: /releases/-
   type: replace
   value:
@@ -25,9 +25,9 @@
   type: replace
   value:
     name: bosh-google-cpi
-    sha1: 0f9d40a856cbe0562bfc51239477e4f556ea3f83
-    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=49.0.12
-    version: 49.0.12
+    sha1: d43ae2d1456fb120766a3b146511c233686f7d52
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=49.0.13
+    version: 49.0.13
 - type: replace
   path: /instance_groups/name=bosh/jobs/-
   value:
