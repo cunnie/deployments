@@ -62,6 +62,7 @@ bosh \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/windows2019-cell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-latest-windows2019-stemcell.yml \
   -o $DEPLOYMENTS_DIR/../cf-deployment/operations/use-online-windows2019fs.yml \
+  -o $DEPLOYMENTS_DIR/../cf-deployment/operations/enable-smb-volume-service.yml \
   -o $DEPLOYMENTS_DIR/cf/letsencrypt.yml \
   -o $DEPLOYMENTS_DIR/cf/haproxy-on-ipv6.yml \
   -o $DEPLOYMENTS_DIR/cf/router.yml \
