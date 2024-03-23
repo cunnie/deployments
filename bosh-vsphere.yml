@@ -1411,9 +1411,9 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 0c168e601cc801534cbd0c917b733980a8d77934
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.0.20
-  version: 280.0.20
+  sha1: 8e0eacd370b15a13b3136ed4d5d59e24de9d2592
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.0.21
+  version: 280.0.21
 - name: bpm
   sha1: 9c571c3463818ec1f8afe63d2da98c24381f7dda
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.17
@@ -1427,13 +1427,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.2.1
   version: 22.2.1
 - name: uaa
-  sha1: c91967d3161dbae85fac4b65d2b4b9f9423f8d7f
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.2.0-ubuntu-jammy-1.404-20240312-213810-855548949-20240312213813.tgz
-  version: 77.2.0
+  sha1: 64dbff0b9fa60bde4bf6bf73cdaa87b7b5ff67a1
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.3.0-ubuntu-jammy-1.406-20240320-002622-902604459-20240320002627.tgz
+  version: 77.3.0
 - name: credhub
-  sha1: d59b2a2764a512c20fda474ed52fd2ab869d2823
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.65-ubuntu-jammy-1.404-20240312-213753-917106433-20240312213755.tgz
-  version: 2.12.65
+  sha1: c1f5aba3f4d6554a0443c9280b0c5136245fab7c
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.67-ubuntu-jammy-1.406-20240321-215551-622431796-20240321215553.tgz
+  version: 2.12.67
 - name: bosh-aws-cpi
   sha1: 12d320570e00636f1e455e588e0462465b02d86a
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=101
@@ -1530,6 +1530,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: a6a3e55eb30122229743cb4416469fd3ad2dc71f
-    url: https://storage.googleapis.com/bosh-core-stemcells/1.404/bosh-stemcell-1.404-vsphere-esxi-ubuntu-jammy-go_agent.tgz
+    sha1: b9baa7f2011b6497f8f0c216d1e76fc854a09308
+    url: https://storage.googleapis.com/bosh-core-stemcells/1.406/bosh-stemcell-1.406-vsphere-esxi-ubuntu-jammy-go_agent.tgz
 variables: []
