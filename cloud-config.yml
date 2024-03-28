@@ -184,6 +184,9 @@ vm_extensions:
 - cloud_properties:
     root_disk_size_gb: 15
   name: 15G_root
+- cloud_properties:
+    root_disk_size_gb: 30
+  name: 30G_root
 vm_types:
 - cloud_properties:
     cpu: 1
