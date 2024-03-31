@@ -15,7 +15,7 @@ cd $DEPLOYMENTS_DIR
 pushd $DEPLOYMENTS_DIR/../bosh-deployment; git pull -r; popd
 
 set -- \
-  bosh-test.nono.io 10.9.2.21 jammy "" \
+  bosh-test.nono.io 10.9.16.21 jammy "" \
 
 
 MANIFEST_DIR=bosh-perf

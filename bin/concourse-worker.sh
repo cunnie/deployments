@@ -16,7 +16,7 @@ pushd $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster
     -d concourse-worker \
     external-worker.yml \
     -l ../versions.yml \
-    -v external_worker_network_name=vsphere-guest \
+    -v external_worker_network_name=vsphere-subnet \
     -v worker_vm_type=concourse-workers \
     -v instances=1 \
     -v azs=[vsphere] \

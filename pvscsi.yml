@@ -48,4 +48,4 @@ instance_groups:
   azs: [vsphere]
   networks:
 #  - name: default
-  - name: vsphere-guest
+  - name: vsphere-subnet

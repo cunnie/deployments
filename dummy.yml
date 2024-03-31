@@ -42,7 +42,7 @@ instance_groups:
   - *add_user_cunnie
   name: xenial
   networks:
-  - name: vsphere-guest
+  - name: vsphere-subnet
   stemcell: xenial
   vm_type: small
 - azs:
@@ -52,7 +52,7 @@ instance_groups:
   - *add_user_cunnie
   name: bionic
   networks:
-  - name: vsphere-guest
+  - name: vsphere-subnet
   stemcell: bionic
   vm_type: small
 - azs:
@@ -66,7 +66,7 @@ instance_groups:
     release: os-conf
   name: jammy
   networks:
-  - name: vsphere-guest
+  - name: vsphere-subnet
   stemcell: jammy
   vm_type: small
 - azs:
@@ -85,6 +85,6 @@ instance_groups:
   jobs: []
   name: windows
   networks:
-  - name: vsphere-guest
+  - name: vsphere-subnet
   stemcell: windows
   vm_type: compilation

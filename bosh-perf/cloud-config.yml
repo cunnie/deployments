@@ -10,7 +10,7 @@ azs:
   name: vsphere
 compilation:
   az: vsphere
-  network: vsphere-guest
+  network: vsphere-subnet
   reuse_compilation_vms: true
   vm_type: compilation
   workers: 15
@@ -32,20 +32,19 @@ disk_types:
 - disk_size: 65536
   name: 64G
 networks:
-- name: vsphere-guest
+- name: vsphere-subnet
   subnets:
   - azs:
     - vsphere
     cloud_properties:
       name: guest
     dns:
-    - 10.9.2.1
+    - 10.9.16.1
     - 8.8.8.8
-    gateway: 10.9.2.1
-    range: 10.9.2.0/23
+    gateway: 10.9.16.1
+    range: 10.9.16.0/23
     reserved:
-    - 10.9.2.1-10.9.3.99
-    # - 10.9.3.150-10.9.3.255
+    - 10.9.16.1-10.9.31.99
   type: manual
 vm_types:
 - cloud_properties:

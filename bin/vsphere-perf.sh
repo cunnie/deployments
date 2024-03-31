@@ -13,8 +13,8 @@ cd $DEPLOYMENTS_DIR
 pushd $DEPLOYMENTS_DIR/../bosh-deployment; git pull -r; popd
 
 set -- \
-  vsphere-no-nsx 10.9.2.21 "/dev/null"            "/dev/null"  \
-  vsphere-nsx    10.9.2.22 "etc/vsphere-nsx.yml"  "/dev/null"  \
+  vsphere-no-nsx 10.9.16.21 "/dev/null"            "/dev/null"  \
+  vsphere-nsx    10.9.16.22 "etc/vsphere-nsx.yml"  "/dev/null"  \
 
 while [ $# -gt 1 ]; do
   DIRECTOR_NAME=$1

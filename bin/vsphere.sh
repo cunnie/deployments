@@ -57,9 +57,9 @@ bosh interpolate $DEPLOYMENTS_DIR/../bosh-deployment/bosh.yml \
   \
   -v certificate_duration=3650 \
   -v director_name=bosh-vsphere \
-  -v internal_cidr=10.9.2.0/23 \
-  -v internal_gw=10.9.2.1 \
-  -v internal_ip=10.9.2.10 \
+  -v internal_cidr=10.9.16.0/20 \
+  -v internal_gw=10.9.16.1 \
+  -v internal_ip=10.9.16.10 \
   -v external_ip=73.189.219.4 \
   -v external_fqdn="bosh-vsphere.nono.io" \
   \

@@ -53,10 +53,10 @@ instance_groups:
   networks:
   - name: default
     static_ips:
-    - 10.0.9.165
+    - 10.9.9.15
   - name: ipv6
     static_ips:
-    - 2601:0646:0100:69f1:0000:0000:0000:0165
+    - 2601:0646:0100:69f2:0000:0000:0000:000f
     default:
     - dns
     - gateway

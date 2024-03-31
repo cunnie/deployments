@@ -19,7 +19,7 @@
 - path: /instance_groups/name=bosh/networks/name=default
   type: replace
   value:
-    name: vsphere-guest
+    name: vsphere-subnet
     static_ips:
     - ((internal_ip))
 - path: /stemcells

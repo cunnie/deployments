@@ -4,7 +4,7 @@
   value:
     name: PAS-IPv6
     static_ips:
-    - 2601:0646:0100:69f5:0000:0000:0000:0010
+    - 2601:0646:0100:69f2:0000:0000:0000:0010
 
 # fixes "Error: Instance group 'haproxy' must specify which network is default for dns, gateway, since it has more than one network configured"
 - type: replace
