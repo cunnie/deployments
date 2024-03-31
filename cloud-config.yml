@@ -21,7 +21,7 @@ azs:
   name: google
 compilation:
   az: vsphere
-  network: vsphere-guest
+  network: vsphere-subnet
   reuse_compilation_vms: true
   vm_type: compilation
   workers: 15
@@ -102,22 +102,21 @@ networks:
   type: manual
 - name: google-public
   type: vip
-- name: vsphere-guest
+- name: vsphere-subnet
   subnets:
   - azs:
     - vsphere
     cloud_properties:
-      name: guest
+      name: BOSH
     dns:
-    - 10.9.2.1
+    - 10.9.16.1
     - 8.8.8.8
-    gateway: 10.9.2.1
-    range: 10.9.2.0/23
+    gateway: 10.9.16.1
+    range: 10.9.16.0/20
     reserved:
-    - 10.9.2.1-10.9.2.19
-    - 10.9.3.150-10.9.3.255
+    - 10.9.16.1-10.9.16.19
     static:
-    - 10.9.2.20-10.9.2.29
+    - 10.9.16.20-10.9.16.29
   type: manual
 vm_extensions:
 - cloud_properties:
