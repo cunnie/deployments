@@ -1404,7 +1404,7 @@ networks:
     dns:
     - 8.8.8.8
     gateway: 10.9.16.1
-    range: 10.9.16.0/23
+    range: 10.9.16.0/20
     static:
     - 10.9.16.10
   type: manual
