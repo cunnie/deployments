@@ -1,0 +1,191 @@
+# fly -t nono sp -p platform-automation -c ~/workspace/deployments/ci/pipeline-platform-automation.yml -l <(lpass show --note deployments.yml)
+# fly -t nono expose-pipeline -p platform-automation
+# fly -t nono unpause-pipeline -p platform-automation
+
+# The following line helps maintain current documentation at http://docs.pivotal.io.
+# code_snippet put-resources-pipeline start yaml
+
+# code_snippet resources-pipeline-resource-types start yaml
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
+- name: s3-with-arn
+  type: docker-image
+  source:
+    repository: concourse/s3-resource
+    tag: 1.2.1-ubuntu
+# code_snippet resources-pipeline-resource-types end yaml
+
+# code_snippet resources-pipeline-products start yaml
+resources:
+- name: opsman-product
+  type: s3-with-arn
+  source:
+    access_key_id: ((s3_with_role.access_key_id))
+    secret_access_key: ((s3_with_role.secret_access_key))
+    bucket: ((s3_pivnet_products_bucket))
+    region_name: ((s3_region_name))
+    endpoint: https://s3.nono.io:9000
+    regexp: \[ops-manager,(.*)\]ops-manager-gcp.*.yml
+
+- name: tas-product
+  type: s3-with-arn
+  source:
+    access_key_id: ((s3_with_role.access_key_id))
+    secret_access_key: ((s3_with_role.secret_access_key))
+    bucket: ((s3_pivnet_products_bucket))
+    region_name: ((s3_region_name))
+    endpoint: https://s3.nono.io:9000
+    regexp: \[elastic-runtime,(.*)\]srt-.*.pivotal
+
+- name: tas-stemcell
+  type: s3-with-arn
+  source:
+    access_key_id: ((s3_with_role.access_key_id))
+    secret_access_key: ((s3_with_role.secret_access_key))
+    bucket: ((s3_pivnet_products_bucket))
+    region_name: ((s3_region_name))
+    endpoint: https://s3.nono.io:9000
+    regexp: tas-stemcell/\[stemcells-ubuntu-jammy,(.*)\]light-bosh-stemcell-.*-google.*\.tgz
+# code_snippet resources-pipeline-products end yaml
+
+# code_snippet resources-pipeline-platform-automation start yaml
+- name: platform-automation-pivnet
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: platform-automation
+    product_version: 2\.(.*)
+    sort_by: semver
+
+- name: platform-automation-tasks
+  type: s3-with-arn
+  source:
+    access_key_id: ((s3_with_role.access_key_id))
+    secret_access_key: ((s3_with_role.secret_access_key))
+    bucket: ((s3_pivnet_products_bucket))
+    region_name: ((s3_region_name))
+    endpoint: https://s3.nono.io:9000
+    regexp: platform-automation-tasks-(.*).zip
+
+- name: platform-automation-image
+  type: s3-with-arn
+  source:
+    access_key_id: ((s3_with_role.access_key_id))
+    secret_access_key: ((s3_with_role.secret_access_key))
+    bucket: ((s3_pivnet_products_bucket))
+    region_name: ((s3_region_name))
+    endpoint: https://s3.nono.io:9000
+    regexp: platform-automation-image-(.*).tgz
+# code_snippet resources-pipeline-platform-automation end yaml
+
+# code_snippet resources-pipeline-configurations start yaml
+- name: configuration
+  type: git
+  source:
+    private_key: ((docs-ref-pipeline-repo-key.private_key))
+    uri: ((docs-ref-pipeline-repo-uri))
+    branch: develop
+    submodules: all
+    depth: 1
+# code_snippet resources-pipeline-configurations end yaml
+
+# code_snippet resources-pipeline-triggers start yaml
+- name: daily
+  type: time
+  source:
+    interval: 24h
+# code_snippet resources-pipeline-triggers end yaml
+
+# code_snippet resources-pipeline-prepare-tasks-with-secrets start yaml
+# This task is used in multiple jobs
+# The yaml anchor "*prepare-tasks-with-secrets" is used in its place
+prepare-tasks-with-secrets: &prepare-tasks-with-secrets
+  image: platform-automation-image
+  file: platform-automation-tasks/tasks/prepare-tasks-with-secrets.yml
+  params:
+    CONFIG_PATHS: config/download-product-pivnet
+  input_mapping:
+    tasks: platform-automation-tasks
+    config: configuration
+  output_mapping:
+    tasks: platform-automation-tasks
+# code_snippet resources-pipeline-prepare-tasks-with-secrets end yaml
+
+# code_snippet resources-pipeline-jobs start yaml
+jobs:
+- name: fetch-opsman
+  plan:
+  - in_parallel:
+    - get: daily
+      trigger: true
+    - get: platform-automation-image
+      params:
+        unpack: true
+    - get: platform-automation-tasks
+      params:
+        unpack: true
+    - get: configuration
+  - task: prepare-tasks-with-secrets
+    <<: *prepare-tasks-with-secrets
+  - task: download-opsman-image
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/download-product.yml
+    params:
+      CONFIG_FILE: download-product-pivnet/download-opsman.yml
+    input_mapping:
+      config: configuration
+  - in_parallel:
+    - put: opsman-product
+      params:
+        file: downloaded-product/*
+
+- name: fetch-tas
+  plan:
+    - in_parallel:
+      - get: daily
+        trigger: true
+      - get: platform-automation-image
+        params:
+          unpack: true
+      - get: platform-automation-tasks
+        params:
+          unpack: true
+      - get: configuration
+    - task: prepare-tasks-with-secrets
+      <<: *prepare-tasks-with-secrets
+    - task: download-tas-product-and-stemcell
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/download-product.yml
+      params:
+        CONFIG_FILE: download-product-pivnet/download-tas.yml
+      input_mapping:
+        config: configuration
+      output_mapping: {downloaded-stemcell: tas-stemcell}
+    - in_parallel:
+        - put: tas-product
+          params:
+            file: downloaded-product/*.pivotal
+        - put: tas-stemcell
+          params:
+            file: tas-stemcell/*.tgz
+
+- name: fetch-platform-automation
+  # We use the pivnet resource to bootstrap the pipeline,
+  # and because this product is part of the pipeline, not the foundation
+  plan:
+  - get: platform-automation-pivnet
+    trigger: true
+  - in_parallel:
+    - put: platform-automation-tasks
+      params:
+        file: platform-automation-pivnet/*tasks*.zip
+    - put: platform-automation-image
+      params:
+        file: platform-automation-pivnet/*image*.tgz
+# code_snippet resources-pipeline-jobs end yaml
+# code_snippet put-resources-pipeline end
+# The previous line helps maintain current documentation at http://docs.pivotal.io.
