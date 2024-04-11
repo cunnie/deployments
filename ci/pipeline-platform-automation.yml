@@ -83,13 +83,10 @@ resources:
 # code_snippet resources-pipeline-platform-automation end yaml
 
 # code_snippet resources-pipeline-configurations start yaml
-- name: configuration
+- name: config
   type: git
   source:
-    uri: https://github.com/pivotal/docs-platform-automation-reference-pipeline-config.git
-    branch: develop
-    submodules: all
-    depth: 1
+    uri: https://github.com/cunnie/tas.nono.io.git
 # code_snippet resources-pipeline-configurations end yaml
 
 # code_snippet resources-pipeline-triggers start yaml
@@ -109,13 +106,42 @@ prepare-tasks-with-secrets: &prepare-tasks-with-secrets
     CONFIG_PATHS: config/download-product-pivnet
   input_mapping:
     tasks: platform-automation-tasks
-    config: configuration
+    config: config
   output_mapping:
     tasks: platform-automation-tasks
 # code_snippet resources-pipeline-prepare-tasks-with-secrets end yaml
 
 # code_snippet resources-pipeline-jobs start yaml
 jobs:
+- name: install-ops-manager
+  serial: true
+  plan:
+    - get: platform-automation-image
+      resource: platform-automation-pivnet
+      params:
+        globs: ["*image*.tgz"]
+        unpack: true
+    - get: platform-automation-tasks
+      resource: platform-automation-pivnet
+      params:
+        globs: ["*tasks*.zip"]
+        unpack: true
+    - get: config
+    - task: prepare-tasks-with-secrets
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/prepare-tasks-with-secrets.yml
+      input_mapping:
+        tasks: platform-automation-tasks
+      output_mapping:
+        tasks: platform-automation-tasks
+      params:
+        CONFIG_PATHS: config
+    - task: download-product
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/download-product.yml
+      params:
+        CONFIG_FILE: download-opsman.yml
+
 - name: fetch-opsman
   plan:
   - in_parallel:
@@ -127,7 +153,7 @@ jobs:
     - get: platform-automation-tasks
       params:
         unpack: true
-    - get: configuration
+    - get: config
   - task: prepare-tasks-with-secrets
     <<: *prepare-tasks-with-secrets
   - task: download-opsman-image
@@ -136,7 +162,7 @@ jobs:
     params:
       CONFIG_FILE: download-product-pivnet/download-opsman.yml
     input_mapping:
-      config: configuration
+      config: config
   - in_parallel:
     - put: opsman-product
       params:
@@ -153,7 +179,7 @@ jobs:
       - get: platform-automation-tasks
         params:
           unpack: true
-      - get: configuration
+      - get: config
     - task: prepare-tasks-with-secrets
       <<: *prepare-tasks-with-secrets
     - task: download-tas-product-and-stemcell
@@ -161,8 +187,6 @@ jobs:
       file: platform-automation-tasks/tasks/download-product.yml
       params:
         CONFIG_FILE: download-product-pivnet/download-tas.yml
-      input_mapping:
-        config: configuration
       output_mapping: {downloaded-stemcell: tas-stemcell}
     - in_parallel:
         - put: tas-product
