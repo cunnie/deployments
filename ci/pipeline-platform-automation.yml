@@ -29,7 +29,7 @@ resources:
     bucket: ((s3_pivnet_products_bucket))
     region_name: ((s3_region_name))
     endpoint: https://s3.nono.io:9000
-    regexp: \[ops-manager,(.*)\]ops-manager-gcp.*.yml
+    regexp: \[ops-manager,(.*)\]ops-manager-vsphere.*.yml
 
 - name: tas-product
   type: s3-with-arn
@@ -49,7 +49,7 @@ resources:
     bucket: ((s3_pivnet_products_bucket))
     region_name: ((s3_region_name))
     endpoint: https://s3.nono.io:9000
-    regexp: tas-stemcell/\[stemcells-ubuntu-jammy,(.*)\]light-bosh-stemcell-.*-google.*\.tgz
+    regexp: tas-stemcell/\[stemcells-ubuntu-jammy,(.*)\]bosh-stemcell-.*-vsphere.*\.tgz
 # code_snippet resources-pipeline-products end yaml
 
 # code_snippet resources-pipeline-platform-automation start yaml
@@ -58,7 +58,7 @@ resources:
   source:
     api_token: ((pivnet_token))
     product_slug: platform-automation
-    product_version: 2\.(.*)
+    product_version: 5\.(.*)
     sort_by: semver
 
 - name: platform-automation-tasks
@@ -86,8 +86,7 @@ resources:
 - name: configuration
   type: git
   source:
-    private_key: ((docs-ref-pipeline-repo-key.private_key))
-    uri: ((docs-ref-pipeline-repo-uri))
+    uri: https://github.com/pivotal/docs-platform-automation-reference-pipeline-config.git
     branch: develop
     submodules: all
     depth: 1
