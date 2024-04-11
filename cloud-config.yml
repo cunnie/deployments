@@ -216,7 +216,7 @@ vm_types:
   name: medium
 - cloud_properties:
     cpu: 4
-    disk: 65536
+    disk: 204800
     ram: 8192
   name: concourse-workers
 - cloud_properties:
