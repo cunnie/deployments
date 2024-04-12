@@ -168,6 +168,81 @@ jobs:
     output_mapping:
       downloaded-product: tas-product
       downloaded-stemcell: tas-stemcell
+  - task: upload-tas-stemcell
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/upload-stemcell.yml
+    input_mapping:
+      env: config
+      stemcell: tas-stemcell
+    params:
+      ENV_FILE: env.yml
+  - task: upload-and-stage-tas
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/upload-and-stage-product.yml
+    input_mapping:
+      product: tas-product
+      env: config
+- name: configure-tas
+  serial: true
+  plan:
+    - in_parallel:
+      - get: platform-automation-image
+        passed: [download-upload-and-stage-tas]
+        trigger: true
+        params:
+          globs: ["*image*.tgz"]
+          unpack: true
+      - get: platform-automation-tasks
+        params:
+          globs: ["*tasks*.zip"]
+          unpack: true
+      - get: config
+        passed: [download-upload-and-stage-tas]
+    - task: prepare-tasks-with-secrets
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/prepare-tasks-with-secrets.yml
+      input_mapping:
+        tasks: platform-automation-tasks
+      output_mapping:
+        tasks: platform-automation-tasks
+      params:
+        CONFIG_PATHS: config
+    - task: configure-tas
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/configure-product.yml
+      input_mapping:
+        config: config
+        env: config
+      params:
+        CONFIG_FILE: tas-config.yml
+- name: apply-changes
+  serial: true
+  plan:
+    - in_parallel:
+      - get: platform-automation-image
+        params:
+          globs: ["*image*.tgz"]
+          unpack: true
+      - get: platform-automation-tasks
+        params:
+          globs: ["*tasks*.zip"]
+          unpack: true
+      - get: config
+        passed: [configure-tas]
+    - task: prepare-tasks-with-secrets
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/prepare-tasks-with-secrets.yml
+      input_mapping:
+        tasks: platform-automation-tasks
+      output_mapping:
+        tasks: platform-automation-tasks
+      params:
+        CONFIG_PATHS: config
+    - task: apply-changes
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/apply-changes.yml
+      input_mapping:
+        env: config
 
 - name: fetch-platform-automation
   # We use the pivnet resource to bootstrap the pipeline,
