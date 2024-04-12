@@ -86,8 +86,16 @@ resources:
 - name: config
   type: git
   source:
-    uri: https://github.com/cunnie/tas.nono.io.git
-# code_snippet resources-pipeline-configurations end yaml
+    branch: main
+    private_key: ((plat-auto-pipes-deploy-key.private_key))
+    uri: git@github.com:cunnie/tas.nono.io.git
+
+- name: vars
+  type: git
+  source:
+    branch: main
+    uri: git@github.com:cunnie/tas.nono.io.git
+    private_key: ((plat-auto-pipes-deploy-key.private_key))
 
 # code_snippet resources-pipeline-triggers start yaml
 - name: daily
@@ -95,7 +103,7 @@ resources:
   source:
     interval: 24h
 # code_snippet resources-pipeline-triggers end yaml
-
+#
 # code_snippet resources-pipeline-prepare-tasks-with-secrets start yaml
 # This task is used in multiple jobs
 # The yaml anchor "*prepare-tasks-with-secrets" is used in its place
@@ -127,6 +135,7 @@ jobs:
         globs: ["*tasks*.zip"]
         unpack: true
     - get: config
+    - get: vars
     - task: prepare-tasks-with-secrets
       image: platform-automation-image
       file: platform-automation-tasks/tasks/prepare-tasks-with-secrets.yml
@@ -141,6 +150,34 @@ jobs:
       file: platform-automation-tasks/tasks/download-product.yml
       params:
         CONFIG_FILE: download-opsman.yml
+    - task: create-vm
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/create-vm.yml
+      params:
+        VARS_FILES: vars/vars.yml
+      input_mapping:
+        state: config
+        image: downloaded-product
+      ensure:
+        do:
+          - task: make-commit
+            image: platform-automation-image
+            file: platform-automation-tasks/tasks/make-git-commit.yml
+            input_mapping:
+              repository: config
+              file-source: generated-state
+            output_mapping:
+              repository-commit: config-commit
+            params:
+              FILE_SOURCE_PATH: state.yml
+              FILE_DESTINATION_PATH: state.yml
+              GIT_AUTHOR_EMAIL: "an-important-bot@broadcom.com"
+              GIT_AUTHOR_NAME: "Platform Automation Toolkit Bot"
+              COMMIT_MESSAGE: 'Update state file'
+          - put: config
+            params:
+              repository: config-commit
+              merge: true
 
 - name: fetch-opsman
   plan:
