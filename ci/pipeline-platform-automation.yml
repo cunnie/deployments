@@ -136,6 +136,39 @@ jobs:
               repository: config-commit
               merge: true
 
+- name: download-upload-and-stage-tas
+  serial: true
+  plan:
+  - in_parallel:
+    - get: platform-automation-image
+      params:
+        globs: ["*image*.tgz"]
+        unpack: true
+    - get: platform-automation-tasks
+      params:
+        globs: ["*tasks*.zip"]
+        unpack: true
+    - get: config
+  - task: prepare-tasks-with-secrets
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/prepare-tasks-with-secrets.yml
+    input_mapping:
+      tasks: platform-automation-tasks
+    output_mapping:
+      tasks: platform-automation-tasks
+    params:
+      CONFIG_PATHS: config
+  - task: download-tas
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/download-product.yml
+    input_mapping:
+      config: config
+    params:
+      CONFIG_FILE: download-tas.yml
+    output_mapping:
+      downloaded-product: tas-product
+      downloaded-stemcell: tas-stemcell
+
 - name: fetch-platform-automation
   # We use the pivnet resource to bootstrap the pipeline,
   # and because this product is part of the pipeline, not the foundation
