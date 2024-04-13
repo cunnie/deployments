@@ -8,6 +8,7 @@ resource_types:
   source:
     repository: pivotalcf/pivnet-resource
     tag: latest-final
+
 - name: s3-with-arn
   type: docker-image
   source:
@@ -43,6 +44,16 @@ resources:
     endpoint: https://s3.nono.io:9000
     regexp: platform-automation-image-(.*).tgz
 
+- name: installation
+  type: s3-with-arn
+  source:
+    access_key_id: ((s3_with_role.access_key_id))
+    secret_access_key: ((s3_with_role.secret_access_key))
+    bucket: ((s3_pivnet_products_bucket))
+    region_name: ((s3_region_name))
+    endpoint: https://s3.nono.io:9000
+    regexp: installation-(.*).zip
+
 - name: config
   type: git
   source:
@@ -76,6 +87,26 @@ prepare-tasks-with-secrets: &prepare-tasks-with-secrets
     tasks: platform-automation-tasks
 
 jobs:
+- name: export-installation
+  serial: true
+  plan:
+    - get: platform-automation-image
+      params:
+        globs: ["*image*.tgz"]
+        unpack: true
+    - get: platform-automation-tasks
+      params:
+        globs: ["*tasks*.zip"]
+        unpack: true
+    - get: env
+      resource: config
+    - task: export-installation
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/export-installation.yml
+    - put: installation
+      params:
+        file: installation/installation-*.zip
+
 - name: install-ops-manager
   serial: true
   plan:
