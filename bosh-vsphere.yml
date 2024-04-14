@@ -1410,9 +1410,9 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 8e0eacd370b15a13b3136ed4d5d59e24de9d2592
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.0.21
-  version: 280.0.21
+  sha1: 892955df492d900cce7809ef9f0cad072ced7dfe
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.0.22
+  version: 280.0.22
 - name: bpm
   sha1: ff8eafa2fa52c82f9759e571a4cc94d4b1ce69c5
   url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.2.18
@@ -1426,13 +1426,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.2.1
   version: 22.2.1
 - name: uaa
-  sha1: 05b4c20655878a9ff2f994500cad286ba1a015a2
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.4.0-ubuntu-jammy-1.423-20240408-213458-218700564-20240408213501.tgz
-  version: 77.4.0
+  sha1: 2500ff1678f0939af2ef83c6657a2bc4ee1df669
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.5.0-ubuntu-jammy-1.423-20240412-091942-794318578-20240412091948.tgz
+  version: 77.5.0
 - name: credhub
-  sha1: d98bae34f59667eef1777c290618e12a4ecd3155
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.67-ubuntu-jammy-1.423-20240408-213439-891227903-20240408213441.tgz
-  version: 2.12.67
+  sha1: f68bb375775d9b67ccf42debddbc186536263ce2
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.69-ubuntu-jammy-1.423-20240411-235414-36838521-20240411235415.tgz
+  version: 2.12.69
 - name: bosh-aws-cpi
   sha1: cee5d8e7bdd6a8bc5cf8a96d22ce9faf7bd38874
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=102
