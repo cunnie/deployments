@@ -121,14 +121,10 @@ jobs:
   serial: true
   plan:
   - get: platform-automation-image
-    resource: platform-automation-pivnet
     params:
-      globs: ["*image*.tgz"]
       unpack: true
   - get: platform-automation-tasks
-    resource: platform-automation-pivnet
     params:
-      globs: ["*tasks*.zip"]
       unpack: true
   - get: downloaded-product
     resource: opsman-ova
@@ -168,14 +164,10 @@ jobs:
   serial: true
   plan:
     - get: platform-automation-image
-      resource: platform-automation-pivnet
       params:
-        globs: ["*image*.tgz"]
         unpack: true
     - get: platform-automation-tasks
-      resource: platform-automation-pivnet
       params:
-        globs: ["*tasks*.zip"]
         unpack: true
     - get: downloaded-product
       resource: opsman-ova
@@ -318,14 +310,10 @@ jobs:
   # and because this product is part of the pipeline, not the foundation
   plan:
     - get: platform-automation-image
-      resource: platform-automation-pivnet
       params:
-        globs: ["*image*.tgz"]
         unpack: true
     - get: platform-automation-tasks
-      resource: platform-automation-pivnet
       params:
-        globs: ["*tasks*.zip"]
         unpack: true
     - get: config
     - get: vars
