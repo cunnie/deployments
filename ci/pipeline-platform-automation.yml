@@ -98,7 +98,9 @@ prepare-tasks-with-secrets: &prepare-tasks-with-secrets
 
 jobs:
 - name: export-installation
-  serial: true
+  serial_groups:
+  - opsman
+  - tas
   plan:
     - get: platform-automation-image
       params:
@@ -205,7 +207,8 @@ jobs:
         merge: true
 
 - name: install-ops-manager
-  serial: true
+  serial_groups:
+  - opsman
   plan:
     - get: platform-automation-image
       params:
@@ -248,7 +251,9 @@ jobs:
               merge: true
 
 - name: download-upload-and-stage-tas
-  serial: true
+  serial_groups:
+  - opsman
+  - tas
   plan:
   - in_parallel:
     - get: platform-automation-image
@@ -287,12 +292,12 @@ jobs:
       env: config
 
 - name: configure-tas
-  serial: true
+  serial_groups:
+  - opsman
+  - tas
   plan:
     - in_parallel:
       - get: platform-automation-image
-        passed: [download-upload-and-stage-tas]
-        trigger: true
         params:
           globs: ["*image*.tgz"]
           unpack: true
@@ -313,7 +318,9 @@ jobs:
         CONFIG_FILE: tas-config.yml
 
 - name: apply-changes
-  serial: true
+  serial_groups:
+  - opsman
+  - tas
   plan:
     - in_parallel:
       - get: platform-automation-image
