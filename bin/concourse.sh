@@ -25,6 +25,7 @@ bosh int $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/concourse.yml \
   -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/github-auth.yml \
   -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/privileged-https.yml \
   -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/static-web.yml \
+  -o $DEPLOYMENTS_DIR/../concourse-bosh-deployment/cluster/operations/storage-driver.yml \
   \
   --var web_ip=104.155.144.4 \
   --var external_url=https://ci.nono.io \

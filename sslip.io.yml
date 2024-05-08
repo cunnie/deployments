@@ -19,6 +19,8 @@ instance_groups:
   - *user_add_job
   - name: worker
     properties:
+      baggageclaim:
+        driver: btrfs
       drain_timeout: 10m
       worker_gateway:
         host_public_key: ((tsa_host_key.public_key))
