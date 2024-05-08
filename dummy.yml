@@ -24,6 +24,9 @@ stemcells:
 - alias: jammy
   os: ubuntu-jammy
   version: latest
+- alias: noble
+  os: ubuntu-noble
+  version: 0.0.40
 - alias: windows
   os: windows2019
   version: latest
@@ -60,14 +63,20 @@ instance_groups:
   instances: 1
   jobs:
   - *add_user_cunnie
-  - name: auditd
-    properties:
-      pre_start_delay: 2
-    release: os-conf
   name: jammy
   networks:
   - name: vsphere-subnet
   stemcell: jammy
+  vm_type: small
+- azs:
+  - vsphere
+  instances: 1
+  jobs:
+  - *add_user_cunnie
+  name: noble
+  networks:
+  - name: vsphere-subnet
+  stemcell: noble
   vm_type: small
 - azs:
   - google
