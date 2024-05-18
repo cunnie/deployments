@@ -1,4 +1,4 @@
-# fly -t nono sp -p platform-automation -c ~/workspace/deployments/ci/pipeline-platform-automation.yml -l <(lpass show --note deployments.yml)
+# fly -t nono sp -p platform-automation -c ~/workspace/deployments/ci/pipeline-platform-automation.yml
 # fly -t nono expose-pipeline -p platform-automation
 # fly -t nono unpause-pipeline -p platform-automation
 
@@ -250,6 +250,30 @@ jobs:
               repository: config-commit
               merge: true
 
+- name: configure-opsman
+  serial_groups:
+  - opsman
+  plan:
+    - get: platform-automation-image
+      params:
+        unpack: true
+    - get: platform-automation-tasks
+      params:
+        unpack: true
+    - get: downloaded-product
+      resource: opsman-ova
+      passed: [install-ops-manager]
+    - get: config
+    - get: vars
+    - *prepare-tasks-with-secrets
+    - task: configure-opsman
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/configure-opsman.yml
+      params:
+        VARS_FILES: vars/vars.yml
+      input_mapping:
+        env: config
+
 - name: download-upload-and-stage-tas
   serial_groups:
   - opsman
@@ -290,6 +314,32 @@ jobs:
     input_mapping:
       product: tas-product
       env: config
+
+- name: configure-director
+  serial_groups:
+  - opsman
+  - tas
+  plan:
+    - in_parallel:
+      - get: platform-automation-image
+        params:
+          globs: ["*image*.tgz"]
+          unpack: true
+      - get: platform-automation-tasks
+        params:
+          globs: ["*tasks*.zip"]
+          unpack: true
+      - get: config
+        passed: [download-upload-and-stage-tas]
+    - *prepare-tasks-with-secrets
+    - task: configure-director
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/configure-director.yml
+      input_mapping:
+        config: config
+        env: config
+      params:
+        CONFIG_FILE: director.yml
 
 - name: configure-tas
   serial_groups:
@@ -332,7 +382,7 @@ jobs:
           globs: ["*tasks*.zip"]
           unpack: true
       - get: config
-        passed: [configure-tas]
+        passed: [configure-tas, configure-director]
     - *prepare-tasks-with-secrets
     - task: apply-changes
       image: platform-automation-image
