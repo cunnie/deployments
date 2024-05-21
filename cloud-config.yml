@@ -10,6 +10,14 @@ azs:
   cpi: vsphere
   name: vsphere
 - cloud_properties:
+    datacenters:
+    - clusters:
+      - nested:
+          resource_pool: BOSH
+      name: dc
+  cpi: vsphere
+  name: vsphere-nsx
+- cloud_properties:
     availability_zone: us-east-1a
   cpi: aws
   name: aws
@@ -117,6 +125,20 @@ networks:
     - 10.9.16.1-10.9.16.19
     static:
     - 10.9.16.20-10.9.16.29
+  type: manual
+- name: vsphere-nsx-subnet
+  subnets:
+  - azs:
+    - vsphere-nsx
+    cloud_properties:
+      name: LS.0.0
+    dns:
+    - 10.9.9.1
+    - 8.8.8.8
+    gateway: 10.8.1.1
+    range: 10.8.1.0/24
+    reserved: []
+    static: []
   type: manual
 vm_extensions:
 - cloud_properties:

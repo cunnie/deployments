@@ -69,6 +69,16 @@ instance_groups:
   stemcell: jammy
   vm_type: small
 - azs:
+  - vsphere-nsx
+  instances: 1
+  jobs:
+  - *add_user_cunnie
+  name: jammy-nsx
+  networks:
+  - name: vsphere-nsx-subnet
+  stemcell: jammy
+  vm_type: small
+- azs:
   - vsphere
   instances: 1
   jobs:

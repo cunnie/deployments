@@ -72,6 +72,6 @@ cpis:
         -----END CERTIFICATE-----
       host: nsx.nono.io
       password: ((nsx_password))
-      # use_policy_api: true
+      use_policy_api: true
       username: a
   type: vsphere
