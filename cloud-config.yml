@@ -208,6 +208,11 @@ vm_extensions:
 - cloud_properties:
     root_disk_size_gb: 30
   name: 30G_root
+- cloud_properties:
+    nsxt:
+      ns_groups:
+      - BOSH
+  name: nsx-group
 vm_types:
 - cloud_properties:
     cpu: 1

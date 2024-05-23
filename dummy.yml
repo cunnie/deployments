@@ -77,6 +77,8 @@ instance_groups:
   networks:
   - name: vsphere-nsx-subnet
   stemcell: jammy
+  vm_extensions:
+  - nsx-group
   vm_type: small
 - azs:
   - vsphere
