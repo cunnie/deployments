@@ -9,16 +9,6 @@ terraform apply
 terraform output > ../sslip.io-vm/infra.auto.tfvars
 ```
 
-#### One-time initialization of etcd-data disk
-
-Attach disk from Azure console
-
-```
-sudo parted /dev/sdc mklabel gpt
-sudo parted /dev/sdc mkpart primary 2048s 100%
-sudo mkfs -t ext4 /dev/sdc1 # remember; it's mounted in /var/lib/etcd
-```
-
 #### Create VM ns-azure
 
 ```shell
@@ -35,14 +25,14 @@ cloud-init script to run after the VM has been created.
 ssh onto the newly created VM, check on the output
 
 ```shell
-ssh -A adminuser@20.212.40.63 # password is in terraform output
+ssh -A adminuser@52.187.42.158 # password is in terraform output
 tail -f /var/log/cloud-init-output.log
 ```
 
 #### Second run
 
 ```shell
-ssh -A 20.212.40.63
+ssh -A 52.187.42.158
 bin/install_ns-azure.sh
 ```
 

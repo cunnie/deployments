@@ -71,23 +71,17 @@ resource "azurerm_linux_virtual_machine" "sslip_io" {
     storage_account_type = "Standard_LRS"
   }
 
+  # az vm image list --publisher Canonical -o table --all
   source_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts-gen2"
+    offer     = "ubuntu-24_04-lts"
+    sku       = "server"
     version   = "latest"
   }
 
   boot_diagnostics {
     storage_account_uri = var.azurerm_storage_account_primary_blob_endpoint
   }
-}
-
-resource "azurerm_virtual_machine_data_disk_attachment" "sslip_io" {
-  managed_disk_id    = var.managed_disk_id
-  virtual_machine_id = azurerm_linux_virtual_machine.sslip_io.id
-  lun                = "10"
-  caching            = "ReadWrite"
 }
 
 output "public_ip" {
