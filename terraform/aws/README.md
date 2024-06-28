@@ -14,6 +14,8 @@ terraform output > ../sslip.io-vm/infra.auto.tfvars
 ```bash
 cd sslip.io-vm/
 terraform apply
+# to destroy:
+# terraform apply -destroy -auto-approve
 ssh ubuntu@ns-aws.nono.io
 tail -f /var/log/cloud-init-output.log # takes ~6 minutes to finish
 exit
