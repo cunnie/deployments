@@ -3,7 +3,7 @@ variable "ipv4_address" {
 }
 
 variable "ipv6_address" {
-  description = "IPv4 for ns-gce.{nono,sslip}.io"
+  description = "IPv6 for ns-gce.{nono,sslip}.io"
 }
 
 resource "google_compute_instance" "vm_instance" {
@@ -23,6 +23,7 @@ resource "google_compute_instance" "vm_instance" {
   }
 
   network_interface {
+    stack_type = "IPV4_IPV6"
     subnetwork = "${var.friendly_project_id}-subnet"
     access_config {
       nat_ip                 = var.ipv4_address
