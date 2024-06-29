@@ -571,12 +571,6 @@ instance_groups:
           username: postgres
       release_level_backup: true
     release: credhub
-  - name: aws_cpi
-    release: bosh-aws-cpi
-  - name: azure_cpi
-    release: bosh-azure-cpi
-  - name: google_cpi
-    release: bosh-google-cpi
   name: bosh
   networks:
   - name: default
@@ -629,25 +623,6 @@ instance_groups:
           - time3.google.com
           - time4.google.com
       mbus: nats://73.189.219.4:4222
-    aws:
-      access_key_id: ((access_key_id))
-      default_key_name: bosh_deployment_no_ecdsa
-      default_security_groups:
-      - bosh
-      region: us-east-1
-      secret_access_key: ((secret_access_key))
-    azure:
-      client_id: bf7f78c1-6924-4a02-965c-b66f481a9b5f
-      client_secret: ((client_secret))
-      default_security_group: nsg-bosh
-      environment: AzureCloud
-      resource_group_name: bosh-res-group
-      ssh_public_key: |
-        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGXWHCZC7yl5wh2pOApfd9m0BsamNT9N7iuzC5pNs+peg1duDVPfW4DtBWPigwOBMKuyAu4+3rl38/XR2VB4j0BlGF3SOJvd8gaTPoN61adIcnHYDJjiWeuuL371qjMvLzn1DqnqyAoFLLotkei2NtZZqGYygWhqTv5DVML+7P/6GM6h/FVfefrWhwc7/NYklgr6kz8yXMgPwx5rAFKCS28RlrrKlVEbbxxV4wMpu+0lIdSxI0I9r1R/vWGyywk1H04TwhjT/RAMOpvL9V7kqb67u5UGUaDYxUgcHV+1lcl7P8FoogBMmQ7ogTYlQWHb/3xezVQiaJf9/b4bJnRLuV
-      ssh_user: vcap
-      subscription_id: a1ac8d5a-7a97-4ed5-bfd1-d7822e19cae9
-      tenant_id: 682bd378-95db-41bd-8b1e-70fb407c4b10
-      use_managed_disks: true
     blobstore:
       address: 10.9.16.10
       agent:
@@ -1012,9 +987,6 @@ instance_groups:
           public_key: ((uaa_jwt_signing_key.public_key))
           url: https://bosh-vsphere.nono.io:8443
       workers: 4
-    google:
-      json_key: ((gcp_credentials_json))
-      project: blabbertabber
     hm:
       director_account:
         ca_cert: |
@@ -1433,18 +1405,6 @@ releases:
   sha1: b0bb8b498388544b7aab09134915f2699b9c8f22
   url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.79-ubuntu-jammy-1.465.tgz
   version: 2.12.79
-- name: bosh-aws-cpi
-  sha1: 34691190b0ed5c5f81ddc051aa899f20102a5dc2
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-aws-cpi-release?v=104
-  version: 104
-- name: bosh-azure-cpi
-  sha1: 2467d81c3eedafafa8c7eda5cbd1786acad5cc40
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-azure-cpi-release?v=49.0.1
-  version: 49.0.1
-- name: bosh-google-cpi
-  sha1: c0bf3862ee8e808549d21435079cd1e39786a865
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh-google-cpi-release?v=50.0.0
-  version: 50.0.0
 resource_pools:
 - cloud_properties:
     cpu: 2
