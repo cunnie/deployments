@@ -16,9 +16,9 @@ resource "google_compute_instance" "vm_instance" {
 
   boot_disk {
     initialize_params {
-      image = "projects/fedora-cloud/global/images/fedora-cloud-base-gcp-38-1-6-x86-64"
-      size  = 30
-      type  = "pd-balanced"
+      image = "projects/ubuntu-os-cloud/global/images/ubuntu-2404-noble-amd64-v20240626"
+      size  = 20
+      type  = "pd-ssd"
     }
   }
 
@@ -36,5 +36,11 @@ resource "google_compute_instance" "vm_instance" {
       network_tier                = "PREMIUM"
       public_ptr_domain_name      = "ns-gce.nono.io."
     }
+  }
+  metadata = {
+    user-data = <<EOF
+#!/bin/bash
+/bin/bash -xc "$(curl https://raw.githubusercontent.com/cunnie/bin/main/install_ns-gce.sh)"
+EOF
   }
 }
