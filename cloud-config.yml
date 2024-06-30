@@ -17,26 +17,6 @@ compilation:
 disk_types:
 - disk_size: 1024
   name: default
-- disk_size: 1024
-  name: 1G
-- disk_size: 2048
-  name: 2G
-- disk_size: 3072
-  name: 3G
-- disk_size: 4096
-  name: 4G
-- disk_size: 5120
-  name: 5G
-- disk_size: 6144
-  name: 6G
-- disk_size: 32768
-  name: 32G
-- cloud_properties:
-    type: pd-ssd
-  disk_size: 5120
-  name: google-db
-- disk_size: 65536
-  name: director
 networks:
 - name: vsphere-subnet
   subnets:
@@ -54,79 +34,7 @@ networks:
     static:
     - 10.9.16.20-10.9.16.29
   type: manual
-vm_extensions:
-- cloud_properties:
-    datacenters:
-    - name: dc
-      clusters:
-      - cl:
-          drs_rules:
-          - name: keep-mysql-on-different-hosts
-            type: separate_vms
-          resource_pool: BOSH
-  name: anti-affinity-mysql
-- cloud_properties:
-    vmx_options:
-      cpuid.coresPerSocket: "2"
-  name: two-cores-per-socket
-- cloud_properties:
-    vmx_options:
-      disk.enableUUID: "1"
-  name: disk-enable-uuid
-- cloud_properties:
-    vmx_options:
-      ctkEnabled: "TRUE"
-      scsi0:0.ctkEnabled: "TRUE"
-      scsi0:1.ctkEnabled: "TRUE"
-      scsi0:2.ctkEnabled: "TRUE"
-  name: change-block-tracking
-- cloud_properties:
-    # the following does *not* work
-    vmx_options:
-      virtualHW.version: "17"
-      acpi.smbiosVersion2.7: "FALSE"
-      vmxnet3.serialNumberV2: "FALSE"
-      precisionclock0.present: "TRUE"
-  name: precision-clock
-- cloud_properties:
-    vgpus:
-    - grid_t4-16q
-  name: vgpu
-- cloud_properties:
-    vgpus:
-    - grid_t4-1q
-  name: small-vgpu
-- cloud_properties:
-    vgpus:
-    - grid_t4-1q
-    - grid_t4-1q
-    - grid_t4-1q
-    - grid_t4-1q
-    - grid_t4-1q
-    - grid_t4-1q
-    - grid_t4-1q
-    - grid_t4-1q
-  name: octo-vgpu
-- cloud_properties:
-    vgpus:
-    - non-existent
-  name: non-existent-vgpu
-- cloud_properties:
-    pci_passthroughs:
-    - device_id: 0x1EB8
-      vendor_id: 0x10DE
-  name: gpu
-- cloud_properties:
-    root_disk_size_gb: 15
-  name: 15G_root
-- cloud_properties:
-    root_disk_size_gb: 30
-  name: 30G_root
-- cloud_properties:
-    nsxt:
-      ns_groups:
-      - BOSH
-  name: nsx-group
+vm_extensions: []
 vm_types:
 - cloud_properties:
     cpu: 1
@@ -139,15 +47,8 @@ vm_types:
     ram: 2048
   name: small
 - cloud_properties:
-    cpu: 2
-    disk: 16_384
-    ram: 4096
-    datastores:
-    - SSD-1
-  name: director
-- cloud_properties:
     cpu: 4
-    disk: 16_384
+    disk: 16384
     ram: 4096
   name: compilation
 - cloud_properties:
@@ -175,49 +76,3 @@ vm_types:
     disk: 32768
     ram: 32768
   name: xlarge-2
-- cloud_properties:
-    ephemeral_disk:
-      use_root_disk: true
-    instance_type: Standard_B1S
-  name: standard_b1s
-- cloud_properties:
-    ephemeral_disk:
-      size: 4000
-      type: gp2
-    instance_type: t2.micro
-  name: t2.micro
-- cloud_properties:
-    ephemeral_disk:
-      size: 4000
-      type: gp2
-    instance_type: t3.micro
-  name: t3.micro
-- cloud_properties:
-    ephemeral_disk:
-      size: 4000
-      type: gp2
-    instance_type: t3.nano
-  name: t3.nano
-- cloud_properties:
-    ephemeral_disk:
-      size: 4000
-      type: gp2
-    instance_type: t3a.nano
-  name: t3a.nano
-- cloud_properties:
-    machine_type: g1-small
-    root_disk_size_gb: 25
-    root_disk_type: pd-balanced
-    ephemeral_external_ip: true
-  name: g1-small
-- cloud_properties:
-    ram: 2816
-    cpu: 1
-    root_disk_size_gb: 12
-    root_disk_type: pd-ssd
-  name: concourse
-- cloud_properties:
-    machine_type: n1-standard-1
-    root_disk_size_gb: 10
-    root_disk_type: pd-standard
-  name: n1-standard-1

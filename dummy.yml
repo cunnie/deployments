@@ -24,12 +24,6 @@ stemcells:
 - alias: jammy
   os: ubuntu-jammy
   version: latest
-- alias: noble
-  os: ubuntu-noble
-  version: 0.0.40
-- alias: windows
-  os: windows2019
-  version: latest
 
 update:
   canaries: 0
@@ -68,44 +62,3 @@ instance_groups:
   - name: vsphere-subnet
   stemcell: jammy
   vm_type: small
-- azs:
-  - vsphere-nsx
-  instances: 1
-  jobs:
-  - *add_user_cunnie
-  name: jammy-nsx
-  networks:
-  - name: vsphere-nsx-subnet
-  stemcell: jammy
-  vm_extensions:
-  - nsx-group
-  vm_type: small
-- azs:
-  - vsphere
-  instances: 1
-  jobs:
-  - *add_user_cunnie
-  name: noble
-  networks:
-  - name: vsphere-subnet
-  stemcell: noble
-  vm_type: small
-- azs:
-  - google
-  instances: 0
-  jobs:
-  - *add_user_cunnie
-  name: jammy-google
-  networks:
-  - name: google-private
-  stemcell: jammy
-  vm_type: g1-small
-- azs:
-  - vsphere
-  instances: 1
-  jobs: []
-  name: windows
-  networks:
-  - name: vsphere-subnet
-  stemcell: windows
-  vm_type: compilation
