@@ -1,9 +1,0 @@
----
-# This manifest operations file is intended for CF Deployments with an
-# haproxy job.
-#
-# It installs Let's Encrypt certificates created by Neil Pang's acme.sh
-#
-- type: replace
-  path: /instance_groups/name=haproxy/jobs/name=haproxy/properties/ha_proxy/ssl_pem
-  value: ((star_cf_nono_io_crt))((star_cf_nono_io_key))
