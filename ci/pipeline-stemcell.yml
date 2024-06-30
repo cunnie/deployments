@@ -4,37 +4,10 @@
 
 # :,$!bosh int -
 jobs:
-- name: upload-bionic-vsphere
-  plan:
-  - get: stemcell
-    resource: stemcell-bionic-vsphere
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-# Can't upload heavy Jammy to AWS
-# `Error: CPI error 'Bosh::Clouds::CloudError' with message 'Timed out reading instance metadata, please make sure CPI is running on EC2 instance' in 'create_stemcell' CPI method (CPI request ID: 'cpi-140640')`
 - name: upload-jammy-vsphere
   plan:
   - get: stemcell
     resource: stemcell-jammy-vsphere
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-- name: upload-xenial-vsphere
-  old_name: upload-vsphere
-  plan:
-  - get: stemcell
-    resource: stemcell-xenial-vsphere
     trigger: true
   - get: cunnie-deployments
   - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
@@ -48,15 +21,7 @@ resources:
   source:
     uri: https://github.com/cunnie/deployments.git
   type: git
-- name: stemcell-bionic-vsphere
-  source:
-    name: bosh-vsphere-esxi-ubuntu-bionic-go_agent
-  type: bosh-io-stemcell
 - name: stemcell-jammy-vsphere
   source:
     name: bosh-vsphere-esxi-ubuntu-jammy-go_agent
-  type: bosh-io-stemcell
-- name: stemcell-xenial-vsphere
-  source:
-    name: bosh-vsphere-esxi-ubuntu-xenial-go_agent
   type: bosh-io-stemcell

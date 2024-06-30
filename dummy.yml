@@ -15,12 +15,6 @@ add_user_cunnie: &add_user_cunnie
   release: os-conf
 
 stemcells:
-- alias: bionic
-  os: ubuntu-bionic
-  version: latest
-- alias: xenial
-  os: ubuntu-xenial
-  version: latest
 - alias: jammy
   os: ubuntu-jammy
   version: latest
@@ -32,26 +26,6 @@ update:
   update_watch_time: 5000-600000
 
 instance_groups:
-- azs:
-  - vsphere
-  instances: 1
-  jobs:
-  - *add_user_cunnie
-  name: xenial
-  networks:
-  - name: vsphere-subnet
-  stemcell: xenial
-  vm_type: small
-- azs:
-  - vsphere
-  instances: 1
-  jobs:
-  - *add_user_cunnie
-  name: bionic
-  networks:
-  - name: vsphere-subnet
-  stemcell: bionic
-  vm_type: small
 - azs:
   - vsphere
   instances: 1
