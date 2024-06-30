@@ -1,4 +1,0 @@
-# smaller machine types saves me $$
-- type: replace
-  path: /resource_pools/name=vms/cloud_properties/machine_type
-  value: g1-small

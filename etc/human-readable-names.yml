@@ -1,5 +1,0 @@
-# Human-readable names are much cooler
----
-- path: /instance_groups/name=bosh/properties/vcenter/enable_human_readable_name?
-  type: replace
-  value: true
