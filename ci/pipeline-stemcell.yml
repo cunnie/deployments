@@ -4,42 +4,6 @@
 
 # :,$!bosh int -
 jobs:
-- name: upload-bionic-aws
-  plan:
-  - get: stemcell
-    resource: stemcell-bionic-aws
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-- name: upload-bionic-azure
-  plan:
-  - get: stemcell
-    resource: stemcell-bionic-azure
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-- name: upload-bionic-google
-  plan:
-  - get: stemcell
-    resource: stemcell-bionic-google
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
 - name: upload-bionic-vsphere
   plan:
   - get: stemcell
@@ -54,85 +18,10 @@ jobs:
     task: upload-stemcell
 # Can't upload heavy Jammy to AWS
 # `Error: CPI error 'Bosh::Clouds::CloudError' with message 'Timed out reading instance metadata, please make sure CPI is running on EC2 instance' in 'create_stemcell' CPI method (CPI request ID: 'cpi-140640')`
-- name: upload-jammy-aws
-  plan:
-  - get: stemcell
-    resource: stemcell-jammy-aws
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-- name: upload-jammy-azure
-  plan:
-  - get: stemcell
-    resource: stemcell-jammy-azure
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-- name: upload-jammy-google
-  plan:
-  - get: stemcell
-    resource: stemcell-jammy-google
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
 - name: upload-jammy-vsphere
   plan:
   - get: stemcell
     resource: stemcell-jammy-vsphere
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-- name: upload-xenial-aws
-  old_name: upload-aws
-  plan:
-  - get: stemcell
-    resource: stemcell-xenial-aws
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-- name: upload-xenial-azure
-  old_name: upload-azure
-  plan:
-  - get: stemcell
-    resource: stemcell-xenial-azure
-    trigger: true
-  - get: cunnie-deployments
-  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
-    params:
-      BOSH_CLIENT: admin
-      BOSH_CLIENT_SECRET: ((admin_password))
-      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
-    task: upload-stemcell
-- name: upload-xenial-google
-  old_name: upload-google
-  plan:
-  - get: stemcell
-    resource: stemcell-xenial-google
     trigger: true
   - get: cunnie-deployments
   - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
@@ -159,49 +48,13 @@ resources:
   source:
     uri: https://github.com/cunnie/deployments.git
   type: git
-- name: stemcell-bionic-aws
-  source:
-    name: bosh-aws-xen-hvm-ubuntu-bionic-go_agent
-  type: bosh-io-stemcell
-- name: stemcell-bionic-azure
-  source:
-    name: bosh-azure-hyperv-ubuntu-bionic-go_agent
-  type: bosh-io-stemcell
-- name: stemcell-bionic-google
-  source:
-    name: bosh-google-kvm-ubuntu-bionic-go_agent
-  type: bosh-io-stemcell
 - name: stemcell-bionic-vsphere
   source:
     name: bosh-vsphere-esxi-ubuntu-bionic-go_agent
   type: bosh-io-stemcell
-- name: stemcell-jammy-aws
-  source:
-    name: bosh-aws-xen-hvm-ubuntu-jammy-go_agent
-  type: bosh-io-stemcell
-- name: stemcell-jammy-azure
-  source:
-    name: bosh-azure-hyperv-ubuntu-jammy-go_agent
-  type: bosh-io-stemcell
-- name: stemcell-jammy-google
-  source:
-    name: bosh-google-kvm-ubuntu-jammy-go_agent
-  type: bosh-io-stemcell
 - name: stemcell-jammy-vsphere
   source:
     name: bosh-vsphere-esxi-ubuntu-jammy-go_agent
-  type: bosh-io-stemcell
-- name: stemcell-xenial-aws
-  source:
-    name: bosh-aws-xen-hvm-ubuntu-xenial-go_agent
-  type: bosh-io-stemcell
-- name: stemcell-xenial-azure
-  source:
-    name: bosh-azure-hyperv-ubuntu-xenial-go_agent
-  type: bosh-io-stemcell
-- name: stemcell-xenial-google
-  source:
-    name: bosh-google-kvm-ubuntu-xenial-go_agent
   type: bosh-io-stemcell
 - name: stemcell-xenial-vsphere
   source:
