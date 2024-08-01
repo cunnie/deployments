@@ -1,18 +1,18 @@
 {
     "director_id": "25fbcbaf-9e0e-4900-488d-8eb16c0c7085",
     "installation_id": "3e2d116f-82fc-419a-42c9-ed1bfd6f144f",
-    "current_vm_cid": "vm-e6cf5776-3cd0-48f6-9884-b9b8293df9a4",
-    "current_stemcell_id": "a5e69f54-6291-488e-7a81-d03d2ef04fd9",
+    "current_vm_cid": "vm-ca95192d-5a94-44cb-afe0-eed2ee07b015",
+    "current_stemcell_id": "75d68528-5fa6-4879-6839-d1a3e8e1b0b3",
     "current_disk_id": "8d0dfce3-120b-400e-5618-c93fb2da7c8c",
     "current_release_ids": [
-        "0c49a4c6-1886-4b53-6e4a-0e7b30a2db41",
-        "2087704a-df17-46c4-47c7-d499c7f8295b",
-        "09fbaa5b-d7b6-4c0c-4720-0669ddd5fc8e",
-        "07c3ecbc-732e-4888-4143-864e690f01ad",
-        "005978fd-9d99-4e6a-5227-b15ae8b79de2",
-        "b9d5231f-98aa-45b7-4691-6493869980a2"
+        "1850f62b-2f51-47c6-7af2-91969c712a30",
+        "cc05e209-2a23-4884-4c0e-d8e483c07997",
+        "a8b6f584-c104-4021-6443-37b26c876ae6",
+        "127e7c9b-6636-4cd5-55c2-5046dfac9728",
+        "adce75e8-37a1-4ceb-45fb-e45531abeb46",
+        "d349ebef-0cad-4f8e-6b2e-0021018fe529"
     ],
-    "current_manifest_sha": "f7478dbf865e8d0117fa8aea285833fd2c26b3d151e9594ac78a1003f60ecb2b3daf585f593555465eda455759dec48d9792456ecc27668da6ca50712b1ec2bd",
+    "current_manifest_sha": "6038072a1624229ce77c768b7a1fa82a5a8f8c790cee99242b38398d83d375a010aabe0fbc90eca1bacce3f85f0eb8dd43755bbee9249c9494467c90d70d3faf",
     "disks": [
         {
             "id": "8d0dfce3-120b-400e-5618-c93fb2da7c8c",
@@ -23,43 +23,43 @@
     ],
     "stemcells": [
         {
-            "id": "a5e69f54-6291-488e-7a81-d03d2ef04fd9",
+            "id": "75d68528-5fa6-4879-6839-d1a3e8e1b0b3",
             "name": "bosh-vsphere-esxi-ubuntu-jammy-go_agent",
-            "version": "1.492",
+            "version": "1.506",
             "api_version": 3,
-            "cid": "sc-d25cd836-addf-4f41-9316-f914cdfa1e09"
+            "cid": "sc-e73a0c0c-570a-4393-8e7d-2be6aaeef6b4"
         }
     ],
     "releases": [
         {
-            "id": "0c49a4c6-1886-4b53-6e4a-0e7b30a2db41",
+            "id": "1850f62b-2f51-47c6-7af2-91969c712a30",
             "name": "bosh",
             "version": "280.1.3"
         },
         {
-            "id": "2087704a-df17-46c4-47c7-d499c7f8295b",
+            "id": "cc05e209-2a23-4884-4c0e-d8e483c07997",
             "name": "bpm",
             "version": "1.2.23"
         },
         {
-            "id": "09fbaa5b-d7b6-4c0c-4720-0669ddd5fc8e",
+            "id": "a8b6f584-c104-4021-6443-37b26c876ae6",
             "name": "bosh-vsphere-cpi",
             "version": "97.0.14"
         },
         {
-            "id": "07c3ecbc-732e-4888-4143-864e690f01ad",
+            "id": "127e7c9b-6636-4cd5-55c2-5046dfac9728",
             "name": "os-conf",
             "version": "22.3.0"
         },
         {
-            "id": "005978fd-9d99-4e6a-5227-b15ae8b79de2",
+            "id": "adce75e8-37a1-4ceb-45fb-e45531abeb46",
             "name": "uaa",
             "version": "77.14.0"
         },
         {
-            "id": "b9d5231f-98aa-45b7-4691-6493869980a2",
+            "id": "d349ebef-0cad-4f8e-6b2e-0021018fe529",
             "name": "credhub",
-            "version": "2.12.83"
+            "version": "2.12.84"
         }
     ]
 }
