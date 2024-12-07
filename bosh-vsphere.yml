@@ -1379,13 +1379,13 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: 19e071dd9f220c13c3c1481fee6ab5a1d6648457
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.1.11
-  version: 280.1.11
+  sha1: 0e9612f5088f1299c9dc135d98842242a6dd13de
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.1.12
+  version: 280.1.12
 - name: bpm
-  sha1: 5fe75b57efa1473f9a5e1daeb703ac0908d3606e
-  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.4.5
-  version: 1.4.5
+  sha1: 50b85fd8445d5f912ec6f5a3f172d22f061b97a7
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.4.6
+  version: 1.4.6
 - name: bosh-vsphere-cpi
   sha1: 580d14f345c2b779d63bfef9b90577090ecc62b2
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.16
@@ -1395,13 +1395,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.3.0
   version: 22.3.0
 - name: uaa
-  sha1: 32dacf1a310627b0be05e26bcc5e1a935818b71a
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.20.0-ubuntu-jammy-1.651.tgz
-  version: 77.20.0
+  sha1: 05fe6244fb975f2be0edf4b03e6fdd0f7c071863
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.21.0-ubuntu-jammy-1.651.tgz
+  version: 77.21.0
 - name: credhub
-  sha1: 68348d444ee74cd6117e9b916f41f05175cc137a
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.96-ubuntu-jammy-1.651.tgz
-  version: 2.12.96
+  sha1: 832db2d523454201ad2b84bdb2853cf69b22786d
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.97-ubuntu-jammy-1.651.tgz
+  version: 2.12.97
 resource_pools:
 - cloud_properties:
     cpu: 2
