@@ -16,6 +16,18 @@ jobs:
       BOSH_CLIENT_SECRET: ((admin_password))
       BOSH_ENVIRONMENT: bosh-vsphere.nono.io
     task: upload-stemcell
+- name: upload-noble-vsphere
+  plan:
+  - get: stemcell
+    resource: stemcell-noble-vsphere
+    trigger: true
+  - get: cunnie-deployments
+  - file: cunnie-deployments/ci/tasks/upload-stemcell.yml
+    params:
+      BOSH_CLIENT: admin
+      BOSH_CLIENT_SECRET: ((admin_password))
+      BOSH_ENVIRONMENT: bosh-vsphere.nono.io
+    task: upload-stemcell
 resources:
 - name: cunnie-deployments
   source:
@@ -24,4 +36,8 @@ resources:
 - name: stemcell-jammy-vsphere
   source:
     name: bosh-vsphere-esxi-ubuntu-jammy-go_agent
+  type: bosh-io-stemcell
+- name: stemcell-noble-vsphere
+  source:
+    name: bosh-vsphere-esxi-ubuntu-noble
   type: bosh-io-stemcell
