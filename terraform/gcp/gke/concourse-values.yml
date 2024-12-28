@@ -9,6 +9,7 @@ concourse:
       enabled: true
       url: https://vault.nono.io:443
       authBackend: approle
+      tokenPath: false
       useAuthParam: true
     auth:
       duration: 240h
