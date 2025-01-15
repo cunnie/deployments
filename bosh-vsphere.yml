@@ -1379,29 +1379,29 @@ networks:
   type: manual
 releases:
 - name: bosh
-  sha1: d9a82d4e605c8344427ee140e14cb9d554a84986
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.1.14
-  version: 280.1.14
+  sha1: f29766f7fe7fbddb28cfd9f0ca50632986d630c1
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.1.15
+  version: 280.1.15
 - name: bpm
-  sha1: e4d3a64d299a319f31b4d012fea2585134866bc8
-  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.4.9
-  version: 1.4.9
+  sha1: 77cb42398520f18e321b408cf257d9612f5116f0
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.4.10
+  version: 1.4.10
 - name: bosh-vsphere-cpi
   sha1: b2cbac12f82c176ba2261e5ba50ac02e7783125a
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.17
   version: 97.0.17
 - name: os-conf
-  sha1: 0f88a29315d8d9f900bb30a81c0eaf6d34a61639
-  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.3.0
-  version: 22.3.0
+  sha1: 9276888fc54d22950045a247d348142757ae9129
+  url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.3.1
+  version: 22.3.1
 - name: uaa
-  sha1: e5285250162c9d1c241edc1fd179f58f2e5fb5b8
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.23.0-ubuntu-jammy-1.682.tgz
-  version: 77.23.0
+  sha1: 401e7ac6a6eed13e22ec83ee560b416b1759afcf
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.24.0-ubuntu-jammy-1.708.tgz
+  version: 77.24.0
 - name: credhub
-  sha1: ca6f8fdfa966a20642749b59a8cf5ce26c9c56f1
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.99-ubuntu-jammy-1.682.tgz
-  version: 2.12.99
+  sha1: d6273de0080f3c045a70ed44d4306105336ef481
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.101-ubuntu-jammy-1.708.tgz
+  version: 2.12.101
 resource_pools:
 - cloud_properties:
     cpu: 2
@@ -1485,6 +1485,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: 6925b1bbfcf588a38a5df8e8b40e36e1589f6f31
-    url: https://storage.googleapis.com/bosh-core-stemcells/1.682/bosh-stemcell-1.682-vsphere-esxi-ubuntu-jammy-go_agent.tgz
+    sha1: e0de84541eca61fc5fac0d52ef8e988e9f314172
+    url: https://storage.googleapis.com/bosh-core-stemcells/1.708/bosh-stemcell-1.708-vsphere-esxi-ubuntu-jammy-go_agent.tgz
 variables: []
