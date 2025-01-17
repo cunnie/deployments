@@ -1383,9 +1383,9 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=280.1.15
   version: 280.1.15
 - name: bpm
-  sha1: 77cb42398520f18e321b408cf257d9612f5116f0
-  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.4.10
-  version: 1.4.10
+  sha1: 9629e49c64ef6347c8f0779e51e924ac649fb02b
+  url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.4.11
+  version: 1.4.11
 - name: bosh-vsphere-cpi
   sha1: b2cbac12f82c176ba2261e5ba50ac02e7783125a
   url: https://bosh.io/d/github.com/cloudfoundry/bosh-vsphere-cpi-release?v=97.0.17
@@ -1395,13 +1395,13 @@ releases:
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.3.1
   version: 22.3.1
 - name: uaa
-  sha1: 401e7ac6a6eed13e22ec83ee560b416b1759afcf
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.24.0-ubuntu-jammy-1.708.tgz
+  sha1: b51fa340555f90ab43fd780a42c38a6d1faa88b0
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-77.24.0-ubuntu-jammy-1.719.tgz
   version: 77.24.0
 - name: credhub
-  sha1: d6273de0080f3c045a70ed44d4306105336ef481
-  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.101-ubuntu-jammy-1.708.tgz
-  version: 2.12.101
+  sha1: 7b013680c09f022157ae1cd61bc59e29e165e808
+  url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/credhub-2.12.102-ubuntu-jammy-1.719.tgz
+  version: 2.12.102
 resource_pools:
 - cloud_properties:
     cpu: 2
@@ -1485,6 +1485,6 @@ resource_pools:
   name: vms
   network: default
   stemcell:
-    sha1: e0de84541eca61fc5fac0d52ef8e988e9f314172
-    url: https://storage.googleapis.com/bosh-core-stemcells/1.708/bosh-stemcell-1.708-vsphere-esxi-ubuntu-jammy-go_agent.tgz
+    sha1: 5089cd934199516167895ce8cfd7f5fc216e182b
+    url: https://storage.googleapis.com/bosh-core-stemcells/1.719/bosh-stemcell-1.719-vsphere-esxi-ubuntu-jammy-go_agent.tgz
 variables: []
