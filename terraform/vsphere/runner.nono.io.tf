@@ -37,7 +37,7 @@ data "vsphere_datastore" "datastore" {
 }
 
 resource "vsphere_virtual_machine" "vm" {
-  name             = "worker.nono.io"
+  name             = "runner.nono.io"
   resource_pool_id = data.vsphere_resource_pool.pool.id
   datastore_id     = data.vsphere_datastore.datastore.id
 
