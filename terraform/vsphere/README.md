@@ -4,7 +4,17 @@
 
 ```bash
 terraform init -upgrade
-terraform apply -auto-approve # it'll ask for the password for a@vsphere.local
+terraform apply -auto-approve -var='vsphere_password=xxxx'
 ```
 
 Go to the console and install Fedora.
+
+Once it's up:
+
+```bash
+ssh-A worker.nono.io
+git clone git@github.com:cunnie/bin.git
+cd bin
+./install-fedora.sh
+```
+

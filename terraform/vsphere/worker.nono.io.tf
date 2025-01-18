@@ -45,6 +45,8 @@ resource "vsphere_virtual_machine" "vm" {
   memory   = 32768
 
   guest_id                = "fedora64Guest" # "ubuntu64Guest"
+  wait_for_guest_net_timeout = 0  # Add this line to disable IP waiting
+
   firmware                = "efi"
   boot_delay              = 5000
   enable_disk_uuid        = true
@@ -58,7 +60,7 @@ resource "vsphere_virtual_machine" "vm" {
 
   disk {
     label            = "root"
-    size             = 250
+    size             = 400
     thin_provisioned = true
   }
 
