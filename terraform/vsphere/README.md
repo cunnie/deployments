@@ -22,5 +22,35 @@ sudo shutdown -r now
 scp ~/.ssh/nono.pub runner.nono.io:~/.ssh/authorized_keys
 ssh -A runner.nono.io
 sudo visudo # passwordless sudo
+sudo lvextend -l +100%FREE /dev/mapper/fedora-root
+sudo xfs_growfs /dev/mapper/fedora-root
+sudo useradd -N -G docker runner
+sudo su - runner
 ```
 
+Follow the instructions in the [GitHub Actions Runner](https://docs.github.com/en/actions/hosting-your-own-runners/adding-self-hosted-runners) documentation to register the runner.
+
+After rebooting, do the following to start the runner:
+
+```bash
+sudo tee /etc/systemd/system/github-runner.service << 'EOF'
+[Unit]
+Description=GitHub Actions Runner
+After=network.target
+
+[Service]
+Type=simple
+User=runner
+WorkingDirectory=/home/runner/actions-runner
+ExecStart=/home/runner/actions-runner/run.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable github-runner
+sudo systemctl start github-runner
+```
