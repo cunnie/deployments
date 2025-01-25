@@ -1,3 +1,0 @@
-- path: /resource_pools/name=vms/cloud_properties/ram
-  type: replace
-  value: 8192

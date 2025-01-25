@@ -1,3 +1,0 @@
-- path: /instance_groups/name=bosh/properties/hm/resurrector_enabled
-  type: replace
-  value: false

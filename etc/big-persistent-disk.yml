@@ -1,3 +1,0 @@
-- path: /disk_pools/name=disks/disk_size
-  type: replace
-  value: 153600
