@@ -1,0 +1,108 @@
+#cloud-config
+
+# Do NOT delete the "#cloud-config" line above; it's necessary
+
+hostname: vault
+fqdn: vault.nono.io
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - binutils
+  - caddy
+  - cmake
+  - git
+  - jq
+  - neovim
+  - netcat
+  - openbao
+  - python
+  - python-devel
+  - python3-pip
+  - redhat-rpm-config
+  - ripgrep
+  - tmux
+  - wget
+  - zsh
+
+users:
+  - name: cunnie
+    gecos: Brian Cunnie
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: wheel
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD cunnie@nono.io
+
+# Write configuration files
+write_files:
+  - path: /etc/openbao.d/openbao.hcl
+    defer: true
+    content: |
+      ui = true
+      disable_mlock = true
+
+      storage "file" {
+        path = "/var/lib/openbao/data"
+      }
+
+      listener "tcp" {
+        address     = "127.0.0.1:8200"
+        tls_disable = 1
+      }
+    owner: openbao:openbao
+    permissions: "0644"
+
+  - path: /etc/caddy/Caddyfile
+    defer: true
+    content: |
+      {
+        email brian.cunnie@gmail.com
+      }
+
+      # HTTP to HTTPS redirect
+      vault.nono.io:80 {
+        redir https://{host}{uri} permanent
+      }
+
+      # HTTPS with Let's Encrypt certificate
+      vault.nono.io:443 {
+        reverse_proxy localhost:8200
+
+        # Let's Encrypt will automatically provision and renew certificates
+        # No explicit tls directive needed - Caddy defaults to ACME/Let's Encrypt
+
+        header {
+          Strict-Transport-Security max-age=31536000;
+          X-Content-Type-Options nosniff
+          X-Frame-Options DENY
+        }
+
+        encode gzip
+
+        log {
+          output file /var/log/caddy/access.log
+        }
+      }
+    owner: root:root
+    permissions: "0644"
+
+  - path: /var/log/caddy/access.log
+    defer: true
+    owner: caddy:caddy
+    permissions: "0644"
+
+runcmd:
+  - systemctl enable openbao
+  - systemctl enable caddy # don't start; it'll start after reboot
+  - systemctl start openbao
+  - sleep 5 # give time for openbao to start
+  - VAULT_ADDR=http://127.0.0.1:8200 bao operator init -key-shares=1 -key-threshold=1
+  - echo "Remember to extract the unseal key and the root token from /var/log/cloud-init-output.log"
+
+power_state:
+  mode: reboot
+  message: "Rebooting after cloud-init completion"
+  timeout: 60
+  condition: true
