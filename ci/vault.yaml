@@ -1,0 +1,26 @@
+# fly -t nono set-pipeline     -p vault -c ci/vault.yaml
+# fly -t nono unpause-pipeline -p vault
+# fly -t nono expose-pipeline  -p vault
+#
+# Pipeline to periodically check Concourse-Vault
+# integration via secret interpolation
+resources:
+- name: daily
+  type: time # default source.interval is one day
+jobs:
+- name: vault-job
+  plan:
+  - get: daily
+    trigger: true
+  - task: vault-task
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: fedora
+      run:
+        path: echo
+        args:
+        - "Concourse says:"
+        - ((vault-secret))

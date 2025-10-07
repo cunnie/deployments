@@ -1,0 +1,164 @@
+#cloud-config
+
+hostname: ci
+fqdn: ci.nono.io
+
+package_update: true
+package_upgrade: true
+
+packages:
+  - binutils
+  - cmake
+  - git
+  - jq
+  - neovim
+  - netcat
+  - postgresql-server
+  - python
+  - python-devel
+  - python3-pip
+  - redhat-rpm-config
+  - ripgrep
+  - tmux
+  - wget
+  - zsh
+
+groups:
+  - concourse
+
+users:
+  - name: concourse
+    primary_group: concourse
+    system: true
+    shell: /bin/false
+    homedir: /opt/concourse
+  - name: cunnie
+    gecos: Brian Cunnie
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: wheel
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIWiAzxc4uovfaphO0QVC2w00YmzrogUpjAzvuqaQ9tD cunnie@nono.io
+
+# Write configuration files
+write_files:
+  - path: /etc/systemd/system/concourse-web.service
+    content: |
+      [Unit]
+      Description=Concourse CI Web Server
+      After=network.target postgresql.service
+      Requires=postgresql.service
+
+      [Service]
+      Type=simple
+      User=concourse
+      Group=concourse
+      WorkingDirectory=/opt/concourse
+      Environment=CONCOURSE_AUTH_DURATION=720h
+      Environment=CONCOURSE_BIND_IP=0.0.0.0
+      Environment=CONCOURSE_BIND_PORT=80
+      Environment=CONCOURSE_ENABLE_LETS_ENCRYPT=true
+      Environment=CONCOURSE_EXTERNAL_URL=https://ci.nono.io
+      Environment=CONCOURSE_GITHUB_CLIENT_ID=d4d77ce34ecc620d5220
+      Environment=CONCOURSE_GITHUB_CLIENT_SECRET=REPLACE_WITH_ACTUAL_SECRET
+      Environment=CONCOURSE_MAIN_TEAM_GITHUB_USER=cunnie
+      Environment=CONCOURSE_POSTGRES_SOCKET=/var/run/postgresql
+      Environment=CONCOURSE_SESSION_SIGNING_KEY=/opt/concourse/etc/session_signing_key
+      Environment=CONCOURSE_TLS_BIND_PORT=443
+      Environment=CONCOURSE_TSA_AUTHORIZED_KEYS=/opt/concourse/etc/worker_key.pub
+      Environment=CONCOURSE_TSA_HOST_KEY=/opt/concourse/etc/tsa_host_key
+      Environment=CONCOURSE_VAULT_AUTH_BACKEND=approle
+      Environment=CONCOURSE_VAULT_AUTH_PARAM="role_id:d076fb90-b9ff-0d56-9c03-49d4df270247,secret_id:REPLACE_WITH_ACTUAL_SECRET"
+      Environment=CONCOURSE_VAULT_URL=https://vault.nono.io:443
+      Environment=PATH=/opt/concourse/bin:/opt/sbin:/opt/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      ExecStart=/opt/concourse/bin/concourse web
+      Restart=always
+      RestartSec=5
+
+      [Install]
+      WantedBy=multi-user.target
+    permissions: "0644"
+
+  # Concourse worker systemd service file
+  - path: /etc/systemd/system/concourse-worker.service
+    content: |
+      [Unit]
+      Description=Concourse CI Worker
+      After=network.target concourse-web.service
+      Wants=concourse-web.service
+
+      [Service]
+      Type=simple
+      User=root
+      Group=root
+      WorkingDirectory=/opt/concourse
+      Environment=CONCOURSE_BAGGAGECLAIM_BIND_IP=127.0.0.1
+      Environment=CONCOURSE_CONTAINERD_DNS_SERVER=8.8.8.8
+      Environment=CONCOURSE_RUNTIME=containerd
+      Environment=CONCOURSE_TSA_HOST=127.0.0.1:2222
+      Environment=CONCOURSE_TSA_PUBLIC_KEY=/opt/concourse/etc/tsa_host_key.pub
+      Environment=CONCOURSE_TSA_WORKER_PRIVATE_KEY=/opt/concourse/etc/worker_key
+      Environment=CONCOURSE_WORK_DIR=/opt/concourse/worker
+      Environment=PATH=/opt/concourse/bin:/opt/sbin:/opt/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+      ExecStart=/opt/concourse/bin/concourse worker
+      Restart=always
+      RestartSec=5
+
+      [Install]
+      WantedBy=multi-user.target
+    permissions: "0644"
+  - path: /tmp/setup-concourse.sh
+    content: |
+      #!/bin/bash
+      set -ex
+
+      echo "Setting up Concourse CI..."
+
+      # Download and install Concourse
+      echo "Downloading Concourse..."
+      curl -L https://github.com/concourse/concourse/releases/download/v7.14.1/concourse-7.14.1-linux-amd64.tgz -o /tmp/concourse.tgz
+
+      echo "Installing Concourse..."
+      sudo tar xzf /tmp/concourse.tgz -C /opt
+      sudo mkdir -p /opt/concourse/etc # for the keys
+
+      sudo chown -R concourse:concourse /opt/concourse
+
+      # Create worker directory
+      sudo mkdir -p /opt/concourse/worker
+      sudo chown concourse:concourse /opt/concourse/worker
+
+      echo "Concourse setup completed!"
+    permissions: "0755"
+    owner: root:root
+
+# Run commands after packages are installed
+runcmd:
+  # Run the Concourse setup script
+  - postgresql-setup --initdb
+  - systemctl enable postgresql.service
+  - systemctl start postgresql.service
+  - su postgres -c "createuser concourse"
+  - su postgres -c "echo I love my dog"
+  - su postgres -c "createdb --owner=concourse atc"
+  - /tmp/setup-concourse.sh
+  - ssh-keygen -t rsa -b 4096 -m PEM -f /opt/concourse/etc/session_signing_key
+  - ssh-keygen -t rsa -b 4096 -m PEM -f /opt/concourse/etc/tsa_host_key
+  - ssh-keygen -t rsa -b 4096 -m PEM -f /opt/concourse/etc/worker_key
+  - chown -R concourse:concourse /opt/concourse/etc
+  - setcap 'cap_net_bind_service=+ep' /opt/concourse/bin/concourse
+  - systemctl daemon-reload
+  - systemctl enable concourse-web.service
+  - systemctl enable concourse-worker.service
+
+final_message: |
+  Concourse CI installation completed!
+
+# Reboot after cloud-init completes to fix
+# "Failed to start systemd-binfmt.service - Set Up Additional Binary Formats."
+power_state:
+  mode: reboot
+  message: "Rebooting after cloud-init completion"
+  timeout: 60
+  condition: true
